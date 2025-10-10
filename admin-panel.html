@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo | Roxinho Shop</title>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="./css/admin-panel.css">
+    <link rel="stylesheet" href="./css/cabecalhorodape.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="./imagens/favicon.ico">
+</head>
+<body>
+    <!-- Header -->
+    <header class="admin-header">
+        <div class="admin-header-container">
+            <div class="admin-logo">
+                <a href="home.html">
+                    <img src="./imagens/logo.png" alt="Roxinho Shop" class="logo-img">
+                </a>
+                <span class="admin-title">Painel Administrativo</span>
+            </div>
+            
+            <div class="admin-user-info">
+                <span class="admin-welcome">Bem-vindo, <span id="admin-name">Administrador</span></span>
+                <button class="admin-logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <nav class="admin-nav">
+                <ul class="admin-nav-list">
+                    <li class="admin-nav-item active" data-section="dashboard">
+                        <a href="#" class="admin-nav-link">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="admin-nav-item" data-section="produtos">
+                        <a href="#" class="admin-nav-link">
+                            <i class="fas fa-box"></i>
+                            <span>Produtos</span>
+                        </a>
+                    </li>
+                    <li class="admin-nav-item" data-section="usuarios">
+                        <a href="#" class="admin-nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Usuários</span>
+                        </a>
+                    </li>
+                    <li class="admin-nav-item" data-section="pedidos">
+                        <a href="#" class="admin-nav-link">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>Pedidos</span>
+                        </a>
+                    </li>
+                    <li class="admin-nav-item" data-section="categorias">
+                        <a href="#" class="admin-nav-link">
+                            <i class="fas fa-tags"></i>
+                            <span>Categorias</span>
+                        </a>
+                    </li>
+                    <li class="admin-nav-item" data-section="relatorios">
+                        <a href="#" class="admin-nav-link">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Relatórios</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="admin-section active">
+                <div class="admin-section-header">
+                    <h1>Dashboard</h1>
+                    <p>Visão geral do sistema</p>
+                </div>
+                
+                <div class="dashboard-cards">
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3 id="total-produtos">0</h3>
+                            <p>Produtos</p>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3 id="total-usuarios">0</h3>
+                            <p>Usuários</p>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3 id="total-pedidos">0</h3>
+                            <p>Pedidos</p>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3 id="total-vendas">R$ 0,00</h3>
+                            <p>Vendas</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-charts">
+                    <div class="chart-container">
+                        <h3>Vendas dos Últimos 7 Dias</h3>
+                        <canvas id="vendas-chart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Produtos Section -->
+            <section id="produtos-section" class="admin-section">
+                <div class="admin-section-header">
+                    <h1>Gerenciar Produtos</h1>
+                    <button class="btn btn-primary" onclick="abrirModalProduto()">
+                        <i class="fas fa-plus"></i> Novo Produto
+                    </button>
+                </div>
+                
+                <div class="admin-filters">
+                    <input type="text" id="filtro-produtos" placeholder="Buscar produtos..." class="admin-search">
+                    <select id="filtro-categoria" class="admin-select">
+                        <option value="">Todas as categorias</option>
+                    </select>
+                    <select id="filtro-status" class="admin-select">
+                        <option value="">Todos os status</option>
+                        <option value="ativo">Ativo</option>
+                        <option value="inativo">Inativo</option>
+                    </select>
+                </div>
+                
+                <div class="admin-table-container">
+                    <table class="admin-table" id="tabela-produtos">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Imagem</th>
+                                <th>Nome</th>
+                                <th>Categoria</th>
+                                <th>Preço</th>
+                                <th>Estoque</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Produtos serão carregados dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Usuários Section -->
+            <section id="usuarios-section" class="admin-section">
+                <div class="admin-section-header">
+                    <h1>Gerenciar Usuários</h1>
+                </div>
+                
+                <div class="admin-filters">
+                    <input type="text" id="filtro-usuarios" placeholder="Buscar usuários..." class="admin-search">
+                    <select id="filtro-tipo-usuario" class="admin-select">
+                        <option value="">Todos os tipos</option>
+                        <option value="cliente">Cliente</option>
+                        <option value="admin">Administrador</option>
+                    </select>
+                </div>
+                
+                <div class="admin-table-container">
+                    <table class="admin-table" id="tabela-usuarios">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>E-mail</th>
+                                <th>Tipo</th>
+                                <th>Status</th>
+                                <th>Cadastro</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Usuários serão carregados dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Pedidos Section -->
+            <section id="pedidos-section" class="admin-section">
+                <div class="admin-section-header">
+                    <h1>Gerenciar Pedidos</h1>
+                </div>
+                
+                <div class="admin-filters">
+                    <input type="text" id="filtro-pedidos" placeholder="Buscar pedidos..." class="admin-search">
+                    <select id="filtro-status-pedido" class="admin-select">
+                        <option value="">Todos os status</option>
+                        <option value="pendente">Pendente</option>
+                        <option value="confirmado">Confirmado</option>
+                        <option value="processando">Processando</option>
+                        <option value="enviado">Enviado</option>
+                        <option value="entregue">Entregue</option>
+                        <option value="cancelado">Cancelado</option>
+                    </select>
+                </div>
+                
+                <div class="admin-table-container">
+                    <table class="admin-table" id="tabela-pedidos">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Número</th>
+                                <th>Cliente</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Data</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Pedidos serão carregados dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Categorias Section -->
+            <section id="categorias-section" class="admin-section">
+                <div class="admin-section-header">
+                    <h1>Gerenciar Categorias</h1>
+                    <button class="btn btn-primary" onclick="abrirModalCategoria()">
+                        <i class="fas fa-plus"></i> Nova Categoria
+                    </button>
+                </div>
+                
+                <div class="admin-table-container">
+                    <table class="admin-table" id="tabela-categorias">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Slug</th>
+                                <th>Produtos</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Categorias serão carregadas dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Relatórios Section -->
+            <section id="relatorios-section" class="admin-section">
+                <div class="admin-section-header">
+                    <h1>Relatórios</h1>
+                </div>
+                
+                <div class="relatorios-grid">
+                    <div class="relatorio-card">
+                        <h3>Produtos Mais Vendidos</h3>
+                        <canvas id="produtos-vendidos-chart"></canvas>
+                    </div>
+                    
+                    <div class="relatorio-card">
+                        <h3>Vendas por Categoria</h3>
+                        <canvas id="vendas-categoria-chart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal Produto -->
+    <div id="modal-produto" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-produto-titulo">Novo Produto</h2>
+                <span class="modal-close" onclick="fecharModalProduto()">&times;</span>
+            </div>
+            
+            <form id="form-produto" class="modal-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="produto-nome">Nome do Produto *</label>
+                        <input type="text" id="produto-nome" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="produto-marca">Marca</label>
+                        <input type="text" id="produto-marca">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="produto-categoria">Categoria *</label>
+                        <select id="produto-categoria" required>
+                            <option value="">Selecione uma categoria</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="produto-sku">SKU</label>
+                        <input type="text" id="produto-sku">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="produto-preco">Preço *</label>
+                        <input type="number" id="produto-preco" step="0.01" min="0" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="produto-preco-promocional">Preço Promocional</label>
+                        <input type="number" id="produto-preco-promocional" step="0.01" min="0">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="produto-estoque">Estoque *</label>
+                        <input type="number" id="produto-estoque" min="0" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="produto-peso">Peso (kg)</label>
+                        <input type="number" id="produto-peso" step="0.001" min="0">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="produto-descricao-curta">Descrição Curta</label>
+                    <textarea id="produto-descricao-curta" rows="3"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="produto-descricao">Descrição Completa</label>
+                    <textarea id="produto-descricao" rows="5"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="produto-imagem">URL da Imagem Principal</label>
+                    <input type="url" id="produto-imagem">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="produto-ativo" checked>
+                            Produto Ativo
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="produto-destaque">
+                            Produto em Destaque
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="fecharModalProduto()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar Produto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Categoria -->
+    <div id="modal-categoria" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-categoria-titulo">Nova Categoria</h2>
+                <span class="modal-close" onclick="fecharModalCategoria()">&times;</span>
+            </div>
+            
+            <form id="form-categoria" class="modal-form">
+                <div class="form-group">
+                    <label for="categoria-nome">Nome da Categoria *</label>
+                    <input type="text" id="categoria-nome" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="categoria-slug">Slug *</label>
+                    <input type="text" id="categoria-slug" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="categoria-descricao">Descrição</label>
+                    <textarea id="categoria-descricao" rows="3"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="categoria-icone">Ícone (classe Font Awesome)</label>
+                    <input type="text" id="categoria-icone" placeholder="fas fa-laptop">
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="categoria-ativa" checked>
+                        Categoria Ativa
+                    </label>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="fecharModalCategoria()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar Categoria</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./js/auth-system.js"></script>
+    <script src="./js/admin-panel.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>
