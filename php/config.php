@@ -3,11 +3,11 @@
 // Desenvolvido por Gabriel (gabwvr)
 // Arquivo de configuração para conexão com banco de dados MySQL
 
-define('DB_HOST', 'metro.proxy.rlwy.net');
-define('DB_PORT', '52113');
-define('DB_NAME', 'Roxinho_Shop');
+define('DB_HOST', 'ballast.proxy.rlwy.net');
+define('DB_PORT', '45057');
+define('DB_NAME', 'RoxinhoShop');
 define('DB_USER', 'root');
-define('DB_PASS', 'bTCAkdIysQAWpJrOjyriBwpvgdsKbTHG');
+define('DB_PASS', 'BDoSgwDbqkgEMGXZenKBbXvqlDPtuGEF');
 define('DB_CHARSET', 'utf8mb4');
 
 // Configurações da aplicação
