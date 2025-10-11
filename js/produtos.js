@@ -41,7 +41,8 @@ const sistemaCategorias = {
 };
 
 // Estado global
-let produtosFiltrados = [...produtos];
+let todosOsProdutos = [];
+let produtosFiltrados = [];
 let filtrosAtuais = {
   busca: '',
   categoria: '',
@@ -100,7 +101,10 @@ const semResultados = document.getElementById('semResultados');
 const paginacao = document.getElementById('paginacao');
 
 // Inicializar a aplicação
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", async function() {
+  // Carregar produtos da API primeiro
+  todosOsProdutos = await buscarProdutosDaAPI();
+
   inicializarCategoriasCabecalho();
   inicializarFiltros();
   inicializarEventListeners();
@@ -108,14 +112,11 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Só renderizar produtos se estivermos na página de produtos
   if (gradeProdutos) {
-    renderizarProdutos();
-    renderizarPaginacao();
-    atualizarInfoResultados();
-    aplicarFiltros();
+    aplicarFiltros(); // Chamar aplicarFiltros para processar e renderizar os produtos carregados
   }
   
   // Atualizar contador do carrinho se a função existir
-  if (typeof atualizarContadorCarrinho === 'function') {
+  if (typeof atualizarContadorCarrinho === "function") {
     atualizarContadorCarrinho();
   }
 });
@@ -262,7 +263,7 @@ function mostrarBannerCategoria(categoria, subcategoria = '') {
 function inicializarFiltros() {
   // Popular seletor de marcas
   if (seletorMarca) {
-    const marcas = ['', ...new Set(produtos.map(p => p.marca))];
+    const marcas = ['', ...new Set(todosOsProdutos.map(p => p.marca))];
     marcas.forEach(marca => {
       const opcao = document.createElement('option');
       opcao.value = marca;
@@ -487,7 +488,7 @@ function inicializarEventListeners() {
 // Aplicar filtros
 function aplicarFiltros() {
   // Filtrar produtos
-  produtosFiltrados = produtos.filter(produto => {
+produtosFiltrados = todosOsProdutos.filter(produto => {
     const correspondeABusca = !filtrosAtuais.busca || 
       produto.nome.toLowerCase().includes(filtrosAtuais.busca.toLowerCase()) ||
       produto.marca.toLowerCase().includes(filtrosAtuais.busca.toLowerCase()) ||
