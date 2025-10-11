@@ -39,8 +39,8 @@ class EmailSystem {
                 name: 'Roxinho Shop',
                 email: 'noreply@roxinhoshop.com'
             },
-            baseUrl: window.location.origin,
-            logoUrl: window.location.origin + '/imagens/logo.png'
+            baseUrl: 'https://roxinho-shop.vercel.app',
+            logoUrl: 'https://roxinho-shop.vercel.app/imagens/logo.png'
         };
         
         /** @type {object} Armazena os templates de e-mail carregados. */

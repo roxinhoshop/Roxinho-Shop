@@ -12,7 +12,7 @@ class ApiSystem {
      */
     constructor() {
         /** @type {string} A URL base para as requisições da API. */
-        this.baseURL = window.location.origin;
+        this.baseURL = 'https://backend-nodejs-zeta.vercel.app';
         /** @type {object} Objeto contendo os endpoints da API categorizados. */
         this.endpoints = {
             // Autenticação
