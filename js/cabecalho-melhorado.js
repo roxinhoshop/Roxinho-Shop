@@ -304,3 +304,91 @@ document.addEventListener('DOMContentLoaded', function() {
 function preventDefault(e) {
   e.preventDefault();
 }
+
+
+// Função para atualizar o estado de login no cabeçalho
+function atualizarEstadoLogin() {
+    const currentUser = window.authSystem.getCurrentUser();
+    const caixaLogin = document.getElementById("caixa-login");
+    const statusLogin = document.getElementById("status-login");
+    const subtextoLogin = document.getElementById("subtexto-login");
+    const avatarUsuario = document.getElementById("avatar-usuario");
+    const setaLogin = document.getElementById("seta-login");
+    const dropdownUsuario = document.getElementById("dropdown-usuario");
+
+    if (currentUser) {
+        // Usuário logado
+        caixaLogin.classList.add("logado"); // Adiciona a classe para estilização
+        statusLogin.textContent = `Olá, ${currentUser.nome.split(" ")[0]}!`;
+        subtextoLogin.textContent = "Minha Conta";
+        avatarUsuario.src = currentUser.avatar || "imagens/default.png"; // Usar avatar do usuário ou default
+        setaLogin.classList.remove("fa-arrow-right");
+        setaLogin.classList.add("fa-chevron-down");
+        caixaLogin.style.cursor = "pointer";
+        caixaLogin.removeEventListener("click", redirectToLogin);
+        caixaLogin.addEventListener("click", toggleDropdown);
+
+        // Adicionar evento de logout
+        document.getElementById("botao-logout").addEventListener("click", (e) => {
+            e.preventDefault();
+            window.authSystem.logout();
+            atualizarEstadoLogin(); // Atualiza o cabeçalho após logout
+            window.location.href = "index.html"; // Redireciona para a página inicial
+        });
+
+    } else {
+        // Usuário não logado
+        caixaLogin.classList.remove("logado"); // Remove a classe de estilização
+        statusLogin.textContent = "Entre";
+        subtextoLogin.textContent = "Login";
+        avatarUsuario.src = "imagens/default.png";
+        setaLogin.classList.remove("fa-chevron-down");
+        setaLogin.classList.add("fa-arrow-right");
+        caixaLogin.style.cursor = "pointer";
+        caixaLogin.removeEventListener("click", toggleDropdown);
+        caixaLogin.addEventListener("click", redirectToLogin);
+        dropdownUsuario.style.display = "none"; // Esconde o dropdown se não estiver logado
+    }
+}
+
+function redirectToLogin() {
+    window.location.href = "login.html";
+}
+
+function toggleDropdown(event) {
+    const dropdownUsuario = document.getElementById("dropdown-usuario");
+    dropdownUsuario.style.display = dropdownUsuario.style.display === "block" ? "none" : "block";
+    event.stopPropagation(); // Impede que o clique se propague para o document
+}
+
+// Fechar dropdown se clicar fora
+document.addEventListener("click", (event) => {
+    const caixaLogin = document.getElementById("caixa-login");
+    const dropdownUsuario = document.getElementById("dropdown-usuario");
+    if (dropdownUsuario && !caixaLogin.contains(event.target)) {
+        dropdownUsuario.style.display = "none";
+    }
+});
+
+// Chamar a função ao carregar a página
+document.addEventListener("DOMContentLoaded", () => {
+    // Aguardar o sistema de autenticação estar pronto
+    const checkAuthSystem = () => {
+        if (window.authSystem) {
+            try {
+                atualizarEstadoLogin();
+            } catch (e) {
+                console.error("Erro ao inicializar estado de login no cabeçalho:", e);
+                // Adicionar uma mensagem de erro visível ao usuário, se apropriado
+                window.authSystem.showMessage("Erro de Sistema: Falha na inicialização do cabeçalho. Recarregue a página.", "error");
+            }
+        } else {
+            setTimeout(checkAuthSystem, 50);
+        }
+    };
+    checkAuthSystem();
+});
+
+// Adicionar um listener para o evento de login/logout personalizado
+window.addEventListener("authChange", atualizarEstadoLogin);
+

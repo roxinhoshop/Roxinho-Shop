@@ -17,7 +17,7 @@ const DB_CONFIG = {
   development: {
     host: 'localhost',
     port: 3306,
-    database: 'rooxyce_store',
+    database: 'roxinhoshop_store',
     username: 'root',
     password: '',
     dialect: 'mysql',
@@ -28,7 +28,7 @@ const DB_CONFIG = {
   production: {
     host: process.env.DB_HOST || 'localhost',
     port: process.env.DB_PORT || 3306,
-    database: process.env.DB_NAME || 'rooxyce_store',
+    database: process.env.DB_NAME || 'roxinhoshop_store',
     username: process.env.DB_USER || 'root',
     password: process.env.DB_PASS || '',
     dialect: 'mysql',
@@ -59,10 +59,7 @@ const DB_SCHEMA = {
     data_criacao: 'TIMESTAMP DEFAULT CURRENT_TIMESTAMP',
     data_atualizacao: 'TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
     
-    // Campos do sistema de XP
-    xp_total: 'INT DEFAULT 0',
-    nivel_atual: 'INT DEFAULT 1',
-    titulo_nivel: 'VARCHAR(50) DEFAULT "Novato"'
+
   },
 
   // Tabela de endereços
@@ -145,9 +142,7 @@ const DB_SCHEMA = {
     // Dados de pagamento
     forma_pagamento: 'VARCHAR(50) NOT NULL',
     status_pagamento: 'ENUM("pendente", "aprovado", "rejeitado", "cancelado") DEFAULT "pendente"',
-    
-    // XP ganho neste pedido
-    xp_ganho: 'INT DEFAULT 0',
+
     
     // Timestamps
     data_pedido: 'TIMESTAMP DEFAULT CURRENT_TIMESTAMP',
@@ -173,22 +168,7 @@ const DB_SCHEMA = {
     'FOREIGN KEY (produto_id)': 'REFERENCES produtos(id)'
   },
 
-  // Tabela de histórico de XP
-  historico_xp: {
-    id: 'INT AUTO_INCREMENT PRIMARY KEY',
-    usuario_id: 'INT NOT NULL',
-    acao: 'VARCHAR(50) NOT NULL',
-    xp_ganho: 'INT NOT NULL',
-    descricao: 'VARCHAR(200) NOT NULL',
-    pedido_id: 'INT',
-    valor_compra: 'DECIMAL(10,2)',
-    detalhes: 'JSON',
-    data_criacao: 'TIMESTAMP DEFAULT CURRENT_TIMESTAMP',
-    
-    // Chaves estrangeiras
-    'FOREIGN KEY (usuario_id)': 'REFERENCES usuarios(id) ON DELETE CASCADE',
-    'FOREIGN KEY (pedido_id)': 'REFERENCES pedidos(id) ON DELETE SET NULL'
-  },
+
 
   // Tabela de lista de desejos
   lista_desejos: {
@@ -249,13 +229,10 @@ const INITIAL_DATA = {
   // Usuário administrador padrão
   admin_user: {
     nome: 'Administrador',
-    sobrenome: 'ROOXYCE',
-    email: 'admin@rooxyce.com',
+    sobrenome: 'Roxinho Shop',
+    email: 'admin@roxinhoshop.com',
     senha: 'admin123', // Será hasheada
-    email_verificado: true,
-    xp_total: 10000,
-    nivel_atual: 10,
-    titulo_nivel: 'ROOXYCE VIP'
+    email_verificado: true
   }
 };
 
@@ -380,21 +357,7 @@ class DataAccess {
     return newOrder;
   }
 
-  // XP
-  async addXPRecord(userId, xpData) {
-    const xpRecords = JSON.parse(localStorage.getItem('db_historico_xp') || '[]');
-    const newRecord = {
-      id: xpRecords.length + 1,
-      usuario_id: userId,
-      ...xpData,
-      data_criacao: new Date().toISOString()
-    };
-    
-    xpRecords.push(newRecord);
-    localStorage.setItem('db_historico_xp', JSON.stringify(xpRecords));
-    
-    return newRecord;
-  }
+
 }
 
 // ===== EXPORTAR PARA USO GLOBAL =====
@@ -426,7 +389,7 @@ PARA INTEGRAR COM BANCO DE DADOS REAL:
 2. Configurar variáveis de ambiente:
    DB_HOST=localhost
    DB_PORT=3306
-   DB_NAME=rooxyce_store
+   DB_NAME=roxinhoshop_store
    DB_USER=root
    DB_PASS=senha123
    

@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
       id: 1,
       nome: 'Gabriel',
       sobrenome: 'Wagner',
-      email: 'gabriel@rooxyce.com',
+      email: 'gabriel@roxinhoshop.com',
       avatar: null,
       nivel: 1,
       xp: 0,
@@ -836,3 +836,206 @@ const estilosNavegacao = `
 // Adicionar estilos ao head
 document.head.insertAdjacentHTML('beforeend', estilosNavegacao);
 
+
+
+  // ==================== AUTENTICAÇÃO DE DOIS FATORES (2FA) ====================
+  function inicializar2FA() {
+    const toggle2FA = document.getElementById('toggle-2fa');
+    const setupArea = document.getElementById('2fa-setup-area');
+    const statusArea = document.getElementById('2fa-status-area');
+    const secretText = document.getElementById('2fa-secret-text');
+    const qrcodeDiv = document.getElementById('qrcode-2fa');
+    const generateSecretBtn = document.getElementById('generate-2fa-secret-btn');
+    const verifySetupBtn = document.getElementById('verify-2fa-setup-btn');
+    const disable2FABtn = document.getElementById('disable-2fa-btn');
+    const twoFACodeInput = document.getElementById('2fa-code-input');
+
+    let current2FASecret = '';
+
+    // Carregar status inicial do 2FA
+    async function load2FAStatus() {
+      const userId = localStorage.getItem('user_id');
+      if (!userId) return;
+
+      try {
+        const response = await fetch(`/php/api.php/usuarios/${userId}`);
+        const result = await response.json();
+
+        if (result.user && result.user.two_factor_enabled) {
+          toggle2FA.checked = true;
+          statusArea.style.display = 'block';
+          setupArea.style.display = 'none';
+          document.getElementById('2fa-status-text').textContent = 'HABILITADA';
+        } else {
+          toggle2FA.checked = false;
+          statusArea.style.display = 'none';
+          setupArea.style.display = 'none';
+          document.getElementById('2fa-status-text').textContent = 'DESABILITADA';
+        }
+      } catch (error) {
+        console.error('Erro ao carregar status 2FA:', error);
+        mostrarNotificacao('Erro ao carregar status 2FA.', 'erro');
+      }
+    }
+
+    // Evento de toggle do 2FA
+    if (toggle2FA) {
+      toggle2FA.addEventListener('change', async function() {
+        const userId = localStorage.getItem('user_id');
+        if (!userId) {
+          mostrarNotificacao('Faça login para gerenciar o 2FA.', 'erro');
+          toggle2FA.checked = false;
+          return;
+        }
+
+        if (this.checked) {
+          // Habilitar 2FA - mostrar área de setup
+          setupArea.style.display = 'block';
+          statusArea.style.display = 'none';
+          generate2FASecret(); // Gerar um novo segredo ao tentar habilitar
+        } else {
+          // Desabilitar 2FA - confirmar e desabilitar
+          if (confirm('Tem certeza que deseja desabilitar a Autenticação de Dois Fatores?')) {
+            await disable2FA(userId);
+          } else {
+            toggle2FA.checked = true; // Reverter o toggle se o usuário cancelar
+          }
+        }
+      });
+    }
+
+    // Gerar novo segredo 2FA
+    if (generateSecretBtn) {
+      generateSecretBtn.addEventListener('click', generate2FASecret);
+    }
+
+    async function generate2FASecret() {
+      const userId = localStorage.getItem('user_id');
+      if (!userId) return;
+
+      try {
+        const response = await fetch('/php/api.php/auth/generate-2fa-secret', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user_id: userId })
+        });
+        const result = await response.json();
+
+        if (result.success) {
+          current2FASecret = result.secret;
+          secretText.textContent = current2FASecret;
+          qrcodeDiv.innerHTML = ''; // Limpar QR code anterior
+          new QRCode(qrcodeDiv, {
+            text: `otpauth://totp/${result.email}?secret=${current2FASecret}&issuer=RoxinhoShop`,
+            width: 128,
+            height: 128
+          });
+          mostrarNotificacao('Novo segredo 2FA gerado. Escaneie o QR code.', 'info');
+        } else {
+          mostrarNotificacao(result.error || 'Erro ao gerar segredo 2FA.', 'erro');
+        }
+      } catch (error) {
+        console.error('Erro ao gerar segredo 2FA:', error);
+        mostrarNotificacao('Erro de rede ao gerar segredo 2FA.', 'erro');
+      }
+    }
+
+    // Verificar código 2FA durante o setup
+    if (verifySetupBtn) {
+      verifySetupBtn.addEventListener('click', async function() {
+        const userId = localStorage.getItem('user_id');
+        const code = twoFACodeInput.value;
+        if (!userId || !code || !current2FASecret) {
+          mostrarNotificacao('Preencha o código 2FA e gere um segredo primeiro.', 'erro');
+          return;
+        }
+
+        try {
+          // Primeiro, verificar o código com o segredo gerado
+          // (Esta parte geralmente é feita no backend com uma biblioteca TOTP)
+          // Por simplicidade, vamos assumir que o backend já validou o segredo ao gerar.
+          // A validação do código 2FA deve ser feita no backend para segurança.
+          const response = await fetch('/php/api.php/auth/verify-2fa-code', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: localStorage.getItem('user_email'), code: code })
+          });
+          const result = await response.json();
+
+          if (result.success) {
+            // Se o código for válido, habilitar 2FA no banco de dados
+            await enable2FA(userId, current2FASecret);
+            mostrarNotificacao('2FA habilitado e verificado com sucesso!', 'sucesso');
+            setupArea.style.display = 'none';
+            statusArea.style.display = 'block';
+            document.getElementById('2fa-status-text').textContent = 'HABILITADA';
+            twoFACodeInput.value = '';
+          } else {
+            mostrarNotificacao(result.error || 'Código 2FA inválido ou expirado.', 'erro');
+          }
+        } catch (error) {
+          console.error('Erro ao verificar código 2FA:', error);
+          mostrarNotificacao('Erro de rede ao verificar código 2FA.', 'erro');
+        }
+      });
+    }
+
+    // Habilitar 2FA (chamada para o backend)
+    async function enable2FA(userId, secret) {
+      try {
+        const response = await fetch('/php/api.php/auth/enable-2fa', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user_id: userId, secret: secret })
+        });
+        const result = await response.json();
+        if (!result.success) {
+          mostrarNotificacao(result.error || 'Erro ao habilitar 2FA no servidor.', 'erro');
+        }
+      } catch (error) {
+        console.error('Erro ao habilitar 2FA:', error);
+        mostrarNotificacao('Erro de rede ao habilitar 2FA.', 'erro');
+      }
+    }
+
+    // Desabilitar 2FA (chamada para o backend)
+    if (disable2FABtn) {
+      disable2FABtn.addEventListener('click', async function() {
+        const userId = localStorage.getItem('user_id');
+        if (!userId) return;
+
+        if (confirm('Tem certeza que deseja desabilitar a Autenticação de Dois Fatores?')) {
+          await disable2FA(userId);
+          mostrarNotificacao('2FA desabilitado com sucesso!', 'sucesso');
+          toggle2FA.checked = false;
+          statusArea.style.display = 'none';
+          setupArea.style.display = 'none';
+          document.getElementById('2fa-status-text').textContent = 'DESABILITADA';
+        }
+      });
+    }
+
+    async function disable2FA(userId) {
+      try {
+        const response = await fetch('/php/api.php/auth/disable-2fa', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ user_id: userId })
+        });
+        const result = await response.json();
+        if (!result.success) {
+          mostrarNotificacao(result.error || 'Erro ao desabilitar 2FA no servidor.', 'erro');
+        }
+      } catch (error) {
+        console.error('Erro ao desabilitar 2FA:', error);
+        mostrarNotificacao('Erro de rede ao desabilitar 2FA.', 'erro');
+      }
+    }
+
+    load2FAStatus();
+  }
+
+  // Chamar a função de inicialização do 2FA quando o DOM estiver pronto
+  inicializar2FA();
+
+}); // Fim do DOMContentLoaded

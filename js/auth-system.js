@@ -135,10 +135,7 @@ class AuthSystem {
                 ativo: true,
                 tipo_usuario: "cliente",
                 data_criacao: new Date().toISOString(),
-                data_atualizacao: new Date().toISOString(),
-                xp_total: 0,
-                nivel_atual: 1,
-                titulo_nivel: "Novato"
+                data_atualizacao: new Date().toISOString()
             };
 
             await this.saveUser(newUser);
@@ -385,10 +382,7 @@ class AuthSystem {
                 ativo: true,
                 tipo_usuario: "admin",
                 data_criacao: new Date().toISOString(),
-                data_atualizacao: new Date().toISOString(),
-                xp_total: 10000,
-                nivel_atual: 10,
-                titulo_nivel: "ROXINHO VIP"
+                data_atualizacao: new Date().toISOString()
             };
 
             await this.saveUser(adminUser);

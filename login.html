@@ -1,37 +1,32 @@
 <!DOCTYPE html>
-<!-- ===== Roxinho Shop - E-COMMERCE DE ELETRÔNICOS ===== -->
-<!-- Desenvolvido por Gabriel (gabwvr) -->
-<!-- Página: [NOME DA PÁGINA] -->
-<!-- Design responsivo com identidade visual roxo e amarelo -->
-
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iniciar sessão | Roxinho Shop</title>
-
-  <link rel="icon" type="image/png" href="images/favicon-rooxyce.png">
-
-
-  <!-- CSS -->
+  <link rel="icon" type="image/png" href="images/favicon-roxinhoshop.png">
   <link rel="stylesheet" href="css/login.css">
   <link rel="stylesheet" href="./css/cabecalhorodape.css">
-
-  <!-- Placeholder para Header -->
-  <div id="header-placeholder"></div>
-
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
-
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
 </head>
 <body>
+  <div id="header-placeholder"></div>
 
   <!-- Conteúdo Login -->
   <main class="container">
     <div class="login-section">
-      <form class="login-card" id="formularioLogin" novalidate>
+      </div>
+      <form class="login-card" id="loginForm" novalidate>
+
+        <div id="two-factor-auth-section" style="display: none;">
+          <p>Insira o código 2FA enviado para seu e-mail.</p>
+          <div class="form-group">
+            <input type="text" id="twoFactorCode" class="form-input" placeholder="Código 2FA" required>
+            <label class="floating-label">Código 2FA <span class="required">*</span></label>
+          </div>
+          <button type="button" id="resendTwoFactorCode" class="link-button">Reenviar Código</button>
+        </div>
         <h2 class="welcome-text">Iniciar sessão</h2>
         <p class="welcome-subtitle">Bem-vindo à Roxinho Shop! Por favor, insira seus dados</p>
 
@@ -45,6 +40,7 @@
         <div class="form-group">
           <input type="password" id="senha" class="form-input" required>
           <label class="floating-label">Senha <span class="required">*</span></label>
+          <span class="toggle-password" onclick="togglePasswordVisibility('senha')"><i class="fa fa-eye" aria-hidden="true"></i></span>
         </div>
 
         <div class="forgot-password">
@@ -84,8 +80,8 @@
 
   <!-- Scripts -->
      <script src="js/system-init.js"></script>
+     <script src="js/auth.js"></script>
      <script src="js/cabecalho-melhorado.js"></script>
-  <script src="js/auth-system.js"></script>
   <script src="js/login.js"></script>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 
@@ -114,6 +110,7 @@
     });
   </script>
 
-    <script src="./js/sistema-xp.js"></script>
+
+
 </body>
 </html>

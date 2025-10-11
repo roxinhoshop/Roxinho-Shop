@@ -1,158 +1,93 @@
-// ===== Roxinho Shop - E-COMMERCE DE ELETRÔNICOS =====
-// Desenvolvido por Gabriel (gabwvr)
-// Este arquivo contém funções para gerenciar [FUNCIONALIDADE]
-// Comentários didáticos para facilitar o entendimento
+document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const resetToken = urlParams.get("token");
 
+    const requestForm = document.getElementById("formularioEsqueceuSenha");
+    const resetForm = document.getElementById("resetPasswordForm");
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const formulario = document.getElementById('formularioEsqueceuSenha');
-            const emailInput = document.getElementById('email');
-            const botaoEnviar = document.getElementById('botaoEnviar');
-            const mensagemSucesso = document.getElementById('mensagem-sucesso');
+    const showMessage = (message, type) => {
+        const msgDiv = document.getElementById(`mensagem-${type === \'sucesso\' ? \'sucesso\' : \'erro\'}`);
+        if (msgDiv) {
+            msgDiv.textContent = message;
+            msgDiv.style.display = \'block\';
+            setTimeout(() => {
+                msgDiv.style.display = \'none\';
+            }, 5000);
+        }
+    };
 
-            // Função para validar e-mail
-            function validarEmail(email) {
-                const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                return regex.test(email);
+    if (resetToken) {
+        // Modo de redefinição de senha
+        if (requestForm) requestForm.style.display = \'none\';
+        if (resetForm) resetForm.style.display = \'block\';
+
+        resetForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const newPassword = document.getElementById("newPassword").value;
+            const confirmNewPassword = document.getElementById("confirmNewPassword").value;
+
+            if (newPassword !== confirmNewPassword) {
+                showMessage("As senhas não coincidem.", "erro");
+                return;
+            }
+            if (newPassword.length < 6) {
+                showMessage("A nova senha deve ter pelo menos 6 caracteres.", "erro");
+                return;
             }
 
-            // Função para mostrar erro
-            function mostrarErro(elemento, mensagem) {
-                const grupoFormulario = elemento.closest('.form-group');
-                const elementoErro = grupoFormulario.querySelector('.error-message');
-                
-                elemento.classList.add('error');
-                elementoErro.textContent = mensagem;
-                elementoErro.style.display = 'flex';
-            }
-
-            // Função para limpar erro
-            function limparErro(elemento) {
-                const grupoFormulario = elemento.closest('.form-group');
-                const elementoErro = grupoFormulario.querySelector('.error-message');
-                
-                elemento.classList.remove('error');
-                elementoErro.textContent = '';
-                elementoErro.style.display = 'none';
-            }
-
-            // Função para enviar e-mail de recuperação (simulação)
-            async function enviarEmailRecuperacao(email) {
-                return new Promise((resolve, reject) => {
-                    setTimeout(() => {
-                        // Simula envio do e-mail
-                        if (Math.random() > 0.1) { // 90% de sucesso
-                            resolve({
-                                success: true,
-                                message: 'E-mail enviado com sucesso!'
-                            });
-                        } else {
-                            reject({
-                                success: false,
-                                message: 'Erro interno do servidor. Tente novamente.'
-                            });
-                        }
-                    }, 2000);
+            try {
+                const response = await fetch("/php/api.php/auth/reset-password", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ token: resetToken, new_password: newPassword })
                 });
+                const result = await response.json();
+
+                if (result.success) {
+                    showMessage(result.message + " Você será redirecionado para a página de login.", "sucesso");
+                    setTimeout(() => {
+                        window.location.href = "login.html";
+                    }, 3000);
+                } else {
+                    showMessage(result.error || "Erro ao redefinir senha.", "erro");
+                }
+            } catch (error) {
+                console.error("Erro de rede ao redefinir senha:", error);
+                showMessage("Erro de rede ao redefinir senha.", "erro");
             }
-
-            // Event listener para limpar erro ao digitar
-            emailInput.addEventListener('input', function() {
-                if (this.classList.contains('error')) {
-                    limparErro(this);
-                }
-                
-                // Validação visual do e-mail
-                const emailValido = validarEmail(this.value);
-                let corBorda = '#e5e7eb';
-                
-                if (this.value.length > 0) {
-                    corBorda = emailValido ? '#10b981' : '#ef4444';
-                }
-                
-                this.style.borderColor = corBorda;
-            });
-
-            // Event listener para o formulário
-            formulario.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                const email = emailInput.value.trim();
-                let formularioValido = true;
-
-                // Limpar estados anteriores
-                limparErro(emailInput);
-                mensagemSucesso.style.display = 'none';
-
-                // Validação do e-mail
-                if (!email) {
-                    mostrarErro(emailInput, 'Este campo é obrigatório');
-                    formularioValido = false;
-                
-                } else if (!validarEmail(email)) {
-                    mostrarErro(emailInput, 'E-mail inválido');
-                    formularioValido = false;
-                }
-
-                if (!formularioValido) {
-                    return;
-                }
-
-                // Desabilitar botão durante o envio
-                const textoOriginal = botaoEnviar.innerHTML;
-                botaoEnviar.disabled = true;
-                botaoEnviar.innerHTML = '<span>Enviando...</span>';
-                botaoEnviar.style.opacity = '0.7';
-
-                try {
-                    const resultado = await enviarEmailRecuperacao(email);
-                    
-                    if (resultado.success) {
-                        // Mostrar mensagem de sucesso
-                        mensagemSucesso.style.display = 'block';
-                        formulario.reset();
-                        emailInput.style.borderColor = '#e5e7eb';
-                        
-                        // Opcional: redirecionar para login após alguns segundos
-                        setTimeout(() => {
-                            // window.location.href = './login.html';
-                        }, 5000);
-                    }
-                } catch (error) {
-                    mostrarErro(emailInput, error.message || 'Erro ao enviar e-mail. Tente novamente.');
-                } finally {
-                    // Reabilitar botão
-                    botaoEnviar.disabled = false;
-                    botaoEnviar.innerHTML = textoOriginal;
-                    botaoEnviar.style.opacity = '1';
-                }
-            });
-
-            // Efeito de foco nos inputs
-            emailInput.addEventListener('focus', function() {
-                this.parentElement.style.transform = 'translateY(-2px)';
-            });
-            
-            emailInput.addEventListener('blur', function() {
-                this.parentElement.style.transform = 'translateY(0)';
-            });
         });
 
-        // Função para ser usada em um ambiente real
-        function enviarEmailRecuperacaoReal(email) {
-            return fetch('/api/esqueceu-senha', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ 
-                    email: email
-                })
-            })
-            .then(response => response.json())
-            .catch(error => {
-                console.error('Erro:', error);
-                throw new Error('Erro de conexão. Verifique sua internet.');
-            });
-        }
-        
+    } else {
+        // Modo de solicitação de redefinição de senha
+        if (requestForm) requestForm.style.display = \'block\';
+        if (resetForm) resetForm.style.display = \'none\';
+
+        requestForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+
+            if (!email) {
+                showMessage("Por favor, insira seu e-mail.", "erro");
+                return;
+            }
+
+            try {
+                const response = await fetch("/php/api.php/auth/request-password-reset", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email: email })
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    showMessage(result.message, "sucesso");
+                } else {
+                    showMessage(result.error || "Erro ao solicitar redefinição de senha.", "erro");
+                }
+            } catch (error) {
+                console.error("Erro de rede ao solicitar redefinição de senha:", error);
+                showMessage("Erro de rede ao solicitar redefinição de senha.", "erro");
+            }
+        });
+    }
+});

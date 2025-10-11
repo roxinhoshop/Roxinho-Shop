@@ -1,7 +1,4 @@
-/* ===== Roxinho Shop - E-COMMERCE DE ELETRÔNICOS ===== */
-/* Desenvolvido por Gabriel (gabwvr) */
-/* Este arquivo contém estilos para [SEÇÃO] */
-/* Cores principais: Roxo (#7c3aed) e Amarelo (#eab308) */
+/* Estilos para a página de cadastro */
 
 
 * {
@@ -264,10 +261,10 @@ main {
 }
 
 .forca-moderada .progresso-forca-senha {
-    background: linear-gradient(90deg, #eab308, #facc15);
+    background-color: #f59e0b; /* Cor laranja para média */
 }
 .forca-moderada .nivel-forca {
-    color: #eab308;
+    color: #f59e0b; /* Cor laranja para média */
 }
 
 .forca-forte .progresso-forca-senha {
@@ -593,5 +590,228 @@ main {
     transform: translateX(100%);
     opacity: 0;
   }
+}
+
+
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6b7280;
+    z-index: 10;
+}
+
+.toggle-password i {
+    font-size: 1rem;
+}
+
+
+
+/* Estilos para o checkbox de termos */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    accent-color: #7c3aed; /* Cor do checkbox */
+}
+
+.checkbox-container a {
+    color: #7c3aed;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.checkbox-container a:hover {
+    text-decoration: underline;
+}
+
+/* Ajustes para responsividade */
+@media (max-width: 768px) {
+    .cartao-cadastro {
+        width: 90%;
+        max-width: 400px;
+    }
+
+    .linha-formulario {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .cartao-cadastro {
+        padding: 1.5rem;
+    }
+
+    .texto-titulo {
+        font-size: 1.4rem;
+    }
+
+    .texto-subtitulo {
+        font-size: 0.85rem;
+    }
+
+    .entrada-formulario {
+        height: 45px;
+        padding: 14px 10px;
+        font-size: 0.9rem;
+    }
+
+    .botao-cadastro {
+        height: 48px;
+        font-size: 0.95rem;
+    }
+
+    .checkbox-container {
+        font-size: 0.8rem;
+    }
+}
+
+
+
+.mensagem-erro {
+    color: #dc3545;
+    font-size: 0.875em;
+    margin-top: 5px;
+    display: none; /* Inicialmente oculto */
+}
+
+
+
+.mensagem-erro {
+    color: #dc3545;
+    font-size: 0.875em;
+    margin-top: 5px;
+    display: none; /* Inicialmente oculto */
+}
+
+
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    .secao-cadastro {
+        max-width: 100%;
+    }
+
+    .cartao-cadastro {
+        width: 100%;
+        padding: 1.5rem;
+    }
+
+    .linha-formulario {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .texto-titulo {
+        font-size: 1.8rem;
+    }
+
+    .texto-subtitulo {
+        font-size: 0.9rem;
+    }
+
+    .entrada-formulario {
+        height: 50px;
+        padding: 14px 12px;
+    }
+
+    .botao-cadastro {
+        height: 50px;
+        font-size: 1rem;
+    }
+
+    .checkbox-container {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 10px;
+    }
+
+    .cartao-cadastro {
+        padding: 1rem;
+    }
+
+    .texto-titulo {
+        font-size: 1.5rem;
+    }
+
+    .texto-subtitulo {
+        font-size: 0.8rem;
+    }
+
+    .entrada-formulario {
+        height: 45px;
+        padding: 12px 10px;
+        font-size: 0.9rem;
+    }
+
+    .botao-cadastro {
+        height: 45px;
+        font-size: 0.9rem;
+    }
+
+    .checkbox-container {
+        font-size: 0.75rem;
+    }
+
+    .toggle-password {
+        right: 10px;
+    }
+}
+
+
+
+/* Estilos para a barra de força da senha */
+.progresso-forca-senha.fraca {
+    background-color: #ef4444;
+}
+.progresso-forca-senha.media {
+    background-color: #f59e0b;
+}
+.progresso-forca-senha.forte {
+    background-color: #10b981;
+}
+
+.nivel-forca.fraca {
+    color: #ef4444;
+}
+.nivel-forca.media {
+    color: #f59e0b;
+}
+.nivel-forca.forte {
+    color: #10b981;
+}
+
+.aviso-senha-curta {
+    color: var(--error-color);
+    font-size: 0.75rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.aviso-senha-curta .icone-aviso {
+    font-size: 0.875rem;
+    color: var(--error-color);
 }
 

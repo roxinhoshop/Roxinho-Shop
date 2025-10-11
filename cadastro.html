@@ -1,24 +1,13 @@
 <!DOCTYPE html>
-<!-- ===== Roxinho Shop - E-COMMERCE DE ELETRÔNICOS ===== -->
-<!-- Desenvolvido por Gabriel (gabwvr) -->
-<!-- Design responsivo com identidade visual roxo e amarelo -->
-
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cadastre-se | Roxinho Shop</title>
-
-    <!-- Favicon -->
-  <link rel="icon" type="image/png" href="images/favicon-rooxyce.png">
-
-  <!-- CSS -->
+  <link rel="icon" type="image/png" href="images/favicon-roxinhoshop.png">
   <link rel="stylesheet" href="css/cadastro.css">
   <link rel="stylesheet" href="./css/cabecalhorodape.css">
-
   <div id="header-placeholder"></div>
-
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
 </head>
@@ -26,7 +15,7 @@
   
   <main class="container">
     <div class="secao-cadastro">
-      <form class="cartao-cadastro" id="formularioCadastro" novalidate>
+      <form class="cartao-cadastro" id="cadastroForm">
         <h2 class="texto-titulo">Crie sua Conta</h2>
         <p class="texto-subtitulo">Preencha seus dados para começar</p>
 
@@ -37,7 +26,7 @@
               <input type="text" id="nome" name="nome" class="entrada-formulario" placeholder=" " autocomplete="given-name" required aria-describedby="erro-nome">
               <label for="nome" class="rotulo-formulario floating-label">Nome <span class="required">*</span></label>
             </div>
-            <div id="erro-nome" class="apenas-leitura-tela" aria-live="polite"></div>
+            <div id="erro-nome" class="mensagem-erro" aria-live="polite"></div>
           </div>
           
           <div class="grupo-formulario">
@@ -45,24 +34,43 @@
               <input type="text" id="sobrenome" name="sobrenome" class="entrada-formulario" placeholder=" " autocomplete="family-name" required aria-describedby="erro-sobrenome">
               <label for="sobrenome" class="rotulo-formulario floating-label">Sobrenome <span class="required">*</span></label>
             </div>
-            <div id="erro-sobrenome" class="apenas-leitura-tela" aria-live="polite"></div>
+            <div id="erro-sobrenome" class="mensagem-erro" aria-live="polite"></div>
           </div>
         </div>
         
+        <!-- Telefone -->
+        <div class="grupo-formulario coluna-completa">
+          <div class="floating-label-container">
+            <input type="tel" id="telefone" name="telefone" class="entrada-formulario" placeholder=" " autocomplete="tel" required aria-describedby="erro-telefone">
+            <label for="telefone" class="rotulo-formulario floating-label">Telefone <span class="required">*</span></label>
+          </div>
+          <div id="erro-telefone" class="mensagem-erro" aria-live="polite"></div>
+        </div>
+
+        <!-- Data de Nascimento -->
+        <div class="grupo-formulario coluna-completa">
+          <div class="floating-label-container">
+            <input type="date" id="dataNascimento" name="dataNascimento" class="entrada-formulario" placeholder=" " required aria-describedby="erro-dataNascimento">
+            <label for="dataNascimento" class="rotulo-formulario floating-label">Data de Nascimento <span class="required">*</span></label>
+          </div>
+          <div id="erro-dataNascimento" class="mensagem-erro" aria-live="polite"></div>
+        </div>
+
         <!-- E-mail -->
         <div class="grupo-formulario coluna-completa">
           <div class="floating-label-container">
             <input type="email" id="email" name="email" class="entrada-formulario" placeholder=" " autocomplete="email" required aria-describedby="erro-email">
             <label for="email" class="rotulo-formulario floating-label">E-mail <span class="required">*</span></label>
           </div>
-          <div id="erro-email" class="apenas-leitura-tela" aria-live="polite"></div>
+          <div id="erro-email" class="mensagem-erro" aria-live="polite"></div>
         </div>
         
         <!-- Senha -->
         <div class="grupo-formulario coluna-completa">
           <div class="floating-label-container">
             <input type="password" id="senha" name="senha" class="entrada-formulario" placeholder=" " autocomplete="new-password" required aria-describedby="erro-senha">
-            <label for="senha" class="rotulo-formulario floating-label">Senha <span class="required">*</span></label> 
+            <label for="senha" class="rotulo-formulario floating-label">Senha <span class="required">*</span></label>
+            <span class="toggle-password" onclick="togglePasswordVisibility(\'senha\')"><i class="fa fa-eye" aria-hidden="true"></i></span> 
           </div>
           
           <!-- Feedback da senha -->
@@ -76,24 +84,31 @@
                 <span id="pontuacao-senha" class="pontuacao-forca"></span>
               </div>
             </div>
-            <div id="aviso-senha-curta" class="aviso-senha-curta">
-              <span class="icone-aviso"></span>
-              <span>Mínimo 8 caracteres</span>
-            </div>
+
           </div>
           
-          <div id="erro-senha" class="apenas-leitura-tela" aria-live="polite"></div>
+          <div id="erro-senha" class="mensagem-erro" aria-live="polite"></div>
         </div>
         
         <!-- Confirmar Senha -->
         <div class="grupo-formulario coluna-completa">
           <div class="floating-label-container">
-            <input type="password" id="confirmarSenha" name="confirmarSenha" class="entrada-formulario" placeholder=" " autocomplete="new-password" required aria-describedby="erro-confirmar-senha">
+            <input type="password" id="confirmarSenha" name="confirmarSenha" class="entrada-formulario" placeholder=" " autocomplete="new-password" required aria-describedby="erro-confirmarSenha">
             <label for="confirmarSenha" class="rotulo-formulario floating-label">Confirmar Senha <span class="required">*</span></label>
+            <span class="toggle-password" onclick="togglePasswordVisibility(\'confirmarSenha\')"><i class="fa fa-eye" aria-hidden="true"></i></span>
           </div>
-          <div id="erro-confirmar-senha" class="apenas-leitura-tela" aria-live="polite"></div>
+          <div id="erro-confirmarSenha" class="mensagem-erro" aria-live="polite"></div>
         </div>
         
+        <!-- Termos e Condições -->
+        <div class="grupo-formulario coluna-completa">
+          <div class="checkbox-container">
+            <input type="checkbox" id="termos" name="termos" required aria-describedby="erro-termos">
+            <label for="termos">Eu li e concordo com os <a href="termos.html" target="_blank">Termos e Condições</a> e a <a href="politicas.html" target="_blank">Política de Privacidade</a> <span class="required">*</span></label>
+          </div>
+          <div id="erro-termos" class="mensagem-erro" aria-live="polite"></div>
+        </div>
+
         <!-- Botão de cadastro -->
         <button type="submit" class="botao-cadastro" id="botaoCadastro">
           <span>Criar Conta</span>
@@ -140,6 +155,7 @@
     });
   </script>
 
-    <script src="./js/sistema-xp.js"></script>
+
+
 </body>
 </html>

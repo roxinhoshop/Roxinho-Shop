@@ -419,32 +419,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (error) {
         console.error('❌ Falha crítica na inicialização:', error);
         
-        const errorDiv = document.createElement('div');
-        errorDiv.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #dc3545;
-            color: white;
-            padding: 15px;
-            border-radius: 5px;
-            z-index: 10000;
-            max-width: 300px;
-        `;
-        errorDiv.innerHTML = `
-            <strong>⚠️ Erro do Sistema</strong><br>
-            Falha na inicialização. Recarregue a página.
-            <button onclick="location.reload()" style="margin-left: 10px; padding: 5px 10px; background: white; color: #dc3545; border: none; border-radius: 3px; cursor: pointer;">
-                Recarregar
-            </button>
-        `;
-        document.body.appendChild(errorDiv);
-        
-        setTimeout(() => {
-            if (errorDiv.parentNode) {
-                errorDiv.parentNode.removeChild(errorDiv);
-            }
-        }, 10000);
+
     }
 });
 

@@ -6,7 +6,7 @@ class AdminPanel {
         this.currentSection = 'dashboard';
         this.produtos = [];
         this.usuarios = [];
-        this.pedidos = [];
+
         this.categorias = [];
         this.editandoProduto = null;
         this.editandoCategoria = null;
@@ -60,8 +60,7 @@ class AdminPanel {
         document.getElementById('filtro-usuarios')?.addEventListener('input', () => this.filtrarUsuarios());
         document.getElementById('filtro-tipo-usuario')?.addEventListener('change', () => this.filtrarUsuarios());
         
-        document.getElementById('filtro-pedidos')?.addEventListener('input', () => this.filtrarPedidos());
-        document.getElementById('filtro-status-pedido')?.addEventListener('change', () => this.filtrarPedidos());
+
 
         // Auto-gerar slug para categoria
         document.getElementById('categoria-nome')?.addEventListener('input', (e) => {
@@ -89,7 +88,7 @@ class AdminPanel {
     async loadInitialData() {
         await this.carregarProdutos();
         await this.carregarUsuarios();
-        await this.carregarPedidos();
+
         await this.carregarCategorias();
         this.updateDashboard();
     }
@@ -123,9 +122,7 @@ class AdminPanel {
             case 'usuarios':
                 this.renderUsuarios();
                 break;
-            case 'pedidos':
-                this.renderPedidos();
-                break;
+
             case 'categorias':
                 this.renderCategorias();
                 break;
@@ -139,85 +136,25 @@ class AdminPanel {
     updateDashboard() {
         document.getElementById('total-produtos').textContent = this.produtos.length;
         document.getElementById('total-usuarios').textContent = this.usuarios.length;
-        document.getElementById('total-pedidos').textContent = this.pedidos.length;
-        
-        const totalVendas = this.pedidos.reduce((total, pedido) => {
-            return total + (pedido.total || 0);
-        }, 0);
-        
-        document.getElementById('total-vendas').textContent = this.formatarMoeda(totalVendas);
-        
-        // Renderizar gráfico de vendas
-        this.renderVendasChart();
+
     }
 
-    // Renderizar gráfico de vendas
-    renderVendasChart() {
-        const ctx = document.getElementById('vendas-chart');
-        if (!ctx) return;
 
-        // Dados simulados para os últimos 7 dias
-        const labels = [];
-        const data = [];
-        
-        for (let i = 6; i >= 0; i--) {
-            const date = new Date();
-            date.setDate(date.getDate() - i);
-            labels.push(date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }));
-            data.push(Math.random() * 5000 + 1000); // Dados simulados
-        }
-
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Vendas (R$)',
-                    data: data,
-                    borderColor: '#667eea',
-                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
-                    tension: 0.4,
-                    fill: true
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return 'R$ ' + value.toLocaleString('pt-BR');
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    }
 
     // Carregar produtos
     async carregarProdutos() {
-        // Carregar produtos do localStorage ou usar dados padrão
-        const produtosStorage = localStorage.getItem('roxinho_produtos_admin');
-        if (produtosStorage) {
-            this.produtos = JSON.parse(produtosStorage);
-        } else {
-            // Usar produtos do arquivo database.js como base
-            if (window.produtos) {
-                this.produtos = window.produtos.map(produto => ({
-                    ...produto,
-                    ativo: produto.emEstoque !== false,
-                    data_criacao: new Date().toISOString(),
-                    data_atualizacao: new Date().toISOString()
-                }));
-                this.salvarProdutosStorage();
+        try {
+            const response = await fetch("/php/api.php/produtos");
+            if (!response.ok) {
+                throw new Error("Erro ao carregar produtos da API.");
             }
+            const result = await response.json();
+            this.produtos = result.data || [];
+            this.renderProdutos();
+            this.updateDashboard();
+        } catch (error) {
+            console.error("Erro ao carregar produtos:", error);
+            window.authSystem.showMessage("Erro ao carregar produtos.", "error");
         }
     }
 
@@ -232,30 +169,22 @@ class AdminPanel {
         this.usuarios = usuarios;
     }
 
-    // Carregar pedidos
-    async carregarPedidos() {
-        const pedidos = JSON.parse(localStorage.getItem('roxinho_pedidos') || '[]');
-        this.pedidos = pedidos;
-    }
+
 
     // Carregar categorias
     async carregarCategorias() {
-        const categoriasStorage = localStorage.getItem('roxinho_categorias');
-        if (categoriasStorage) {
-            this.categorias = JSON.parse(categoriasStorage);
-        } else {
-            // Criar categorias padrão
-            this.categorias = [
-                { id: 1, nome: 'Hardware', slug: 'hardware', descricao: 'Componentes para computadores', icone: 'fas fa-microchip', ativo: true },
-                { id: 2, nome: 'Periféricos', slug: 'perifericos', descricao: 'Acessórios e periféricos', icone: 'fas fa-keyboard', ativo: true },
-                { id: 3, nome: 'Computadores', slug: 'computadores', descricao: 'Computadores completos', icone: 'fas fa-desktop', ativo: true },
-                { id: 4, nome: 'Celular & Smartphone', slug: 'celular-smartphone', descricao: 'Smartphones e acessórios', icone: 'fas fa-mobile-alt', ativo: true }
-            ];
-            this.salvarCategoriasStorage();
+        try {
+            const response = await fetch("/php/api.php/categorias");
+            if (!response.ok) {
+                throw new Error("Erro ao carregar categorias da API.");
+            }
+            const result = await response.json();
+            this.categorias = result.data || [];
+            this.updateCategoriaSelects();
+        } catch (error) {
+            console.error("Erro ao carregar categorias:", error);
+            window.authSystem.showMessage("Erro ao carregar categorias.", "error");
         }
-        
-        // Atualizar select de categorias
-        this.updateCategoriaSelects();
     }
 
     // Salvar categorias no localStorage
@@ -271,8 +200,8 @@ class AdminPanel {
             select.innerHTML = select.id === 'filtro-categoria' ? '<option value="">Todas as categorias</option>' : '<option value="">Selecione uma categoria</option>';
             
             this.categorias.filter(cat => cat.ativo).forEach(categoria => {
-                const option = document.createElement('option');
-                option.value = categoria.nome;
+                const option = document.createElement("option");
+                option.value = categoria.id;
                 option.textContent = categoria.nome;
                 select.appendChild(option);
             });
@@ -405,9 +334,14 @@ class AdminPanel {
         document.getElementById('produto-estoque').value = produto.estoque || '';
         document.getElementById('produto-peso').value = produto.peso || '';
         document.getElementById('produto-descricao-curta').value = produto.descricao_curta || '';
-        document.getElementById('produto-descricao').value = produto.descricao || '';
-        document.getElementById('produto-imagem').value = produto.imagem || '';
-        document.getElementById('produto-ativo').checked = produto.ativo !== false;
+        document.getElementById("produto-descricao").value = produto.descricao || '';
+        document.getElementById("product-image-url").value = produto.imagem_principal || '';
+        if (produto.imagem_principal) {
+            this.showImagePreview(produto.imagem_principal);
+        } else {
+            this.removeImage();
+        }
+        document.getElementById("produto-ativo").checked = produto.ativo !== false;
         document.getElementById('produto-destaque').checked = produto.destaque === true;
     }
 
@@ -415,18 +349,18 @@ class AdminPanel {
     async salvarProduto() {
         const formData = {
             nome: document.getElementById('produto-nome').value.trim(),
+            slug: this.generateSlug(document.getElementById('produto-nome').value.trim()), // Gerar slug a partir do nome
+            descricao_curta: document.getElementById('produto-descricao-curta').value.trim(),
+            descricao_longa: document.getElementById('produto-descricao').value.trim(),
+            categoria_id: parseInt(document.getElementById('produto-categoria').value), // ID da categoria
             marca: document.getElementById('produto-marca').value.trim(),
-            categoria: document.getElementById('produto-categoria').value,
+            modelo: document.getElementById('produto-modelo').value.trim(),
             sku: document.getElementById('produto-sku').value.trim(),
             preco: parseFloat(document.getElementById('produto-preco').value) || 0,
-            precoPromocional: parseFloat(document.getElementById('produto-preco-promocional').value) || null,
             estoque: parseInt(document.getElementById('produto-estoque').value) || 0,
-            peso: parseFloat(document.getElementById('produto-peso').value) || null,
-            descricao_curta: document.getElementById('produto-descricao-curta').value.trim(),
-            descricao: document.getElementById('produto-descricao').value.trim(),
-            imagem: document.getElementById('produto-imagem').value.trim(),
-            ativo: document.getElementById('produto-ativo').checked,
-            destaque: document.getElementById('produto-destaque').checked
+            imagem_principal: document.getElementById("product-image-url").value.trim(),
+            ativo: document.getElementById('produto-ativo').checked ? 1 : 0,
+            destaque: document.getElementById('produto-destaque').checked ? 1 : 0
         };
 
         // Validações básicas
@@ -435,7 +369,7 @@ class AdminPanel {
             return;
         }
 
-        if (!formData.categoria) {
+        if (!formData.categoria_id) {
             window.authSystem.showMessage('Categoria é obrigatória', 'error');
             return;
         }
@@ -446,45 +380,36 @@ class AdminPanel {
         }
 
         try {
+            let response;
             if (this.editandoProduto) {
                 // Editar produto existente
-                const index = this.produtos.findIndex(p => p.id === this.editandoProduto);
-                if (index !== -1) {
-                    this.produtos[index] = {
-                        ...this.produtos[index],
-                        ...formData,
-                        data_atualizacao: new Date().toISOString()
-                    };
-                }
+                response = await fetch(`/php/api.php/produtos/${this.editandoProduto}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData)
+                });
             } else {
                 // Criar novo produto
-                const novoId = this.produtos.length > 0 ? Math.max(...this.produtos.map(p => p.id)) + 1 : 1;
-                const novoProduto = {
-                    id: novoId,
-                    ...formData,
-                    data_criacao: new Date().toISOString(),
-                    data_atualizacao: new Date().toISOString(),
-                    avaliacao: 0,
-                    avaliacoes: 0,
-                    emEstoque: formData.estoque > 0,
-                    freteGratis: formData.preco > 100 // Frete grátis para produtos acima de R$ 100
-                };
-                
-                this.produtos.push(novoProduto);
+                response = await fetch("/php/api.php/produtos", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData)
+                });
             }
 
-            this.salvarProdutosStorage();
-            this.fecharModalProduto();
-            this.renderProdutos();
-            
-            window.authSystem.showMessage(
-                this.editandoProduto ? 'Produto atualizado com sucesso!' : 'Produto criado com sucesso!',
-                'success'
-            );
+            const result = await response.json();
 
+            if (response.ok) {
+                window.authSystem.showMessage(result.message, "success");
+                this.fecharModalProduto();
+                await this.carregarProdutos(); // Recarregar produtos após salvar
+                this.renderProdutos();
+            } else {
+                window.authSystem.showMessage(result.error || "Erro ao salvar produto.", "error");
+            }
         } catch (error) {
-            console.error('Erro ao salvar produto:', error);
-            window.authSystem.showMessage('Erro ao salvar produto', 'error');
+            console.error("Erro ao salvar produto:", error);
+            window.authSystem.showMessage("Erro ao salvar produto.", "error");
         }
     }
 
@@ -610,127 +535,13 @@ class AdminPanel {
         });
     }
 
-    // Renderizar pedidos
-    renderPedidos() {
-        const tbody = document.querySelector('#tabela-pedidos tbody');
-        if (!tbody) return;
 
-        tbody.innerHTML = '';
 
-        this.pedidos.forEach(pedido => {
-            const usuario = this.usuarios.find(u => u.id === pedido.usuario_id);
-            const nomeCliente = usuario ? `${usuario.nome} ${usuario.sobrenome}` : 'Cliente não encontrado';
-            
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${pedido.id}</td>
-                <td>${pedido.numero_pedido || `PED-${pedido.id}`}</td>
-                <td>${nomeCliente}</td>
-                <td>${this.formatarMoeda(pedido.total || 0)}</td>
-                <td>
-                    <span class="status-badge status-${pedido.status || 'pendente'}">
-                        ${this.formatarStatusPedido(pedido.status || 'pendente')}
-                    </span>
-                </td>
-                <td>${new Date(pedido.data_pedido || pedido.data_criacao).toLocaleDateString('pt-BR')}</td>
-                <td>
-                    <select onchange="adminPanel.atualizarStatusPedido(${pedido.id}, this.value)" class="admin-select">
-                        <option value="pendente" ${pedido.status === 'pendente' ? 'selected' : ''}>Pendente</option>
-                        <option value="confirmado" ${pedido.status === 'confirmado' ? 'selected' : ''}>Confirmado</option>
-                        <option value="processando" ${pedido.status === 'processando' ? 'selected' : ''}>Processando</option>
-                        <option value="enviado" ${pedido.status === 'enviado' ? 'selected' : ''}>Enviado</option>
-                        <option value="entregue" ${pedido.status === 'entregue' ? 'selected' : ''}>Entregue</option>
-                        <option value="cancelado" ${pedido.status === 'cancelado' ? 'selected' : ''}>Cancelado</option>
-                    </select>
-                </td>
-            `;
-            tbody.appendChild(row);
-        });
-    }
 
-    // Atualizar status do pedido
-    atualizarStatusPedido(pedidoId, novoStatus) {
-        const pedido = this.pedidos.find(p => p.id === pedidoId);
-        if (pedido) {
-            pedido.status = novoStatus;
-            
-            // Atualizar timestamps baseado no status
-            const agora = new Date().toISOString();
-            switch (novoStatus) {
-                case 'confirmado':
-                    pedido.data_confirmacao = agora;
-                    break;
-                case 'enviado':
-                    pedido.data_envio = agora;
-                    break;
-                case 'entregue':
-                    pedido.data_entrega = agora;
-                    break;
-            }
-            
-            // Salvar no localStorage
-            localStorage.setItem('roxinho_pedidos', JSON.stringify(this.pedidos));
-            
-            window.authSystem.showMessage('Status do pedido atualizado com sucesso!', 'success');
-        }
-    }
 
-    // Filtrar pedidos
-    filtrarPedidos() {
-        const filtroTexto = document.getElementById('filtro-pedidos').value.toLowerCase();
-        const filtroStatus = document.getElementById('filtro-status-pedido').value;
 
-        const pedidosFiltrados = this.pedidos.filter(pedido => {
-            const usuario = this.usuarios.find(u => u.id === pedido.usuario_id);
-            const nomeCliente = usuario ? `${usuario.nome} ${usuario.sobrenome}`.toLowerCase() : '';
-            const numeroPedido = (pedido.numero_pedido || `PED-${pedido.id}`).toLowerCase();
-            
-            const textoMatch = nomeCliente.includes(filtroTexto) || numeroPedido.includes(filtroTexto);
-            const statusMatch = !filtroStatus || pedido.status === filtroStatus;
 
-            return textoMatch && statusMatch;
-        });
 
-        this.renderPedidosFiltrados(pedidosFiltrados);
-    }
-
-    // Renderizar pedidos filtrados
-    renderPedidosFiltrados(pedidos) {
-        const tbody = document.querySelector('#tabela-pedidos tbody');
-        if (!tbody) return;
-
-        tbody.innerHTML = '';
-
-        pedidos.forEach(pedido => {
-            const usuario = this.usuarios.find(u => u.id === pedido.usuario_id);
-            const nomeCliente = usuario ? `${usuario.nome} ${usuario.sobrenome}` : 'Cliente não encontrado';
-            
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${pedido.id}</td>
-                <td>${pedido.numero_pedido || `PED-${pedido.id}`}</td>
-                <td>${nomeCliente}</td>
-                <td>${this.formatarMoeda(pedido.total || 0)}</td>
-                <td>
-                    <span class="status-badge status-${pedido.status || 'pendente'}">
-                        ${this.formatarStatusPedido(pedido.status || 'pendente')}
-                    </span>
-                </td>
-                <td>${new Date(pedido.data_pedido || pedido.data_criacao).toLocaleDateString('pt-BR')}</td>
-                <td>
-                    <select onchange="adminPanel.atualizarStatusPedido(${pedido.id}, this.value)" class="admin-select">
-                        <option value="pendente" ${pedido.status === 'pendente' ? 'selected' : ''}>Pendente</option>
-                        <option value="confirmado" ${pedido.status === 'confirmado' ? 'selected' : ''}>Confirmado</option>
-                        <option value="processando" ${pedido.status === 'processando' ? 'selected' : ''}>Processando</option>
-                        <option value="enviado" ${pedido.status === 'enviado' ? 'selected' : ''}>Enviado</option>
-                        <option value="entregue" ${pedido.status === 'entregue' ? 'selected' : ''}>Entregue</option>
-                        <option value="cancelado" ${pedido.status === 'cancelado' ? 'selected' : ''}>Cancelado</option>
-                    </select>
-                </td>
-            `;
-            tbody.appendChild(row);
-        });
-    }
 
     // Renderizar categorias
     renderCategorias() {

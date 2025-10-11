@@ -1,4 +1,4 @@
-/* ======================= CARROSSEL MODERNO 2025 ======================= */
+/* Estilos para o carrossel moderno e vídeo de anúncio */
 
 .carrossel-moderno {
   position: relative;
@@ -623,5 +623,243 @@
 
 [data-theme="dark"] .video-anuncio {
   background: #111827;
+}
+
+
+
+@media (max-width: 1024px) {
+  .carrossel-moderno {
+    height: 400px;
+  }
+
+  .slide-content h2 {
+    font-size: 2.5rem;
+  }
+
+  .slide-content p {
+    font-size: 1.1rem;
+  }
+
+  .btn-slide {
+    padding: 0.9rem 1.8rem;
+    font-size: 1rem;
+  }
+
+  .btn-controle {
+    width: 50px;
+    height: 50px;
+  }
+
+  .btn-controle i {
+    font-size: 1.1rem;
+  }
+
+  .video-content h2 {
+    font-size: 2.2rem;
+  }
+
+  .video-content p {
+    font-size: 1.1rem;
+  }
+
+  .feature-item {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.95rem;
+  }
+
+  .btn-video {
+    padding: 0.9rem 1.8rem;
+    font-size: 1rem;
+  }
+
+  .fallback-content h3 {
+    font-size: 1.8rem;
+  }
+
+  .fallback-content p {
+    font-size: 1rem;
+  }
+
+  .fallback-features .feature {
+    padding: 0.7rem 1.2rem;
+  }
+
+  .btn-fallback {
+    padding: 0.9rem 1.8rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .carrossel-moderno {
+    height: 350px;
+  }
+
+  .slide-content h2 {
+    font-size: 2rem;
+  }
+
+  .slide-content p {
+    font-size: 1rem;
+  }
+
+  .btn-slide {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .btn-controle {
+    width: 45px;
+    height: 45px;
+  }
+
+  .btn-controle i {
+    font-size: 1rem;
+  }
+
+  .carrossel-play-pause {
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .btn-play-pause {
+    width: 40px;
+    height: 40px;
+  }
+
+  .video-content h2 {
+    font-size: 1.8rem;
+  }
+
+  .video-content p {
+    font-size: 0.9rem;
+  }
+
+  .video-features {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .feature-item {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .btn-video {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .fallback-content h3 {
+    font-size: 1.5rem;
+  }
+
+  .fallback-content p {
+    font-size: 0.9rem;
+  }
+
+  .fallback-features {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .fallback-features .feature {
+    padding: 0.6rem 1rem;
+  }
+
+  .btn-fallback {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .carrossel-moderno {
+    height: 250px;
+  }
+
+  .slide-content {
+    padding: 1rem;
+  }
+
+  .slide-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .slide-content p {
+    font-size: 0.8rem;
+  }
+
+  .btn-slide {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.8rem;
+  }
+
+  .carrossel-controles {
+    padding: 0 0.5rem;
+  }
+
+  .btn-controle {
+    width: 35px;
+    height: 35px;
+  }
+
+  .btn-controle i {
+    font-size: 0.8rem;
+  }
+
+  .carrossel-indicadores {
+    bottom: 1rem;
+    gap: 0.5rem;
+  }
+
+  .indicador {
+    width: 10px;
+    height: 10px;
+  }
+
+  .btn-play-pause {
+    width: 35px;
+    height: 35px;
+  }
+
+  .video-content {
+    padding: 1rem;
+  }
+
+  .video-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .video-content p {
+    font-size: 0.8rem;
+  }
+
+  .feature-item {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .btn-video {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.8rem;
+  }
+
+  .fallback-content h3 {
+    font-size: 1.2rem;
+  }
+
+  .fallback-content p {
+    font-size: 0.8rem;
+  }
+
+  .fallback-features .feature {
+    padding: 0.5rem 0.8rem;
+  }
+
+  .btn-fallback {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.8rem;
+  }
 }
 

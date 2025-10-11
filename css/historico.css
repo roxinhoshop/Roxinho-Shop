@@ -1,0 +1,388 @@
+
+/* ===== Roxinho Shop - ESTILOS DO HISTÓRICO DE COMPRAS ===== */
+
+/* Conteúdo Principal */
+.conteudo-principal {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Nunito Sans', sans-serif;
+    color: #333;
+}
+
+/* Estado de Histórico Vazio */
+.estado-historico-vazio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 40px;
+    margin-top: 30px;
+}
+
+.icone-historico-vazio {
+    font-size: 80px;
+    color: #7c3aed;
+    margin-bottom: 20px;
+}
+
+.titulo-vazio {
+    font-size: 2.2em;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 800;
+}
+
+.descricao-vazia {
+    font-size: 1.1em;
+    color: #666;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-bottom: 30px;
+}
+
+.botao-explorar-produtos {
+    background-color: #7c3aed;
+    color: #fff;
+    padding: 14px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.botao-explorar-produtos:hover {
+    background-color: #6a2dc4;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Layout do Histórico */
+.layout-historico {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.secao-pedidos {
+    flex: 1;
+}
+
+.cabecalho-secao {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #eee;
+}
+
+.cabecalho-secao h2 {
+    font-size: 2em;
+    color: #333;
+    font-weight: 800;
+}
+
+.cabecalho-secao .acoes {
+    display: flex;
+    gap: 15px;
+}
+
+.cabecalho-secao .acoes button {
+    background-color: #f0f0f0;
+    color: #555;
+    border: 1px solid #ddd;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cabecalho-secao .acoes button:hover {
+    background-color: #e0e0e0;
+    color: #333;
+    border-color: #ccc;
+}
+
+.lista-pedidos-historico {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Cartão de Pedido */
+.cartao-pedido {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+    padding: 25px;
+    border: 1px solid #eee;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cartao-pedido:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.cabecalho-pedido {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.info-pedido {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.numero-pedido {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: #333;
+}
+
+.data-pedido {
+    font-size: 0.9em;
+    color: #777;
+}
+
+.status-pedido {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.status-pendente {
+    background-color: #ffc107; /* Amarelo */
+}
+
+.status-confirmado, .status-entregue {
+    background-color: #28a745; /* Verde */
+}
+
+.status-processando, .status-enviado {
+    background-color: #007bff; /* Azul */
+}
+
+.status-cancelado {
+    background-color: #dc3545; /* Vermelho */
+}
+
+.corpo-pedido {
+    margin-bottom: 20px;
+}
+
+.lista-itens-pedido {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.item-pedido {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 0;
+    border-bottom: 1px dashed #f5f5f5;
+}
+
+.item-pedido:last-child {
+    border-bottom: none;
+}
+
+.imagem-item {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.detalhes-item {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.nome-item {
+    font-size: 1em;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 3px;
+}
+
+.quantidade-item {
+    font-size: 0.9em;
+    color: #888;
+}
+
+.preco-item {
+    font-size: 1em;
+    font-weight: 700;
+    color: #7c3aed;
+    text-align: right;
+}
+
+.rodape-pedido {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.total-pedido {
+    font-size: 1.3em;
+    font-weight: 800;
+    color: #333;
+}
+
+.btn-ver-detalhes {
+    background-color: #7c3aed;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-ver-detalhes:hover {
+    background-color: #6a2dc4;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .conteudo-principal {
+        padding: 20px 15px;
+    }
+
+    .titulo-vazio {
+        font-size: 1.8em;
+    }
+
+    .descricao-vazia {
+        font-size: 1em;
+    }
+
+    .botao-explorar-produtos {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+
+    .cabecalho-secao {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .cabecalho-secao h2 {
+        font-size: 1.8em;
+    }
+
+    .cabecalho-secao .acoes {
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    .cabecalho-secao .acoes button {
+        flex: 1;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .cabecalho-pedido {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .status-pedido {
+        align-self: flex-end;
+    }
+
+    .item-pedido {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .detalhes-item {
+        flex-basis: calc(100% - 75px);
+    }
+
+    .preco-item {
+        text-align: left;
+        margin-top: 5px;
+    }
+
+    .rodape-pedido {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .btn-ver-detalhes {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .titulo-vazio {
+        font-size: 1.5em;
+    }
+
+    .descricao-vazia {
+        font-size: 0.9em;
+    }
+
+    .botao-explorar-produtos {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+
+    .cabecalho-secao h2 {
+        font-size: 1.5em;
+    }
+
+    .cabecalho-secao .acoes button {
+        font-size: 0.85em;
+        padding: 8px 15px;
+    }
+
+    .numero-pedido {
+        font-size: 1.1em;
+    }
+
+    .total-pedido {
+        font-size: 1.1em;
+    }
+}
+

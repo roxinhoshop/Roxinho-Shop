@@ -1,454 +1,267 @@
 /**
- * @file cadastro-updated.js
+ * @file cadastro.js
  * @description Script para gerenciar a lógica de cadastro na página de cadastro da Roxinho Shop.
- * Integra-se com o sistema de autenticação (auth-system.js) para processar o registro de novos usuários.
  */
 
-/**
- * Classe para manuseio do formulário de cadastro atualizado.
- * Gerencia a validação de campos, feedback de força de senha e integração com o sistema de autenticação.
- */
-class FormularioCadastroAtualizado {
-    /**
-     * Construtor da classe FormularioCadastroAtualizado.
-     * Inicializa os elementos do formulário e configura os event listeners.
-     */
-    constructor() {
-        /** @type {HTMLFormElement} */
-        this.formulario = document.getElementById("formularioCadastro");
-        /** @type {HTMLInputElement} */
-        this.entradaNome = document.getElementById("nome");
-        /** @type {HTMLInputElement} */
-        this.entradaSobrenome = document.getElementById("sobrenome");
-        /** @type {HTMLInputElement} */
-        this.entradaEmail = document.getElementById("email");
-        /** @type {HTMLInputElement} */
-        this.entradaSenha = document.getElementById("senha");
-        /** @type {HTMLInputElement} */
-        this.entradaConfirmarSenha = document.getElementById("confirmar-senha"); // Corrigido para 'confirmar-senha'
-        /** @type {HTMLButtonElement} */
-        this.botaoCadastro = document.querySelector("button[type=\"submit\"]");
-        
-        /** @type {HTMLElement} */
-        this.passwordStrengthBar = document.getElementById("progresso-senha");
-        /** @type {HTMLElement} */
-        this.passwordLevelText = document.getElementById("nivel-senha");
-        /** @type {HTMLElement} */
-        this.passwordScoreText = document.getElementById("pontuacao-senha");
-        /** @type {HTMLElement} */
-        this.shortPasswordWarning = document.getElementById("aviso-senha-curta");
+document.addEventListener("DOMContentLoaded", () => {
+    const cadastroForm = document.getElementById("cadastroForm");
+    if (!cadastroForm) return;
 
-        this.inicializar();
-    }
+    const nomeInput = document.getElementById("nome");
+    const sobrenomeInput = document.getElementById("sobrenome");
+    const emailInput = document.getElementById("email");
+    const telefoneInput = document.getElementById("telefone");
+    const dataNascimentoInput = document.getElementById("dataNascimento");
+    const senhaInput = document.getElementById("senha");
+    const confirmarSenhaInput = document.getElementById("confirmarSenha");
+    const termosCheckbox = document.getElementById("termos");
+    const botaoCadastro = document.getElementById("botaoCadastro");
 
-    /**
-     * Inicializa o formulário de cadastro.
-     * Verifica se o usuário já está logado, adiciona estilos e configura os eventos.
-     */
-    inicializar() {
-        if (window.authSystem && window.authSystem.isAuthenticated()) {
-            window.location.href = "painelusuario.html";
-            return;
+    // Elementos de feedback de senha
+    const progressoSenha = document.getElementById("progresso-senha");
+    const nivelSenha = document.getElementById("nivel-senha");
+    const avisoSenhaCurta = document.getElementById("aviso-senha-curta");
+
+    // Adicionar event listeners para validação em tempo real
+    nomeInput.addEventListener("input", () => validarCampo(nomeInput, "Nome é obrigatório.", "Nome deve ter pelo menos 2 caracteres.", /^[a-zA-Záàâãéèêíïóôõöúçñ\s]+$/i, "Nome deve conter apenas letras."));
+    sobrenomeInput.addEventListener("input", () => validarCampo(sobrenomeInput, "Sobrenome é obrigatório.", "Sobrenome deve ter pelo menos 2 caracteres.", /^[a-zA-Záàâãéèêíïóôõöúçñ\s]+$/i, "Sobrenome deve conter apenas letras."));
+    emailInput.addEventListener("input", () => validarCampo(emailInput, "E-mail é obrigatório.", null, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, "E-mail inválido."));
+        telefoneInput.addEventListener("input", () => validarCampo(telefoneInput, "Telefone é obrigatório.", "Telefone inválido.", /^\d{10,11}$/, "Telefone inválido."));
+    dataNascimentoInput.addEventListener("change", validarDataNascimento);
+    senhaInput.addEventListener("input", () => {
+        validarCampo(senhaInput, "Senha é obrigatória.", "A senha deve ter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.", /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, "A senha deve ter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.", 8);
+        verificarForcaSenha();
+        if (confirmarSenhaInput.value) validarConfirmacaoSenha();
+    });
+    confirmarSenhaInput.addEventListener("input", validarConfirmacaoSenha);
+    termosCheckbox.addEventListener("change", validarTermos);
+
+    function validarCampo(inputElement, msgObrigatorio, msgMinLength, regex, msgRegex, minLength = 0) {
+        const id = inputElement.id;
+        const value = inputElement.value.trim();
+        let valido = true;
+
+        if (!value) {
+            mostrarErro(id, msgObrigatorio);
+            valido = false;
+        } else if (minLength > 0 && value.length < minLength) {
+            mostrarErro(id, msgMinLength);
+            valido = false;
+        } else if (regex && !regex.test(value)) {
+            mostrarErro(id, msgRegex);
+            valido = false;
+        } else {
+            limparErro(id);
         }
-
-        this.adicionarEstilos();
-        this.configurarEventos();
-        console.log("📝 Formulário de cadastro atualizado inicializado");
+        return valido;
     }
 
-    /**
-     * Adiciona estilos CSS dinamicamente para mensagens de erro e feedback de senha.
-     */
-    adicionarEstilos() {
-        if (!document.getElementById("cadastro-updated-styles")) {
-            const styles = document.createElement("style");
-            styles.id = "cadastro-updated-styles";
-            styles.textContent = `
-                .error-message {
-                    color: #dc3545;
-                    font-size: 14px;
-                    margin-top: 5px;
-                    display: none;
-                }
-                .error-message.show {
-                    display: block;
-                }
-                .success-message {
-                    color: #28a745;
-                    font-size: 14px;
-                    margin-top: 5px;
-                    display: none;
-                }
-                .success-message.show {
-                    display: block;
-                }
-                .input-error {
-                    border-color: #dc3545 !important;
-                    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
-                }
-                .input-success {
-                    border-color: #28a745 !important;
-                    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25) !important;
-                }
-                .loading-spinner {
-                    display: inline-block;
-                    width: 20px;
-                    height: 20px;
-                    border: 3px solid #f3f3f3;
-                    border-top: 3px solid #3498db;
-                    border-radius: 50%;
-                    animation: spin 1s linear infinite;
-                    margin-right: 10px;
-                }
-                @keyframes spin {
-                    0% { transform: rotate(0deg); }
-                    100% { transform: rotate(360deg); }
-                }
-                .password-strength {
-                    margin-top: 10px;
-                    padding: 10px;
-                    border-radius: 5px;
-                    font-size: 14px;
-                    display: none;
-                }
-                .password-strength.show {
-                    display: block;
-                }
-                .strength-weak {
-                    background-color: #f8d7da;
-                    color: #721c24;
-                    border: 1px solid #f5c6cb;
-                }
-                .strength-medium {
-                    background-color: #fff3cd;
-                    color: #856404;
-                    border: 1px solid #ffeaa7;
-                }
-                .strength-strong {
-                    background-color: #d4edda;
-                    color: #155724;
-                    border: 1px solid #c3e6cb;
-                }
-            `;
-            document.head.appendChild(styles);
+    function validarDataNascimento() {
+        const dataNascimento = new Date(dataNascimentoInput.value);
+        const hoje = new Date();
+        let idade = hoje.getFullYear() - dataNascimento.getFullYear();
+        const m = hoje.getMonth() - dataNascimento.getMonth();
+        if (m < 0 || (m === 0 && hoje.getDate() < dataNascimento.getDate())) {
+            idade--;
+        }
+        if (isNaN(dataNascimento.getTime()) || !dataNascimentoInput.value) {
+            mostrarErro("dataNascimento", "Data de Nascimento é obrigatória.");
+            return false;
+        } else if (idade < 18) {
+            mostrarErro("dataNascimento", "Você deve ser maior de 18 anos para se cadastrar.");
+            return false;
+        } else {
+            limparErro("dataNascimento");
+            return true;
         }
     }
 
-    /**
-     * Configura os event listeners para o formulário e seus campos.
-     */
-    configurarEventos() {
-        this.formulario.addEventListener("submit", this.lidarComEnvio.bind(this));
-        
-        this.entradaNome.addEventListener("blur", () => this.validarNome());
-        this.entradaNome.addEventListener("input", () => this.limparErro("nome"));
-        
-        this.entradaSobrenome.addEventListener("blur", () => this.validarSobrenome());
-        this.entradaSobrenome.addEventListener("input", () => this.limparErro("sobrenome"));
-        
-        this.entradaEmail.addEventListener("blur", () => this.validarEmail());
-        this.entradaEmail.addEventListener("input", () => this.limparErro("email"));
-        
-        this.entradaSenha.addEventListener("input", () => {
-            this.verificarForcaSenha();
-            this.limparErro("senha");
-            if (this.entradaConfirmarSenha.value) {
-                this.validarConfirmacaoSenha();
+    function validarConfirmacaoSenha() {
+        const senha = senhaInput.value;
+        const confirmacao = confirmarSenhaInput.value;
+        if (!confirmacao) {
+            mostrarErro("confirmarSenha", "Confirmação de senha é obrigatória.");
+            return false;
+        } else if (senha !== confirmacao) {
+            mostrarErro("confirmarSenha", "As senhas não coincidem.");
+            return false;
+        } else {
+            limparErro("confirmarSenha");
+            return true;
+        }
+    }
+
+    function validarTermos() {
+        if (!termosCheckbox.checked) {
+            mostrarErro("termos", "Você deve aceitar os termos e condições.");
+            return false;
+        } else {
+            limparErro("termos");
+            return true;
+        }
+    }
+
+    function verificarForcaSenha() {
+        const senha = senhaInput.value;
+        let forca = 0;
+        let nivel = "";
+        let cor = "";
+
+        // Critérios de força
+        const temMinuscula = /[a-z]/.test(senha);
+        const temMaiuscula = /[A-Z]/.test(senha);
+        const temNumero = /[0-9]/.test(senha);
+        const temEspecial = /[^a-zA-Z0-9]/.test(senha);
+
+        // Pontuação baseada no comprimento
+        if (senha.length >= 8) forca += 20;
+        if (senha.length >= 12) forca += 20;
+
+        // Pontuação baseada na variedade de caracteres
+        let tiposCaracteres = 0;
+        if (temMinuscula) tiposCaracteres++;
+        if (temMaiuscula) tiposCaracteres++;
+        if (temNumero) tiposCaracteres++;
+        if (temEspecial) tiposCaracteres++;
+
+        if (tiposCaracteres >= 3) forca += 30;
+        if (tiposCaracteres >= 4) forca += 30;
+
+        // Ajustar forca máxima para 100
+        forca = Math.min(forca, 100);
+
+        // Definir nível e cor
+        if (senha.length === 0) {
+            nivel = "";
+            cor = "";
+            forca = 0;
+        } else if (forca < 40) {
+            nivel = "Fraca";
+            cor = "#ef4444"; // Vermelho
+        } else if (forca < 70) {
+            nivel = "Média";
+            cor = "#f59e0b"; // Laranja
+        } else {
+            nivel = "Forte";
+            cor = "#10b981"; // Verde
+        }
+
+        // Atualizar UI
+        if (progressoSenha) {
+            progressoSenha.style.width = forca + "%";
+            progressoSenha.style.backgroundColor = cor;
+            progressoSenha.className = `progresso-forca-senha ${nivel.toLowerCase()}`;
+        }
+
+        if (nivelSenha) {
+            nivelSenha.textContent = nivel;
+            nivelSenha.className = `nivel-forca ${nivel.toLowerCase()}`;
+        }
+
+        if (avisoSenhaCurta) {
+            if (senha.length > 0 && senha.length < 8) {
+                avisoSenhaCurta.style.display = "flex";
+            } else {
+                avisoSenhaCurta.style.display = "none";
             }
-        });
-        
-        this.entradaConfirmarSenha.addEventListener("input", () => {
-            this.validarConfirmacaoSenha();
-        });
-    }
-
-    /**
-     * Lida com o evento de submissão do formulário de cadastro.
-     * Realiza a validação dos campos e tenta registrar o novo usuário através do `authSystem`.
-     * @param {Event} e - O evento de submissão do formulário.
-     */
-    async lidarComEnvio(e) {
-        e.preventDefault();
-        
-        this.limparTodosErros();
-        
-        const nomeValido = this.validarNome();
-        const sobrenomeValido = this.validarSobrenome();
-        const emailValido = this.validarEmail();
-        const senhaValida = this.validarSenha();
-        const confirmacaoValida = this.validarConfirmacaoSenha();
-        
-        if (!nomeValido || !sobrenomeValido || !emailValido || !senhaValida || !confirmacaoValida) {
-            window.authSystem.showMessage("Por favor, corrija os erros no formulário.", "error");
-            return;
         }
 
-        this.mostrarLoading(true);
+        // Exibir/ocultar o indicador de força da senha
+        const indicadorSenhaContainer = document.getElementById("indicador-senha-container");
+        if (indicadorSenhaContainer) {
+            if (senha.length > 0) {
+                indicadorSenhaContainer.classList.add("visivel");
+            } else {
+                indicadorSenhaContainer.classList.remove("visivel");
+            }
+        }
+    }
+
+    cadastroForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (!validarFormularioCompleto()) return;
+
+        const data = {
+            nome: nomeInput.value,
+            sobrenome: sobrenomeInput.value,
+            email: emailInput.value,
+            telefone: telefoneInput.value,
+            data_nascimento: dataNascimentoInput.value,
+            senha: senhaInput.value
+        };
 
         try {
-            const dadosUsuario = {
-                nome: this.entradaNome.value.trim(),
-                sobrenome: this.entradaSobrenome.value.trim(),
-                email: this.entradaEmail.value.trim(),
-                senha: this.entradaSenha.value
-            };
+            const response = await fetch("/php/api.php/auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
 
-            const resultado = await window.authSystem.registerUser(dadosUsuario);
-            
-            if (resultado.success) {
-                window.authSystem.showMessage("Cadastro realizado com sucesso! Redirecionando para o login...", "success");
-                
-                this.formulario.reset();
-                this.limparTodosErros();
-                
-                setTimeout(() => {
-                    window.location.href = "login.html";
-                }, 2000);
-                
+            const result = await response.json();
+
+            if (response.ok) {
+                alert("Cadastro realizado com sucesso! Verifique seu e-mail para ativar sua conta.");
+                window.location.href = "login.html";
             } else {
-                window.authSystem.showMessage(resultado.error, "error");
-                
-                if (resultado.error.includes("e-mail já está cadastrado")) {
-                    this.mostrarErro("email", resultado.error);
-                }
+                    console.error(`Erro: ${result.error}`);
             }
-            
         } catch (error) {
-            console.error("Erro no cadastro:", error);
-            window.authSystem.showMessage("Erro interno. Tente novamente.", "error");
-        } finally {
-            this.mostrarLoading(false);
+            console.error("Erro ao cadastrar:", error);
+            alert("Ocorreu um erro. Tente novamente.");
         }
+    });
+
+    function validarFormularioCompleto() {
+        let isValid = true;
+        let nomeValido = validarCampo(nomeInput, "Nome é obrigatório.", "Nome deve ter pelo menos 2 caracteres.", /^[a-zA-Záàâãéèêíïóôõöúçñ\s]+$/i, "Nome deve conter apenas letras.");
+        let sobrenomeValido = validarCampo(sobrenomeInput, "Sobrenome é obrigatório.", "Sobrenome deve ter pelo menos 2 caracteres.", /^[a-zA-Záàâãéèêíïóôõöúçñ\s]+$/i, "Sobrenome deve conter apenas letras.");
+        let emailValido = validarCampo(emailInput, "E-mail é obrigatório.", null, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, "E-mail inválido.");
+        let telefoneValido = validarCampo(telefoneInput, "Telefone é obrigatório.", "Telefone inválido.", /^\d{10,11}$/, "Telefone inválido.");
+        let dataNascimentoValida = validarDataNascimento();
+        let senhaValida = validarCampo(senhaInput, "Senha é obrigatória.", "A senha deve ter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.", /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, "A senha deve ter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.", 8);
+        let confirmarSenhaValida = validarConfirmacaoSenha();
+        let termosValidos = validarTermos();
+
+        return nomeValido && sobrenomeValido && emailValido && telefoneValido && dataNascimentoValida && senhaValida && confirmarSenhaValida && termosValidos;
     }
 
-    /**
-     * Valida o campo nome.
-     * @returns {boolean} True se o nome for válido, false caso contrário.
-     */
-    validarNome() {
-        const nome = this.entradaNome.value.trim();
-        if (!nome) return this.mostrarErro("nome", "Nome é obrigatório");
-        if (nome.length < 2) return this.mostrarErro("nome", "Nome deve ter pelo menos 2 caracteres");
-        if (!/^[a-záàâãéèêíïóôõöúçñ\s]+$/i.test(nome)) return this.mostrarErro("nome", "Nome deve conter apenas letras");
-        this.mostrarSucesso("nome");
-        return true;
-    }
-
-    /**
-     * Valida o campo sobrenome.
-     * @returns {boolean} True se o sobrenome for válido, false caso contrário.
-     */
-    validarSobrenome() {
-        const sobrenome = this.entradaSobrenome.value.trim();
-        if (!sobrenome) return this.mostrarErro("sobrenome", "Sobrenome é obrigatório");
-        if (sobrenome.length < 2) return this.mostrarErro("sobrenome", "Sobrenome deve ter pelo menos 2 caracteres");
-        if (!/^[a-záàâãéèêíïóôõöúçñ\s]+$/i.test(sobrenome)) return this.mostrarErro("sobrenome", "Sobrenome deve conter apenas letras");
-        this.mostrarSucesso("sobrenome");
-        return true;
-    }
-
-    /**
-     * Valida o campo e-mail.
-     * @returns {boolean} True se o e-mail for válido, false caso contrário.
-     */
-    validarEmail() {
-        const email = this.entradaEmail.value.trim();
-        const padraoEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!email) return this.mostrarErro("email", "E-mail é obrigatório");
-        if (!padraoEmail.test(email)) return this.mostrarErro("email", "E-mail inválido");
-        this.mostrarSucesso("email");
-        return true;
-    }
-
-    /**
-     * Valida o campo senha.
-     * @returns {boolean} True se a senha for válida, false caso contrário.
-     */
-    validarSenha() {
-        const senha = this.entradaSenha.value;
-        if (!senha) return this.mostrarErro("senha", "Senha é obrigatória");
-        if (senha.length < 8) return this.mostrarErro("senha", "Senha deve ter pelo menos 8 caracteres");
-        this.mostrarSucesso("senha");
-        return true;
-    }
-
-    /**
-     * Valida o campo de confirmação de senha.
-     * @returns {boolean} True se as senhas coincidirem e o campo for válido, false caso contrário.
-     */
-    validarConfirmacaoSenha() {
-        const senha = this.entradaSenha.value;
-        const confirmacao = this.entradaConfirmarSenha.value;
-        
-        if (!confirmacao) return this.mostrarErro("confirmar-senha", "Confirmação de senha é obrigatória");
-        if (senha !== confirmacao) return this.mostrarErro("confirmar-senha", "As senhas não coincidem");
-        this.mostrarSucesso("confirmar-senha");
-        return true;
-    }
-
-    /**
-     * Calcula a força da senha e atualiza o feedback visual.
-     */
-    verificarForcaSenha() {
-        const senha = this.entradaSenha.value;
-        
-        if (senha.length === 0) {
-            this.esconderForcaSenha();
+    function mostrarErro(campo, mensagem) {
+        console.log(`Mostrando erro para o campo: ${campo}, mensagem: ${mensagem}`);
+        const erroDiv = document.getElementById(`erro-${campo}`);
+        if (!erroDiv) {
+            console.error(`Elemento de erro com ID 'erro-${campo}' não encontrado.`);
             return;
         }
-
-        let score = 0;
-        let feedback = "";
-        
-        if (senha.length >= 8) score += 25;
-        if (senha.length >= 12) score += 25;
-        if (/[a-z]/.test(senha)) score += 10;
-        if (/[A-Z]/.test(senha)) score += 10;
-        if (/[0-9]/.test(senha)) score += 15;
-        if (/[^A-Za-z0-9]/.test(senha)) score += 15;
-
-        if (score < 50) {
-            feedback = "Senha fraca - Adicione mais caracteres, números e símbolos";
-            this.mostrarForcaSenha(feedback, "weak");
-        } else if (score < 80) {
-            feedback = "Senha média - Boa, mas pode ser melhorada";
-            this.mostrarForcaSenha(feedback, "medium");
-        } else {
-            feedback = "Senha forte - Excelente!";
-            this.mostrarForcaSenha(feedback, "strong");
-        }
-
-        if (senha.length > 0 && senha.length < 8) {
-            this.shortPasswordWarning.textContent = "A senha deve ter pelo menos 8 caracteres.";
-            this.shortPasswordWarning.classList.remove("apenas-leitura-tela");
-        } else {
-            this.shortPasswordWarning.textContent = "";
-            this.shortPasswordWarning.classList.add("apenas-leitura-tela");
-        }
+        erroDiv.textContent = mensagem;
+        erroDiv.style.display = "block";
     }
 
-    /**
-     * Exibe o indicador de força da senha com o texto e nível especificados.
-     * @param {string} text - O texto de feedback da força da senha.
-     * @param {("weak"|"medium"|"strong")} level - O nível de força da senha para estilização.
-     */
-    mostrarForcaSenha(text, level) {
-        let indicador = document.getElementById("password-strength");
-        if (!indicador) {
-            indicador = document.createElement("div");
-            indicador.id = "password-strength";
-            indicador.className = "password-strength";
-            this.entradaSenha.parentNode.appendChild(indicador);
+    function limparErro(campo) {
+        console.log(`Limpando erro para o campo: ${campo}`);
+        const erroDiv = document.getElementById(`erro-${campo}`);
+        if (!erroDiv) {
+            console.error(`Elemento de erro com ID 'erro-${campo}' não encontrado.`);
+            return;
         }
-        
-        indicador.textContent = text;
-        indicador.className = `password-strength strength-${level} show`;
+        erroDiv.textContent = "";
+        erroDiv.style.display = "none";
     }
 
-    /**
-     * Esconde o indicador de força da senha.
-     */
-    esconderForcaSenha() {
-        const indicador = document.getElementById("password-strength");
-        if (indicador) {
-            indicador.classList.remove("show");
-        }
-    }
+});
 
-    /**
-     * Exibe uma mensagem de erro para um campo específico do formulário.
-     * @param {string} field - O nome do campo (ex: 'nome', 'email').
-     * @param {string} message - A mensagem de erro a ser exibida.
-     * @returns {boolean} Sempre retorna false.
-     */
-    mostrarErro(field, message) {
-        const inputElement = this[`entrada${field.charAt(0).toUpperCase() + field.slice(1)}`];
-        let errorDiv = document.getElementById(`erro-${field}`);
-        
-        if (!errorDiv) {
-            errorDiv = document.createElement("div");
-            errorDiv.id = `erro-${field}`;
-            errorDiv.className = "error-message";
-            inputElement.parentNode.appendChild(errorDiv);
-        }
-        
-        inputElement.classList.remove("input-success");
-        inputElement.classList.add("input-error");
-        errorDiv.textContent = message;
-        errorDiv.classList.add("show");
-        return false;
-    }
-
-    /**
-     * Exibe um feedback de sucesso para um campo específico do formulário.
-     * @param {string} field - O nome do campo (ex: 'nome', 'email').
-     * @returns {boolean} Sempre retorna true.
-     */
-    mostrarSucesso(field) {
-        const inputElement = this[`entrada${field.charAt(0).toUpperCase() + field.slice(1)}`];
-        const errorDiv = document.getElementById(`erro-${field}`);
-        
-        inputElement.classList.remove("input-error");
-        inputElement.classList.add("input-success");
-        
-        if (errorDiv) {
-            errorDiv.classList.remove("show");
-        }
-        return true;
-    }
-
-    /**
-     * Limpa a mensagem de erro e os estilos de erro/sucesso de um campo específico.
-     * @param {string} field - O nome do campo (ex: 'nome', 'email').
-     */
-    limparErro(field) {
-        const inputElement = this[`entrada${field.charAt(0).toUpperCase() + field.slice(1)}`];
-        const errorDiv = document.getElementById(`erro-${field}`);
-        
-        inputElement.classList.remove("input-error", "input-success");
-        
-        if (errorDiv) {
-            errorDiv.classList.remove("show");
-            errorDiv.textContent = "";
-        }
-    }
-
-    /**
-     * Limpa todas as mensagens de erro e estilos de erro/sucesso de todos os campos do formulário.
-     */
-    limparTodosErros() {
-        ["nome", "sobrenome", "email", "senha", "confirmar-senha"].forEach(field => { // Corrigido para 'confirmar-senha'
-            this.limparErro(field);
-        });
-    }
-
-    /**
-     * Exibe ou oculta um spinner de carregamento no botão de cadastro.
-     * @param {boolean} show - True para mostrar o spinner, false para ocultar.
-     */
-    mostrarLoading(show) {
-        if (show) {
-            this.botaoCadastro.disabled = true;
-            this.botaoCadastro.innerHTML = "<span class=\"loading-spinner\"></span>Criando conta...";
-        } else {
-            this.botaoCadastro.disabled = false;
-            this.botaoCadastro.innerHTML = "Criar Conta";
-        }
+function togglePasswordVisibility(fieldId) {
+    const field = document.getElementById(fieldId);
+    const icon = field.closest(".floating-label-container").querySelector(".toggle-password i");
+    if (field.type === "password") {
+        field.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    } else {
+        field.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
     }
 }
 
-// Inicializar quando o DOM estiver carregado
-document.addEventListener("DOMContentLoaded", () => {
-    // Aguardar o sistema de autenticação estar disponível
-    const inicializarCadastro = () => {
-        if (window.authSystem) {
-            new FormularioCadastroAtualizado();
-        } else {
-            setTimeout(inicializarCadastro, 100);
-        }
-    };
-    
-    inicializarCadastro();
-});
-
-console.log("📝 Sistema de cadastro atualizado carregado");

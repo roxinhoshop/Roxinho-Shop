@@ -1,7 +1,4 @@
-/* ===== Roxinho Shop - E-COMMERCE DE ELETRÔNICOS ===== */
-/* Desenvolvido por Gabriel (gabwvr) */
-/* Este arquivo contém estilos para [SEÇÃO] */
-/* Cores principais: Roxo (#7c3aed) e Amarelo (#eab308) */
+/* Estilos para a página inicial (home) */
 
 
 /* ======================= RESET E BASE ======================= */
@@ -894,6 +891,226 @@ body {
   
   .categoria-card i {
     font-size: 2.5rem;
+  }
+}
+
+
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 15px;
+  }
+
+  .banner {
+    height: 350px;
+  }
+
+  .beneficios {
+    gap: 20px;
+    padding: 20px 0;
+  }
+
+  .beneficio {
+    flex-direction: column;
+    text-align: center;
+    gap: 5px;
+  }
+
+  .beneficio i {
+    font-size: 20px;
+  }
+
+  .beneficio p {
+    font-size: 0.9rem;
+  }
+
+  .titulo-secao {
+    font-size: 2.2rem;
+  }
+
+  .subtitulo-secao {
+    font-size: 1rem;
+  }
+
+  .grade-produtos-home {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+
+  .card-produto-home {
+    padding: 10px;
+  }
+
+  .produto-nome {
+    font-size: 0.95rem;
+  }
+
+  .preco-atual {
+    font-size: 1rem;
+  }
+
+  .botoes-produto-home {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-banners {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .banner-promocional {
+    min-height: 180px;
+  }
+
+  .conteudo-banner h3 {
+    font-size: 1.8rem;
+  }
+
+  .conteudo-banner p {
+    font-size: 1rem;
+  }
+
+  .btn-banner {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+
+  .grid-categorias {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .categoria-card {
+    padding: 20px;
+  }
+
+  .categoria-card h3 {
+    font-size: 1.3rem;
+  }
+
+  .categoria-card p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .banner {
+    height: 300px;
+  }
+
+  .titulo-secao {
+    font-size: 2rem;
+  }
+
+  .subtitulo-secao {
+    font-size: 0.9rem;
+  }
+
+  .grade-produtos-home {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .produto-imagem {
+    height: 150px;
+  }
+
+  .banner-promocional {
+    min-height: 150px;
+  }
+
+  .conteudo-banner h3 {
+    font-size: 1.5rem;
+  }
+
+  .conteudo-banner p {
+    font-size: 0.9rem;
+  }
+
+  .grid-categorias {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .categoria-card {
+    padding: 15px;
+  }
+
+  .categoria-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .categoria-card p {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner {
+    height: 250px;
+  }
+
+  .titulo-secao {
+    font-size: 1.8rem;
+  }
+
+  .subtitulo-secao {
+    font-size: 0.8rem;
+  }
+
+  .grade-produtos-home {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .produto-imagem {
+    height: 120px;
+  }
+
+  .card-produto-home {
+    padding: 8px;
+  }
+
+  .produto-nome {
+    font-size: 0.85rem;
+  }
+
+  .preco-atual {
+    font-size: 0.9rem;
+  }
+
+  .btn-adicionar-carrinho, .btn-comprar-direto {
+    font-size: 0.75rem;
+    padding: 6px 10px;
+  }
+
+  .banner-promocional {
+    min-height: 120px;
+  }
+
+  .conteudo-banner h3 {
+    font-size: 1.2rem;
+  }
+
+  .conteudo-banner p {
+    font-size: 0.8rem;
+  }
+
+  .btn-banner {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+
+  .categoria-card {
+    padding: 10px;
+  }
+
+  .categoria-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .categoria-card p {
+    font-size: 0.8rem;
   }
 }
 
