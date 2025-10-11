@@ -244,46 +244,41 @@ class DatabaseMigration {
 
   // Simular criação de tabelas (para desenvolvimento frontend)
   async createTables() {
-    console.log('🗄️ Criando estrutura do banco de dados...');
+  
     
     // Simular criação das tabelas
     for (const [tableName, schema] of Object.entries(DB_SCHEMA)) {
-      console.log(`📋 Criando tabela: ${tableName}`);
+      
       
       // Em produção, aqui seria executado o SQL real
       // CREATE TABLE ${tableName} (${this.generateSQL(schema)})
     }
     
-    console.log('✅ Estrutura do banco criada com sucesso!');
-    return true;
+       return true;
   }
 
   // Inserir dados iniciais
   async seedDatabase() {
-    console.log('🌱 Inserindo dados iniciais...');
+  
     
     // Simular inserção de dados
-    console.log('📂 Inserindo categorias...');
-    console.log('👤 Criando usuário administrador...');
-    
-    console.log('✅ Dados iniciais inseridos com sucesso!');
+          
+  
     return true;
   }
 
   // Verificar se o banco está configurado
   async checkConnection() {
-    console.log('🔌 Verificando conexão com banco de dados...');
-    
+       
     // Em produção, aqui seria testada a conexão real
     // Simular verificação
     const isConnected = true; // Simular sucesso
     
     if (isConnected) {
-      console.log('✅ Conexão estabelecida com sucesso!');
+    
       this.isInitialized = true;
     } else {
-      console.error('❌ Falha na conexão com banco de dados');
-    }
+         }
     
     return isConnected;
   }
@@ -310,7 +305,7 @@ class DataAccess {
       await this.migration.seedDatabase();
     }
     
-    console.log('🎯 Sistema de banco de dados pronto para uso!');
+  
     return true;
   }
 
@@ -373,11 +368,9 @@ window.dataAccess = dataAccess;
 
 // Auto-inicializar em desenvolvimento
 document.addEventListener('DOMContentLoaded', async () => {
-  console.log('🚀 Inicializando sistema de banco de dados...');
+  
   await dataAccess.initialize();
 });
-
-console.log('📊 Configuração de banco de dados carregada');
 
 // ===== INSTRUÇÕES PARA PRODUÇÃO =====
 /*
