@@ -46,11 +46,11 @@ class AdminPanelAPI {
             if (response && response.status === 'success') {
                 this.renderDashboard(response);
             } else {
-                console.error("❌ Erro ao carregar dashboard:", response.message);
+                console.error("❌ Erro ao carregar dashboard: ", response.message);
                 window.authSystem.showMessage(response.message || "Erro ao carregar dados do dashboard.", "error");
             }
         } catch (error) {
-            console.error("❌ Erro ao carregar dashboard:", error);
+            console.error("❌ Erro ao carregar dashboard: ", error);
             window.authSystem.showMessage("Erro de conexão ao carregar dados do dashboard.", "error");
         }
     }
@@ -146,11 +146,11 @@ class AdminPanelAPI {
                 this.renderCategoryOptions();
                 this.renderCategoriesTable();
             } else {
-                console.error("❌ Erro ao carregar categorias:", response.message);
+                console.error("❌ Erro ao carregar categorias: ", response.message);
                 window.authSystem.showMessage(response.message || "Erro ao carregar categorias.", "error");
             }
         } catch (error) {
-            console.error("❌ Erro ao carregar categorias:", error);
+            console.error("❌ Erro ao carregar categorias: ", error);
             window.authSystem.showMessage("Erro de conexão ao carregar categorias.", "error");
         }
     }
@@ -172,11 +172,11 @@ class AdminPanelAPI {
                 this.currentProducts = response.products;
                 this.renderProductsTable();
             } else {
-                console.error("❌ Erro ao carregar produtos:", response.message);
+                console.error("❌ Erro ao carregar produtos: ", response.message);
                 window.authSystem.showMessage(response.message || "Erro ao carregar produtos.", "error");
             }
         } catch (error) {
-            console.error("❌ Erro ao carregar produtos:", error);
+            console.error("❌ Erro ao carregar produtos: ", error);
             window.authSystem.showMessage("Erro de conexão ao carregar produtos.", "error");
         }
     }
@@ -790,7 +790,7 @@ class AdminPanelAPI {
                 throw new Error(response.message || 'Erro ao enviar imagem');
             }
         } catch (error) {
-            console.error('Erro no upload:', error);
+            console.error('Erro no upload: ', error);
             window.authSystem.showMessage(error.message, 'error');
         }
     }
@@ -881,7 +881,7 @@ class AdminPanelAPI {
                 throw new Error(response.message || 'Erro ao carregar imagens da galeria.');
             }
         } catch (error) {
-            console.error('Erro ao carregar galeria:', error);
+            console.error('Erro ao carregar galeria: ', error);
             galleryGrid.innerHTML = `
                 <div class="gallery-empty">
                     <i class="fas fa-exclamation-triangle"></i>

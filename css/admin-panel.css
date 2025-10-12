@@ -28,13 +28,13 @@ body {
 }
 
 /* Layout Geral */
-.admin-wrapper {
+.wrapper-admin {
     display: flex;
     min-height: 100vh;
 }
 
 /* Sidebar */
-.admin-sidebar {
+.sidebar-admin {
     width: 250px;
     background: white;
     box-shadow: var(--shadow-medium);
@@ -58,16 +58,16 @@ body {
     text-align: center;
 }
 
-.admin-nav-list {
+.nav-list-admin {
     list-style: none;
     padding: 0;
 }
 
-.admin-nav-item {
+.nav-item-admin {
     margin-bottom: 5px;
 }
 
-.admin-nav-link {
+.nav-link-admin {
     display: flex;
     align-items: center;
     gap: 15px;
@@ -79,38 +79,38 @@ body {
     font-weight: 500;
 }
 
-.admin-nav-link:hover {
+.nav-link-admin:hover {
     background-color: var(--bg-dark);
     color: var(--primary-color);
     border-left-color: var(--primary-light);
 }
 
-.admin-nav-link.active {
+.nav-link-admin.active {
     background-color: var(--primary-color);
     color: white;
     border-left-color: var(--secondary-color);
 }
 
-.admin-nav-link.active:hover {
+.nav-link-admin.active:hover {
     background-color: var(--primary-light);
     color: white;
 }
 
-.admin-nav-link i {
+.nav-link-admin i {
     font-size: 1.2rem;
     width: 20px;
     text-align: center;
 }
 
 /* Conteúdo Principal */
-.admin-main {
+.main-admin {
     flex-grow: 1;
     padding: 30px;
     background-color: var(--bg-light);
 }
 
 /* Header do Conteúdo Principal */
-.admin-content-header {
+.header-conteudo-admin {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -121,19 +121,19 @@ body {
     box-shadow: var(--shadow-light);
 }
 
-.admin-content-header h1 {
+.header-conteudo-admin h1 {
     font-size: 2rem;
     color: var(--text-color);
     margin: 0;
 }
 
-.admin-content-header .user-profile {
+.header-conteudo-admin .user-profile {
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
-.admin-content-header .user-profile img {
+.header-conteudo-admin .user-profile img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -141,12 +141,12 @@ body {
     border: 2px solid var(--primary-color);
 }
 
-.admin-content-header .user-profile span {
+.header-conteudo-admin .user-profile span {
     font-weight: 600;
     color: var(--text-color);
 }
 
-.admin-content-header .logout-btn {
+.header-conteudo-admin .logout-btn {
     background-color: var(--secondary-color);
     color: white;
     padding: 8px 15px;
@@ -156,12 +156,12 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.admin-content-header .logout-btn:hover {
+.header-conteudo-admin .logout-btn:hover {
     background-color: #e68a00;
 }
 
 /* Seções de Conteúdo */
-.admin-section {
+.secao-admin {
     display: none;
     background: white;
     padding: 30px;
@@ -170,11 +170,11 @@ body {
     margin-bottom: 30px;
 }
 
-.admin-section.active {
+.secao-admin.active {
     display: block;
 }
 
-.section-title {
+.titulo-secao {
     font-size: 1.8rem;
     color: var(--text-color);
     margin-bottom: 20px;
@@ -276,7 +276,7 @@ body {
     box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
 }
 
-.form-grid {
+.grid-formulario {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
@@ -299,26 +299,26 @@ body {
 }
 
 /* Tabelas */
-.admin-table-container {
+.container-tabela-admin {
     overflow-x: auto;
     margin-top: 20px;
 }
 
-.admin-table {
+.tabela-admin {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
     min-width: 700px; /* Garante que a tabela não fique muito pequena */
 }
 
-.admin-table th,
-.admin-table td {
+.tabela-admin th,
+.tabela-admin td {
     padding: 15px;
     text-align: left;
     border-bottom: 1px solid var(--border-color);
 }
 
-.admin-table th {
+.tabela-admin th {
     background-color: var(--bg-dark);
     font-weight: 600;
     color: var(--text-color);
@@ -326,15 +326,15 @@ body {
     font-size: 0.9rem;
 }
 
-.admin-table tr:last-child td {
+.tabela-admin tr:last-child td {
     border-bottom: none;
 }
 
-.admin-table tbody tr:hover {
+.tabela-admin tbody tr:hover {
     background-color: var(--bg-dark);
 }
 
-.admin-table img {
+.tabela-admin img {
     width: 50px;
     height: 50px;
     object-fit: cover;
@@ -566,35 +566,35 @@ body {
 
 /* Responsividade */
 @media (max-width: 992px) {
-    .admin-sidebar {
+    .sidebar-admin {
         width: 80px;
     }
 
-    .admin-sidebar .sidebar-header h2,
-    .admin-sidebar .admin-nav-link span {
+    .sidebar-admin .sidebar-header h2,
+    .sidebar-admin .nav-link-admin span {
         display: none;
     }
 
-    .admin-sidebar .admin-nav-link {
+    .sidebar-admin .nav-link-admin {
         justify-content: center;
         padding: 15px 0;
     }
 
-    .admin-main {
+    .main-admin {
         margin-left: 80px;
     }
 
-    .admin-content-header h1 {
+    .header-conteudo-admin h1 {
         font-size: 1.5rem;
     }
 }
 
 @media (max-width: 768px) {
-    .admin-wrapper {
+    .wrapper-admin {
         flex-direction: column;
     }
 
-    .admin-sidebar {
+    .sidebar-admin {
         width: 100%;
         height: auto;
         position: relative;
@@ -606,77 +606,77 @@ body {
         display: none;
     }
 
-    .admin-nav-list {
+    .nav-list-admin {
         display: flex;
         justify-content: space-around;
         flex-wrap: wrap;
         border-bottom: 1px solid var(--border-color);
     }
 
-    .admin-nav-item {
+    .nav-item-admin {
         flex-grow: 1;
         text-align: center;
     }
 
-    .admin-nav-link {
+    .nav-link-admin {
         justify-content: center;
         padding: 10px 5px;
         border-left: none;
         border-bottom: 4px solid transparent;
     }
 
-    .admin-nav-link:hover,
-    .admin-nav-link.active {
+    .nav-link-admin:hover,
+    .nav-link-admin.active {
         border-left: none;
         border-bottom-color: var(--primary-light);
     }
 
-    .admin-nav-link.active {
+    .nav-link-admin.active {
         border-bottom-color: var(--secondary-color);
     }
 
-    .admin-nav-link span {
+    .nav-link-admin span {
         display: block;
         font-size: 0.75rem;
         margin-top: 5px;
     }
 
-    .admin-main {
+    .main-admin {
         margin-left: 0;
         padding: 20px;
     }
 
-    .admin-content-header {
+    .header-conteudo-admin {
         flex-direction: column;
         align-items: flex-start;
         gap: 15px;
         padding: 15px 20px;
     }
 
-    .admin-content-header h1 {
+    .header-conteudo-admin h1 {
         font-size: 1.3rem;
     }
 
-    .admin-content-header .user-profile {
+    .header-conteudo-admin .user-profile {
         width: 100%;
         justify-content: space-between;
     }
 
-    .section-title {
+    .titulo-secao {
         font-size: 1.5rem;
     }
 
-    .form-grid {
+    .grid-formulario {
         grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 480px) {
-    .admin-nav-link i {
+    .nav-link-admin i {
         font-size: 1rem;
     }
 
-    .admin-nav-link span {
+    .nav-link-admin span {
         font-size: 0.7rem;
     }
 

@@ -3,7 +3,7 @@
 // Sistema da página home integrado com carrinho unificado
 // Comentários didáticos para facilitar o entendimento
 
-// ======================= BANNER CAROUSEL ======================= //
+// ======================= CARROSSEL DE BANNERS ======================= //
 
 let slideAtual = 0;
 let slides, indicadores;
@@ -50,14 +50,14 @@ async function renderizarProdutosDestaque() {
   const container = document.getElementById("grade-produtos-home");
   
   if (!container) {
-    console.error("Container grade-produtos-home não encontrado");
+    console.error("Container 'grade-produtos-home' não encontrado");
     return;
   }
 
   try {
     const response = await fetch("/api/products/featured"); // Assumindo este endpoint para produtos em destaque
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(`Erro HTTP! status:  ${response.status}`);
     }
     const produtos = await response.json();
 
@@ -153,7 +153,7 @@ async function renderizarProdutosDestaque() {
     console.log(`${produtos.length} produtos em destaque renderizados`);
 
   } catch (error) {
-    console.error("Erro ao carregar produtos em destaque:", error);
+    console.error("Erro ao carregar produtos em destaque: ", error);
     showNotification("Erro ao carregar produtos em destaque. Tente recarregar a página.", "error");
     container.innerHTML = `
       <div class="erro-produtos">
@@ -244,7 +244,7 @@ function tentarCarregarProdutos(tentativas = 0) {
 
 // Executar quando a página carregar
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('Home page carregada');
+  console.log('Página inicial carregada');
   
   // Inicializar banner
   inicializarBanner();
