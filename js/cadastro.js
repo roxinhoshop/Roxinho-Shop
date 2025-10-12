@@ -26,7 +26,10 @@ document.addEventListener("DOMContentLoaded", () => {
     nomeInput.addEventListener("input", () => validarCampo(nomeInput, "Nome é obrigatório.", "Nome deve ter pelo menos 2 caracteres.", /^[a-zA-Záàâãéèêíïóôõöúçñ\s]+$/i, "Nome deve conter apenas letras."));
     sobrenomeInput.addEventListener("input", () => validarCampo(sobrenomeInput, "Sobrenome é obrigatório.", "Sobrenome deve ter pelo menos 2 caracteres.", /^[a-zA-Záàâãéèêíïóôõöúçñ\s]+$/i, "Sobrenome deve conter apenas letras."));
     emailInput.addEventListener("input", () => validarCampo(emailInput, "E-mail é obrigatório.", null, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, "E-mail inválido."));
-        telefoneInput.addEventListener("input", () => validarCampo(telefoneInput, "Telefone é obrigatório.", "Telefone inválido.", /^\d{10,11}$/, "Telefone inválido."));
+        telefoneInput.addEventListener("input", () => {
+            formatarTelefone(telefoneInput);
+            validarCampo(telefoneInput, "Telefone é obrigatório.", "Telefone inválido.", /^\(\d{2}\)\s\d{4,5}-\d{4}$/, "Telefone inválido.");
+        });
     dataNascimentoInput.addEventListener("change", validarDataNascimento);
     senhaInput.addEventListener("input", () => {
         validarCampo(senhaInput, "Senha é obrigatória.", "A senha deve ter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.", /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, "A senha deve ter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.", 8);
@@ -219,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let nomeValido = validarCampo(nomeInput, "Nome é obrigatório.", "Nome deve ter pelo menos 2 caracteres.", /^[a-zA-Záàâãéèêíïóôõöúçñ\s]+$/i, "Nome deve conter apenas letras.");
         let sobrenomeValido = validarCampo(sobrenomeInput, "Sobrenome é obrigatório.", "Sobrenome deve ter pelo menos 2 caracteres.", /^[a-zA-Záàâãéèêíïóôõöúçñ\s]+$/i, "Sobrenome deve conter apenas letras.");
         let emailValido = validarCampo(emailInput, "E-mail é obrigatório.", null, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, "E-mail inválido.");
-        let telefoneValido = validarCampo(telefoneInput, "Telefone é obrigatório.", "Telefone inválido.", /^\d{10,11}$/, "Telefone inválido.");
+        let telefoneValido = validarCampo(telefoneInput, "Telefone é obrigatório.", "Telefone inválido.", /^\(\d{2}\)\s\d{4,5}-\d{4}$/, "Telefone inválido.");
         let dataNascimentoValida = validarDataNascimento();
         let senhaValida = validarCampo(senhaInput, "Senha é obrigatória.", "A senha deve ter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.", /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, "A senha deve ter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.", 8);
         let confirmarSenhaValida = validarConfirmacaoSenha();
@@ -264,5 +267,23 @@ function togglePasswordVisibility(fieldId) {
         icon.classList.remove("fa-eye-slash");
         icon.classList.add("fa-eye");
     }
+}
+
+
+
+function formatarTelefone(input) {
+    let value = input.value.replace(/\D/g, ""); // Remove tudo que não é dígito
+    let formattedValue = "";
+
+    if (value.length > 0) {
+        formattedValue = "(" + value.substring(0, 2);
+    }
+    if (value.length >= 3) {
+        formattedValue += ") " + value.substring(2, 7);
+    }
+    if (value.length >= 8) {
+        formattedValue += "-" + value.substring(7, 11);
+    }
+    input.value = formattedValue;
 }
 

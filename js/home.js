@@ -55,7 +55,7 @@ async function renderizarProdutosDestaque() {
   }
 
   try {
-    const response = await fetch("/api/products/featured"); // Assumindo este endpoint para produtos em destaque
+    const response = await fetch("http://localhost:3000/api/products/featured"); // Assumindo este endpoint para produtos em destaque
     if (!response.ok) {
       throw new Error(`Erro HTTP! status:  ${response.status}`);
     }

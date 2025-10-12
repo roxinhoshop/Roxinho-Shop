@@ -16,8 +16,6 @@
   <link rel="stylesheet" href="css/carrinho-contador.css">
   <link rel="stylesheet" href="css/responsivo.css">
 
-  <div id="header-placeholder"></div>
-
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
   <link rel="stylesheet" href="css/notifications.css" />
@@ -28,8 +26,9 @@
 </head>
 <body>
 
-  
-<!-- ======================= CARROSSEL DE BANNERS MODERNO ======================= -->
+  <div id="header-placeholder"></div>
+
+  <!-- ======================= CARROSSEL DE BANNERS MODERNO ======================= -->
 <section class="carrossel-moderno">  
   <div class="container-carrossel">
     <div class="slides-wrapper" id="slidesWrapper">
@@ -162,52 +161,10 @@
   
 
   
-  <script>
-  fetch('cabecalhorodape.html')
-    .then(response => response.text())
-    .then(data => {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(data, 'text/html');
 
-      const header = doc.querySelector('nav.cabecalho');
-      const categorias = doc.querySelector('.barra-categorias');
-      const footer = doc.querySelector('footer.rodape');
-
-      if (header) {
-        // Adicionar contador do carrinho ao cabeçalho
-        const carrinhoLink = header.querySelector('.caixa-carrinho');
-        if (carrinhoLink && !carrinhoLink.querySelector('.contador-carrinho')) {
-          const contador = document.createElement('span');
-          contador.id = 'contador-carrinho-cabecalho';
-          contador.className = 'contador-carrinho';
-          contador.textContent = '0';
-          contador.style.display = 'none';
-          carrinhoLink.appendChild(contador);
-        }
-        
-        document.getElementById('header-placeholder').appendChild(header);
-      }
-      if (categorias) document.getElementById('header-placeholder').appendChild(categorias);
-      if (footer) document.getElementById('footer-placeholder').appendChild(footer);
-
-      // Executar scripts do cabecalho/rodape
-      doc.querySelectorAll("script").forEach(oldScript => {
-        const newScript = document.createElement("script");
-        if (oldScript.src) newScript.src = oldScript.src;
-        else newScript.textContent = oldScript.textContent;
-        document.body.appendChild(newScript);
-      });
-
-      // Atualizar contador do carrinho após carregar o cabeçalho
-      if (typeof atualizarContadorCarrinho === 'function') {
-        atualizarContadorCarrinho();
-      }
-    })
-    .catch(error => {
-      console.error('Erro ao carregar cabeçalho/rodapé:', error);
-    });
-
-  </script>
 
 </body>
 </html>
+
+
+
