@@ -1049,10 +1049,12 @@ body {
 /* Grade de Produtos - 4 por linha */
 .grade-produtos {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 1.5rem;
     margin-bottom: 2rem;
-    width: 100%;           /* garante que ocupe toda a largura */
+    width: 100%;
+    justify-items: center;
+    align-items: start;           /* garante que ocupe toda a largura */
     justify-items: stretch; /* estica os itens para preencher as células */
 }
 
