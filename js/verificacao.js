@@ -6,12 +6,10 @@
 
 // ===== SISTEMA DE VERIFICAÇÃO DE CÓDIGO =====
 
-class SistemaVerificacao {
-  constructor() {
-    this.codigoCorreto = this.gerarCodigoVerificacao();
+class SistemaVerificaca  constructor() {
+    this.emailUsuario = \'\';
     this.tentativas = 0;
     this.maxTentativas = 3;
-    this.tempoExpiracao = 10 * 60 * 1000; // 10 minutos
     this.tempoReenvio = 60; // 60 segundos
     this.timerReenvioAtivo = false;
     
@@ -22,10 +20,9 @@ class SistemaVerificacao {
     this.configurarEventListeners();
     this.configurarCamposCodigo();
     this.carregarEmailUsuario();
-    this.simularEnvioCodigo();
+    this.solicitarCodigoInicial();
     
-    console.log('🔐 Sistema de verificação inicializado');
-    console.log('📧 Código de verificação (para teste):', this.codigoCorreto);
+    console.log(\'🔐 Sistema de verificação inicializado\');
   }
 
   // ===== CONFIGURAÇÕES INICIAIS =====
@@ -59,31 +56,34 @@ class SistemaVerificacao {
   carregarEmailUsuario() {
     // Carregar email do localStorage ou URL params
     const urlParams = new URLSearchParams(window.location.search);
-    const email = urlParams.get('email') || localStorage.getItem('emailCadastro') || 'usuario@exemplo.com';
+    this.emailUsuario = urlParams.get(\'email\') || localStorage.getItem(\'emailCadastro\') || \'usuario@exemplo.com\';
     
-    const emailElement = document.getElementById('email-usuario');
+    const emailElement = document.getElementById(\'email-usuario\');
     if (emailElement) {
-      emailElement.textContent = email;
+      emailElement.textContent = this.emailUsuario;
+    }// ===== GERAÇÃO E VALIDAÇÃO DE CÓDIGO =====
+  async solicitarCodigoInicial() {
+    try {
+      const response = await fetch("/api/auth/request-verification-code", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email: this.emailUsuario })
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        this.mostrarNotificacao("Código de verificação enviado para o seu e-mail!", "sucesso");
+      } else {
+        this.mostrarNotificacao(`Erro ao solicitar código: ${result.message}`, "erro");
+        console.error("Erro ao solicitar código de verificação:", result.message);
+      }
+    } catch (error) {
+      this.mostrarNotificacao("Erro de conexão ao solicitar código.", "erro");
+      console.error("Erro de rede ao solicitar código de verificação:", error);
     }
-  }
-
-  // ===== GERAÇÃO E VALIDAÇÃO DE CÓDIGO =====
-  gerarCodigoVerificacao() {
-    return Math.floor(100000 + Math.random() * 900000).toString();
-  }
-
-  simularEnvioCodigo() {
-    // Simular envio de código por email
-    this.mostrarNotificacao('Código de verificação enviado!', 'sucesso');
-    
-    // Salvar código e timestamp no localStorage (para simulação)
-    const dadosVerificacao = {
-      codigo: this.codigoCorreto,
-      timestamp: Date.now(),
-      tentativas: 0
-    };
-    
-    localStorage.setItem('dadosVerificacao', JSON.stringify(dadosVerificacao));
   }
 
   // ===== MANIPULAÇÃO DOS CAMPOS =====

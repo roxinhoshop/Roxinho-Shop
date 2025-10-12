@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         try {
-            const response = await fetch("/php/api.php/auth/register", {
+            const response = await fetch("/api/auth/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -202,8 +202,25 @@ document.addEventListener("DOMContentLoaded", () => {
             const result = await response.json();
 
             if (response.ok) {
-                alert("Cadastro realizado com sucesso! Verifique seu e-mail para ativar sua conta.");
-                window.location.href = "login.html";
+                // Após o registro bem-sucedido, solicitar o envio do código de verificação
+                const requestVerificationResponse = await fetch("/api/auth/request-verification-code", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ email: data.email })
+                });
+
+                const verificationResult = await requestVerificationResponse.json();
+
+                if (requestVerificationResponse.ok) {
+                    alert("Cadastro realizado com sucesso! Um código de verificação foi enviado para o seu e-mail. Por favor, verifique sua caixa de entrada.");
+                    window.location.href = `verificacao.html?email=${data.email}`;
+                } else {
+                    console.error(`Erro ao solicitar código de verificação: ${verificationResult.message}`);
+                    alert(`Cadastro realizado, mas houve um erro ao enviar o código de verificação: ${verificationResult.message}`);
+                    window.location.href = "login.html"; // Redireciona para login mesmo com erro no envio do código
+                }
             } else {
                     console.error(`Erro: ${result.error}`);
             }
