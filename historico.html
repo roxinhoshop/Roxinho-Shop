@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!-- ===== Roxinho Shop - E-COMMERCE DE ELETRÔNICOS ===== -->
 <!-- Desenvolvido por Gabriel (gabwvr) -->
+<!-- Página: Histórico de Produtos Vistos -->
 <!-- Design responsivo com identidade visual roxo e amarelo -->
 
 <html lang="pt-br">
@@ -9,14 +10,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Histórico de Produtos Vistos | Roxinho Shop</title>
 
-    <!-- Favicon -->
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="images/favicon-roxinhoshop.png">
 
   <!-- CSS -->
   <link rel="stylesheet" href="css/historico.css">
   <link rel="stylesheet" href="css/cabecalhorodape.css">
+  <link rel="stylesheet" href="css/carrinho-contador.css">
   <link rel="stylesheet" href="css/auth-header.css">
+  <link rel="stylesheet" href="css/header-redesign.css">
+  <link rel="stylesheet" href="css/footer-fix.css">
   <link rel="stylesheet" href="css/notifications-improved.css">
+  <link rel="stylesheet" href="css/fluent-design.css">
+  <link rel="stylesheet" href="css/dark-mode.css">
+  <link rel="stylesheet" href="css/theme-button.css">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
@@ -24,72 +31,106 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/fluent-design.css">
-  <link rel="stylesheet" href="css/dark-mode.css">
-  <link rel="stylesheet" href="css/theme-button.css">
 </head>
 <body>
   <div id="header-placeholder"></div>
 
-    <!-- Main Content -->
-    <main class="conteudo-principal">
-        <!-- Empty History State -->
-        <div id="historico-vazio" class="estado-historico-vazio">
-            <div class="conteudo-vazio">
-                <div class="icone-historico-vazio">
-                    <i class="fas fa-eye"></i>
-                </div>
-                <h2 class="titulo-vazio">Você ainda não visualizou nenhum produto</h2>
-                <p class="descricao-vazia">Comece a explorar nossos produtos e eles aparecerão aqui!</p>
-                <button class="botao-explorar-produtos" onclick="window.location.href=\'index.html\'">
-                    <i class="fas fa-arrow-left"></i>
-                    Explorar Produtos
-                </button>
-            </div>
+  <!-- Main Content -->
+  <main class="conteudo-principal">
+    <!-- Empty History State -->
+    <div id="historico-vazio" class="estado-historico-vazio">
+      <div class="conteudo-vazio">
+        <div class="icone-historico-vazio">
+          <i class="fas fa-eye"></i>
         </div>
+        <h2 class="titulo-vazio">Você ainda não visualizou nenhum produto</h2>
+        <p class="descricao-vazia">Comece a explorar nossos produtos e eles aparecerão aqui!</p>
+        <button class="botao-explorar-produtos" onclick="window.location.href='index.html'">
+          <i class="fas fa-arrow-left"></i>
+          Explorar Produtos
+        </button>
+      </div>
+    </div>
 
-        <!-- History Content -->
-        <div id="conteudo-historico" class="layout-historico">
-            <div class="secao-produtos-vistos">
-                <div class="cabecalho-secao">
-                    <h2>Produtos Vistos Recentemente</h2>
-                    <div class="acoes">
-                        <button id="btn-limpar-historico">
-                            <i class="fas fa-trash"></i>
-                            Limpar Histórico
-                        </button>
-                    </div>
-                </div>
-                <div id="lista-produtos-vistos" class="lista-produtos-vistos">
-                    <!-- Produtos vistos serão inseridos aqui dinamicamente -->
-                </div>
-            </div>
+    <!-- History Content -->
+    <div id="conteudo-historico" class="layout-historico">
+      <div class="secao-produtos-vistos">
+        <div class="cabecalho-secao">
+          <h2>Produtos Vistos Recentemente</h2>
+          <div class="acoes">
+            <button id="btn-limpar-historico">
+              <i class="fas fa-trash"></i>
+              Limpar Histórico
+            </button>
+          </div>
         </div>
-    </main>
+        <div id="lista-produtos-vistos" class="lista-produtos-vistos">
+          <!-- Produtos vistos serão inseridos aqui dinamicamente -->
+        </div>
+      </div>
+    </div>
+  </main>
 
-    <!-- Notificações (Toast) -->
-    <div id="container-notificacoes" class="container-notificacoes"></div>
+  <!-- Notificações (Toast) -->
+  <div id="container-notificacoes" class="container-notificacoes"></div>
 
   <div id="footer-placeholder"></div>
 
   <!-- JS -->
-  <script src="js/auth-header.js"></script>
-  <script src="js/notifications-improved.js"></script>
   <script src="js/database.js"></script>
+  <script src="js/carrinho.js"></script>
   <script src="js/produtos.js"></script>
   <script src="js/historico.js"></script>
-  <script src="js/notificacoes.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/cabecalho-melhorado.js"></script>
+  <script src="js/auth-header.js"></script>
+  <script src="js/notifications-improved.js"></script>
+  <script src="js/theme-switcher.js"></script>
 
-    <script>
-  fetch(\'cabecalhorodape.html\')
+  <script>
+  fetch('cabecalhorodape.html')
     .then(response => response.text())
     .then(data => {
       const parser = new DOMParser();
-      const doc = parser.parseFromString(data, \'text/html\');
+      const doc = parser.parseFromString(data, 'text/html');
 
-      const footer = doc.querySelector(\'footer.rodape\');
+      const header = doc.querySelector('nav.cabecalho');
+      const categorias = doc.querySelector('.barra-categorias');
+      const footer = doc.querySelector('footer.rodape');
 
-      if (footer) document.getElementById(\'footer-placeholder\').appendChild(footer);
+      if (header) {
+        // Adicionar contador do carrinho ao cabeçalho
+        const carrinhoLink = header.querySelector('.caixa-carrinho');
+        if (carrinhoLink && !carrinhoLink.querySelector('.contador-carrinho')) {
+          const contador = document.createElement('span');
+          contador.id = 'contador-carrinho-cabecalho';
+          contador.className = 'contador-carrinho';
+          contador.textContent = '0';
+          contador.style.display = 'none';
+          carrinhoLink.appendChild(contador);
+        }
+        
+        document.getElementById('header-placeholder').appendChild(header);
+      }
+      if (categorias) document.getElementById('header-placeholder').appendChild(categorias);
+      if (footer) document.getElementById('footer-placeholder').appendChild(footer);
 
-      doc.querySelectorAll(\
+      // Executar scripts do cabecalho/rodape
+      doc.querySelectorAll("script").forEach(oldScript => {
+        const newScript = document.createElement("script");
+        if (oldScript.src) newScript.src = oldScript.src;
+        else newScript.textContent = oldScript.textContent;
+        document.body.appendChild(newScript);
+      });
+
+      // Atualizar contador do carrinho após carregar o cabeçalho
+      if (typeof atualizarContadorCarrinho === 'function') {
+        atualizarContadorCarrinho();
+      }
+    })
+    .catch(error => {
+      console.error('Erro ao carregar cabeçalho/rodapé:', error);
+    });
+  </script>
+</body>
+</html>
+
