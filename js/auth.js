@@ -45,7 +45,7 @@ class AuthSystem {
             const data = await response.json();
             console.log("AuthSystem: Resposta da API de login (dados):");
 
-            if (data.success) {
+            if (data.status === "success") {
                 this.currentUser = {
                     id: data.user.id,
                     nome: data.user.nome,
@@ -67,6 +67,7 @@ class AuthSystem {
             }
         } catch (error) {
             console.error("Erro na chamada da API de login:", error);
+            this.showMessage("Erro de conexão com o servidor.", "error");
             return { success: false, error: "Erro de conexão com o servidor." };
         }
     }
@@ -94,15 +95,8 @@ class AuthSystem {
     }
 
     // Verifica se o usuário é administrador
-    requireAdmin() {
-        if (this.currentUser && this.currentUser.isAdmin) {
-            return true;
-        } else {
-            this.showMessage("Acesso negado. Você não tem permissão de administrador.", "error");
-            // Redirecionar para a página inicial ou de login, se necessário
-            // window.location.href = "index.html";
-            return false;
-        }
+    isAdmin() {
+        return this.currentUser && this.currentUser.isAdmin;
     }
 
     // Exibe mensagens para o usuário usando o sistema de notificação pop-up
@@ -120,8 +114,47 @@ class AuthSystem {
         const event = new Event("authChange");
         window.dispatchEvent(event);
     }
+
+    // Método para fazer requisições autenticadas
+    async authenticatedRequest(url, options = {}) {
+        if (!this.isLoggedIn()) {
+            this.showMessage("Você precisa estar logado para realizar esta ação.", "error");
+            window.location.href = "login.html";
+            return { status: "error", message: "Não autenticado." };
+        }
+
+        const token = localStorage.getItem("jwtToken");
+        const headers = options.headers || {};
+
+        // Se o body for FormData, não defina Content-Type, o navegador fará isso
+        if (!(options.body instanceof FormData)) {
+            headers["Content-Type"] = "application/json";
+        }
+        headers["Authorization"] = `Bearer ${token}`;
+
+        try {
+            const response = await fetch(url, {
+                ...options,
+                headers: headers,
+            });
+
+            if (response.status === 401 || response.status === 403) {
+                this.logout();
+                this.showMessage("Sessão expirada ou acesso negado. Faça login novamente.", "error");
+                window.location.href = "login.html";
+                return { status: "error", message: "Sessão expirada ou acesso negado." };
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error("Erro na requisição autenticada:", error);
+            this.showMessage("Erro de conexão com o servidor.", "error");
+            return { status: "error", message: "Erro de conexão com o servidor." };
+        }
+    }
 }
 
 // Expor a instância do AuthSystem globalmente
 window.authSystem = new AuthSystem();
+
 

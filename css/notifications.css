@@ -1,3 +1,4 @@
+
 /* notifications.css */
 
 #notification-container {
@@ -30,11 +31,6 @@
     transform: translateX(0);
 }
 
-.notification.hide {
-    opacity: 0;
-    transform: translateX(100%);
-}
-
 .notification-content {
     display: flex;
     align-items: center;
@@ -46,37 +42,21 @@
     font-size: 1.2em;
 }
 
-.notification-icon::before {
-    font-family: "Font Awesome 6 Free";
-    font-weight: 900;
-}
-
-.notification-success {
+/* Estilos para tipos de notificação */
+.notification.success {
     background-color: #4CAF50;
 }
-.notification-success .notification-icon::before {
-    content: "\f00c"; /* fa-check */
-}
 
-.notification-error {
+.notification.error {
     background-color: #f44336;
 }
-.notification-error .notification-icon::before {
-    content: "\f00d"; /* fa-times */
-}
 
-.notification-info {
+.notification.info {
     background-color: #2196F3;
 }
-.notification-info .notification-icon::before {
-    content: "\f129"; /* fa-info-circle */
-}
 
-.notification-warning {
+.notification.warning {
     background-color: #ff9800;
-}
-.notification-warning .notification-icon::before {
-    content: "\f071"; /* fa-exclamation-triangle */
 }
 
 .notification-close {

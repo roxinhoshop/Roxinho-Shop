@@ -1,3 +1,4 @@
+
 /**
  * @file admin-panel-api.js
  * @description Painel administrativo integrado com API backend para gerenciar produtos
@@ -11,6 +12,7 @@ class AdminPanelAPI {
         this.currentPage = 1;
         this.productsPerPage = 10;
         this.editingProduct = null;
+        this.editingCategory = null; // Adicionado para controle de edição de categoria
         
         this.initializeSystem();
     }
@@ -20,9 +22,9 @@ class AdminPanelAPI {
      */
     async initializeSystem() {
         // Verificar se é admin
-        if (!window.authAPI || !window.authAPI.isAdmin()) {
-            window.authAPI.showMessage("Acesso negado. Área restrita para administradores.", "error");
-            window.location.href = "/";
+        if (!window.authSystem || !window.authSystem.isAdmin()) {
+            window.authSystem.showMessage("Acesso negado. Área restrita para administradores.", "error");
+            window.location.href = "login.html"; // Redirecionar para a página de login
             return;
         }
 
@@ -38,13 +40,18 @@ class AdminPanelAPI {
      */
     async loadDashboardData() {
         try {
-            const response = await window.authAPI.authenticatedRequest('/admin/dashboard');
+            // Assumindo que o backend tem um endpoint para dashboard admin
+            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/admin/dashboard`);
             
-            if (response && response.success) {
+            if (response && response.status === 'success') {
                 this.renderDashboard(response);
+            } else {
+                console.error("❌ Erro ao carregar dashboard:", response.message);
+                window.authSystem.showMessage(response.message || "Erro ao carregar dados do dashboard.", "error");
             }
         } catch (error) {
             console.error("❌ Erro ao carregar dashboard:", error);
+            window.authSystem.showMessage("Erro de conexão ao carregar dados do dashboard.", "error");
         }
     }
 
@@ -55,6 +62,10 @@ class AdminPanelAPI {
         const dashboardContainer = document.getElementById('dashboard-stats');
         if (!dashboardContainer) return;
 
+        // Dados simulados ou reais, dependendo da resposta da API
+        const stats = data.stats || { totalUsers: 0, totalProducts: 0, totalPurchases: 0, totalRevenue: 0 };
+        const recentProducts = data.recentProducts || [];
+
         dashboardContainer.innerHTML = `
             <div class="stats-grid">
                 <div class="stat-card">
@@ -62,7 +73,7 @@ class AdminPanelAPI {
                         <i class="fas fa-users"></i>
                     </div>
                     <div class="stat-info">
-                        <h3>${data.stats.totalUsers}</h3>
+                        <h3>${stats.totalUsers}</h3>
                         <p>Usuários Cadastrados</p>
                     </div>
                 </div>
@@ -72,7 +83,7 @@ class AdminPanelAPI {
                         <i class="fas fa-box"></i>
                     </div>
                     <div class="stat-info">
-                        <h3>${data.stats.totalProducts}</h3>
+                        <h3>${stats.totalProducts}</h3>
                         <p>Produtos Ativos</p>
                     </div>
                 </div>
@@ -82,7 +93,7 @@ class AdminPanelAPI {
                         <i class="fas fa-shopping-cart"></i>
                     </div>
                     <div class="stat-info">
-                        <h3>${data.stats.totalPurchases}</h3>
+                        <h3>${stats.totalPurchases}</h3>
                         <p>Total de Vendas</p>
                     </div>
                 </div>
@@ -92,53 +103,34 @@ class AdminPanelAPI {
                         <i class="fas fa-dollar-sign"></i>
                     </div>
                     <div class="stat-info">
-                        <h3>R$ ${(data.stats.totalRevenue || 0).toFixed(2).replace('.', ',')}</h3>
+                        <h3>R$ ${(stats.totalRevenue || 0).toFixed(2).replace('.', ',')}</h3>
                         <p>Receita Total</p>
                     </div>
                 </div>
             </div>
         `;
 
-        // Renderizar produtos mais vendidos
-        const topProductsContainer = document.getElementById('top-products');
-        if (topProductsContainer && data.topProducts) {
-            topProductsContainer.innerHTML = `
-                <h3>Produtos Mais Vendidos</h3>
-                <div class="top-products-list">
-                    ${data.topProducts.map(product => `
-                        <div class="top-product-item">
-                            <img src="${product.imagem_principal || '/imagens/default.png'}" alt="${product.nome}">
-                            <div class="product-info">
-                                <h4>${product.nome}</h4>
-                                <p>${product.total_vendido} vendidos</p>
-                                <p>R$ ${(product.receita || 0).toFixed(2).replace('.', ',')}</p>
+        const recentProductsContainer = document.getElementById('recent-products');
+        if (recentProductsContainer) {
+            if (recentProducts.length > 0) {
+                recentProductsContainer.innerHTML = `
+                    <h3>Produtos Recém-Adicionados</h3>
+                    <div class="recent-products-list">
+                        ${recentProducts.map(product => `
+                            <div class="recent-product-item">
+                                <img src="${product.imagem_principal || '/imagens/default.png'}" alt="${product.nome}">
+                                <div class="product-info">
+                                    <h4>${product.nome}</h4>
+                                    <p>Preço: R$ ${parseFloat(product.preco).toFixed(2).replace('.', ',')}</p>
+                                    <p>Estoque: ${product.estoque}</p>
+                                </div>
                             </div>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-        }
-
-        // Renderizar vendas recentes
-        const recentSalesContainer = document.getElementById('recent-sales');
-        if (recentSalesContainer && data.recentSales) {
-            recentSalesContainer.innerHTML = `
-                <h3>Vendas Recentes</h3>
-                <div class="recent-sales-list">
-                    ${data.recentSales.map(sale => `
-                        <div class="sale-item">
-                            <img src="${sale.imagem_principal || '/imagens/default.png'}" alt="${sale.nome_produto}">
-                            <div class="sale-info">
-                                <h4>${sale.nome_produto}</h4>
-                                <p>Cliente: ${sale.nome} ${sale.sobrenome}</p>
-                                <p>Quantidade: ${sale.quantidade}</p>
-                                <p>Total: R$ ${sale.total.toFixed(2).replace('.', ',')}</p>
-                                <p>Data: ${new Date(sale.data_compra).toLocaleDateString('pt-BR')}</p>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
+                        `).join('')}
+                    </div>
+                `;
+            } else {
+                recentProductsContainer.innerHTML = `<p>Nenhum produto recente para exibir.</p>`;
+            }
         }
     }
 
@@ -147,17 +139,19 @@ class AdminPanelAPI {
      */
     async loadCategories() {
         try {
-            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/categories`);
+            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/categorias`);
             
-            if (response && response.success) {
+            if (response && response.status === 'success') {
                 this.currentCategories = response.categories;
                 this.renderCategoryOptions();
-                this.renderCategoriesTable(); // Renderizar a tabela de categorias também
+                this.renderCategoriesTable();
             } else {
-                console.error("❌ Erro ao carregar categorias:", response.error);
+                console.error("❌ Erro ao carregar categorias:", response.message);
+                window.authSystem.showMessage(response.message || "Erro ao carregar categorias.", "error");
             }
         } catch (error) {
             console.error("❌ Erro ao carregar categorias:", error);
+            window.authSystem.showMessage("Erro de conexão ao carregar categorias.", "error");
         }
     }
 
@@ -172,15 +166,18 @@ class AdminPanelAPI {
                 ...filters
             });
 
-            const response = await fetch(`${this.apiBaseUrl}/products?${params}`);
-            const data = await response.json();
-
-            if (data.success) {
-                this.currentProducts = data.products;
+            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/produtos?${params}`);
+            
+            if (response && response.status === 'success') {
+                this.currentProducts = response.products;
                 this.renderProductsTable();
+            } else {
+                console.error("❌ Erro ao carregar produtos:", response.message);
+                window.authSystem.showMessage(response.message || "Erro ao carregar produtos.", "error");
             }
         } catch (error) {
             console.error("❌ Erro ao carregar produtos:", error);
+            window.authSystem.showMessage("Erro de conexão ao carregar produtos.", "error");
         }
     }
 
@@ -277,7 +274,7 @@ class AdminPanelAPI {
     }
 
     /**
-     * Renderiza as opções de categoria
+     * Renderiza as opções de categoria para selects
      */
     renderCategoryOptions() {
         const categorySelects = document.querySelectorAll('.category-select');
@@ -299,22 +296,22 @@ class AdminPanelAPI {
      */
     setupEventListeners() {
         // Botão adicionar produto
-        const addProductBtn = document.getElementById(\'btn-add-product\');
+        const addProductBtn = document.getElementById('btn-add-product');
         if (addProductBtn) {
-            addProductBtn.addEventListener(\'click\', () => this.showProductModal());
+            addProductBtn.addEventListener('click', () => this.showProductModal());
         }
 
         // Formulário de produto
-        const productForm = document.getElementById(\'product-form\');
+        const productForm = document.getElementById('product-form');
         if (productForm) {
-            productForm.addEventListener(\'submit\', (e) => this.handleProductSubmit(e));
+            productForm.addEventListener('submit', (e) => this.handleProductSubmit(e));
         }
 
         // Busca de produtos
-        const searchInput = document.getElementById(\'admin-search\');
+        const searchInput = document.getElementById('admin-search');
         if (searchInput) {
             let searchTimeout;
-            searchInput.addEventListener(\'input\', (e) => {
+            searchInput.addEventListener('input', (e) => {
                 clearTimeout(searchTimeout);
                 searchTimeout = setTimeout(() => {
                     this.loadProducts({ search: e.target.value });
@@ -323,44 +320,50 @@ class AdminPanelAPI {
         }
 
         // Modal de Produto
-        const productModal = document.getElementById(\'product-modal\');
+        const productModal = document.getElementById('product-modal');
         if (productModal) {
-            productModal.querySelector(\'.modal-close\').addEventListener(\'click\', () => this.hideProductModal());
-            productModal.addEventListener(\'click\', (e) => {
+            productModal.querySelector('.modal-close').addEventListener('click', () => this.hideProductModal());
+            productModal.addEventListener('click', (e) => {
                 if (e.target === productModal) this.hideProductModal();
             });
         }
 
         // Botão adicionar categoria
-        const addCategoryBtn = document.getElementById(\'btn-add-category\');
+        const addCategoryBtn = document.getElementById('btn-add-category');
         if (addCategoryBtn) {
-            addCategoryBtn.addEventListener(\'click\', () => this.showCategoryModal());
+            addCategoryBtn.addEventListener('click', () => this.showCategoryModal());
         }
 
         // Formulário de categoria
-        const categoryForm = document.getElementById(\'category-form\');
+        const categoryForm = document.getElementById('category-form');
         if (categoryForm) {
-            categoryForm.addEventListener(\'submit\', (e) => this.handleCategorySubmit(e));
+            categoryForm.addEventListener('submit', (e) => this.handleCategorySubmit(e));
         }
 
         // Modal de Categoria
-        const categoryModal = document.getElementById(\'category-modal\');
+        const categoryModal = document.getElementById('category-modal');
         if (categoryModal) {
-            categoryModal.querySelector(\'.modal-close\').addEventListener(\'click\', () => this.hideCategoryModal());
-            categoryModal.addEventListener(\'click\', (e) => {
+            categoryModal.querySelector('.modal-close').addEventListener('click', () => this.hideCategoryModal());
+            categoryModal.addEventListener('click', (e) => {
                 if (e.target === categoryModal) this.hideCategoryModal();
             });
         }
 
         // Gerar slug automaticamente para categoria
-        const categoryNameInput = document.getElementById(\'category-name\');
-        const categorySlugInput = document.getElementById(\'category-slug\');
+        const categoryNameInput = document.getElementById('category-name');
+        const categorySlugInput = document.getElementById('category-slug');
         if (categoryNameInput && categorySlugInput) {
-            categoryNameInput.addEventListener(\'input\', () => {
+            categoryNameInput.addEventListener('input', () => {
                 if (!this.editingCategory) { // Gerar slug apenas ao adicionar, não ao editar
                     categorySlugInput.value = this.generateSlug(categoryNameInput.value);
                 }
             });
+        }
+
+        // Listener para o input de arquivo de imagem
+        const productImageInput = document.getElementById('product-image');
+        if (productImageInput) {
+            productImageInput.addEventListener('change', (e) => this.handleImageUpload(e));
         }
     }
 
@@ -371,23 +374,18 @@ class AdminPanelAPI {
      */
     generateSlug(text) {
         return text.toString().toLowerCase()
-            .replace(/\s+/g, \'-\
-')           // Substitui espaços por hífens
-            .replace(/[^\w\-]+/g, \'\
-')       // Remove caracteres não-palavra
-            .replace(/\-\-+/g, \'-\
-')         // Substitui múltiplos hífens por um único
-            .replace(/^-+/, \'\
-')             // Remove hífens do início
-            .replace(/\-$/, \'\
-');            // Remove hífens do fim
+            .replace(/\s+/g, '-')           // Substitui espaços por hífens
+            .replace(/[^\w\-]+/g, '')       // Remove caracteres não-palavra
+            .replace(/\-\-+/g, '-')         // Substitui múltiplos hífens por um único
+            .replace(/^-+/, '')             // Remove hífens do início
+            .replace(/\-$/, '');            // Remove hífens do fim
     }
 
     /**
      * Renderiza a tabela de categorias
      */
     renderCategoriesTable() {
-        const tableContainer = document.getElementById(\'categories-table\');
+        const tableContainer = document.getElementById('categories-table');
         if (!tableContainer) return;
 
         if (this.currentCategories.length === 0) {
@@ -410,8 +408,7 @@ class AdminPanelAPI {
                     </tr>
                 </thead>
                 <tbody>
-                    ${this.currentCategories.map(category => this.renderCategoryRow(category)).join(\'\
-')}
+                    ${this.currentCategories.map(category => this.renderCategoryRow(category)).join('')}
                 </tbody>
             </table>
         `;
@@ -444,16 +441,16 @@ class AdminPanelAPI {
      * Configura listeners da tabela de categorias
      */
     setupCategoryTableListeners() {
-        document.querySelectorAll(\'.btn-edit-category\').forEach(btn => {
-            btn.addEventListener(\'click\', (e) => {
-                const categoryId = e.target.closest(\'[data-category-id]\').dataset.categoryId;
+        document.querySelectorAll('.btn-edit-category').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const categoryId = e.currentTarget.dataset.categoryId;
                 this.editCategory(categoryId);
             });
         });
 
-        document.querySelectorAll(\'.btn-delete-category\').forEach(btn => {
-            btn.addEventListener(\'click\', (e) => {
-                const categoryId = e.target.closest(\'[data-category-id]\').dataset.categoryId;
+        document.querySelectorAll('.btn-delete-category').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const categoryId = e.currentTarget.dataset.categoryId;
                 this.deleteCategory(categoryId);
             });
         });
@@ -463,31 +460,36 @@ class AdminPanelAPI {
      * Mostra o modal de categoria
      */
     showCategoryModal(category = null) {
-        const modal = document.getElementById(\'category-modal\');
+        const modal = document.getElementById('category-modal');
         if (!modal) return;
 
         this.editingCategory = category;
 
-        const form = document.getElementById(\'category-form\');
-        form.reset();
+        const form = document.getElementById('category-form');
+        if (form) {
+            form.reset();
+        }
 
         if (category) {
-            document.getElementById(\'category-name\').value = category.nome;
-            document.getElementById(\'category-slug\').value = category.slug;
-            modal.querySelector(\'.modal-title\').textContent = \'Editar Categoria\';
+            document.getElementById('category-name').value = category.nome || '';
+            document.getElementById('category-slug').value = category.slug || '';
+            document.querySelector('#category-modal .modal-title').textContent = 'Editar Categoria';
         } else {
-            modal.querySelector(\'.modal-title\').textContent = \'Adicionar Categoria\';
+            document.querySelector('#category-modal .modal-title').textContent = 'Adicionar Categoria';
         }
-        modal.classList.add(\'show\');
+
+        modal.classList.add('show');
+        modal.style.display = 'flex';
     }
 
     /**
      * Esconde o modal de categoria
      */
     hideCategoryModal() {
-        const modal = document.getElementById(\'category-modal\');
+        const modal = document.getElementById('category-modal');
         if (modal) {
-            modal.classList.remove(\'show\');
+            modal.classList.remove('show');
+            modal.style.display = 'none';
         }
         this.editingCategory = null;
     }
@@ -498,11 +500,11 @@ class AdminPanelAPI {
     async handleCategorySubmit(event) {
         event.preventDefault();
 
-        const categoryName = document.getElementById(\'category-name\').value.trim();
-        let categorySlug = document.getElementById(\'category-slug\').value.trim();
+        const categoryName = document.getElementById('category-name').value.trim();
+        let categorySlug = document.getElementById('category-slug').value.trim();
 
         if (!categoryName) {
-            window.authSystem.showMessage(\'O nome da categoria é obrigatório.\', \'error\');
+            window.authSystem.showMessage('O nome da categoria é obrigatório.', 'error');
             return;
         }
 
@@ -515,32 +517,32 @@ class AdminPanelAPI {
         try {
             let response;
             if (this.editingCategory) {
-                response = await window.authSystem.authenticatedRequest(`/categories/${this.editingCategory.id}`, {
-                    method: \'PUT\',
-                    headers: { \'Content-Type\': \'application/json\' },
+                response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/categorias/${this.editingCategory.id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(categoryData),
                 });
             } else {
-                response = await window.authSystem.authenticatedRequest(\'/categories\', {
-                    method: \'POST\',
-                    headers: { \'Content-Type\': \'application/json\' },
+                response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/categorias`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(categoryData),
                 });
             }
 
-            if (response && response.success) {
+            if (response && response.status === 'success') {
                 window.authSystem.showMessage(
-                    this.editingCategory ? \'Categoria atualizada com sucesso!\' : \'Categoria criada com sucesso!\',
-                    \'success\'
+                    this.editingCategory ? 'Categoria atualizada com sucesso!' : 'Categoria criada com sucesso!',
+                    'success'
                 );
                 this.hideCategoryModal();
                 await this.loadCategories(); // Recarregar categorias para atualizar a tabela e selects
             } else {
-                window.authSystem.showMessage(response.error || \'Erro ao salvar categoria.\', \'error\');
+                window.authSystem.showMessage(response.message || 'Erro ao salvar categoria.', 'error');
             }
         } catch (error) {
-            console.error(\'Erro ao salvar categoria:\', error);
-            window.authSystem.showMessage(\'Erro de conexão ao salvar categoria.\', \'error\');
+            console.error('Erro ao salvar categoria:', error);
+            window.authSystem.showMessage('Erro de conexão ao salvar categoria.', 'error');
         }
     }
 
@@ -560,215 +562,24 @@ class AdminPanelAPI {
      * @param {string} categoryId - O ID da categoria a ser deletada.
      */
     async deleteCategory(categoryId) {
-        if (!confirm(\'Tem certeza que deseja deletar esta categoria? Isso pode afetar produtos associados.\')) {
+        if (!confirm('Tem certeza que deseja deletar esta categoria? Isso pode afetar produtos associados.')) {
             return;
         }
         try {
-            const response = await window.authSystem.authenticatedRequest(`/categories/${categoryId}`, {
-                method: \'DELETE\',
+            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/categorias/${categoryId}`, {
+                method: 'DELETE',
             });
 
-            if (response && response.success) {
-                window.authSystem.showMessage(\'Categoria deletada com sucesso!\', \'success\');
+            if (response && response.status === 'success') {
+                window.authSystem.showMessage('Categoria deletada com sucesso!', 'success');
                 await this.loadCategories();
             } else {
-                window.authSystem.showMessage(response.error || \'Erro ao deletar categoria.\', \'error\');
+                window.authSystem.showMessage(response.message || 'Erro ao deletar categoria.', 'error');
             }
         } catch (error) {
-            console.error(\'Erro ao deletar categoria:\', error);
-            window.authSystem.showMessage(\'Erro de conexão ao deletar categoria.\', \'error\');
+            console.error('Erro ao deletar categoria:', error);
+            window.authSystem.showMessage('Erro de conexão ao deletar categoria.', 'error');
         }
-    }
-
-    // ... (restante do código, incluindo métodos de imagem) ...
-
-    /**
-     * Carrega as categorias
-     */
-    async loadCategories() {
-        try {
-            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/categories`);
-            
-            if (response && response.success) {
-                this.currentCategories = response.categories;
-                this.renderCategoryOptions();
-                this.renderCategoriesTable(); // Renderizar a tabela de categorias também
-            } else {
-                console.error("❌ Erro ao carregar categorias:", response.error);
-            }
-        } catch (error) {
-            console.error("❌ Erro ao carregar categorias:", error);
-        }
-    }
-
-    // ... (restante do código) ...
-
-    /**
-     * Inicializa o sistema administrativo
-     */
-    async initializeSystem() {
-        // Verificar se é admin
-        if (!window.authSystem || !window.authSystem.isAdmin()) {
-            // Redirecionar para a página de login se não for admin
-            window.location.href = "login.html";
-            return;
-        }
-
-        // Carregar dados do dashboard, categorias e produtos
-        await this.loadDashboardData();
-        await this.loadCategories();
-        await this.loadProducts();
-        this.setupEventListeners();
-        console.log("👑 Painel administrativo inicializado");
-    }
-
-    // ... (outros métodos) ...
-
-    // Métodos de imagem (mantidos como estão)
-    openImageGallery() {
-        const modal = document.getElementById(\'image-gallery-modal\');
-        if (modal) {
-            modal.classList.add(\'show\');
-            this.loadImagesForGallery();
-        }
-    }
-
-    closeImageGallery() {
-        const modal = document.getElementById(\'image-gallery-modal\');
-        if (modal) {
-            modal.classList.remove(\'show\');
-        }
-    }
-
-    async loadImagesForGallery() {
-        const galleryGrid = document.getElementById(\'gallery-grid\');
-        if (!galleryGrid) return;
-
-        galleryGrid.innerHTML = `<div class="loading-state"><i class="fas fa-spinner"></i><p>Carregando imagens...</p></div>`;
-
-        try {
-            const response = await window.authSystem.authenticatedRequest(\'/images\');
-            if (response && response.success) {
-                if (response.images.length === 0) {
-                    galleryGrid.innerHTML = `<p class="text-center">Nenhuma imagem encontrada.</p>`;
-                    return;
-                }
-                galleryGrid.innerHTML = response.images.map(image => `
-                    <div class="gallery-item" data-image-url="${image.url}">
-                        <img src="${image.url}" alt="${image.name}">
-                        <div class="overlay"><i class="fas fa-check-circle"></i></div>
-                    </div>
-                `).join(\'\
-');
-                this.setupGallerySelection();
-            } else {
-                galleryGrid.innerHTML = `<p class="text-center text-danger">Erro ao carregar imagens: ${response.error || \'Desconhecido\'}</p>`;
-            }
-        } catch (error) {
-            console.error(\'Erro ao carregar imagens para galeria:\', error);
-            galleryGrid.innerHTML = `<p class="text-center text-danger">Erro de conexão ao carregar imagens.</p>`;
-        }
-    }
-
-    setupGallerySelection() {
-        document.querySelectorAll(\'.gallery-item\').forEach(item => {
-            item.addEventListener(\'click\', () => {
-                document.querySelectorAll(\'.gallery-item\').forEach(i => i.classList.remove(\'selected\'));
-                item.classList.add(\'selected\');
-                const imageUrl = item.dataset.imageUrl;
-                document.getElementById(\'product-image-url\').value = imageUrl;
-                document.getElementById(\'preview-img\').src = imageUrl;
-                document.getElementById(\'image-preview\').style.display = \'flex\';
-                this.closeImageGallery();
-            });
-        });
-    }
-
-    removeImage() {
-        document.getElementById(\'product-image-url\').value = \'\
-';
-        document.getElementById(\'preview-img\').src = \'\
-';
-        document.getElementById(\'image-preview\').style.display = \'none\';
-        document.getElementById(\'product-image\').value = \'\
-'; // Limpar o input file também
-    }
-
-    // Preencher formulário de produto (corrigido)
-    preencherFormularioProduto(product) {
-        document.getElementById(\'product-name\').value = product.nome || \'\
-';
-        document.getElementById(\'product-description\').value = product.descricao || \'\
-';
-        document.getElementById(\'product-short-description\').value = product.descricao_curta || \'\
-';
-        document.getElementById(\'product-category\').value = product.categoria_id || \'\
-';
-        document.getElementById(\'product-brand\').value = product.marca || \'\
-';
-        document.getElementById(\'product-model\').value = product.modelo || \'\
-';
-        document.getElementById(\'product-sku\').value = product.sku || \'\
-';
-        document.getElementById(\'product-price\').value = product.preco || \'\
-';
-        document.getElementById(\'product-promo-price\').value = product.preco_promocional || \'\
-';
-        document.getElementById(\'product-stock\').value = product.estoque || \'\
-';
-        document.getElementById(\'product-weight\').value = product.peso || \'\
-';
-        document.getElementById(\'product-dimensions\').value = product.dimensoes || \'\
-';
-        document.getElementById(\'product-specs\').value = product.especificacoes || \'\
-';
-        document.getElementById(\'product-featured\').checked = product.destaque == 1;
-
-        // Lógica para imagem principal
-        const imageUrlInput = document.getElementById(\'product-image-url\');
-        const previewImg = document.getElementById(\'preview-img\');
-        const imagePreviewContainer = document.getElementById(\'image-preview\');
-
-        if (product.imagem_principal) {
-            imageUrlInput.value = product.imagem_principal;
-            previewImg.src = product.imagem_principal;
-            imagePreviewContainer.style.display = \'flex\';
-        } else {
-            imageUrlInput.value = \'\
-';
-            previewImg.src = \'\
-';
-            imagePreviewContainer.style.display = \'none\';
-        }
-    }
-
-    // ... (restante do código) ...
-
-}
-
-// Instanciar a API do painel administrativo globalmente
-window.adminPanelAPI = new AdminPanelAPI();
-
-
-    /**
-     * Configura listeners da tabela de produtos
-     */
-    setupProductTableListeners() {
-        // Botões editar
-        document.querySelectorAll('.btn-edit').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const productId = e.target.closest('.btn-edit').dataset.productId;
-                this.editProduct(productId);
-            });
-        });
-
-        // Botões deletar
-        document.querySelectorAll('.btn-delete').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const productId = e.target.closest('.btn-delete').dataset.productId;
-                this.deleteProduct(productId);
-            });
-        });
     }
 
     /**
@@ -785,6 +596,7 @@ window.adminPanelAPI = new AdminPanelAPI();
         if (form) {
             form.reset();
         }
+        this.removeImage(); // Limpar preview de imagem
 
         // Preencher dados se editando
         if (product) {
@@ -800,15 +612,21 @@ window.adminPanelAPI = new AdminPanelAPI();
             document.getElementById('product-stock').value = product.estoque || '';
             document.getElementById('product-weight').value = product.peso || '';
             document.getElementById('product-dimensions').value = product.dimensoes || '';
-            document.getElementById('product-specs').value = product.especificacoes || '';
-            document.getElementById('product-featured').checked = product.destaque || false;
+            document.getElementById('product-specs').value = product.especificacoes ? JSON.stringify(product.especificacoes, null, 2) : '';
+            document.getElementById('product-featured').checked = product.destaque == 1;
 
-            document.querySelector('.modal-title').textContent = 'Editar Produto';
+            if (product.imagem_principal) {
+                document.getElementById('product-image-url').value = product.imagem_principal;
+                this.showImagePreview(product.imagem_principal);
+            }
+
+            document.querySelector('#product-modal .modal-title').textContent = 'Editar Produto';
         } else {
-            document.querySelector('.modal-title').textContent = 'Adicionar Produto';
+            document.querySelector('#product-modal .modal-title').textContent = 'Adicionar Produto';
         }
 
-        modal.style.display = 'block';
+        modal.classList.add('show');
+        modal.style.display = 'flex';
     }
 
     /**
@@ -817,9 +635,11 @@ window.adminPanelAPI = new AdminPanelAPI();
     hideProductModal() {
         const modal = document.getElementById('product-modal');
         if (modal) {
+            modal.classList.remove('show');
             modal.style.display = 'none';
         }
         this.editingProduct = null;
+        this.removeImage(); // Limpar preview de imagem ao fechar
     }
 
     /**
@@ -830,27 +650,43 @@ window.adminPanelAPI = new AdminPanelAPI();
 
         const formData = new FormData(event.target);
         
+        // Adicionar imagem principal se for uma URL e não um arquivo novo
+        const imageUrl = document.getElementById('product-image-url').value;
+        if (imageUrl && !formData.get('imagem')) {
+            formData.append('imagem_principal', imageUrl);
+        }
+
+        // Converter especificações para JSON string se não estiver vazio
+        const specs = formData.get('especificacoes');
+        if (specs) {
+            try {
+                JSON.parse(specs);
+            } catch (e) {
+                window.authSystem.showMessage('Especificações devem ser um JSON válido.', 'error');
+                return;
+            }
+        }
+
         try {
             let response;
             
             if (this.editingProduct) {
                 // Atualizar produto existente
-                response = await window.authAPI.authenticatedRequest(`/products/${this.editingProduct.id}`, {
+                response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/produtos/${this.editingProduct.id}`, {
                     method: 'PUT',
                     body: formData,
-                    headers: {} // Remover Content-Type para FormData
+                    // Headers Content-Type não é necessário para FormData, o navegador define
                 });
             } else {
                 // Criar novo produto
-                response = await window.authAPI.authenticatedRequest('/products', {
+                response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/produtos`, {
                     method: 'POST',
                     body: formData,
-                    headers: {} // Remover Content-Type para FormData
                 });
             }
 
-            if (response && response.success) {
-                window.authAPI.showMessage(
+            if (response && response.status === 'success') {
+                window.authSystem.showMessage(
                     this.editingProduct ? 'Produto atualizado com sucesso!' : 'Produto criado com sucesso!',
                     'success'
                 );
@@ -858,12 +694,12 @@ window.adminPanelAPI = new AdminPanelAPI();
                 await this.loadProducts();
                 await this.loadDashboardData();
             } else {
-                window.authAPI.showMessage(response?.error || 'Erro ao salvar produto', 'error');
+                window.authSystem.showMessage(response.message || 'Erro ao salvar produto', 'error');
             }
 
         } catch (error) {
             console.error('❌ Erro ao salvar produto:', error);
-            window.authAPI.showMessage('Erro ao salvar produto', 'error');
+            window.authSystem.showMessage('Erro de conexão ao salvar produto', 'error');
         }
     }
 
@@ -872,22 +708,21 @@ window.adminPanelAPI = new AdminPanelAPI();
      */
     async editProduct(productId) {
         try {
-            const response = await fetch(`${this.apiBaseUrl}/products/${productId}`);
-            const data = await response.json();
-
-            if (data.success) {
-                this.showProductModal(data.product);
+            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/produtos/${productId}`);
+            
+            if (response && response.status === 'success') {
+                this.showProductModal(response.product);
             } else {
-                window.authAPI.showMessage('Produto não encontrado', 'error');
+                window.authSystem.showMessage(response.message || 'Produto não encontrado', 'error');
             }
         } catch (error) {
             console.error('❌ Erro ao carregar produto:', error);
-            window.authAPI.showMessage('Erro ao carregar produto', 'error');
+            window.authSystem.showMessage('Erro de conexão ao carregar produto', 'error');
         }
     }
 
     /**
-     * Deleta um produto
+     * Deleta um produto (soft delete)
      */
     async deleteProduct(productId) {
         const product = this.currentProducts.find(p => p.id == productId);
@@ -897,374 +732,23 @@ window.adminPanelAPI = new AdminPanelAPI();
         }
 
         try {
-            const response = await window.authAPI.authenticatedRequest(`/products/${productId}`, {
+            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/produtos/${productId}`, {
                 method: 'DELETE'
             });
 
-            if (response && response.success) {
-                window.authAPI.showMessage('Produto removido com sucesso!', 'success');
+            if (response && response.status === 'success') {
+                window.authSystem.showMessage('Produto removido com sucesso!', 'success');
                 await this.loadProducts();
                 await this.loadDashboardData();
             } else {
-                window.authAPI.showMessage(response?.error || 'Erro ao remover produto', 'error');
+                window.authSystem.showMessage(response.message || 'Erro ao remover produto', 'error');
             }
 
         } catch (error) {
             console.error('❌ Erro ao remover produto:', error);
-            window.authAPI.showMessage('Erro ao remover produto', 'error');
+            window.authSystem.showMessage('Erro de conexão ao remover produto', 'error');
         }
     }
-}
-
-// Criar instância global
-window.adminPanelAPI = new AdminPanelAPI();
-
-// Inicializar quando o DOM estiver carregado
-document.addEventListener('DOMContentLoaded', () => {
-    // Adicionar estilos para o painel admin se não existirem
-    if (!document.getElementById('admin-panel-styles')) {
-        const styles = document.createElement('style');
-        styles.id = 'admin-panel-styles';
-        styles.textContent = `
-            .stats-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 20px;
-                margin-bottom: 30px;
-            }
-            
-            .stat-card {
-                background: white;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-                display: flex;
-                align-items: center;
-                gap: 15px;
-            }
-            
-            .stat-icon {
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 1.5rem;
-                color: white;
-                background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
-            }
-            
-            .stat-info h3 {
-                margin: 0;
-                font-size: 1.5rem;
-                color: #333;
-            }
-            
-            .stat-info p {
-                margin: 5px 0 0 0;
-                color: #666;
-                font-size: 0.9rem;
-            }
-            
-            .admin-table {
-                width: 100%;
-                border-collapse: collapse;
-                background: white;
-                border-radius: 8px;
-                overflow: hidden;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            }
-            
-            .admin-table th,
-            .admin-table td {
-                padding: 12px;
-                text-align: left;
-                border-bottom: 1px solid #eee;
-            }
-            
-            .admin-table th {
-                background: #f8f9fa;
-                font-weight: 600;
-                color: #333;
-            }
-            
-            .product-thumb {
-                width: 50px;
-                height: 50px;
-                object-fit: cover;
-                border-radius: 4px;
-            }
-            
-            .product-name {
-                font-weight: 500;
-            }
-            
-            .badge {
-                display: inline-block;
-                padding: 2px 6px;
-                font-size: 0.75rem;
-                border-radius: 3px;
-                margin-left: 5px;
-            }
-            
-            .badge-warning {
-                background: #ffc107;
-                color: #000;
-            }
-            
-            .price-original {
-                text-decoration: line-through;
-                color: #999;
-                font-size: 0.9rem;
-            }
-            
-            .price-promo {
-                color: #28a745;
-                font-weight: bold;
-            }
-            
-            .price-current {
-                color: #333;
-                font-weight: bold;
-            }
-            
-            .stock-badge {
-                padding: 4px 8px;
-                border-radius: 4px;
-                font-size: 0.8rem;
-                font-weight: bold;
-            }
-            
-            .stock-ok {
-                background: #d4edda;
-                color: #155724;
-            }
-            
-            .stock-low {
-                background: #fff3cd;
-                color: #856404;
-            }
-            
-            .stock-empty {
-                background: #f8d7da;
-                color: #721c24;
-            }
-            
-            .status-badge {
-                padding: 4px 8px;
-                border-radius: 4px;
-                font-size: 0.8rem;
-                font-weight: bold;
-            }
-            
-            .status-active {
-                background: #d4edda;
-                color: #155724;
-            }
-            
-            .status-inactive {
-                background: #f8d7da;
-                color: #721c24;
-            }
-            
-            .action-buttons {
-                display: flex;
-                gap: 5px;
-            }
-            
-            .btn-sm {
-                padding: 6px 10px;
-                font-size: 0.8rem;
-            }
-            
-            .btn-primary {
-                background: #007bff;
-                color: white;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-            }
-            
-            .btn-primary:hover {
-                background: #0056b3;
-            }
-            
-            .btn-danger {
-                background: #dc3545;
-                color: white;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-            }
-            
-            .btn-danger:hover {
-                background: #c82333;
-            }
-            
-            .btn-success {
-                background: #28a745;
-                color: white;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-                padding: 10px 20px;
-            }
-            
-            .btn-success:hover {
-                background: #218838;
-            }
-            
-            .modal {
-                display: none;
-                position: fixed;
-                z-index: 1000;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0,0,0,0.5);
-            }
-            
-            .modal-content {
-                background-color: white;
-                margin: 2% auto;
-                padding: 0;
-                border-radius: 8px;
-                width: 90%;
-                max-width: 800px;
-                max-height: 90vh;
-                overflow-y: auto;
-            }
-            
-            .modal-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 20px;
-                border-bottom: 1px solid #eee;
-            }
-            
-            .modal-close {
-                background: none;
-                border: none;
-                font-size: 24px;
-                cursor: pointer;
-            }
-            
-            .modal-body {
-                padding: 20px;
-            }
-            
-            .form-grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 20px;
-            }
-            
-            .form-group {
-                margin-bottom: 15px;
-            }
-            
-            .form-group label {
-                display: block;
-                margin-bottom: 5px;
-                font-weight: 500;
-            }
-            
-            .form-group input,
-            .form-group select,
-            .form-group textarea {
-                width: 100%;
-                padding: 8px 12px;
-                border: 1px solid #ddd;
-                border-radius: 4px;
-                font-size: 14px;
-            }
-            
-            .form-group textarea {
-                resize: vertical;
-                min-height: 80px;
-            }
-            
-            .form-group-full {
-                grid-column: 1 / -1;
-            }
-            
-            .checkbox-group {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            }
-            
-            .checkbox-group input[type="checkbox"] {
-                width: auto;
-            }
-            
-            .top-products-list,
-            .recent-sales-list {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .top-product-item,
-            .sale-item {
-                display: flex;
-                align-items: center;
-                gap: 15px;
-                padding: 10px;
-                background: #f8f9fa;
-                border-radius: 6px;
-            }
-            
-            .top-product-item img,
-            .sale-item img {
-                width: 50px;
-                height: 50px;
-                object-fit: cover;
-                border-radius: 4px;
-            }
-            
-            .product-info h4,
-            .sale-info h4 {
-                margin: 0 0 5px 0;
-                font-size: 0.9rem;
-            }
-            
-            .product-info p,
-            .sale-info p {
-                margin: 2px 0;
-                font-size: 0.8rem;
-                color: #666;
-            }
-            
-            @media (max-width: 768px) {
-                .form-grid {
-                    grid-template-columns: 1fr;
-                }
-                
-                .stats-grid {
-                    grid-template-columns: 1fr;
-                }
-                
-                .admin-table {
-                    font-size: 0.8rem;
-                }
-                
-                .admin-table th,
-                .admin-table td {
-                    padding: 8px;
-                }
-            }
-        `;
-        document.head.appendChild(styles);
-    }
-});
-
-console.log("👑 Painel administrativo API carregado");
-
-
 
     /**
      * Manipula o upload de imagem
@@ -1276,39 +760,38 @@ console.log("👑 Painel administrativo API carregado");
         // Validar tipo de arquivo
         const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
         if (!allowedTypes.includes(file.type)) {
-            window.authAPI.showMessage('Tipo de arquivo não permitido. Use JPG, PNG, GIF ou WEBP', 'error');
+            window.authSystem.showMessage('Tipo de arquivo não permitido. Use JPG, PNG, GIF ou WEBP', 'error');
             return;
         }
 
         // Validar tamanho (5MB)
         if (file.size > 5 * 1024 * 1024) {
-            window.authAPI.showMessage('Arquivo muito grande. Tamanho máximo: 5MB', 'error');
+            window.authSystem.showMessage('Arquivo muito grande. Tamanho máximo: 5MB', 'error');
             return;
         }
 
-        // Criar FormData
+        // Criar FormData para enviar o arquivo
         const formData = new FormData();
         formData.append('imagem', file);
 
         try {
-            const response = await fetch('/php/upload.php', {
+            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/upload-image`, {
                 method: 'POST',
-                body: formData
+                body: formData,
+                // Content-Type não é definido aqui para FormData, o navegador faz isso automaticamente
             });
 
-            const result = await response.json();
-
-            if (result.success) {
-                this.currentImageUrl = result.url;
-                this.showImagePreview(result.url);
-                document.getElementById('product-image-url').value = result.url;
-                window.authAPI.showMessage('Imagem enviada com sucesso!', 'success');
+            if (response && response.status === 'success') {
+                this.currentImageUrl = response.url;
+                this.showImagePreview(response.url);
+                document.getElementById('product-image-url').value = response.url;
+                window.authSystem.showMessage('Imagem enviada com sucesso!', 'success');
             } else {
-                throw new Error(result.error || 'Erro ao enviar imagem');
+                throw new Error(response.message || 'Erro ao enviar imagem');
             }
         } catch (error) {
             console.error('Erro no upload:', error);
-            window.authAPI.showMessage(error.message, 'error');
+            window.authSystem.showMessage(error.message, 'error');
         }
     }
 
@@ -1321,7 +804,7 @@ console.log("👑 Painel administrativo API carregado");
         
         if (preview && img) {
             img.src = url;
-            preview.style.display = 'block';
+            preview.style.display = 'flex';
         }
     }
 
@@ -1331,8 +814,9 @@ console.log("👑 Painel administrativo API carregado");
     removeImage() {
         this.currentImageUrl = null;
         document.getElementById('product-image-url').value = '';
+        document.getElementById('preview-img').src = '';
         document.getElementById('image-preview').style.display = 'none';
-        document.getElementById('product-image').value = '';
+        document.getElementById('product-image').value = ''; // Limpar o input file também
     }
 
     /**
@@ -1365,18 +849,19 @@ console.log("👑 Painel administrativo API carregado");
         const galleryGrid = document.getElementById('gallery-grid');
         if (!galleryGrid) return;
         
-        try {
-            const response = await fetch('/php/listar-imagens.php');
-            const result = await response.json();
+        galleryGrid.innerHTML = `<div class="loading-state"><i class="fas fa-spinner"></i><p>Carregando imagens...</p></div>`;
 
-            if (result.success && result.images.length > 0) {
+        try {
+            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/images`);
+            
+            if (response && response.status === 'success' && response.images.length > 0) {
                 galleryGrid.innerHTML = '';
                 
-                result.images.forEach(image => {
+                response.images.forEach(image => {
                     const item = document.createElement('div');
                     item.className = 'gallery-item';
                     item.innerHTML = `
-                        <img src="${image.url}" alt="${image.filename}">
+                        <img src="${image.url}" alt="${image.name}">
                         <div class="gallery-item-overlay">
                             <i class="fas fa-check-circle"></i>
                         </div>
@@ -1384,7 +869,7 @@ console.log("👑 Painel administrativo API carregado");
                     item.addEventListener('click', () => this.selectImageFromGallery(image.url));
                     galleryGrid.appendChild(item);
                 });
-            } else {
+            } else if (response && response.status === 'success' && response.images.length === 0) {
                 galleryGrid.innerHTML = `
                     <div class="gallery-empty">
                         <i class="fas fa-images"></i>
@@ -1392,6 +877,8 @@ console.log("👑 Painel administrativo API carregado");
                         <p style="font-size: 0.9rem; color: #999;">Faça upload de imagens para começar</p>
                     </div>
                 `;
+            } else {
+                throw new Error(response.message || 'Erro ao carregar imagens da galeria.');
             }
         } catch (error) {
             console.error('Erro ao carregar galeria:', error);
@@ -1401,6 +888,7 @@ console.log("👑 Painel administrativo API carregado");
                     <p>Erro ao carregar galeria</p>
                 </div>
             `;
+            window.authSystem.showMessage('Erro de conexão ao carregar galeria de imagens.', 'error');
         }
     }
 
@@ -1412,24 +900,431 @@ console.log("👑 Painel administrativo API carregado");
         this.showImagePreview(url);
         document.getElementById('product-image-url').value = url;
         this.closeImageGallery();
-        window.authAPI.showMessage('Imagem selecionada!', 'success');
+        window.authSystem.showMessage('Imagem selecionada!', 'success');
+    }
+
+    /**
+     * Configura listeners da tabela de produtos
+     */
+    setupProductTableListeners() {
+        // Botões editar
+        document.querySelectorAll('.btn-edit').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const productId = e.currentTarget.dataset.productId;
+                this.editProduct(productId);
+            });
+        });
+
+        // Botões deletar
+        document.querySelectorAll('.btn-delete').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const productId = e.currentTarget.dataset.productId;
+                this.deleteProduct(productId);
+            });
+        });
     }
 }
 
-// Inicializar quando o DOM estiver pronto
-if (typeof window !== 'undefined') {
-    window.addEventListener('DOMContentLoaded', () => {
-        window.adminPanelAPI = new AdminPanelAPI();
-        
-        // Configurar listener para upload de imagem
-        const imageInput = document.getElementById('product-image');
-        if (imageInput) {
-            imageInput.addEventListener('change', (e) => {
-                if (window.adminPanelAPI) {
-                    window.adminPanelAPI.handleImageUpload(e);
+// Instanciar a API do painel administrativo globalmente
+window.adminPanelAPI = new AdminPanelAPI();
+
+// Inicializar quando o DOM estiver carregado
+document.addEventListener('DOMContentLoaded', () => {
+    // Adicionar estilos para o painel admin se não existirem
+    if (!document.getElementById('admin-panel-styles')) {
+        const styles = document.createElement('style');
+        styles.id = 'admin-panel-styles';
+        styles.textContent = `
+            .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+                margin-bottom: 30px;
+            }
+            .stat-card {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+            .stat-icon {
+                font-size: 2.5rem;
+                color: #7c3aed;
+            }
+            .stat-info h3 {
+                margin: 0;
+                font-size: 1.8rem;
+                color: #333;
+            }
+            .stat-info p {
+                margin: 0;
+                color: #666;
+                font-size: 0.9rem;
+            }
+            .recent-products-list, .recent-sales-list {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 15px;
+            }
+            .recent-product-item, .sale-item {
+                background-color: #fff;
+                padding: 15px;
+                border-radius: 8px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+            .recent-product-item img, .sale-item img {
+                width: 60px;
+                height: 60px;
+                object-fit: cover;
+                border-radius: 4px;
+            }
+            .product-info h4, .sale-info h4 {
+                margin: 0 0 5px 0;
+                font-size: 1rem;
+                color: #333;
+            }
+            .product-info p, .sale-info p {
+                margin: 0;
+                font-size: 0.85rem;
+                color: #666;
+            }
+            .admin-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+            .admin-table th, .admin-table td {
+                border: 1px solid #eee;
+                padding: 12px 15px;
+                text-align: left;
+            }
+            .admin-table th {
+                background-color: #f8f8f8;
+                font-weight: 600;
+                color: #333;
+            }
+            .admin-table tbody tr:nth-child(even) {
+                background-color: #fdfdfd;
+            }
+            .admin-table tbody tr:hover {
+                background-color: #f5f5f5;
+            }
+            .product-thumb {
+                width: 50px;
+                height: 50px;
+                object-fit: cover;
+                border-radius: 4px;
+            }
+            .badge {
+                display: inline-block;
+                padding: 2px 6px;
+                font-size: 0.75rem;
+                border-radius: 3px;
+                margin-left: 5px;
+            }
+            .badge-warning {
+                background: #ffc107;
+                color: #000;
+            }
+            .price-original {
+                text-decoration: line-through;
+                color: #999;
+                font-size: 0.9rem;
+            }
+            .price-promo {
+                color: #28a745;
+                font-weight: bold;
+            }
+            .price-current {
+                color: #333;
+                font-weight: bold;
+            }
+            .stock-badge {
+                padding: 4px 8px;
+                border-radius: 4px;
+                font-size: 0.8rem;
+                font-weight: bold;
+            }
+            .stock-ok {
+                background: #d4edda;
+                color: #155724;
+            }
+            .stock-low {
+                background: #fff3cd;
+                color: #856404;
+            }
+            .stock-empty {
+                background: #f8d7da;
+                color: #721c24;
+            }
+            .status-badge {
+                padding: 4px 8px;
+                border-radius: 4px;
+                font-size: 0.8rem;
+                font-weight: bold;
+            }
+            .status-active {
+                background: #d4edda;
+                color: #155724;
+            }
+            .status-inactive {
+                background: #f8d7da;
+                color: #721c24;
+            }
+            .action-buttons {
+                display: flex;
+                gap: 5px;
+            }
+            .btn-sm {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+            .btn-primary {
+                background: #007bff;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            .btn-primary:hover {
+                background: #0056b3;
+            }
+            .btn-danger {
+                background: #dc3545;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            .btn-danger:hover {
+                background: #c82333;
+            }
+            .btn-success {
+                background: #28a745;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                padding: 10px 20px;
+            }
+            .btn-success:hover {
+                background: #218838;
+            }
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0,0,0,0.5);
+                justify-content: center;
+                align-items: center;
+            }
+            .modal.show {
+                display: flex;
+            }
+            .modal-content {
+                background-color: white;
+                margin: auto;
+                padding: 0;
+                border-radius: 8px;
+                width: 90%;
+                max-width: 800px;
+                max-height: 90vh;
+                overflow-y: auto;
+                position: relative;
+            }
+            .modal-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px;
+                border-bottom: 1px solid #eee;
+            }
+            .modal-close {
+                background: none;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+            }
+            .modal-body {
+                padding: 20px;
+            }
+            .form-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+            .form-group {
+                margin-bottom: 15px;
+            }
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: 500;
+            }
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                width: 100%;
+                padding: 8px 12px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-size: 14px;
+            }
+            .form-group textarea {
+                resize: vertical;
+                min-height: 80px;
+            }
+            .form-group-full {
+                grid-column: 1 / -1;
+            }
+            .checkbox-group {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            .checkbox-group input[type="checkbox"] {
+                width: auto;
+            }
+            .image-upload-container {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+            }
+            .image-upload-container input[type="text"] {
+                flex-grow: 1;
+            }
+            .image-preview {
+                margin-top: 10px;
+                border: 1px solid #eee;
+                padding: 10px;
+                border-radius: 4px;
+                display: none; /* Hidden by default */
+                align-items: center;
+                gap: 10px;
+                position: relative;
+            }
+            .image-preview img {
+                max-width: 100px;
+                max-height: 100px;
+                object-fit: contain;
+            }
+            .btn-remove-image {
+                background: #dc3545;
+                color: white;
+                border: none;
+                border-radius: 50%;
+                width: 24px;
+                height: 24px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                font-size: 0.8rem;
+                position: absolute;
+                top: 5px;
+                right: 5px;
+            }
+            .gallery-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 10px;
+                max-height: 400px;
+                overflow-y: auto;
+                padding: 10px;
+                border: 1px solid #eee;
+                border-radius: 4px;
+            }
+            .gallery-item {
+                border: 2px solid transparent;
+                border-radius: 4px;
+                overflow: hidden;
+                cursor: pointer;
+                position: relative;
+                transition: all 0.2s ease-in-out;
+            }
+            .gallery-item img {
+                width: 100%;
+                height: 100px;
+                object-fit: cover;
+                display: block;
+            }
+            .gallery-item:hover {
+                border-color: #7c3aed;
+            }
+            .gallery-item.selected {
+                border-color: #28a745;
+                box-shadow: 0 0 0 2px #28a745;
+            }
+            .gallery-item-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0,0,0,0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                font-size: 2rem;
+                opacity: 0;
+                transition: opacity 0.2s ease-in-out;
+            }
+            .gallery-item.selected .gallery-item-overlay {
+                opacity: 1;
+            }
+            .gallery-empty {
+                text-align: center;
+                padding: 20px;
+                color: #999;
+            }
+            .gallery-empty i {
+                font-size: 3rem;
+                margin-bottom: 10px;
+            }
+            .loading-state {
+                text-align: center;
+                padding: 20px;
+                color: #7c3aed;
+            }
+            .loading-state i {
+                font-size: 2rem;
+                animation: spin 1s linear infinite;
+            }
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+            @media (max-width: 768px) {
+                .form-grid {
+                    grid-template-columns: 1fr;
                 }
-            });
-        }
-    });
-}
+                .stats-grid {
+                    grid-template-columns: 1fr;
+                }
+                .admin-table {
+                    font-size: 0.8rem;
+                }
+                .admin-table th,
+                .admin-table td {
+                    padding: 8px;
+                }
+            }
+        `;
+        document.head.appendChild(styles);
+    }
+});
+
+console.log("👑 Painel administrativo API carregado");
+
 
