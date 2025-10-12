@@ -36,14 +36,14 @@
   <div class="container-carrossel">
     <div class="slides-wrapper" id="slidesWrapper">
       <!-- Slide 1 -->
-      <div class="slide ativo" data-link="produtos.html?categoria=Promoções">
+      <div class="slide ativo" data-link="src/paginas/produtos.html?categoria=Promoções">
         <img src="src/recursos/imagens/BANNER1.png" alt="Promoções">
         <div class="slide-content">
         </div>
       </div>
 
       <!-- Slide 2 -->
-      <div class="slide" data-link="produtos.html?categoria=PC Gamer">
+      <div class="slide" data-link="src/paginas/produtos.html?categoria=PC Gamer">
         <img src="src/recursos/imagens/BANNER2.png" alt="Monte seu PC Gamer">
         <div class="slide-overlay">
           <div class="slide-content">
@@ -52,7 +52,7 @@
       </div>
 
       <!-- Slide 3 -->
-      <div class="slide" data-link="produtos.html?categoria=Celular & Smartphone">
+      <div class="slide" data-link="src/paginas/produtos.html?categoria=Celular & Smartphone">
         <img src="src/recursos/imagens/banner7.png" alt="Smartphones 2025">
         <div class="slide-overlay">
           <div class="slide-content">
@@ -190,7 +190,8 @@
       data = data.replace(/href="\.\.\/estilos/g, 'href="src/estilos');
       data = data.replace(/src="\.\.\/scripts/g, 'src="src/scripts');
       data = data.replace(/href="\.\.\/\.\.\/index\.html"/g, 'href="index.html"');
-      data = data.replace(/href="([a-z\-]+)\.html"/g, 'href="src/paginas/$1.html"');
+      // Corrigir links para páginas HTML (com ou sem parâmetros)
+      data = data.replace(/href="([a-z\-]+)\.html/g, 'href="src/paginas/$1.html');
       
       const parser = new DOMParser();
       const doc = parser.parseFromString(data, 'text/html');
