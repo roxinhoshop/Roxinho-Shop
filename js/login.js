@@ -27,15 +27,24 @@ document.addEventListener("DOMContentLoaded", () => {
                 localStorage.setItem("userEmail", tokenPayload.email);
                 localStorage.setItem("isAdmin", tokenPayload.isAdmin ? "true" : "false");
                 
-                showNotification("Login bem-sucedido!", "success");
-                
                 // Disparar evento de mudança de autenticação
                 window.dispatchEvent(new Event("authChange"));
                 
-                // Redirecionar para a página inicial
-                setTimeout(() => {
-                    window.location.href = "index.html";
-                }, 1000);
+                // Mostrar animação de sucesso
+                if (typeof showSuccessAnimation === 'function') {
+                    const userName = tokenPayload.email.split('@')[0];
+                    showSuccessAnimation(
+                        "Login Realizado!",
+                        `Bem-vindo de volta, ${userName}! Redirecionando...`,
+                        "index.html",
+                        2000
+                    );
+                } else {
+                    showNotification("Login bem-sucedido!", "success");
+                    setTimeout(() => {
+                        window.location.href = "index.html";
+                    }, 1000);
+                }
             } else {
                 showNotification(result.message || "Erro ao fazer login.", "error");
             }

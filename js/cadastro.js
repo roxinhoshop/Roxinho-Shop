@@ -207,10 +207,20 @@ document.addEventListener("DOMContentLoaded", () => {
             const result = await response.json();
 
             if (response.ok && result.message) {
-                showNotification("Cadastro realizado com sucesso! Você já pode fazer login.", "success");
-                setTimeout(() => {
-                    window.location.href = "login.html";
-                }, 1500);
+                // Mostrar animação de sucesso
+                if (typeof showSuccessAnimation === 'function') {
+                    showSuccessAnimation(
+                        "Cadastro Realizado!",
+                        "Bem-vindo à Roxinho Shop! Redirecionando para o login...",
+                        "login.html",
+                        2500
+                    );
+                } else {
+                    showNotification("Cadastro realizado com sucesso! Você já pode fazer login.", "success");
+                    setTimeout(() => {
+                        window.location.href = "login.html";
+                    }, 1500);
+                }
             } else {
                 showNotification(result.message || "Ocorreu um erro ao cadastrar. Tente novamente.", "error");
                 console.error(`Erro: ${result.message}`);

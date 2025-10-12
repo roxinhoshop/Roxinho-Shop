@@ -156,8 +156,31 @@
   <script src="js/auth.js"></script>
   <script src="js/home.js"></script>
   <script src="js/notifications.js"></script>
-
   <script src="js/cabecalho-melhorado.js"></script>
+  
+  <script>
+  fetch('cabecalhorodape.html')
+    .then(response => response.text())
+    .then(data => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(data, 'text/html');
+
+      const header = doc.querySelector('nav.cabecalho');
+      const categorias = doc.querySelector('.barra-categorias');
+      const footer = doc.querySelector('footer.rodape');
+
+      if (header) document.getElementById('header-placeholder').appendChild(header);
+      if (categorias) document.getElementById('header-placeholder').appendChild(categorias);
+      if (footer) document.getElementById('footer-placeholder').appendChild(footer);
+
+      doc.querySelectorAll("script").forEach(oldScript => {
+        const newScript = document.createElement("script");
+        if (oldScript.src) newScript.src = oldScript.src;
+        else newScript.textContent = oldScript.textContent;
+        document.body.appendChild(newScript);
+      });
+    });
+  </script>
   
 
   
