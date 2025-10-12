@@ -139,7 +139,7 @@ class AdminPanelAPI {
      */
     async loadCategories() {
         try {
-            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/categorias`);
+            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/categories/all`);
             
             if (response && response.status === 'success') {
                 this.currentCategories = response.categories;
@@ -166,7 +166,7 @@ class AdminPanelAPI {
                 ...filters
             });
 
-            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/produtos?${params}`);
+            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/products?${params}`);
             
             if (response && response.status === 'success') {
                 this.currentProducts = response.products;
@@ -517,13 +517,13 @@ class AdminPanelAPI {
         try {
             let response;
             if (this.editingCategory) {
-                response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/categorias/${this.editingCategory.id}`, {
+                response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/categories/${this.editingCategory.id}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(categoryData),
                 });
             } else {
-                response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/categorias`, {
+                response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/categories`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(categoryData),
@@ -566,7 +566,7 @@ class AdminPanelAPI {
             return;
         }
         try {
-            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/categorias/${categoryId}`, {
+            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/categories/${categoryId}`, {
                 method: 'DELETE',
             });
 
@@ -672,14 +672,14 @@ class AdminPanelAPI {
             
             if (this.editingProduct) {
                 // Atualizar produto existente
-                response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/produtos/${this.editingProduct.id}`, {
+                response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/products/${this.editingProduct.id}`, {
                     method: 'PUT',
                     body: formData,
                     // Headers Content-Type não é necessário para FormData, o navegador define
                 });
             } else {
                 // Criar novo produto
-                response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/produtos`, {
+                response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/products`, {
                     method: 'POST',
                     body: formData,
                 });
@@ -708,7 +708,7 @@ class AdminPanelAPI {
      */
     async editProduct(productId) {
         try {
-            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/produtos/${productId}`);
+            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/products/${productId}`);
             
             if (response && response.status === 'success') {
                 this.showProductModal(response.product);
@@ -732,8 +732,8 @@ class AdminPanelAPI {
         }
 
         try {
-            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/produtos/${productId}`, {
-                method: 'DELETE'
+            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/products/${productId}`, {
+                method: 'DELETE',
             });
 
             if (response && response.status === 'success') {
