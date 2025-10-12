@@ -316,6 +316,12 @@ function atualizarEstadoLogin() {
     const setaLogin = document.getElementById("seta-login");
     const dropdownUsuario = document.getElementById("dropdown-usuario");
 
+    // Verificar se os elementos existem antes de manipulá-los
+    if (!caixaLogin || !statusLogin || !subtextoLogin || !avatarUsuario || !setaLogin || !dropdownUsuario) {
+        console.warn("Alguns elementos do cabeçalho não foram encontrados. Pulando atualização de estado de login.");
+        return;
+    }
+
     if (currentUser) {
         // Usuário logado
         caixaLogin.classList.add("logado"); // Adiciona a classe para estilização
