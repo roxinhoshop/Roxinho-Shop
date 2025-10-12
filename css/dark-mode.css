@@ -1,0 +1,222 @@
+/* Dark Mode - Fluent Design Style */
+
+/* ==================== VARIÁVEIS DARK MODE ==================== */
+:root[data-theme="dark"] {
+    --bg-primary: #1e1e1e;
+    --bg-secondary: #2d2d2d;
+    --bg-tertiary: #3a3a3a;
+    
+    --text-primary: #ffffff;
+    --text-secondary: #e0e0e0;
+    --text-tertiary: #b0b0b0;
+    
+    --border-color: rgba(255, 255, 255, 0.1);
+    --hover-bg: rgba(255, 255, 255, 0.05);
+    
+    --fluent-acrylic-dark: rgba(30, 30, 30, 0.7);
+    --fluent-shadow-dark: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* ==================== BODY DARK MODE ==================== */
+:root[data-theme="dark"] body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* ==================== CABEÇALHO DARK MODE ==================== */
+:root[data-theme="dark"] .cabecalho {
+    background: rgba(30, 30, 30, 0.85);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ==================== BUSCA DARK MODE ==================== */
+:root[data-theme="dark"] .caixa-pesquisa-centralizada input {
+    background: rgba(45, 45, 45, 0.9);
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .caixa-pesquisa-centralizada input::placeholder {
+    color: var(--text-tertiary);
+}
+
+:root[data-theme="dark"] .caixa-pesquisa-centralizada input:hover {
+    border-color: rgba(124, 58, 237, 0.5);
+}
+
+:root[data-theme="dark"] .caixa-pesquisa-centralizada input:focus {
+    background: var(--bg-secondary);
+    border-color: #7c3aed;
+}
+
+/* ==================== CAIXA DE LOGIN DARK MODE ==================== */
+:root[data-theme="dark"] .caixa-entre {
+    background: rgba(45, 45, 45, 0.8);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .caixa-entre:hover {
+    background: rgba(58, 58, 58, 0.9);
+}
+
+:root[data-theme="dark"] .caixa-entre #status-login {
+    color: var(--text-primary);
+}
+
+:root[data-theme="dark"] .caixa-entre #subtexto-login {
+    color: var(--text-secondary);
+}
+
+:root[data-theme="dark"] .caixa-entre .seta {
+    color: var(--text-secondary);
+}
+
+/* ==================== HISTÓRICO DARK MODE ==================== */
+:root[data-theme="dark"] .caixa-historico {
+    background: rgba(45, 45, 45, 0.8);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .caixa-historico:hover {
+    background: rgba(58, 58, 58, 0.9);
+}
+
+:root[data-theme="dark"] .caixa-historico {
+    color: var(--text-primary);
+}
+
+/* ==================== DROPDOWN DARK MODE ==================== */
+:root[data-theme="dark"] .dropdown-usuario {
+    background: rgba(45, 45, 45, 0.95);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: var(--fluent-shadow-dark);
+}
+
+:root[data-theme="dark"] .opcoes-usuario a {
+    color: var(--text-primary);
+}
+
+:root[data-theme="dark"] .opcoes-usuario a:hover {
+    background: rgba(124, 58, 237, 0.15);
+}
+
+:root[data-theme="dark"] .opcoes-usuario a i {
+    color: var(--text-secondary);
+}
+
+:root[data-theme="dark"] .opcoes-usuario a:hover i {
+    color: #a855f7;
+}
+
+/* ==================== BARRA DE CATEGORIAS DARK MODE ==================== */
+:root[data-theme="dark"] .barra-categorias {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.9) 0%, rgba(168, 85, 247, 0.9) 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ==================== CARDS DARK MODE ==================== */
+:root[data-theme="dark"] .fluent-card,
+:root[data-theme="dark"] .produto-card,
+:root[data-theme="dark"] .historico-produto-card,
+:root[data-theme="dark"] .categoria-card {
+    background: var(--bg-secondary);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .fluent-card:hover,
+:root[data-theme="dark"] .produto-card:hover,
+:root[data-theme="dark"] .historico-produto-card:hover,
+:root[data-theme="dark"] .categoria-card:hover {
+    background: var(--bg-tertiary);
+    border-color: rgba(124, 58, 237, 0.3);
+}
+
+/* ==================== SEÇÕES DARK MODE ==================== */
+:root[data-theme="dark"] .secao-historico-home,
+:root[data-theme="dark"] .categorias-populares {
+    background: var(--bg-primary);
+}
+
+:root[data-theme="dark"] .historico-titulo,
+:root[data-theme="dark"] .titulo-secao {
+    color: var(--text-primary);
+}
+
+/* ==================== PRODUTOS DARK MODE ==================== */
+:root[data-theme="dark"] .historico-produto-nome,
+:root[data-theme="dark"] .produto-nome {
+    color: var(--text-primary);
+}
+
+:root[data-theme="dark"] .historico-produto-info,
+:root[data-theme="dark"] .produto-info {
+    background: var(--bg-secondary);
+}
+
+/* ==================== BOTÕES DARK MODE ==================== */
+:root[data-theme="dark"] .fluent-button,
+:root[data-theme="dark"] .historico-ver-todos {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .fluent-button:hover,
+:root[data-theme="dark"] .historico-ver-todos:hover {
+    background: var(--bg-tertiary);
+}
+
+/* ==================== ESTADO VAZIO DARK MODE ==================== */
+:root[data-theme="dark"] .historico-vazio,
+:root[data-theme="dark"] .empty-state {
+    background: var(--bg-secondary);
+}
+
+:root[data-theme="dark"] .historico-vazio-titulo,
+:root[data-theme="dark"] .empty-state-title {
+    color: var(--text-secondary);
+}
+
+:root[data-theme="dark"] .historico-vazio-descricao,
+:root[data-theme="dark"] .empty-state-description {
+    color: var(--text-tertiary);
+}
+
+/* ==================== NOTIFICAÇÕES DARK MODE ==================== */
+:root[data-theme="dark"] .notification {
+    background: rgba(45, 45, 45, 0.95);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+/* ==================== SCROLLBAR DARK MODE ==================== */
+:root[data-theme="dark"] ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+:root[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+:root[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background: rgba(168, 85, 247, 0.5);
+}
+
+/* ==================== TRANSIÇÃO SUAVE ==================== */
+body,
+.cabecalho,
+.caixa-entre,
+.caixa-historico,
+.dropdown-usuario,
+.fluent-card,
+.produto-card,
+.categoria-card {
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
