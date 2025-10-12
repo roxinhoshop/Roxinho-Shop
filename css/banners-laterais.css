@@ -5,37 +5,47 @@
 
 /* ==================== CONTAINER COM BANNERS ==================== */
 .container-com-banners {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 20px;
-    max-width: 1920px;
-    margin: 0 auto;
-    padding: 20px;
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Adicionar padding ao conteúdo principal para não ficar atrás dos banners */
+.container-com-banners > .container {
+    margin-left: 320px;
+    margin-right: 320px;
+    max-width: calc(100% - 640px);
 }
 
 /* ==================== BANNERS LATERAIS ==================== */
 .banner-lateral {
-    width: 160px;
-    min-width: 160px;
-    position: sticky;
-    top: 100px;
-    z-index: 10;
+    width: 300px;
+    min-width: 300px;
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    z-index: 5;
+    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+}
+
+.banner-lateral-esquerdo {
+    left: 0;
+}
+
+.banner-lateral-direito {
+    right: 0;
 }
 
 .banner-lateral-conteudo {
     position: relative;
     width: 100%;
-    height: 600px;
-    border-radius: 12px;
+    height: 100%;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
 }
 
 .banner-lateral-conteudo:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(124, 58, 237, 0.2);
+    /* Removido transform para não deslocar */
 }
 
 /* Imagem do banner */
@@ -57,27 +67,42 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+    background: linear-gradient(180deg, #7c3aed 0%, #5b21b6 50%, #7c3aed 100%);
     color: white;
     text-align: center;
-    padding: 20px;
+    padding: 40px 20px;
 }
 
 .banner-placeholder i {
-    font-size: 48px;
-    margin-bottom: 16px;
-    opacity: 0.8;
+    font-size: 64px;
+    margin-bottom: 24px;
+    opacity: 0.9;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.9;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.05);
+    }
 }
 
 .banner-placeholder p {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .banner-placeholder span {
-    font-size: 12px;
-    opacity: 0.7;
+    font-size: 14px;
+    opacity: 0.8;
+    font-weight: 500;
 }
 
 /* Esconder placeholder se houver imagem */

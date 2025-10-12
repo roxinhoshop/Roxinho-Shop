@@ -2288,3 +2288,22 @@ body {
     }
 }
 
+
+
+/* ==================== LAYOUT PAGAMENTO + NEWSLETTER ==================== */
+.rodape-pagamento-newsletter {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.rodape-pagamento-newsletter > div {
+    flex: 1;
+}
+
+@media (max-width: 768px) {
+    .rodape-pagamento-newsletter {
+        flex-direction: column;
+        gap: 20px;
+    }
+}

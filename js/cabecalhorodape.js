@@ -2,60 +2,13 @@
 document.addEventListener('DOMContentLoaded', function() {
   
   // ==================== SISTEMA DE LOGIN ====================
+  // NOTA: Gerenciamento de login movido para auth-header.js
+  // Mantido aqui apenas para referência histórica
+  /*
   function verificarStatusLogin() {
-    const usuarioLogado = localStorage.getItem('usuarioLogado');
-    const caixaLogin = document.getElementById('caixa-login');
-    const statusLogin = document.getElementById('status-login');
-    const subtextoLogin = document.getElementById('subtexto-login');
-    const avatarUsuario = document.getElementById('avatar-usuario');
-    const setaLogin = document.getElementById('seta-login');
-    const dropdownUsuario = document.getElementById('dropdown-usuario');
-    
-    if (usuarioLogado) {
-      const dadosUsuario = JSON.parse(usuarioLogado);
-      statusLogin.textContent = `Olá, ${dadosUsuario.nome}`;
-      subtextoLogin.textContent = 'Minha conta';
-      
-      // Atualizar avatar se disponível
-      if (dadosUsuario.avatar) {
-        avatarUsuario.src = dadosUsuario.avatar;
-      }
-      
-      // Trocar seta por ícone de dropdown
-      setaLogin.className = 'fa-solid fa-chevron-down seta';
-      
-      // Adicionar evento de clique para mostrar dropdown
-      caixaLogin.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        dropdownUsuario.style.display = dropdownUsuario.style.display === 'none' ? 'block' : 'none';
-      });
-      
-      // Fechar dropdown ao clicar fora
-      document.addEventListener('click', function(e) {
-        if (!caixaLogin.contains(e.target)) {
-          dropdownUsuario.style.display = 'none';
-        }
-      });
-      
-    } else {
-      // Usuário não logado - redirecionar para login
-      caixaLogin.addEventListener('click', function() {
-        window.location.href = 'login.html';
-      });
-    }
+    // Código comentado para evitar conflito com auth-header.js
   }
-  
-  // Função de logout
-  const botaoLogout = document.getElementById('botao-logout');
-  if (botaoLogout) {
-    botaoLogout.addEventListener('click', function(e) {
-      e.preventDefault();
-      localStorage.removeItem('usuarioLogado');
-      localStorage.removeItem('listaDesejos');
-      window.location.reload();
-    });
-  }
+  */
   
   // ==================== LISTA DE DESEJOS ====================
   function inicializarListaDesejos() {
@@ -297,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   // Inicializar todas as funcionalidades
-  verificarStatusLogin();
+  // verificarStatusLogin(); // REMOVIDO - agora gerenciado por auth-header.js
   inicializarListaDesejos();
   atualizarContadorCarrinho();
   inicializarTemaEscuro();
