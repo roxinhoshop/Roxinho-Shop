@@ -54,7 +54,11 @@ function toggleTheme() {
  */
 function updateThemeIcon() {
     const themeIcon = document.getElementById('theme-icon');
-    if (!themeIcon) return;
+    if (!themeIcon) {
+        // Se o ícone não existe ainda, tentar novamente em 100ms
+        setTimeout(updateThemeIcon, 100);
+        return;
+    }
     
     const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
     
@@ -63,6 +67,28 @@ function updateThemeIcon() {
     } else {
         themeIcon.className = 'fas fa-moon';
     }
+}
+
+/**
+ * Observa quando o header é carregado e atualiza o ícone
+ */
+function observeHeaderLoad() {
+    const headerPlaceholder = document.getElementById('header-placeholder');
+    if (!headerPlaceholder) return;
+    
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.addedNodes.length > 0) {
+                // Header foi adicionado, atualizar ícone
+                updateThemeIcon();
+            }
+        });
+    });
+    
+    observer.observe(headerPlaceholder, {
+        childList: true,
+        subtree: true
+    });
 }
 
 /**
@@ -83,6 +109,12 @@ function watchSystemTheme() {
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
     watchSystemTheme();
+    observeHeaderLoad();
+});
+
+// Também atualizar quando a página for mostrada (navegação back/forward)
+window.addEventListener('pageshow', () => {
+    updateThemeIcon();
 });
 
 // Exportar funções
