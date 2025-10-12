@@ -8,7 +8,24 @@ class AuthSystem {
 
     init() {
         // Carregar usuário do localStorage ao iniciar
-        this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        const jwtToken = localStorage.getItem("jwtToken");
+        const userId = localStorage.getItem("userId");
+        const userName = localStorage.getItem("userName");
+        const userEmail = localStorage.getItem("userEmail");
+        const isAdmin = localStorage.getItem("isAdmin") === "true";
+
+        if (jwtToken && userId && userName && userEmail) {
+            this.currentUser = {
+                id: userId,
+                nome: userName,
+                email: userEmail,
+                token: jwtToken,
+                isAdmin: isAdmin
+            };
+
+        } else {
+            this.currentUser = null;
+        }
         console.log("AuthSystem inicializado. Usuário atual:", this.currentUser);
     }
 
@@ -16,12 +33,12 @@ class AuthSystem {
     async login(email, password) {
         try {
             console.log("AuthSystem: Tentando login com:", { email, password });
-            const response = await fetch("php/api.php", {
+            const response = await fetch("/api/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ action: "auth", sub_action: "login", email, senha: password }),
+                body: JSON.stringify({ email, senha: password }),
             });
 
             console.log("AuthSystem: Resposta da API de login (status):");
@@ -36,7 +53,11 @@ class AuthSystem {
                     avatar: data.user.foto_perfil || "imagens/default.png", // Usar foto_perfil do DB ou default
                     isAdmin: data.user.is_admin === 1 // Assumindo que o DB retorna 1 para admin
                 };
-                localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
+                localStorage.setItem("jwtToken", data.token);
+                localStorage.setItem("userId", data.user.id);
+                localStorage.setItem("userName", data.user.nome);
+                localStorage.setItem("userEmail", data.user.email);
+                localStorage.setItem("isAdmin", data.user.is_admin === 1 ? "true" : "false");
                 this.showMessage("Login realizado com sucesso!", "success");
                 this.dispatchAuthChangeEvent();
                 return { success: true, user: this.currentUser };
@@ -53,7 +74,11 @@ class AuthSystem {
     // Simula o logout de um usuário
     logout() {
         this.currentUser = null;
-        localStorage.removeItem("currentUser");
+        localStorage.removeItem("jwtToken");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("userName");
+        localStorage.removeItem("userEmail");
+        localStorage.removeItem("isAdmin");
         this.showMessage("Logout realizado com sucesso.", "info");
         this.dispatchAuthChangeEvent();
     }
@@ -80,19 +105,13 @@ class AuthSystem {
         }
     }
 
-    // Exibe mensagens para o usuário (pode ser substituído por um sistema de notificação real)
+    // Exibe mensagens para o usuário usando o sistema de notificação pop-up
     showMessage(message, type = "info") {
-        console.log(`[${type.toUpperCase()}] ${message}`);
-        // Implementação de UI para mostrar mensagens pode ser adicionada aqui
-        // Ex: um toast, um alert, etc.
-        const notificationArea = document.getElementById("notification-area");
-        if (notificationArea) {
-            notificationArea.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
-            setTimeout(() => {
-                notificationArea.innerHTML = "";
-            }, 3000);
+        if (typeof showNotification === "function") {
+            showNotification(message, type);
         } else {
-            alert(message);
+            console.log(`[${type.toUpperCase()}] ${message}`);
+            alert(message); // Fallback se showNotification não estiver disponível
         }
     }
 

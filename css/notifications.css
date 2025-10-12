@@ -1,0 +1,95 @@
+/* notifications.css */
+
+#notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.notification {
+    background-color: #333;
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.notification.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.notification.hide {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.notification-icon {
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.notification-icon::before {
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+}
+
+.notification-success {
+    background-color: #4CAF50;
+}
+.notification-success .notification-icon::before {
+    content: "\f00c"; /* fa-check */
+}
+
+.notification-error {
+    background-color: #f44336;
+}
+.notification-error .notification-icon::before {
+    content: "\f00d"; /* fa-times */
+}
+
+.notification-info {
+    background-color: #2196F3;
+}
+.notification-info .notification-icon::before {
+    content: "\f129"; /* fa-info-circle */
+}
+
+.notification-warning {
+    background-color: #ff9800;
+}
+.notification-warning .notification-icon::before {
+    content: "\f071"; /* fa-exclamation-triangle */
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-left: 15px;
+    padding: 0 5px;
+}
+
+.notification-close:hover {
+    color: #ddd;
+}
+

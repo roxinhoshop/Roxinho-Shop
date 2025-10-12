@@ -44,112 +44,124 @@ function slideAnterior() {
 // ======================= PRODUTOS EM DESTAQUE ======================= //
 
 // Função para renderizar produtos em destaque
-function renderizarProdutosDestaque() {
-  console.log('Renderizando produtos em destaque...');
+async function renderizarProdutosDestaque() {
+  console.log("Renderizando produtos em destaque...");
   
-  const container = document.getElementById('grade-produtos-home');
+  const container = document.getElementById("grade-produtos-home");
   
   if (!container) {
-    console.error('Container grade-produtos-home não encontrado');
+    console.error("Container grade-produtos-home não encontrado");
     return;
   }
-  
-  // Verificar se produtos está disponível
-  if (typeof produtos === 'undefined' || !produtos || produtos.length === 0) {
-    console.error('Array de produtos não encontrado ou vazio');
+
+  try {
+    const response = await fetch("/api/products/featured"); // Assumindo este endpoint para produtos em destaque
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const produtos = await response.json();
+
+    if (!produtos || produtos.length === 0) {
+      container.innerHTML = `
+        <div class="erro-produtos">
+          <p>Produtos não disponíveis no momento.</p>
+          <button onclick="location.reload()" class="btn-recarregar">Recarregar</button>
+        </div>
+      `;
+      return;
+    }
+    
+    const produtosParaExibir = produtos.slice(0, 8); // Exibir os primeiros 8 produtos em destaque
+    
+    container.innerHTML = produtosParaExibir.map(produto => {
+      const ehFavorito = false; // Sistema de favoritos pode ser implementado depois
+
+      // Determinar como renderizar a imagem
+      let imagemHTML = '';
+      if (produto.imagem && ehURLImagem(produto.imagem)) {
+        // Usar imagem real com fallback para gradiente
+        imagemHTML = `
+          <img src="${produto.imagem}" alt="${produto.nome}" class="imagem-produto-real" 
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="fundo-gradiente ${produto.imagemFallback || 'gradiente-roxo'}" style="display: none;"></div>
+        `;
+      } else {
+        // Usar gradiente
+        imagemHTML = `<div class="fundo-gradiente ${produto.imagemFallback || produto.imagem || 'gradiente-roxo'}"></div>`;
+      }
+
+      return `
+        <a href="paginaproduto.html?id=${produto.id}" class="cartao-link">
+          <div class="card-produto-home" data-produto-id="${produto.id}">
+            <div class="produto-imagem">
+              ${imagemHTML}
+              <div class="badges-produto">
+                ${!produto.emEstoque ? '<span class="badge indisponivel">Indisponível</span>' : ''}
+              </div>
+              <button class="botao-favorito ${ehFavorito ? 'ativo' : ''}" onclick="event.preventDefault(); event.stopPropagation(); alternarFavorito(${produto.id})">
+                <i class="fas fa-heart"></i>
+              </button>
+            </div>
+            
+            <div class="produto-info">
+              <div class="produto-marca">${produto.marca}</div>
+              
+              <h3 class="produto-nome">${produto.nome}</h3>
+              
+              <div class="produto-avaliacao">
+                <div class="estrelas">
+                  ${gerarEstrelas(produto.avaliacao || 0)}
+                </div>
+                <span class="avaliacoes">(${produto.avaliacoes || 0})</span>
+              </div>
+              
+              <div class="produto-precos">
+                ${produto.precoOriginal ? `<span class="preco-original">R$ ${produto.precoOriginal.toFixed(2).replace('.', ',')}</span>` : ''}
+                <div class="preco-atual">R$ ${produto.preco.toFixed(2).replace('.', ',')}</div>
+                ${produto.desconto > 0 ? `<div class="percentual-desconto">-${produto.desconto}%</div>` : ''}
+              </div>
+              
+              <div class="produto-parcelas">
+                <span>12x de R$ ${(produto.preco / 12).toFixed(2).replace('.', ',')} sem juros</span>
+              </div>
+              
+              <div class="produto-status">
+                ${produto.emEstoque ? '<div class="status-item em-estoque"><i class="fas fa-check"></i> Em estoque</div>' : ''}
+              </div>
+            </div>
+
+            <!-- Botões de Ação -->
+            <div class="botoes-produto-home">
+              <button class="btn-comprar-direto ${!produto.emEstoque ? 'disabled' : ''}" 
+                      onclick="event.preventDefault(); event.stopPropagation(); ${produto.emEstoque ? `comprarDireto(${produto.id})` : 'showNotification(\'Produto indisponível\', \'warning\')'}"
+                      ${!produto.emEstoque ? 'disabled' : ''}>
+                <i class="fas fa-bolt"></i>
+                Comprar
+              </button>
+              <button class="btn-adicionar-carrinho ${!produto.emEstoque ? 'disabled' : ''}" 
+                      onclick="event.preventDefault(); event.stopPropagation(); ${produto.emEstoque ? `adicionarProdutoAoCarrinho(${produto.id})` : 'showNotification(\'Produto indisponível\', \'warning\')'}"
+                      ${!produto.emEstoque ? 'disabled' : ''}>
+                <i class="fas fa-cart-plus"></i>
+                Carrinho
+              </button>
+            </div>
+          </div>
+        </a>
+      `;
+    }).join('');
+    
+    console.log(`${produtos.length} produtos em destaque renderizados`);
+
+  } catch (error) {
+    console.error("Erro ao carregar produtos em destaque:", error);
+    showNotification("Erro ao carregar produtos em destaque. Tente recarregar a página.", "error");
     container.innerHTML = `
       <div class="erro-produtos">
-        <p>Produtos não disponíveis no momento.</p>
+        <p>Erro ao carregar produtos. Tente recarregar a página.</p>
         <button onclick="location.reload()" class="btn-recarregar">Recarregar</button>
       </div>
     `;
-    return;
   }
-  
-  // Filtrar apenas produtos em destaque
-  const produtosDestaque = produtos.filter(produto => produto.destaque === true);
-  
-  // Se não houver produtos em destaque, usar os primeiros 8 produtos
-  const produtosParaExibir = produtosDestaque.length > 0 ? produtosDestaque.slice(0, 8) : produtos.slice(0, 8);
-  
-  container.innerHTML = produtosParaExibir.map(produto => {
-    const ehFavorito = false; // Sistema de favoritos pode ser implementado depois
-
-    // Determinar como renderizar a imagem
-    let imagemHTML = '';
-    if (produto.imagem && ehURLImagem(produto.imagem)) {
-      // Usar imagem real com fallback para gradiente
-      imagemHTML = `
-        <img src="${produto.imagem}" alt="${produto.nome}" class="imagem-produto-real" 
-             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <div class="fundo-gradiente ${produto.imagemFallback || 'gradiente-roxo'}" style="display: none;"></div>
-      `;
-    } else {
-      // Usar gradiente
-      imagemHTML = `<div class="fundo-gradiente ${produto.imagemFallback || produto.imagem || 'gradiente-roxo'}"></div>`;
-    }
-
-    return `
-      <a href="paginaproduto.html?id=${produto.id}" class="cartao-link">
-        <div class="card-produto-home" data-produto-id="${produto.id}">
-          <div class="produto-imagem">
-            ${imagemHTML}
-            <div class="badges-produto">
-              ${!produto.emEstoque ? '<span class="badge indisponivel">Indisponível</span>' : ''}
-            </div>
-            <button class="botao-favorito ${ehFavorito ? 'ativo' : ''}" onclick="event.preventDefault(); event.stopPropagation(); alternarFavorito(${produto.id})">
-              <i class="fas fa-heart"></i>
-            </button>
-          </div>
-          
-          <div class="produto-info">
-            <div class="produto-marca">${produto.marca}</div>
-            
-            <h3 class="produto-nome">${produto.nome}</h3>
-            
-            <div class="produto-avaliacao">
-              <div class="estrelas">
-                ${gerarEstrelas(produto.avaliacao || 0)}
-              </div>
-              <span class="avaliacoes">(${produto.avaliacoes || 0})</span>
-            </div>
-            
-            <div class="produto-precos">
-              ${produto.precoOriginal ? `<span class="preco-original">R$ ${produto.precoOriginal.toFixed(2).replace('.', ',')}</span>` : ''}
-              <div class="preco-atual">R$ ${produto.preco.toFixed(2).replace('.', ',')}</div>
-              ${produto.desconto > 0 ? `<div class="percentual-desconto">-${produto.desconto}%</div>` : ''}
-            </div>
-            
-            <div class="produto-parcelas">
-              <span>12x de R$ ${(produto.preco / 12).toFixed(2).replace('.', ',')} sem juros</span>
-            </div>
-            
-            <div class="produto-status">
-              ${produto.emEstoque ? '<div class="status-item em-estoque"><i class="fas fa-check"></i> Em estoque</div>' : ''}
-            </div>
-          </div>
-
-          <!-- Botões de Ação -->
-          <div class="botoes-produto-home">
-            <button class="btn-comprar-direto ${!produto.emEstoque ? 'disabled' : ''}" 
-                    onclick="event.preventDefault(); event.stopPropagation(); ${produto.emEstoque ? `comprarDireto(${produto.id})` : 'mostrarNotificacao(\'Produto indisponível\', \'aviso\')'}"
-                    ${!produto.emEstoque ? 'disabled' : ''}>
-              <i class="fas fa-bolt"></i>
-              Comprar
-            </button>
-            <button class="btn-adicionar-carrinho ${!produto.emEstoque ? 'disabled' : ''}" 
-                    onclick="event.preventDefault(); event.stopPropagation(); ${produto.emEstoque ? `adicionarProdutoAoCarrinho(${produto.id})` : 'mostrarNotificacao(\'Produto indisponível\', \'aviso\')'}"
-                    ${!produto.emEstoque ? 'disabled' : ''}>
-              <i class="fas fa-cart-plus"></i>
-              Carrinho
-            </button>
-          </div>
-        </div>
-      </a>
-    `;
-  }).join('');
-  
-  console.log(`${produtosDestaque.length} produtos em destaque renderizados`);
 }
 
 // Função auxiliar para verificar se é URL de imagem
@@ -276,8 +288,8 @@ document.addEventListener('DOMContentLoaded', function() {
       if (produtoId && typeof adicionarAoCarrinho === 'function') {
         adicionarAoCarrinho(produtoId);
       } else {
-        if (typeof mostrarNotificacao === 'function') {
-          mostrarNotificacao('Função de carrinho não disponível', 'erro');
+        if (typeof showNotification === 'function') {
+          showNotification('Função de carrinho não disponível', 'error');
         }
       }
     }
@@ -349,22 +361,8 @@ document.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('load', function() {
   // Verificar se os produtos já foram renderizados
   const container = document.getElementById('grade-produtos-home');
-  if (container && container.children.length === 0) {
-    console.log('Produtos não foram renderizados, tentando novamente...');
-    setTimeout(inicializarHome, 200);
+  if (container && container.innerHTML.trim() === '') {
+    inicializarHome();
   }
 });
 
-// Exportar funções para uso global
-if (typeof window !== 'undefined') {
-  window.inicializarHome = inicializarHome;
-  window.renderizarProdutosDestaque = renderizarProdutosDestaque;
-  window.alternarFavorito = alternarFavorito;
-  window.gerarEstrelas = gerarEstrelas;
-  window.tentarCarregarProdutos = tentarCarregarProdutos;
-  window.ehURLImagem = ehURLImagem;
-  window.proximoSlide = proximoSlide;
-  window.slideAnterior = slideAnterior;
-  window.mostrarSlide = mostrarSlide;
-  window.inicializarBanner = inicializarBanner;
-}

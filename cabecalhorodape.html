@@ -24,7 +24,9 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="./css/cabecalhorodape.css">
+  <link rel="stylesheet" href="./css/notifications.css">
 </head>
+<script src="./js/notifications.js"></script>
 
   <!-- ======================= CABEÇALHO ======================= -->
   <nav class="cabecalho">
@@ -54,6 +56,12 @@
           <span class="texto-historico">Histórico de Produtos</span>
         </a>
 
+        <!-- ⚙️ Botão de Administração (Apenas para Admin) -->
+        <a href="admin.html" class="caixa-configuracoes" id="link-admin" style="display: none;">
+          <i class="fa-solid fa-gear icone-configuracoes"></i>
+          <span class="texto-configuracoes">Admin</span>
+        </a>
+
         <!-- 🔹 Caixinha de Login -->
         <div class="caixa-entre" id="caixa-login">
           <img src="imagens/default.png" alt="Avatar" class="avatar" id="avatar-usuario">         <div class="texto" id="texto-login">
@@ -67,6 +75,7 @@
               <a href="painelusuario.html"><i class="fa-solid fa-user"></i> Minha Conta</a>
               <a href="painelusuario.html#pedidos"><i class="fa-solid fa-box"></i> Meus Pedidos</a>
               <a href="painelusuario.html#desejos"><i class="fa-solid fa-heart"></i> Lista de Desejos</a>
+              <a href="admin.html" id="link-admin-dropdown" style="display: none;"><i class="fa-solid fa-gear"></i> Admin</a>
               <a href="#" id="botao-logout"><i class="fa-solid fa-sign-out-alt"></i> Sair</a>
             </div>
           </div>
