@@ -61,7 +61,7 @@ body {
 .logo-imagem {
   margin-left: 10px;
   margin-bottom: -5px;
-  height: 100px;
+  height: 180px;
   width: auto;
   object-fit: contain;
   transition: filter 0.3s ease;
