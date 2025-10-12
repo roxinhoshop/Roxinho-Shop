@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (result.success) {
                     showMessage(result.message + " Você será redirecionado para a página de login.", "sucesso");
                     setTimeout(() => {
-                        window.location.href = "login.html";
+                        window.location.href = "entrar.html";
                     }, 3000);
                 } else {
                     showMessage(result.error || "Erro ao redefinir senha.", "erro");

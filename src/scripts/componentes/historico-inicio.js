@@ -65,7 +65,7 @@ function renderizarHistoricoProdutos(container, produtos) {
 function criarCardProduto(produto) {
     const card = document.createElement('div');
     card.className = 'historico-produto-card';
-    card.onclick = () => window.location.href = `paginaproduto.html?id=${produto.id}`;
+    card.onclick = () => window.location.href = `pagina-produto.html?id=${produto.id}`;
     
     // Calcular tempo desde visualização
     const tempoVisto = calcularTempoVisto(produto.dataVisualizacao);

@@ -218,13 +218,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     showSuccessAnimation(
                         "Cadastro Realizado!",
                         "Bem-vindo à Roxinho Shop! Redirecionando para o login...",
-                        "login.html",
+                        "entrar.html",
                         2500
                     );
                 } else {
                     showNotification("Cadastro realizado com sucesso! Você já pode fazer login.", "success");
                     setTimeout(() => {
-                        window.location.href = "login.html";
+                        window.location.href = "entrar.html";
                     }, 1500);
                 }
             } else {

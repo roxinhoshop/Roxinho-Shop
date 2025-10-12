@@ -303,8 +303,8 @@ function preventDefault(e) {
 }
 
 
-// NOTA: Esta função foi DESATIVADA para evitar conflito com auth-header.js
-// O auth-header.js agora gerencia todo o comportamento de login/logout
+// NOTA: Esta função foi DESATIVADA para evitar conflito com cabecalho-autenticacao.js
+// O cabecalho-autenticacao.js agora gerencia todo o comportamento de login/logout
 // Mantido aqui apenas como referência histórica
 
 /*
@@ -360,7 +360,7 @@ function atualizarEstadoLogin() {
 }
 
 function redirectToLogin() {
-    window.location.href = "login.html";
+    window.location.href = "entrar.html";
 }
 
 function toggleDropdown(event) {
@@ -399,5 +399,5 @@ document.addEventListener("DOMContentLoaded", () => {
 window.addEventListener("authChange", atualizarEstadoLogin);
 */
 
-console.log("✅ cabecalho-melhorado.js carregado (gerenciamento de login delegado para auth-header.js)");
+console.log("✅ cabecalho-melhorado.js carregado (gerenciamento de login delegado para cabecalho-autenticacao.js)");
 

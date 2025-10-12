@@ -9,8 +9,8 @@
   <link rel="icon" type="image/png" href="../recursos/imagens/favicon-roxinhoshop.png">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="../estilos/login.css"> <!-- Reutilizar estilos de login para consistência -->
-  <link rel="stylesheet" href="../estilos/cabecalhorodape.css">
+  <link rel="stylesheet" href="../estilos/entrar.css"> <!-- Reutilizar estilos de login para consistência -->
+  <link rel="stylesheet" href="../estilos/cabecalho-rodape.css">
 
   <!-- Placeholder para Header -->
   <div id="header-placeholder"></div>
@@ -20,9 +20,9 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../estilos/fluent-design.css">
-  <link rel="stylesheet" href="../estilos/dark-mode.css">
-  <link rel="stylesheet" href="../estilos/theme-button.css">
+  <link rel="stylesheet" href="../estilos/design-fluent.css">
+  <link rel="stylesheet" href="../estilos/modo-escuro.css">
+  <link rel="stylesheet" href="../estilos/botao-tema.css">
 </head>
 <body>
 
@@ -57,7 +57,7 @@
         </button>
 
         <p class="register-link">
-          <a href="login.html">Voltar para o login</a>
+          <a href="entrar.html">Voltar para o login</a>
         </p>
       </form>
     </div>
@@ -67,12 +67,12 @@
   <div id="footer-placeholder"></div>
 
   <!-- Scripts -->
-  <script src="../scripts/system-init.js"></script>
-  <script src="../scripts/auth.js"></script>
-  <script src="../scripts/redefinirsenha.js"></script>
+  <script src="../scripts/inicializacao-sistema.js"></script>
+  <script src="../scripts/autenticacao.js"></script>
+  <script src="../scripts/redefinir-senha.js"></script>
   
   <script>
-  fetch(\'cabecalhorodape.html\')
+  fetch(\'cabecalho-rodape.html\')
     .then(response => response.text())
     .then(data => {
       const parser = new DOMParser();
@@ -110,6 +110,6 @@
     }
   </script>
 
-  <script src="../scripts/theme-switcher.js"></script>
+  <script src="../scripts/alternador-tema.js"></script>
 </body>
 </html>

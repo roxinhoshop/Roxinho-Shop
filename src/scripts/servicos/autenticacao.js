@@ -1,5 +1,5 @@
 
-// auth.js - Sistema de Autenticação para Roxinho Shop
+// autenticacao.js - Sistema de Autenticação para Roxinho Shop
 
 class AuthSystem {
     constructor() {
@@ -119,7 +119,7 @@ class AuthSystem {
     async authenticatedRequest(url, options = {}) {
         if (!this.isLoggedIn()) {
             this.showMessage("Você precisa estar logado para realizar esta ação.", "error");
-            window.location.href = "login.html";
+            window.location.href = "entrar.html";
             return { status: "error", message: "Não autenticado." };
         }
 
@@ -141,7 +141,7 @@ class AuthSystem {
             if (response.status === 401 || response.status === 403) {
                 this.logout();
                 this.showMessage("Sessão expirada ou acesso negado. Faça login novamente.", "error");
-                window.location.href = "login.html";
+                window.location.href = "entrar.html";
                 return { status: "error", message: "Sessão expirada ou acesso negado." };
             }
 

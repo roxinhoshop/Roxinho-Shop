@@ -769,7 +769,7 @@ function renderizarProdutos() {
     }
 
     return `
-      <a href="paginaproduto.html?id=${produto.id}" class="cartao-link">
+      <a href="pagina-produto.html?id=${produto.id}" class="cartao-link">
         <div class="cartao-produto ${modoVisualizacao === 'lista' ? 'visualizacao-lista' : ''}" data-produto-id="${produto.id}">
           <div class="imagem-produto">
             ${imagemHTML}

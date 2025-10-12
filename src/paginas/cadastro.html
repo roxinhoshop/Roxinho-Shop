@@ -6,15 +6,15 @@
   <title>Cadastre-se | Roxinho Shop</title>
   <link rel="icon" type="image/png" href="../recursos/imagens/favicon-roxinhoshop.png">
   <link rel="stylesheet" href="../estilos/cadastro.css">
-  <link rel="stylesheet" href="../estilos/cabecalhorodape.css">
-  <link rel="stylesheet" href="../estilos/success-animation.css">
-  <link rel="stylesheet" href="../estilos/button-loading.css">
+  <link rel="stylesheet" href="../estilos/cabecalho-rodape.css">
+  <link rel="stylesheet" href="../estilos/animacao-sucesso.css">
+  <link rel="stylesheet" href="../estilos/botao-carregamento.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
-  <link rel="stylesheet" href="../estilos/notifications.css" />
+  <link rel="stylesheet" href="../estilos/notificacoes.css" />
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../estilos/fluent-design.css">
-  <link rel="stylesheet" href="../estilos/dark-mode.css">
-  <link rel="stylesheet" href="../estilos/theme-button.css">
+  <link rel="stylesheet" href="../estilos/design-fluent.css">
+  <link rel="stylesheet" href="../estilos/modo-escuro.css">
+  <link rel="stylesheet" href="../estilos/botao-tema.css">
 </head>
 <body>
   <div id="header-placeholder"></div>
@@ -123,7 +123,7 @@
         <!-- Link para login -->
         <p class="link-login">
           Já tem uma conta? 
-          <a href="./login.html">Fazer login</a>
+          <a href="./entrar.html">Fazer login</a>
         </p>
       </form>
     </div>
@@ -133,15 +133,15 @@
   <div id="footer-placeholder"></div>
 
   <!-- JS -->
-  <script src="../scripts/button-loading.js"></script>
-  <script src="../scripts/success-animation.js"></script>
-  <script src="../scripts/system-init.js"></script>
-  <script src="../scripts/auth-system.js"></script>
+  <script src="../scripts/botao-carregamento.js"></script>
+  <script src="../scripts/animacao-sucesso.js"></script>
+  <script src="../scripts/inicializacao-sistema.js"></script>
+  <script src="../scripts/sistema-autenticacao.js"></script>
   <script src="../scripts/cadastro.js"></script>
-  <script src="../scripts/notifications.js"></script>
+  <script src="../scripts/notificacoes.js"></script>
   
   <script>
-  fetch('cabecalhorodape.html')
+  fetch('cabecalho-rodape.html')
     .then(response => response.text())
     .then(data => {
       const parser = new DOMParser();
@@ -166,6 +166,6 @@
 
 
 
-  <script src="../scripts/theme-switcher.js"></script>
+  <script src="../scripts/alternador-tema.js"></script>
 </body>
 </html>

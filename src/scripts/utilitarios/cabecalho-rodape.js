@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
   
   // ==================== SISTEMA DE LOGIN ====================
-  // NOTA: Gerenciamento de login movido para auth-header.js
+  // NOTA: Gerenciamento de login movido para cabecalho-autenticacao.js
   // Mantido aqui apenas para referência histórica
   /*
   function verificarStatusLogin() {
-    // Código comentado para evitar conflito com auth-header.js
+    // Código comentado para evitar conflito com cabecalho-autenticacao.js
   }
   */
   
@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   // Inicializar todas as funcionalidades
-  // verificarStatusLogin(); // REMOVIDO - agora gerenciado por auth-header.js
+  // verificarStatusLogin(); // REMOVIDO - agora gerenciado por cabecalho-autenticacao.js
   inicializarListaDesejos();
   atualizarContadorCarrinho();
   inicializarTemaEscuro();

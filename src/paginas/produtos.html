@@ -11,7 +11,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="../estilos/produtos.css">
-    <link rel="stylesheet" href="../estilos/cabecalhorodape.css">
+    <link rel="stylesheet" href="../estilos/cabecalho-rodape.css">
     <link rel="stylesheet" href="../estilos/responsivo.css">
 
     <!-- Font Awesome -->
@@ -19,12 +19,12 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../estilos/auth-header.css">
-  <link rel="stylesheet" href="../estilos/notifications.css">
-  <link rel="stylesheet" href="../estilos/fluent-design.css">
-  <link rel="stylesheet" href="../estilos/dark-mode.css">
+  <link rel="stylesheet" href="../estilos/cabecalho-autenticacao.css">
+  <link rel="stylesheet" href="../estilos/notificacoes.css">
+  <link rel="stylesheet" href="../estilos/design-fluent.css">
+  <link rel="stylesheet" href="../estilos/modo-escuro.css">
   <link rel="stylesheet" href="../estilos/filtros-modernos.css">
-  <link rel="stylesheet" href="../estilos/theme-button.css">
+  <link rel="stylesheet" href="../estilos/botao-tema.css">
 </head>
 <body>
     <!-- Placeholder para Header -->
@@ -228,11 +228,11 @@
   <div id="footer-placeholder"></div>
 
             <!-- JavaScript -->
-    <script src="../scripts/database.js"></script>
+    <script src="../scripts/banco-dados.js"></script>
     <script src="../scripts/produtos.js"></script>
 
     <script>
-        fetch("cabecalhorodape.html")
+        fetch("cabecalho-rodape.html")
             .then(response => response.text())
             .then(data => {
                 const parser = new DOMParser();
@@ -257,10 +257,10 @@
                 // Carregar scripts necessários APÓS o header estar no DOM
                 const scriptsToLoad = [
                     './js/sistema-xp.js',
-                    'js/header-menu.js',
-                    'js/auth-header.js',
-                    'js/notifications.js',
-                    'js/theme-switcher.js'
+                    'js/menu-cabecalho.js',
+                    'js/cabecalho-autenticacao.js',
+                    'js/notificacoes.js',
+                    'js/alternador-tema.js'
                 ];
                 
                 scriptsToLoad.forEach((src, index) => {

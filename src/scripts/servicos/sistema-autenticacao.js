@@ -197,7 +197,7 @@ class AuthSystem {
         if (!window.location.pathname.includes("index.html") && 
             !window.location.pathname.includes("index.html") &&
             window.location.pathname !== "/") {
-            window.location.href = "login.html";
+            window.location.href = "entrar.html";
         }
     }
 
@@ -233,7 +233,7 @@ class AuthSystem {
     requireAdmin() {
         if (!this.isAuthenticated()) {
             this.showMessage("Você precisa fazer login para acessar esta área.", "error");
-            window.location.href = "login.html";
+            window.location.href = "entrar.html";
             return false;
         }
 
@@ -253,7 +253,7 @@ class AuthSystem {
     requireAuth() {
         if (!this.isAuthenticated()) {
             this.showMessage("Você precisa fazer login para acessar esta área.", "error");
-            window.location.href = "login.html";
+            window.location.href = "entrar.html";
             return false;
         }
         return true;

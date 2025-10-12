@@ -149,7 +149,7 @@ class SistemaAvaliacoes {
       }
 
       return `
-        <a href="paginaproduto.html?id=${produto.id}" class="cartao-link">
+        <a href="pagina-produto.html?id=${produto.id}" class="cartao-link">
           <div class="cartao-produto" data-produto-id="${produto.id}">
             <div class="imagem-produto">
               ${imagemHTML}
@@ -833,7 +833,7 @@ class SistemaAvaliacoes {
 
 // Funções globais
 function navegarParaProduto(id) {
-  window.location.href = `paginaproduto.html?id=${id}`;
+  window.location.href = `pagina-produto.html?id=${id}`;
 }
 
 function marcarUtil(avaliacaoId) {

@@ -10,15 +10,15 @@
   <link rel="icon" type="image/png" href="../recursos/imagens/favicon-roxinhoshop.png">
   
   <!-- CSS -->
-  <link rel="stylesheet" href="../estilos/login.css">
-  <link rel="stylesheet" href="../estilos/cabecalhorodape.css">
-  <link rel="stylesheet" href="../estilos/auth-header.css">
-  <link rel="stylesheet" href="../estilos/success-animation.css">
-  <link rel="stylesheet" href="../estilos/button-loading.css">
-  <link rel="stylesheet" href="../estilos/notifications.css">
-  <link rel="stylesheet" href="../estilos/fluent-design.css">
-  <link rel="stylesheet" href="../estilos/dark-mode.css">
-  <link rel="stylesheet" href="../estilos/theme-button.css">
+  <link rel="stylesheet" href="../estilos/entrar.css">
+  <link rel="stylesheet" href="../estilos/cabecalho-rodape.css">
+  <link rel="stylesheet" href="../estilos/cabecalho-autenticacao.css">
+  <link rel="stylesheet" href="../estilos/animacao-sucesso.css">
+  <link rel="stylesheet" href="../estilos/botao-carregamento.css">
+  <link rel="stylesheet" href="../estilos/notificacoes.css">
+  <link rel="stylesheet" href="../estilos/design-fluent.css">
+  <link rel="stylesheet" href="../estilos/modo-escuro.css">
+  <link rel="stylesheet" href="../estilos/botao-tema.css">
   
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
@@ -73,7 +73,7 @@
         </div>
 
         <div class="forgot-password">
-          <a href="redefinirsenha.html">Esqueceu sua senha?</a>
+          <a href="redefinir-senha.html">Esqueceu sua senha?</a>
         </div>
 
         <div class="beta-notice">
@@ -108,18 +108,18 @@
 
 
   <!-- Scripts -->
-  <script src="../scripts/button-loading.js"></script>
+  <script src="../scripts/botao-carregamento.js"></script>
   <!-- JS - ORDEM IMPORTANTE! -->
-  <script src="../scripts/database.js"></script>
-  <script src="../scripts/success-animation.js"></script>
-  <script src="../scripts/auth-header.js"></script>
-  <script src="../scripts/notifications.js"></script>
-  <script src="../scripts/login.js"></script>
-  <script src="../scripts/theme-switcher.js"></script>
+  <script src="../scripts/banco-dados.js"></script>
+  <script src="../scripts/animacao-sucesso.js"></script>
+  <script src="../scripts/cabecalho-autenticacao.js"></script>
+  <script src="../scripts/notificacoes.js"></script>
+  <script src="../scripts/entrar.js"></script>
+  <script src="../scripts/alternador-tema.js"></script>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 
   <script>
-  fetch('cabecalhorodape.html')
+  fetch('cabecalho-rodape.html')
     .then(response => response.text())
     .then(data => {
       const parser = new DOMParser();

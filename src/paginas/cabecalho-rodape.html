@@ -19,10 +19,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="../estilos/cabecalhorodape.css">
-  <link rel="stylesheet" href="../estilos/notifications.css">
+  <link rel="stylesheet" href="../estilos/cabecalho-rodape.css">
+  <link rel="stylesheet" href="../estilos/notificacoes.css">
 </head>
-<script src="../scripts/notifications.js"></script>
+<script src="../scripts/notificacoes.js"></script>
 
   <!-- ======================= CABEÇALHO ======================= -->
   <nav class="cabecalho">
@@ -58,7 +58,7 @@
         </button>
 
         <!-- ⚙️ Botão de Administração (Apenas para Admin) -->
-        <a href="admin.html" class="caixa-configuracoes" id="link-admin" style="display: none;">
+        <a href="administracao.html" class="caixa-configuracoes" id="link-admin" style="display: none;">
           <i class="fa-solid fa-gear icone-configuracoes"></i>
           <span class="texto-configuracoes">Admin</span>
         </a>
@@ -251,7 +251,7 @@
       <div>
         <h3>Sobre nós</h3>
         <ul>
-          <li><a href="quem-somos.html">Quem somos</a></li>
+          <li><a href="sobre-nos.html">Quem somos</a></li>
           <li><a href="historico.html"Contato</a></li>
         </ul>
       </div>
@@ -289,7 +289,7 @@
     </div>
   </footer>
 
-    <script src="../scripts/cabecalhorodape.js"></script>
+    <script src="../scripts/cabecalho-rodape.js"></script>
     
 
   <!-- JS -->
@@ -358,7 +358,7 @@ document.addEventListener('DOMContentLoaded', function() {
           texto: produto.nome,
           categoria: produto.categoria,
           preco: produto.preco,
-          url: `paginaproduto.html?id=${produto.id}`
+          url: `pagina-produto.html?id=${produto.id}`
         });
       }
     });
@@ -632,7 +632,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Quando clicar na caixinha de login
   document.getElementById("caixa-login").addEventListener("click", function() {
     // Redireciona para a página de login
-    window.location.href = "login.html";
+    window.location.href = "entrar.html";
   });
   </script>
 </body>

@@ -22,7 +22,7 @@ class AdminPanelAPI {
         // Verificar se é admin
         if (!window.authSystem || !window.authSystem.isAdmin()) {
             window.authSystem.showMessage("Acesso negado. Área restrita para administradores.", "error");
-            window.location.href = "login.html"; // Redirecionar para a página de login
+            window.location.href = "entrar.html"; // Redirecionar para a página de login
             return;
         }
 

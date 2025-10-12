@@ -1,5 +1,5 @@
 
-// notifications.js - Sistema de Notificações Pop-up para Roxinho Shop
+// notificacoes.js - Sistema de Notificações Pop-up para Roxinho Shop
 
 function showNotification(message, type = "info", duration = 3000) {
     let notificationContainer = document.getElementById("notification-container");

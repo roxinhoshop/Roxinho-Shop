@@ -91,7 +91,7 @@ async function renderizarProdutosDestaque() {
       }
 
       return `
-        <a href="paginaproduto.html?id=${produto.id}" class="cartao-link">
+        <a href="pagina-produto.html?id=${produto.id}" class="cartao-link">
           <div class="card-produto-home" data-produto-id="${produto.id}">
             <div class="produto-imagem">
               ${imagemHTML}

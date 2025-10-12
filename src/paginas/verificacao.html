@@ -11,7 +11,7 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="../estilos/verificacao.css">
-  <link rel="stylesheet" href="../estilos/cabecalhorodape.css">
+  <link rel="stylesheet" href="../estilos/cabecalho-rodape.css">
 
   <!-- Placeholder para Header -->
   <div id="header-placeholder"></div>
@@ -22,9 +22,9 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../estilos/fluent-design.css">
-  <link rel="stylesheet" href="../estilos/dark-mode.css">
-  <link rel="stylesheet" href="../estilos/theme-button.css">
+  <link rel="stylesheet" href="../estilos/design-fluent.css">
+  <link rel="stylesheet" href="../estilos/modo-escuro.css">
+  <link rel="stylesheet" href="../estilos/botao-tema.css">
 </head>
 <body>
 
@@ -118,7 +118,7 @@
 
   <script>
     // Carregar Header e Footer
-    fetch('cabecalhorodape.html')
+    fetch('cabecalho-rodape.html')
       .then(response => response.text())
       .then(data => {
         const parser = new DOMParser();
@@ -141,7 +141,7 @@
         });
       });
   </script>
-  <script src="../scripts/theme-switcher.js"></script>
+  <script src="../scripts/alternador-tema.js"></script>
 </body>
 </html>
 

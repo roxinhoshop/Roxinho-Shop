@@ -49,12 +49,12 @@ function atualizarEstadoLogin() {
         // Configurar link do painel baseado no tipo de usuário
         if (linkPainelDropdown) {
             if (isAdmin) {
-                linkPainelDropdown.href = "admin-panel.html";
+                linkPainelDropdown.href = "painel-administracao.html";
                 if (textoPainel) {
                     textoPainel.textContent = "Painel Admin";
                 }
             } else {
-                linkPainelDropdown.href = "painelusuario.html";
+                linkPainelDropdown.href = "painel-usuario.html";
                 if (textoPainel) {
                     textoPainel.textContent = "Painel Usuário";
                 }
@@ -98,7 +98,7 @@ function atualizarEstadoLogin() {
         
         // Redirecionar para login ao clicar (apenas quando NÃO logado)
         caixaLogin.style.cursor = "pointer";
-        caixaLogin.onclick = () => window.location.href = "login.html";
+        caixaLogin.onclick = () => window.location.href = "entrar.html";
     }
 }
 

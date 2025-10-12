@@ -260,7 +260,7 @@ class SistemaVerificaca  constructor() {
     localStorage.removeItem('dadosVerificacao');
     
     // Redirecionar para login ou painel
-    const destino = new URLSearchParams(window.location.search).get('redirect') || 'login.html';
+    const destino = new URLSearchParams(window.location.search).get('redirect') || 'entrar.html';
     window.location.href = destino;
   }
 
