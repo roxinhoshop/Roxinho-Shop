@@ -18,13 +18,20 @@ body {
 }
 
 .cabecalho {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 4px 20px rgba(147, 51, 234, 0.08);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.1);
   padding: 1rem 1.5rem;
   position: sticky;
   top: 0;
   z-index: 1000;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cabecalho:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }
 
 .container-cabecalho {
@@ -251,11 +258,11 @@ body {
 .barra-categorias {
   display: flex;
   justify-content: center;
-  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-  padding: 0.7rem 2rem;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  padding: 0.75rem 2rem;
+  border-bottom: 1px solid rgba(124, 58, 237, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
   position: relative;
   z-index: 100;
 }
@@ -276,40 +283,63 @@ body {
 
 /* LINKS PRINCIPAIS */
 .barra-categorias ul li a {
-  color: #ffffff;
+  color: #1f2937;
   text-decoration: none;
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.4rem 0.6rem;
-  border-radius: 6px;
-  transition: all 0.3s ease;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.barra-categorias ul li a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 80%;
+  height: 3px;
+  background: linear-gradient(90deg, #7c3aed, #fbbf24);
+  border-radius: 2px 2px 0 0;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .barra-categorias ul li a:hover {
-  background: rgba(124, 58, 237, 0.2);
-  color: #a78bfa;
+  background: rgba(124, 58, 237, 0.08);
+  color: #7c3aed;
+}
+
+.barra-categorias ul li a:hover::after {
+  transform: translateX(-50%) scaleX(1);
 }
 
 /* 🔶 DESTAQUE PARA DEPARTAMENTOS */
 .barra-categorias ul li.dropdown > a {
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: linear-gradient(135deg, #eab308, #f59e0b);
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
   color: white;
-  padding: 0.8rem 1.4rem;
-  border-radius: 12px;
-  font-weight: bold;
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+}
+
+.barra-categorias ul li.dropdown > a::after {
+  display: none;
 }
 
 .barra-categorias ul li.dropdown > a:hover {
-  background: linear-gradient(135deg, #967206, #835505);
+  background: linear-gradient(135deg, #6d28d9 0%, #7c3aed 100%);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 234, 149, 0.4);
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.35);
 }
 
 /* 🔽 SUBMENU */
@@ -318,31 +348,39 @@ body {
   position: absolute;
   top: 110%;
   left: 0;
-  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
   min-width: 220px;
-  border-radius: 10px;
-  padding: 0.5rem 0;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+  border-radius: 12px;
+  padding: 0.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(124, 58, 237, 0.1);
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px);
-  transition: all 0.35s ease;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* itens do submenu */
 .barra-categorias .submenu li a {
   display: block;
-  padding: 0.6rem 1rem;
-  color: #ccc;
+  padding: 0.7rem 1rem;
+  color: #1f2937;
   font-size: 0.9rem;
-  transition: all 0.3s ease;
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.barra-categorias .submenu li a::after {
+  display: none;
 }
 
 .barra-categorias .submenu li a:hover {
-  background: rgba(104, 104, 104, 0.15);
-  color: #883fd8;
+  background: rgba(124, 58, 237, 0.08);
+  color: #7c3aed;
 }
 
+/* Ativar animação ao hover */
 /* Ativar animação ao hover */
 .barra-categorias ul li.dropdown:hover .submenu {
   opacity: 1;
@@ -356,61 +394,25 @@ body {
   transform: translateY(0);
 }
 
-.barra-categorias ul {
-  justify-content: center;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-}
-
-.barra-categorias li {
-  position: relative;
-}
-
-.barra-categorias > ul > li > a {
-  display: block;
-  padding: 12px 18px;
-  color: #ffffff;
-  text-decoration: none;
-}
-
-.barra-categorias > ul > li > a:hover {
-  background: #272727; /* roxo no hover */
-  color: #ffffff; /* garante que não some */
-}
-
-/* Submenu escondido por padrão */
-.barra-categorias .submenu {
-  display: none;
-  position: absolute;
-  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-  top: calc(100% + 8px); /* empurra 8px pra baixo */
-  left: 0;
-  min-width: 200px;
-  border-radius: 6px;
-  z-index: 999;
-}
-
-.barra-categorias li.open > .submenu {
-  display: block;
-}
-
 /* Submenu de 2º nível (Hardware, Periféricos...) */
 .barra-categorias li.tem-submenu .submenu {
   display: none;
   position: absolute;
   top: 0;
   left: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  min-width: 200px;
+  border-radius: 12px;
+  padding: 0.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(124, 58, 237, 0.1);
 }
 
-/* Hover para abrir apenas submenus */
+/* Hover para abrir submenus de 2º nível */
 .barra-categorias li.tem-submenu:hover > .submenu {
   display: block;
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+}
 }
 
 .barra-categorias .submenu li a {
