@@ -2469,3 +2469,131 @@ ease;
     color: #f5f5f5;
 }
 
+
+
+
+/* ==================== DARK MODE PARA FILTROS ==================== */
+:root[data-theme="dark"] .barra-filtros,
+:root[data-theme="dark"] .secao-filtro {
+    background: var(--bg-secondary);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .cabecalho-filtros h3,
+:root[data-theme="dark"] .secao-filtro h4 {
+    color: #f5f5f5;
+}
+
+:root[data-theme="dark"] .botao-limpar {
+    background: rgba(255, 255, 255, 0.05);
+    color: #e8e8e8;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .botao-limpar:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #f5f5f5;
+}
+
+:root[data-theme="dark"] .input-busca-marca,
+:root[data-theme="dark"] .busca-marca input {
+    background: var(--bg-tertiary);
+    color: #f5f5f5;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .input-busca-marca::placeholder,
+:root[data-theme="dark"] .busca-marca input::placeholder {
+    color: #c0c0c0;
+}
+
+:root[data-theme="dark"] .lista-marcas label,
+:root[data-theme="dark"] .opcao-filtro label {
+    color: #e8e8e8;
+}
+
+:root[data-theme="dark"] .lista-marcas label:hover,
+:root[data-theme="dark"] .opcao-filtro:hover label {
+    color: #f5f5f5;
+}
+
+:root[data-theme="dark"] .botao-ver-mais {
+    background: rgba(124, 58, 237, 0.2);
+    color: #a855f7;
+    border-color: rgba(124, 58, 237, 0.3);
+}
+
+:root[data-theme="dark"] .botao-ver-mais:hover {
+    background: rgba(124, 58, 237, 0.3);
+    color: #c084fc;
+}
+
+:root[data-theme="dark"] .icone-expandir {
+    color: #e8e8e8;
+}
+
+:root[data-theme="dark"] .conteudo-secao {
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Checkboxes no dark mode */
+:root[data-theme="dark"] input[type="checkbox"] {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: var(--bg-tertiary);
+}
+
+:root[data-theme="dark"] input[type="checkbox"]:checked {
+    background: #7c3aed;
+    border-color: #7c3aed;
+}
+
+
+
+
+/* ==================== ESTILOS PARA LISTA DE MARCAS ==================== */
+.opcao-marca {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.opcao-marca:hover {
+    background: rgba(124, 58, 237, 0.05);
+}
+
+.opcao-marca input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #7c3aed;
+}
+
+.opcao-marca label {
+    cursor: pointer;
+    font-size: 14px;
+    color: #374151;
+    flex: 1;
+    user-select: none;
+}
+
+.opcao-marca:hover label {
+    color: #7c3aed;
+}
+
+/* Dark mode para opcao-marca */
+:root[data-theme="dark"] .opcao-marca label {
+    color: #e8e8e8;
+}
+
+:root[data-theme="dark"] .opcao-marca:hover {
+    background: rgba(124, 58, 237, 0.15);
+}
+
+:root[data-theme="dark"] .opcao-marca:hover label {
+    color: #a855f7;
+}
+

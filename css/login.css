@@ -352,3 +352,121 @@ body {
     }
 }
 
+/* Banner Lateral do Login */
+
+.login-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+    align-items: center;
+}
+
+.login-banner {
+    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+    border-radius: 20px;
+    padding: 60px 40px;
+    color: white;
+    box-shadow: 0 10px 40px rgba(124, 58, 237, 0.3);
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-content {
+    text-align: center;
+}
+
+.banner-content h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.banner-content p {
+    font-size: 1.1rem;
+    opacity: 0.95;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.banner-image-placeholder {
+    margin-top: 40px;
+    padding: 40px;
+}
+
+.banner-image-placeholder i {
+    font-size: 120px;
+    opacity: 0.9;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Ajustar formulário para grid */
+.login-card {
+    max-width: 100%;
+    margin: 0;
+}
+
+/* Responsivo */
+@media (max-width: 968px) {
+    .login-section {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .login-banner {
+        min-height: 300px;
+        padding: 40px 30px;
+    }
+    
+    .banner-content h2 {
+        font-size: 2rem;
+    }
+    
+    .banner-content p {
+        font-size: 1rem;
+    }
+    
+    .banner-image-placeholder i {
+        font-size: 80px;
+    }
+}
+
+@media (max-width: 576px) {
+    .login-section {
+        padding: 0 15px;
+        margin: 30px auto;
+    }
+    
+    .login-banner {
+        padding: 30px 20px;
+        min-height: 250px;
+    }
+    
+    .banner-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .banner-image-placeholder {
+        margin-top: 20px;
+        padding: 20px;
+    }
+    
+    .banner-image-placeholder i {
+        font-size: 60px;
+    }
+}
+

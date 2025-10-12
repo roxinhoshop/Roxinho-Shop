@@ -261,7 +261,7 @@ function mostrarBannerCategoria(categoria, subcategoria = '') {
 
 // Inicializar filtros
 function inicializarFiltros() {
-  // Popular seletor de marcas
+  // Popular seletor de marcas (se existir)
   if (seletorMarca) {
     const marcas = ['', ...new Set(todosOsProdutos.map(p => p.marca))];
     marcas.forEach(marca => {
@@ -272,6 +272,9 @@ function inicializarFiltros() {
     });
   }
 
+  // Popular lista de marcas com checkboxes
+  popularListaMarcas();
+
   // Renderizar categorias relacionadas
   renderizarCategoriasRelacionadas();
 
@@ -279,6 +282,93 @@ function inicializarFiltros() {
   if (spanPrecoMinimo) spanPrecoMinimo.textContent = filtrosAtuais.precoMinimo;
   if (spanPrecoMaximo) spanPrecoMaximo.textContent = filtrosAtuais.precoMaximo;
   if (valorAvaliacao) valorAvaliacao.textContent = filtrosAtuais.avaliacaoMinima;
+}
+
+// Popular lista de marcas com checkboxes
+function popularListaMarcas() {
+  const listaMarcas = document.getElementById('listaMarcas');
+  const buscaMarca = document.getElementById('buscaMarca');
+  const verMaisMarcas = document.getElementById('verMaisMarcas');
+  
+  if (!listaMarcas) return;
+
+  // Extrair marcas únicas dos produtos
+  const marcasUnicas = [...new Set(todosOsProdutos.map(p => p.marca))].filter(m => m).sort();
+  
+  let marcasSelecionadas = [];
+  let mostrarTodas = false;
+  const LIMITE_INICIAL = 8;
+
+  function renderizarMarcas(filtro = '') {
+    listaMarcas.innerHTML = '';
+    
+    const marcasFiltradas = marcasUnicas.filter(marca => 
+      marca.toLowerCase().includes(filtro.toLowerCase())
+    );
+
+    const marcasParaMostrar = mostrarTodas ? marcasFiltradas : marcasFiltradas.slice(0, LIMITE_INICIAL);
+
+    marcasParaMostrar.forEach(marca => {
+      const div = document.createElement('div');
+      div.className = 'opcao-marca';
+      
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.id = `marca-${marca.replace(/\s+/g, '-')}`;
+      checkbox.value = marca;
+      checkbox.checked = marcasSelecionadas.includes(marca);
+      
+      const label = document.createElement('label');
+      label.htmlFor = checkbox.id;
+      label.textContent = marca;
+      
+      checkbox.addEventListener('change', (e) => {
+        if (e.target.checked) {
+          marcasSelecionadas.push(marca);
+        } else {
+          marcasSelecionadas = marcasSelecionadas.filter(m => m !== marca);
+        }
+        
+        // Aplicar filtro de marcas
+        if (marcasSelecionadas.length > 0) {
+          filtrosAtuais.marca = marcasSelecionadas;
+        } else {
+          filtrosAtuais.marca = '';
+        }
+        
+        paginacaoConfig.paginaAtual = 1;
+        aplicarFiltros();
+      });
+      
+      div.appendChild(checkbox);
+      div.appendChild(label);
+      listaMarcas.appendChild(div);
+    });
+
+    // Mostrar/ocultar botão "Ver mais"
+    if (verMaisMarcas) {
+      verMaisMarcas.style.display = marcasFiltradas.length > LIMITE_INICIAL ? 'block' : 'none';
+      verMaisMarcas.textContent = mostrarTodas ? 'Ver menos' : 'Ver mais';
+    }
+  }
+
+  // Busca de marcas
+  if (buscaMarca) {
+    buscaMarca.addEventListener('input', (e) => {
+      renderizarMarcas(e.target.value);
+    });
+  }
+
+  // Botão ver mais/menos
+  if (verMaisMarcas) {
+    verMaisMarcas.addEventListener('click', () => {
+      mostrarTodas = !mostrarTodas;
+      renderizarMarcas(buscaMarca ? buscaMarca.value : '');
+    });
+  }
+
+  // Renderizar inicialmente
+  renderizarMarcas();
 }
 
 // Renderizar categorias relacionadas - com layout melhorado
@@ -496,7 +586,12 @@ produtosFiltrados = todosOsProdutos.filter(produto => {
 
     const correspondeACategoria = !filtrosAtuais.categoria || produto.categoria === filtrosAtuais.categoria;
     const correspondeASubcategoria = !filtrosAtuais.subcategoria || produto.subcategoria === filtrosAtuais.subcategoria;
-    const correspondeAMarca = !filtrosAtuais.marca || produto.marca === filtrosAtuais.marca;
+    
+    // Suportar filtro de marca como string ou array
+    const correspondeAMarca = !filtrosAtuais.marca || 
+      (Array.isArray(filtrosAtuais.marca) 
+        ? filtrosAtuais.marca.includes(produto.marca) 
+        : produto.marca === filtrosAtuais.marca);
     const correspondeAoPreco = produto.preco >= filtrosAtuais.precoMinimo && produto.preco <= filtrosAtuais.precoMaximo;
     const correspondeAAvaliacao = produto.avaliacao >= filtrosAtuais.avaliacaoMinima;
     const correspondeAoEstoque = !filtrosAtuais.emEstoque || produto.emEstoque;
