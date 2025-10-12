@@ -257,7 +257,7 @@ body {
 .barra-categorias {
   display: flex;
   justify-content: center;
-  background: #1e1e1e;
+  background: #fdfdfd;
   padding: 0.7rem 2rem;
   border-top: 1px solid rgba(255,255,255,0.08);
   border-bottom: 1px solid rgba(255,255,255,0.08);
@@ -282,7 +282,7 @@ body {
 
 /* LINKS PRINCIPAIS */
 .barra-categorias ul li a {
-  color: #e0e0e0;
+  color: #1f1f1f;
   text-decoration: none;
   font-weight: 500;
   font-size: 0.95rem;
@@ -324,7 +324,7 @@ body {
   position: absolute;
   top: 110%;
   left: 0;
-  background: #1e1e1e;
+  background: #fdfdfd;
   min-width: 220px;
   border-radius: 10px;
   padding: 0.5rem 0;
@@ -369,7 +369,7 @@ body {
   margin: 0;
   padding: 0;
   display: flex;
-  background: #1e1e1e;
+  background: #fdfdfd;
 }
 
 .barra-categorias li {
@@ -379,7 +379,7 @@ body {
 .barra-categorias > ul > li > a {
   display: block;
   padding: 12px 18px;
-  color: #ffffff;  /* texto sempre branco */
+  color: #1f1f1f;
   text-decoration: none;
 }
 
@@ -436,7 +436,7 @@ body {
 
 /* ======================= RODAPÉ ======================= */
 .rodape {
-  background: #1e1e1e;
+  background: #fdfdfd;
   color: #eee;
   padding: 3rem 2rem 1.5rem;
 }
@@ -494,7 +494,7 @@ body {
 
 /* ======================= RODAPÉ MINIMALISTA ======================= */
 .rodape-minimalista {
-  background: #1e1e1e;
+  background: #fdfdfd;
   text-align: center;
   padding: 3rem 1rem 2rem;
 }
@@ -586,7 +586,7 @@ body {
 }
 
 .rodape {
-  background: #1e1e1e;
+  background: #fdfdfd;
   color: #fff;
   padding: 40px 20px;
 }
