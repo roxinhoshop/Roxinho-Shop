@@ -306,6 +306,12 @@ function preventDefault(e) {
 }
 
 
+// ==================== GERENCIAMENTO DE LOGIN NO CABEÇALHO ====================
+// NOTA: Esta função foi DESATIVADA para evitar conflito com auth-header.js
+// O auth-header.js agora gerencia todo o comportamento de login/logout
+// Mantido aqui apenas como referência histórica
+
+/*
 // Função para atualizar o estado de login no cabeçalho
 function atualizarEstadoLogin() {
     const currentUser = window.authSystem.getCurrentUser();
@@ -324,10 +330,10 @@ function atualizarEstadoLogin() {
 
     if (currentUser) {
         // Usuário logado
-        caixaLogin.classList.add("logado"); // Adiciona a classe para estilização
+        caixaLogin.classList.add("logado");
         statusLogin.textContent = `Olá, ${currentUser.nome.split(" ")[0]}!`;
         subtextoLogin.textContent = "Minha Conta";
-        avatarUsuario.src = currentUser.avatar || "imagens/default.png"; // Usar avatar do usuário ou default
+        avatarUsuario.src = currentUser.avatar || "imagens/default.png";
         setaLogin.classList.remove("fa-arrow-right");
         setaLogin.classList.add("fa-chevron-down");
         caixaLogin.style.cursor = "pointer";
@@ -338,13 +344,13 @@ function atualizarEstadoLogin() {
         document.getElementById("botao-logout").addEventListener("click", (e) => {
             e.preventDefault();
             window.authSystem.logout();
-            atualizarEstadoLogin(); // Atualiza o cabeçalho após logout
-            window.location.href = "index.html"; // Redireciona para a página inicial
+            atualizarEstadoLogin();
+            window.location.href = "index.html";
         });
 
     } else {
         // Usuário não logado
-        caixaLogin.classList.remove("logado"); // Remove a classe de estilização
+        caixaLogin.classList.remove("logado");
         statusLogin.textContent = "Entre";
         subtextoLogin.textContent = "Login";
         avatarUsuario.src = "imagens/default.png";
@@ -353,7 +359,7 @@ function atualizarEstadoLogin() {
         caixaLogin.style.cursor = "pointer";
         caixaLogin.removeEventListener("click", toggleDropdown);
         caixaLogin.addEventListener("click", redirectToLogin);
-        dropdownUsuario.style.display = "none"; // Esconde o dropdown se não estiver logado
+        dropdownUsuario.style.display = "none";
     }
 }
 
@@ -364,7 +370,7 @@ function redirectToLogin() {
 function toggleDropdown(event) {
     const dropdownUsuario = document.getElementById("dropdown-usuario");
     dropdownUsuario.style.display = dropdownUsuario.style.display === "block" ? "none" : "block";
-    event.stopPropagation(); // Impede que o clique se propague para o document
+    event.stopPropagation();
 }
 
 // Fechar dropdown se clicar fora
@@ -378,14 +384,12 @@ document.addEventListener("click", (event) => {
 
 // Chamar a função ao carregar a página
 document.addEventListener("DOMContentLoaded", () => {
-    // Aguardar o sistema de autenticação estar pronto
     const checkAuthSystem = () => {
         if (window.authSystem) {
             try {
                 atualizarEstadoLogin();
             } catch (e) {
                 console.error("Erro ao inicializar estado de login no cabeçalho:", e);
-                // Adicionar uma mensagem de erro visível ao usuário, se apropriado
                 window.authSystem.showMessage("Erro de Sistema: Falha na inicialização do cabeçalho. Recarregue a página.", "error");
             }
         } else {
@@ -397,4 +401,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Adicionar um listener para o evento de login/logout personalizado
 window.addEventListener("authChange", atualizarEstadoLogin);
+*/
+
+// ==================== FIM DA SEÇÃO DESATIVADA ====================
+console.log("✅ cabecalho-melhorado.js carregado (gerenciamento de login delegado para auth-header.js)");
 

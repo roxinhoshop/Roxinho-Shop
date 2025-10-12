@@ -2400,3 +2400,72 @@ ease;
     margin-top: 4px;
 }
 
+
+
+
+/* ==================== DARK MODE PARA PÁGINA DE PRODUTOS ==================== */
+:root[data-theme="dark"] .categorias-relacionadas h3,
+:root[data-theme="dark"] .categorias-relacionadas a {
+    color: #f5f5f5;
+}
+
+:root[data-theme="dark"] .categorias-relacionadas a:hover {
+    color: #a855f7;
+}
+
+:root[data-theme="dark"] .filtros h2,
+:root[data-theme="dark"] .filtros h3,
+:root[data-theme="dark"] .secao-filtros h3 {
+    color: #f5f5f5;
+}
+
+:root[data-theme="dark"] .opcao-filtro label {
+    color: #e8e8e8;
+}
+
+:root[data-theme="dark"] .secao-produtos h2 {
+    color: #f5f5f5;
+}
+
+:root[data-theme="dark"] .controles-produtos label,
+:root[data-theme="dark"] .controles-produtos span {
+    color: #e8e8e8;
+}
+
+:root[data-theme="dark"] .produto-card .nome-produto,
+:root[data-theme="dark"] .produto-card h3 {
+    color: #f5f5f5;
+}
+
+:root[data-theme="dark"] .produto-card .preco-produto,
+:root[data-theme="dark"] .produto-card .preco {
+    color: #f5f5f5;
+}
+
+:root[data-theme="dark"] .produto-card .descricao-produto,
+:root[data-theme="dark"] .produto-card .info-produto {
+    color: #c0c0c0;
+}
+
+:root[data-theme="dark"] .filtros,
+:root[data-theme="dark"] .secao-filtros {
+    background: var(--bg-secondary);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .opcao-filtro:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+:root[data-theme="dark"] select,
+:root[data-theme="dark"] .campo-busca {
+    background: var(--bg-secondary);
+    color: #f5f5f5;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] select option {
+    background: var(--bg-secondary);
+    color: #f5f5f5;
+}
+
