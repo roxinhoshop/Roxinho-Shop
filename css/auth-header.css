@@ -1,16 +1,87 @@
-/* Estilos para o Dropdown do Usuário no Cabeçalho */
+/* CSS para Menu de Autenticação no Cabeçalho */
 
+/* Caixa de Login */
+.caixa-entre {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    background: #f5f5f5;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 160px;
+}
+
+.caixa-entre:hover {
+    background: #e5e5e5;
+    transform: translateY(-2px);
+}
+
+/* Estado logado */
+.caixa-entre.logado {
+    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+}
+
+.caixa-entre.logado:hover {
+    background: linear-gradient(135deg, #6d28d9 0%, #9333ea 100%);
+}
+
+.caixa-entre.logado #status-login,
+.caixa-entre.logado #subtexto-login {
+    color: white !important;
+}
+
+.caixa-entre.logado .seta {
+    color: white !important;
+}
+
+/* Avatar */
+.avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+}
+
+/* Texto */
+.caixa-entre .texto {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+#status-login {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+#subtexto-login {
+    font-size: 12px;
+    color: #666;
+}
+
+/* Seta */
+.seta {
+    font-size: 14px;
+    color: #666;
+    transition: transform 0.3s ease;
+}
+
+/* Dropdown do usuário - Estilo Menu Hamburguer */
 .dropdown-usuario {
     position: absolute;
-    top: 100%;
+    top: calc(100% + 8px);
     right: 0;
-    margin-top: 10px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     min-width: 220px;
-    z-index: 1000;
     overflow: hidden;
+    z-index: 1000;
     animation: dropdownFadeIn 0.2s ease-out;
 }
 
@@ -25,78 +96,67 @@
     }
 }
 
-.menu-usuario {
-    list-style: none;
-    margin: 0;
+.opcoes-usuario {
     padding: 8px 0;
 }
 
-.menu-usuario li {
-    margin: 0;
-}
-
-.menu-usuario li a {
+.opcoes-usuario a {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 12px 20px;
+    padding: 14px 20px;
     color: #333;
     text-decoration: none;
     font-size: 14px;
+    font-weight: 500;
     transition: all 0.2s ease;
+    border-left: 3px solid transparent;
 }
 
-.menu-usuario li a:hover {
+.opcoes-usuario a:hover {
     background: #f5f5f5;
     color: #7c3aed;
+    border-left-color: #7c3aed;
 }
 
-.menu-usuario li a i {
-    width: 18px;
+.opcoes-usuario a i {
+    width: 20px;
     font-size: 16px;
     color: #666;
 }
 
-.menu-usuario li a:hover i {
+.opcoes-usuario a:hover i {
     color: #7c3aed;
 }
 
-.menu-usuario li.divider {
-    height: 1px;
-    background: #e5e5e5;
-    margin: 8px 0;
+/* Separador entre opções */
+.opcoes-usuario a:not(:last-child) {
+    border-bottom: 1px solid #f0f0f0;
 }
 
-/* Estilo quando logado */
-#caixa-login.logado {
-    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
-    color: #fff;
+/* Botão de logout com destaque */
+#botao-logout {
+    color: #dc2626 !important;
 }
 
-#caixa-login.logado #status-login {
-    color: #fff;
-    font-weight: 600;
+#botao-logout:hover {
+    background: #fef2f2 !important;
+    border-left-color: #dc2626 !important;
 }
 
-#caixa-login.logado .subtexto-login {
-    color: rgba(255, 255, 255, 0.9);
-}
-
-/* Posicionamento relativo para o dropdown */
-#caixa-login {
-    position: relative;
+#botao-logout i {
+    color: #dc2626 !important;
 }
 
 /* Responsivo */
 @media (max-width: 768px) {
-    .dropdown-usuario {
-        right: -10px;
-        min-width: 200px;
+    .caixa-entre {
+        min-width: auto;
+        padding: 8px 12px;
     }
     
-    .menu-usuario li a {
-        padding: 10px 16px;
-        font-size: 13px;
+    .dropdown-usuario {
+        min-width: 200px;
     }
 }
 

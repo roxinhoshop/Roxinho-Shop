@@ -12,8 +12,9 @@ function atualizarEstadoLogin() {
     const statusLogin = document.getElementById("status-login");
     const subtextoLogin = document.getElementById("subtexto-login");
     const setaLogin = document.getElementById("seta-login");
-    const avatarUsuario = document.getElementById("avatar-usuario");
     const dropdownUsuario = document.getElementById("dropdown-usuario");
+    const linkPainelDropdown = document.getElementById("link-painel-dropdown");
+    const textoPainel = document.getElementById("texto-painel");
     
     if (!caixaLogin || !statusLogin) {
         console.warn("Elementos do cabeçalho não encontrados");
@@ -36,22 +37,42 @@ function atualizarEstadoLogin() {
             subtextoLogin.textContent = "Minha Conta";
         }
         
-        // Remover seta quando logado
+        // Manter seta mas mudar para baixo (menu hamburguer)
         if (setaLogin) {
-            setaLogin.style.display = "none";
+            setaLogin.className = "fa-solid fa-chevron-down seta";
         }
         
         // Adicionar classe de logado
         caixaLogin.classList.add("logado");
         
-        // Atualizar dropdown existente
-        if (dropdownUsuario) {
-            atualizarDropdownUsuario(isAdmin);
+        // Configurar link do painel baseado no tipo de usuário
+        if (linkPainelDropdown) {
+            if (isAdmin) {
+                linkPainelDropdown.href = "admin-panel.html";
+                if (textoPainel) {
+                    textoPainel.textContent = "Painel Admin";
+                }
+            } else {
+                linkPainelDropdown.href = "painelusuario.html";
+                if (textoPainel) {
+                    textoPainel.textContent = "Painel Usuário";
+                }
+            }
         }
         
         // Adicionar evento de clique para mostrar dropdown
         caixaLogin.style.cursor = "pointer";
         caixaLogin.onclick = toggleDropdownUsuario;
+        
+        // Configurar botão de logout
+        const btnLogout = document.getElementById('botao-logout');
+        if (btnLogout) {
+            btnLogout.onclick = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                fazerLogout();
+            };
+        }
         
     } else {
         // Usuário não logado
@@ -60,9 +81,9 @@ function atualizarEstadoLogin() {
             subtextoLogin.textContent = "Login";
         }
         
-        // Mostrar seta quando não logado
+        // Mostrar seta para direita quando não logado
         if (setaLogin) {
-            setaLogin.style.display = "block";
+            setaLogin.className = "fa-solid fa-arrow-right seta";
         }
         
         // Remover classe de logado
@@ -76,36 +97,6 @@ function atualizarEstadoLogin() {
         // Redirecionar para login ao clicar
         caixaLogin.style.cursor = "pointer";
         caixaLogin.onclick = () => window.location.href = "login.html";
-    }
-}
-
-/**
- * Atualiza o dropdown do menu do usuário
- */
-function atualizarDropdownUsuario(isAdmin) {
-    const dropdown = document.getElementById('dropdown-usuario');
-    if (!dropdown) return;
-    
-    // Atualizar link de admin no dropdown
-    const linkAdminDropdown = document.getElementById('link-admin-dropdown');
-    if (linkAdminDropdown) {
-        linkAdminDropdown.style.display = isAdmin ? 'block' : 'none';
-    }
-    
-    // Adicionar evento de logout
-    const btnLogout = document.getElementById('botao-logout');
-    if (btnLogout) {
-        btnLogout.onclick = (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            fazerLogout();
-        };
-    }
-    
-    // Adicionar link para painel admin se for admin
-    const linkAdmin = document.getElementById('link-admin');
-    if (linkAdmin) {
-        linkAdmin.style.display = isAdmin ? 'flex' : 'none';
     }
 }
 
