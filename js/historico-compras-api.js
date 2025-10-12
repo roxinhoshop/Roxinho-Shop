@@ -5,7 +5,7 @@
 
 class HistoricoComprasAPI {
     constructor() {
-        this.apiBaseUrl = '/api';
+        this.apiBaseUrl = 'https://roxinho-shop-backend.vercel.app/api';
         this.currentPurchases = [];
         this.currentPage = 1;
         this.purchasesPerPage = 10;

@@ -8,7 +8,7 @@ class AuthSystemAPI {
     constructor() {
         this.currentUser = null;
         this.token = null;
-        this.apiBaseUrl = '/api';
+        this.apiBaseUrl = 'https://roxinho-shop-backend.vercel.app/api';
         
         this.initializeSystem();
     }

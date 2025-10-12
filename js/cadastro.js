@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         try {
-            const response = await fetch("http://localhost:3000/api/auth/register", {
+            const response = await fetch("https://roxinho-shop-backend.vercel.app/api/auth/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

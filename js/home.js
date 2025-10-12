@@ -55,7 +55,7 @@ async function renderizarProdutosDestaque() {
   }
 
   try {
-    const response = await fetch("http://localhost:3000/api/products"); // Endpoint para listar todos os produtos
+    const response = await fetch("https://roxinho-shop-backend.vercel.app/api/products"); // Endpoint para listar todos os produtos
     if (!response.ok) {
       throw new Error(`Erro HTTP! status:  ${response.status}`);
     }

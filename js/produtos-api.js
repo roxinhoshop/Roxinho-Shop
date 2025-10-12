@@ -5,7 +5,7 @@
 
 class ProductsAPI {
     constructor() {
-        this.apiBaseUrl = 'https://backend-nodejs-zeta.vercel.app/api';
+        this.apiBaseUrl = 'https://roxinho-shop-backend.vercel.app/api';
         this.currentProducts = [];
         this.currentCategories = [];
         this.currentPage = 1;
