@@ -782,7 +782,7 @@ class SistemaAvaliacoes {
         descricao: produto.descricao || `Produto de qualidade da ${produto.marca || 'marca'}`,
         preco: produto.preco,
         quantidade: 1,
-        imagem: produto.imagem || 'imagens/default.png'
+        imagem: produto.imagem || '../recursos/imagens/default.png'
       }],
       subtotal: produto.preco,
       desconto: 0,

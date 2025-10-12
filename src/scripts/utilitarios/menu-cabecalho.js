@@ -329,7 +329,7 @@ function atualizarEstadoLogin() {
         caixaLogin.classList.add("logado");
         statusLogin.textContent = `Olá, ${currentUser.nome.split(" ")[0]}!`;
         subtextoLogin.textContent = "Minha Conta";
-        avatarUsuario.src = currentUser.avatar || "imagens/default.png";
+        avatarUsuario.src = currentUser.avatar || "../recursos/imagens/default.png";
         setaLogin.classList.remove("fa-arrow-right");
         setaLogin.classList.add("fa-chevron-down");
         caixaLogin.style.cursor = "pointer";
@@ -341,7 +341,7 @@ function atualizarEstadoLogin() {
             e.preventDefault();
             window.authSystem.logout();
             atualizarEstadoLogin();
-            window.location.href = "index.html";
+            window.location.href = "../../index.html";
         });
 
     } else {
@@ -349,7 +349,7 @@ function atualizarEstadoLogin() {
         caixaLogin.classList.remove("logado");
         statusLogin.textContent = "Entre";
         subtextoLogin.textContent = "Login";
-        avatarUsuario.src = "imagens/default.png";
+        avatarUsuario.src = "../recursos/imagens/default.png";
         setaLogin.classList.remove("fa-chevron-down");
         setaLogin.classList.add("fa-arrow-right");
         caixaLogin.style.cursor = "pointer";

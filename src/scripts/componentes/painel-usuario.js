@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
       xp: 0,
       xpProximoNivel: 100
     },
-    avatarPadrao: 'imagens/avatar-default.png'
+    avatarPadrao: '../recursos/imagens/avatar-default.png'
   };
   
   // ==================== SISTEMA DE AVATAR ====================

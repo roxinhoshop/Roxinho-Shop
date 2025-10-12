@@ -72,10 +72,10 @@ function criarCardProduto(produto) {
     
     card.innerHTML = `
         <div class="historico-produto-imagem-container">
-            <img src="${produto.imagem || 'imagens/placeholder-product.png'}" 
+            <img src="${produto.imagem || '../recursos/imagens/placeholder-product.png'}" 
                  alt="${produto.nome}" 
                  class="historico-produto-imagem"
-                 onerror="this.src='imagens/placeholder-product.png'">
+                 onerror="this.src='../recursos/imagens/placeholder-product.png'">
             ${produto.promocao ? '<div class="historico-produto-badge">Promoção</div>' : ''}
         </div>
         <div class="historico-produto-info">

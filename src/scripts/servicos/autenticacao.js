@@ -50,7 +50,7 @@ class AuthSystem {
                     id: data.user.id,
                     nome: data.user.nome,
                     email: data.user.email,
-                    avatar: data.user.foto_perfil || "imagens/default.png", // Usar foto_perfil do DB ou default
+                    avatar: data.user.foto_perfil || "../recursos/imagens/default.png", // Usar foto_perfil do DB ou default
                     isAdmin: data.user.is_admin === 1 // Assumindo que o DB retorna 1 para admin
                 };
                 localStorage.setItem("jwtToken", data.token);

@@ -156,7 +156,7 @@ function fazerLogout() {
     
     // Redirecionar para home
     setTimeout(() => {
-        window.location.href = "index.html";
+        window.location.href = "../../index.html";
     }, 500);
 }
 

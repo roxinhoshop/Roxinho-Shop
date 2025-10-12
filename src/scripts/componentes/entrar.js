@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                     showNotification(`Login bem-sucedido! Bem-vindo!`, "success");
                     setTimeout(() => {
-                        window.location.href = "index.html";
+                        window.location.href = "../../index.html";
                     }, 1000);
                 }
             } else {

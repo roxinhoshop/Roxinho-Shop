@@ -116,7 +116,7 @@ class AdminPanelAPI {
                     <div class="recent-products-list">
                         ${recentProducts.map(product => `
                             <div class="recent-product-item">
-                                <img src="${product.imagem_principal || '/imagens/default.png'}" alt="${product.nome}">
+                                <img src="${product.imagem_principal || '/../recursos/imagens/default.png'}" alt="${product.nome}">
                                 <div class="product-info">
                                     <h4>${product.nome}</h4>
                                     <p>Preço: R$ ${parseFloat(product.preco).toFixed(2).replace('.', ',')}</p>
@@ -226,7 +226,7 @@ class AdminPanelAPI {
         return `
             <tr data-product-id="${product.id}">
                 <td>
-                    <img src="${product.imagem_principal || '/imagens/default.png'}" 
+                    <img src="${product.imagem_principal || '/../recursos/imagens/default.png'}" 
                          alt="${product.nome}" 
                          class="product-thumb">
                 </td>
