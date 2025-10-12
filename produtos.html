@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="css/filtros-melhorados.css">
     <link rel="stylesheet" href="css/tema-escuro-2025.css">
     <link rel="stylesheet" href="./css/cabecalhorodape.css">
-    <link rel="stylesheet" href="css/banners-laterais.css">
     <link rel="stylesheet" href="css/responsivo.css">
 
     <!-- Font Awesome -->
@@ -58,22 +57,8 @@
 </div>
 
     <main class="conteudo-principal">
-        <div class="container-com-banners">
-            <!-- Banner Lateral Esquerdo -->
-            <aside class="banner-lateral banner-lateral-esquerdo">
-                <div class="banner-lateral-conteudo">
-                    <img src="imagens/banner-lateral-esquerdo.png" alt="Banner Lateral" class="banner-lateral-img">
-                    <!-- Placeholder para banner -->
-                    <div class="banner-placeholder">
-                        <i class="fas fa-image"></i>
-                        <p>Banner Lateral Esquerdo</p>
-                        <span>160x600px</span>
-                    </div>
-                </div>
-            </aside>
-
-            <div class="container">
-                <div class="wrapper-conteudo">
+        <div class="container">
+            <div class="wrapper-conteudo">
 
                     <!-- Coluna da esquerda -->
                     <div class="coluna-esquerda">
@@ -242,20 +227,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Banner Lateral Direito -->
-        <aside class="banner-lateral banner-lateral-direito">
-            <div class="banner-lateral-conteudo">
-                <img src="imagens/banner-lateral-direito.png" alt="Banner Lateral" class="banner-lateral-img">
-                <!-- Placeholder para banner -->
-                <div class="banner-placeholder">
-                    <i class="fas fa-image"></i>
-                    <p>Banner Lateral Direito</p>
-                    <span>160x600px</span>
-                </div>
-            </div>
-        </aside>
-    </div>
     </main>
 
     <!-- Placeholder para Footer -->
@@ -266,7 +237,6 @@
     <script src="js/produtos.js"></script>
     <script src="js/produtos-melhorado.js"></script>
     <script src="js/filtros-melhorados.js"></script>
-    <script src="js/cabecalhorodape.js"></script>
 
     <script>
         fetch("cabecalhorodape.html")
@@ -291,17 +261,24 @@
                     document.body.appendChild(newScript);
                 });
                 
-                // Após carregar o header, inicializar auth-header
-                if (typeof atualizarEstadoLogin === 'function') {
-                    setTimeout(atualizarEstadoLogin, 100);
-                }
+                // Carregar scripts necessários APÓS o header estar no DOM
+                const scriptsToLoad = [
+                    './js/sistema-xp.js',
+                    'js/header-menu.js',
+                    'js/auth-header.js',
+                    'js/notifications.js',
+                    'js/theme-switcher.js'
+                ];
+                
+                scriptsToLoad.forEach((src, index) => {
+                    setTimeout(() => {
+                        const script = document.createElement('script');
+                        script.src = src;
+                        document.body.appendChild(script);
+                    }, index * 50);
+                });
             });
     </script>
-    <script src="./js/sistema-xp.js"></script>
-    <script src="js/header-menu.js"></script>
-    <script src="js/auth-header.js"></script>
-    <script src="js/notifications.js"></script>
-    <script src="js/theme-switcher.js"></script>
 </body>
 </html>
 
