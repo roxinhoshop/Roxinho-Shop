@@ -158,13 +158,39 @@ async function renderizarProdutosDestaque() {
 
   } catch (error) {
     console.error("Erro ao carregar produtos em destaque: ", error);
-    showNotification("Erro ao carregar produtos em destaque. Tente recarregar a página.", "error");
+    
+    // Mostrar mensagem de erro mais amigável
     container.innerHTML = `
-      <div class="erro-produtos">
-        <p>Erro ao carregar produtos. Tente recarregar a página.</p>
-        <button onclick="location.reload()" class="btn-recarregar">Recarregar</button>
+      <div class="erro-produtos" style="
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 60px 20px;
+        background: linear-gradient(135deg, rgba(124, 58, 237, 0.05) 0%, rgba(251, 191, 36, 0.05) 100%);
+        border-radius: 16px;
+        border: 2px dashed rgba(124, 58, 237, 0.2);
+      ">
+        <i class="fas fa-exclamation-triangle" style="font-size: 48px; color: #7c3aed; margin-bottom: 20px;"></i>
+        <p style="font-size: 18px; color: #475569; margin-bottom: 20px;">Erro ao carregar produtos. Tente recarregar a página.</p>
+        <button onclick="location.reload()" class="btn-recarregar" style="
+          background: #7c3aed;
+          color: white;
+          border: none;
+          padding: 12px 32px;
+          border-radius: 8px;
+          font-size: 16px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        ">
+          <i class="fas fa-redo"></i> Recarregar
+        </button>
       </div>
     `;
+    
+    // Notificação opcional
+    if (typeof showNotification === 'function') {
+      showNotification("Erro ao carregar produtos em destaque.", "error");
+    }
   }
 }
 

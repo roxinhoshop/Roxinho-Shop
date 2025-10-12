@@ -1,0 +1,171 @@
+/**
+ * @file banners-laterais.css
+ * @description Estilos para banners laterais (esquerda e direita)
+ */
+
+/* ==================== CONTAINER COM BANNERS ==================== */
+.container-com-banners {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ==================== BANNERS LATERAIS ==================== */
+.banner-lateral {
+    width: 160px;
+    min-width: 160px;
+    position: sticky;
+    top: 100px;
+    z-index: 10;
+}
+
+.banner-lateral-conteudo {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.banner-lateral-conteudo:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(124, 58, 237, 0.2);
+}
+
+/* Imagem do banner */
+.banner-lateral-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Placeholder quando não há imagem */
+.banner-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.banner-placeholder i {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.8;
+}
+
+.banner-placeholder p {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.banner-placeholder span {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+/* Esconder placeholder se houver imagem */
+.banner-lateral-img:not([src=""]) ~ .banner-placeholder {
+    display: none;
+}
+
+/* ==================== DARK MODE ==================== */
+:root[data-theme="dark"] .banner-lateral-conteudo {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+:root[data-theme="dark"] .banner-lateral-conteudo:hover {
+    box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
+}
+
+:root[data-theme="dark"] .banner-placeholder {
+    background: linear-gradient(135deg, #5b21b6 0%, #7c3aed 100%);
+}
+
+/* ==================== RESPONSIVO ==================== */
+
+/* Tablets grandes (até 1400px) */
+@media (max-width: 1400px) {
+    .banner-lateral {
+        width: 120px;
+        min-width: 120px;
+    }
+    
+    .banner-lateral-conteudo {
+        height: 480px;
+    }
+    
+    .banner-placeholder i {
+        font-size: 36px;
+    }
+    
+    .banner-placeholder p {
+        font-size: 12px;
+    }
+}
+
+/* Tablets (até 1200px) */
+@media (max-width: 1200px) {
+    .banner-lateral {
+        display: none;
+    }
+    
+    .container-com-banners {
+        padding: 10px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .container-com-banners {
+        padding: 5px;
+    }
+}
+
+
+
+
+/* ==================== ESTILOS ESPECÍFICOS PARA HOME ==================== */
+.container-com-banners-home {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.conteudo-principal-home {
+    flex: 1;
+    max-width: 1400px;
+    width: 100%;
+}
+
+/* Responsivo para home */
+@media (max-width: 1200px) {
+    .container-com-banners-home .banner-lateral {
+        display: none;
+    }
+    
+    .conteudo-principal-home {
+        max-width: 100%;
+    }
+}
+

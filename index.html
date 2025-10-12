@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="css/home.css">
   <link rel="stylesheet" href="css/cabecalhorodape.css">
   <link rel="stylesheet" href="css/carrinho-contador.css">
+  <link rel="stylesheet" href="css/banners-laterais.css">
   <link rel="stylesheet" href="css/responsivo.css">
   <link rel="stylesheet" href="css/auth-header.css">
   <link rel="stylesheet" href="css/historico-home.css">
@@ -94,9 +95,25 @@
    
   </section>
 
-  <!-- ======================= PRODUTOS EM DESTAQUE ======================= -->
-  <section class="produtos-destaque">
-    <div class="container">
+  <!-- Container com banners laterais -->
+  <div class="container-com-banners-home">
+    <!-- Banner Lateral Esquerdo -->
+    <aside class="banner-lateral banner-lateral-esquerdo">
+      <div class="banner-lateral-conteudo">
+        <img src="imagens/banner-lateral-esquerdo.png" alt="Banner Lateral" class="banner-lateral-img">
+        <div class="banner-placeholder">
+          <i class="fas fa-image"></i>
+          <p>Banner Lateral Esquerdo</p>
+          <span>160x600px</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Conteúdo principal -->
+    <div class="conteudo-principal-home">
+      <!-- ======================= PRODUTOS EM DESTAQUE ======================= -->
+      <section class="produtos-destaque">
+        <div class="container">
       <h2 class="titulo-secao">Produtos em Destaque</h2>
       <p class="subtitulo-secao">Veja agora os produtos mais procurados nos últimos dias!</p>
       
@@ -174,6 +191,22 @@
       </div>
     </div>
   </section>
+    </div>
+    <!-- Fim conteúdo principal -->
+
+    <!-- Banner Lateral Direito -->
+    <aside class="banner-lateral banner-lateral-direito">
+      <div class="banner-lateral-conteudo">
+        <img src="imagens/banner-lateral-direito.png" alt="Banner Lateral" class="banner-lateral-img">
+        <div class="banner-placeholder">
+          <i class="fas fa-image"></i>
+          <p>Banner Lateral Direito</p>
+          <span>160x600px</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+  <!-- Fim container-com-banners-home -->
 
   <div id="footer-placeholder"></div>
 
