@@ -46,24 +46,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Disparar evento de mudança de autenticação
                 window.dispatchEvent(new Event("authChange"));
                 
-                // Determinar página de redirecionamento
-                const isAdmin = tokenPayload.isAdmin;
-                const redirectUrl = isAdmin ? "admin-panel.html" : "painelusuario.html";
-                const userType = isAdmin ? "Administrador" : "Usuário";
+                // Redirecionar para página inicial
                 const userName = tokenPayload.email.split('@')[0];
+                const userType = tokenPayload.isAdmin ? "Administrador" : "Usuário";
                 
-                // Mostrar animação de sucesso com redirecionamento inteligente
+                // Mostrar animação de sucesso e redirecionar para home
                 if (typeof showSuccessAnimation === 'function') {
                     showSuccessAnimation(
                         "Login Realizado!",
-                        `Bem-vindo, ${userName}! Redirecionando para o painel de ${userType.toLowerCase()}...`,
-                        redirectUrl,
+                        `Bem-vindo, ${userName}!`,
+                        "index.html",
                         2000
                     );
                 } else {
-                    showNotification(`Login bem-sucedido! Bem-vindo, ${userType}!`, "success");
+                    showNotification(`Login bem-sucedido! Bem-vindo!`, "success");
                     setTimeout(() => {
-                        window.location.href = redirectUrl;
+                        window.location.href = "index.html";
                     }, 1000);
                 }
             } else {
