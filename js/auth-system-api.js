@@ -76,13 +76,13 @@ class AuthSystemAPI {
 
             const data = await response.json();
 
-            if (data.success) {
+            if (response.ok || response.status === 201) {
                 console.log("✅ Usuário registrado com sucesso:", userData.email);
                 this.showMessage("Cadastro realizado com sucesso! Faça login para continuar.", "success");
-                return { success: true, user: data.user };
+                return { success: true, message: data.message };
             } else {
-                this.showMessage(data.error || "Erro no cadastro", "error");
-                return { success: false, error: data.error };
+                this.showMessage(data.message || "Erro no cadastro", "error");
+                return { success: false, error: data.message };
             }
 
         } catch (error) {
@@ -107,20 +107,27 @@ class AuthSystemAPI {
 
             const data = await response.json();
 
-            if (data.success) {
-                this.currentUser = data.user;
+            if (response.ok && data.token) {
+                // Decodificar o token para obter informações do usuário
+                const tokenPayload = this.decodeToken(data.token);
+                this.currentUser = {
+                    id: tokenPayload.userId,
+                    email: tokenPayload.email,
+                    isAdmin: tokenPayload.isAdmin,
+                    tipo_usuario: tokenPayload.isAdmin ? "admin" : "user"
+                };
                 this.token = data.token;
                 
                 localStorage.setItem("roxinho_token", this.token);
                 
                 console.log("✅ Login realizado com sucesso:", email);
-                this.showMessage(`Bem-vindo, ${this.currentUser.nome}!`, "success");
+                this.showMessage(`Bem-vindo!`, "success");
                 this.updateUIForLoggedUser();
                 
-                return { success: true, user: data.user };
+                return { success: true, user: this.currentUser };
             } else {
-                this.showMessage(data.error || "Erro no login", "error");
-                return { success: false, error: data.error };
+                this.showMessage(data.message || "Erro no login", "error");
+                return { success: false, error: data.message };
             }
 
         } catch (error) {
@@ -270,18 +277,19 @@ class AuthSystemAPI {
      * Faz uma requisição autenticada à API
      */
     async authenticatedRequest(url, options = {}) {
-        const defaultOptions = {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${this.token}`
-            }
+        const defaultHeaders = {
+            'Authorization': `Bearer ${this.token}`
         };
 
+        // Não adicionar Content-Type se for FormData (o navegador faz isso automaticamente)
+        if (!(options.body instanceof FormData)) {
+            defaultHeaders['Content-Type'] = 'application/json';
+        }
+
         const mergedOptions = {
-            ...defaultOptions,
             ...options,
             headers: {
-                ...defaultOptions.headers,
+                ...defaultHeaders,
                 ...options.headers
             }
         };
@@ -413,6 +421,24 @@ class AuthSystemAPI {
                 notification.remove();
             }
         }, 5000);
+    }
+
+    /**
+     * Decodifica um token JWT
+     */
+    decodeToken(token) {
+        try {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+
+            return JSON.parse(jsonPayload);
+        } catch (error) {
+            console.error('Erro ao decodificar token:', error);
+            return null;
+        }
     }
 
     /**
