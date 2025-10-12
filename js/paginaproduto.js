@@ -69,7 +69,7 @@ class SistemaAvaliacoes {
     if (breadcrumb) {
       breadcrumb.innerHTML = `
         <b class="texto-voce-esta-em">Você está em:</b>
-        <a href="home.html" class="item-caminho">Home</a>
+        <a href="index.html" class="item-caminho">Home</a>
         <span class="separador">></span>
         <a href="produtos.html?categoria=${encodeURIComponent(produto.categoria || '')}" class="item-caminho">${produto.categoria || 'Categoria'}</a>
         <span class="separador">></span>

@@ -150,7 +150,7 @@ class AuthSystemAPI {
         this.showMessage("Logout realizado com sucesso!", "info");
         
         // Redirecionar se não estiver na página inicial
-        if (!window.location.pathname.includes("home.html") && 
+        if (!window.location.pathname.includes("index.html") && 
             !window.location.pathname.includes("index.html") &&
             window.location.pathname !== "/") {
             setTimeout(() => {

@@ -202,7 +202,7 @@ class AuthSystem {
         this.clearSession();
         console.log("👋 Logout realizado com sucesso");
         
-        if (!window.location.pathname.includes("home.html") && 
+        if (!window.location.pathname.includes("index.html") && 
             !window.location.pathname.includes("index.html") &&
             window.location.pathname !== "/") {
             window.location.href = "login.html";
