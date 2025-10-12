@@ -290,7 +290,35 @@
 /* Barra de Categorias - Mais Arredondada */
 .barra-categorias {
     background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     box-shadow: 0 4px 16px rgba(124, 58, 237, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px 0;
+}
+
+.barra-categorias .container-categorias {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.barra-categorias a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    margin: 0 4px;
+}
+
+.barra-categorias a:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Responsivo */

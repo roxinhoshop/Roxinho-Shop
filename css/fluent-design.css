@@ -291,3 +291,159 @@
     color: inherit;
 }
 
+
+
+/* ==================== MELHORIAS ADICIONAIS FLUENT ==================== */
+
+/* Efeito Reveal (Destaque ao passar mouse) */
+.fluent-reveal {
+    position: relative;
+    overflow: hidden;
+}
+
+.fluent-reveal::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.1) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+    pointer-events: none;
+}
+
+.fluent-reveal:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Efeito de profundidade em cards */
+.fluent-depth-card {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fluent-depth-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: var(--fluent-shadow-16);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.fluent-depth-card:hover::after {
+    opacity: 1;
+}
+
+/* Bordas suaves com gradiente */
+.fluent-gradient-border {
+    position: relative;
+    background: white;
+    border-radius: var(--fluent-radius-large);
+}
+
+.fluent-gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.fluent-gradient-border:hover::before {
+    opacity: 1;
+}
+
+/* Texto com gradiente */
+.fluent-gradient-text {
+    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+}
+
+/* Botão com efeito de onda */
+.fluent-ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.fluent-ripple::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease, opacity 0.6s ease;
+    opacity: 0;
+}
+
+.fluent-ripple:active::after {
+    width: 200px;
+    height: 200px;
+    opacity: 1;
+    transition: 0s;
+}
+
+/* Efeito de brilho suave */
+.fluent-shimmer {
+    position: relative;
+    overflow: hidden;
+}
+
+.fluent-shimmer::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 70%
+    );
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+}
+
+/* Melhoria de contraste para acessibilidade */
+.fluent-high-contrast {
+    border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.fluent-high-contrast:hover {
+    border-color: #7c3aed;
+}
+
+/* Transições suaves globais */
+* {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+

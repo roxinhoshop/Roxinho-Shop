@@ -6,12 +6,12 @@
     --bg-secondary: #2d2d2d;
     --bg-tertiary: #3a3a3a;
     
-    --text-primary: #ffffff;
-    --text-secondary: #e0e0e0;
-    --text-tertiary: #b0b0b0;
+    --text-primary: #f5f5f5;
+    --text-secondary: #e8e8e8;
+    --text-tertiary: #c0c0c0;
     
-    --border-color: rgba(255, 255, 255, 0.1);
-    --hover-bg: rgba(255, 255, 255, 0.05);
+    --border-color: rgba(255, 255, 255, 0.12);
+    --hover-bg: rgba(255, 255, 255, 0.08);
     
     --fluent-acrylic-dark: rgba(30, 30, 30, 0.7);
     --fluent-shadow-dark: 0 8px 32px rgba(0, 0, 0, 0.5);
