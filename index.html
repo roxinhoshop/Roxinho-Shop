@@ -7,20 +7,19 @@
   <title>Início | Roxinho Shop</title>
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="imagens/favicon-roxinhoshop.png">
+  <link rel="icon" type="image/png" href="src/recursos/imagens/favicon-roxinhoshop.png">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/home.css">
-  <link rel="stylesheet" href="css/cabecalhorodape.css">
-  <link rel="stylesheet" href="css/carrinho-contador.css">
-  <link rel="stylesheet" href="css/responsivo.css">
-  <link rel="stylesheet" href="css/auth-header.css">
-  <link rel="stylesheet" href="css/historico-home.css">
-  <link rel="stylesheet" href="css/notifications.css">
-  <link rel="stylesheet" href="css/fluent-design.css">
-  <link rel="stylesheet" href="css/dark-mode.css">
-  <link rel="stylesheet" href="css/home-dark-mode.css">
-  <link rel="stylesheet" href="css/theme-button.css">
+  <link rel="stylesheet" href="src/estilos/home.css">
+  <link rel="stylesheet" href="src/estilos/cabecalhorodape.css">
+  <link rel="stylesheet" href="src/estilos/responsivo.css">
+  <link rel="stylesheet" href="src/estilos/auth-header.css">
+  <link rel="stylesheet" href="src/estilos/historico-home.css">
+  <link rel="stylesheet" href="src/estilos/notifications.css">
+  <link rel="stylesheet" href="src/estilos/fluent-design.css">
+  <link rel="stylesheet" href="src/estilos/dark-mode.css">
+  <link rel="stylesheet" href="src/estilos/home-dark-mode.css">
+  <link rel="stylesheet" href="src/estilos/theme-button.css">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
@@ -39,14 +38,14 @@
     <div class="slides-wrapper" id="slidesWrapper">
       <!-- Slide 1 -->
       <div class="slide ativo" data-link="produtos.html?categoria=Promoções">
-        <img src="imagens/Roxinho Shop.png" alt="Promoções">
+        <img src="src/recursos/imagens/Roxinho Shop.png" alt="Promoções">
         <div class="slide-content">
         </div>
       </div>
 
       <!-- Slide 2 -->
       <div class="slide" data-link="produtos.html?categoria=PC Gamer">
-        <img src="imagens/BANNER2.png" alt="Monte seu PC Gamer">
+        <img src="src/recursos/imagens/BANNER2.png" alt="Monte seu PC Gamer">
         <div class="slide-overlay">
           <div class="slide-content">
           </div>
@@ -55,7 +54,7 @@
 
       <!-- Slide 3 -->
       <div class="slide" data-link="produtos.html?categoria=Celular & Smartphone">
-        <img src="imagens/banner7.png" alt="Smartphones 2025">
+        <img src="src/recursos/imagens/banner7.png" alt="Smartphones 2025">
         <div class="slide-overlay">
           <div class="slide-content">
           </div>
@@ -102,7 +101,7 @@
       </div>
 
       <div class="ver-todos">
-        <a href="produtos.html" class="botao-ver-todos">
+        <a href="src/paginas/produtos.html" class="botao-ver-todos">
           <span>Ver Todos os Produtos</span>
           <i class="fas fa-arrow-right"></i>
         </a>
@@ -117,7 +116,7 @@
         <i class="fas fa-history"></i>
         Produtos Visualizados Recentemente
       </h2>
-      <a href="historico.html" class="historico-ver-todos">
+      <a href="src/paginas/historico.html" class="historico-ver-todos">
         Ver Histórico Completo
         <i class="fas fa-arrow-right"></i>
       </a>
@@ -134,7 +133,7 @@
       <div class="grid-categorias">
         <a href="produtos.html?categoria=Hardware" class="categoria-card">
           <div class="categoria-imagem">
-            <img src="imagens/Catalogos/categoria-hardware.jpeg" alt="Hardware">
+            <img src="src/recursos/imagens/Catalogos/categoria-hardware.jpeg" alt="Hardware">
           </div>
           <div class="categoria-conteudo">
             <h3>Hardware</h3>
@@ -143,7 +142,7 @@
         </a>
         <a href="produtos.html?categoria=Periféricos" class="categoria-card">
           <div class="categoria-imagem">
-            <img src="imagens/Catalogos/categoria-perifericos.jpg" alt="Periféricos">
+            <img src="src/recursos/imagens/Catalogos/categoria-perifericos.jpg" alt="Periféricos">
           </div>
           <div class="categoria-conteudo">
             <h3>Periféricos</h3>
@@ -152,7 +151,7 @@
         </a>
         <a href="produtos.html?categoria=Computadores" class="categoria-card">
           <div class="categoria-imagem">
-            <img src="imagens/Catalogos/categoria-computadores.jpg" alt="Computadores">
+            <img src="src/recursos/imagens/Catalogos/categoria-computadores.jpg" alt="Computadores">
           </div>
           <div class="categoria-conteudo">
             <h3>Computadores</h3>
@@ -161,7 +160,7 @@
         </a>
         <a href="produtos.html?categoria=Games" class="categoria-card">
           <div class="categoria-imagem">
-            <img src="imagens/Catalogos/categoria-games.jpg" alt="Games">
+            <img src="src/recursos/imagens/Catalogos/categoria-games.jpg" alt="Games">
           </div>
           <div class="categoria-conteudo">
             <h3>Games</h3>
@@ -175,13 +174,12 @@
   <div id="footer-placeholder"></div>
 
   <!-- JS - ORDEM IMPORTANTE! -->
-  <script src="js/database.js"></script>
-  <script src="js/carrinho.js"></script>
-  <script src="js/home.js"></script>
-  <script src="js/auth-header.js"></script>
-  <script src="js/notifications.js"></script>
-  <script src="js/historico-home.js"></script>
-  <script src="js/theme-switcher.js"></script>
+  <script src="src/scripts/database.js"></script>
+  <script src="src/scripts/home.js"></script>
+  <script src="src/scripts/auth-header.js"></script>
+  <script src="src/scripts/notifications.js"></script>
+  <script src="src/scripts/historico-home.js"></script>
+  <script src="src/scripts/theme-switcher.js"></script>
   
   <script>
   fetch('cabecalhorodape.html')

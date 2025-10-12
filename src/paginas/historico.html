@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Histórico de Produtos Vistos | Roxinho Shop</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="../recursos/imagens/favicon-roxinhoshop.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../estilos/historico.css">
+  <link rel="stylesheet" href="../estilos/cabecalhorodape.css">
+  <link rel="stylesheet" href="../estilos/auth-header.css">
+  <link rel="stylesheet" href="../estilos/notifications.css">
+  <link rel="stylesheet" href="../estilos/fluent-design.css">
+  <link rel="stylesheet" href="../estilos/dark-mode.css">
+  <link rel="stylesheet" href="../estilos/theme-button.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <!-- Main Content -->
+  <main class="conteudo-principal">
+    <!-- Empty History State -->
+    <div id="historico-vazio" class="estado-historico-vazio">
+      <div class="conteudo-vazio">
+        <div class="icone-historico-vazio">
+          <i class="fas fa-eye"></i>
+        </div>
+        <h2 class="titulo-vazio">Você ainda não visualizou nenhum produto</h2>
+        <p class="descricao-vazia">Comece a explorar nossos produtos e eles aparecerão aqui!</p>
+        <button class="botao-explorar-produtos" onclick="window.location.href='index.html'">
+          <i class="fas fa-arrow-left"></i>
+          Explorar Produtos
+        </button>
+      </div>
+    </div>
+
+    <!-- History Content -->
+    <div id="conteudo-historico" class="layout-historico">
+      <div class="secao-produtos-vistos">
+        <div class="cabecalho-secao">
+          <h2>Produtos Vistos Recentemente</h2>
+          <div class="acoes">
+            <button id="btn-limpar-historico">
+              <i class="fas fa-trash"></i>
+              Limpar Histórico
+            </button>
+          </div>
+        </div>
+        <div id="lista-produtos-vistos" class="lista-produtos-vistos">
+          <!-- Produtos vistos serão inseridos aqui dinamicamente -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Notificações (Toast) -->
+  <div id="container-notificacoes" class="container-notificacoes"></div>
+
+  <div id="footer-placeholder"></div>
+
+  <!-- JS -->
+  <script src="../scripts/database.js"></script>
+  <script src="../scripts/produtos.js"></script>
+  <script src="../scripts/historico.js"></script>
+  <script src="../scripts/auth-header.js"></script>
+  <script src="../scripts/notifications.js"></script>
+  <script src="../scripts/theme-switcher.js"></script>
+
+  <script>
+  fetch('cabecalhorodape.html')
+    .then(response => response.text())
+    .then(data => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(data, 'text/html');
+
+      const header = doc.querySelector('nav.cabecalho');
+      const categorias = doc.querySelector('.barra-categorias');
+      const footer = doc.querySelector('footer.rodape');
+
+      if (header) {
+        // Adicionar contador do carrinho ao cabeçalho
+        const carrinhoLink = header.querySelector('.caixa-carrinho');
+        if (carrinhoLink && !carrinhoLink.querySelector('.contador-carrinho')) {
+          const contador = document.createElement('span');
+          contador.id = 'contador-carrinho-cabecalho';
+          contador.className = 'contador-carrinho';
+          contador.textContent = '0';
+          contador.style.display = 'none';
+          carrinhoLink.appendChild(contador);
+        }
+        
+        document.getElementById('header-placeholder').appendChild(header);
+      }
+      if (categorias) document.getElementById('header-placeholder').appendChild(categorias);
+      if (footer) document.getElementById('footer-placeholder').appendChild(footer);
+
+      // Executar scripts do cabecalho/rodape
+      doc.querySelectorAll("script").forEach(oldScript => {
+        const newScript = document.createElement("script");
+        if (oldScript.src) newScript.src = oldScript.src;
+        else newScript.textContent = oldScript.textContent;
+        document.body.appendChild(newScript);
+      });
+
+      // Atualizar contador do carrinho após carregar o cabeçalho
+      if (typeof atualizarContadorCarrinho === 'function') {
+        atualizarContadorCarrinho();
+      }
+    })
+    .catch(error => {
+      console.error('Erro ao carregar cabeçalho/rodapé:', error);
+    });
+  </script>
+</body>
+</html>
+

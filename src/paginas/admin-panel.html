@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Administrativo | Roxinho Shop</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="../recursos/imagens/favicon-roxinhoshop.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../estilos/admin-panel.css">
+  <link rel="stylesheet" href="../estilos/cabecalhorodape.css">
+  <link rel="stylesheet" href="../estilos/responsivo.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link rel="stylesheet" href="../estilos/notifications.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../estilos/fluent-design.css">
+  <link rel="stylesheet" href="../estilos/dark-mode.css">
+  <link rel="stylesheet" href="../estilos/theme-button.css">
+</head>
+<body>
+  <div class="wrapper-admin">
+    <!-- Sidebar -->
+    <aside class="sidebar-admin">
+      <div class="sidebar-header">
+        <h2>Roxinho Admin</h2>
+      </div>
+      <nav>
+        <ul class="nav-list-admin">
+          <li class="nav-item-admin">
+            <a href="#dashboard" class="nav-link-admin active" data-section="dashboard">
+              <i class="fas fa-chart-line"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item-admin">
+            <a href="#products" class="nav-link-admin" data-section="products">
+              <i class="fas fa-box"></i>
+              <span>Produtos</span>
+            </a>
+          </li>
+          <li class="nav-item-admin">
+            <a href="#users" class="nav-link-admin" data-section="users">
+              <i class="fas fa-users"></i>
+              <span>Usuários</span>
+            </a>
+          </li>
+          <li class="nav-item-admin">
+            <a href="#categories" class="nav-link-admin" data-section="categories">
+              <i class="fas fa-tags"></i>
+              <span>Categorias</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-admin">
+      <header class="header-conteudo-admin">
+        <h1>Painel Administrativo</h1>
+        <div class="user-profile">
+          <img src="https://via.placeholder.com/40/7c3aed/ffffff?text=AD" alt="Admin Avatar">
+          <span>Olá, Administrador!</span>
+          <button class="logout-btn" onclick="window.authSystem.logout(); window.location.href=\'login.html\';">
+            <i class="fas fa-sign-out-alt"></i> Sair
+          </button>
+        </div>
+      </header>
+
+      <!-- Dashboard Section -->
+      <section id="dashboard-section" class="secao-admin active">
+        <h2 class="titulo-secao">Dashboard</h2>
+        <div id="dashboard-stats">
+          <div class="loading-state">
+            <i class="fas fa-spinner"></i>
+            <p>Carregando estatísticas...</p>
+          </div>
+        </div>
+        <div style="margin-top: 30px;">
+          <div id="recent-products">
+            <div class="loading-state">
+              <i class="fas fa-spinner"></i>
+              <p>Carregando produtos recentes...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Products Section -->
+      <section id="products-section" class="secao-admin">
+        <div class="header-secao">
+          <h2 class="titulo-secao">Gerenciar Produtos</h2>
+          <button id="btn-add-product" class="btn btn-success">
+            <i class="fas fa-plus"></i> Adicionar Produto
+          </button>
+        </div>
+        <div class="conteudo-secao">
+          <div class="barra-pesquisa">
+            <input type="text" id="admin-search" placeholder="Buscar produtos...">
+          </div>
+          <div id="products-table">
+            <div class="loading-state">
+              <i class="fas fa-spinner"></i>
+              <p>Carregando produtos...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Users Section -->
+      <section id="users-section" class="secao-admin">
+        <h2 class="titulo-secao">Usuários Cadastrados</h2>
+        <div class="conteudo-secao">
+          <div id="users-table">
+            <div class="loading-state">
+              <i class="fas fa-spinner"></i>
+              <p>Carregando usuários...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Categories Section -->
+      <section id="categories-section" class="secao-admin">
+        <div class="header-secao">
+          <h2 class="titulo-secao">Gerenciar Categorias</h2>
+          <button id="btn-add-category" class="btn btn-success">
+            <i class="fas fa-plus"></i> Adicionar Categoria
+          </button>
+        </div>
+        <div class="conteudo-secao">
+          <div id="categories-table">
+            <div class="loading-state">
+              <i class="fas fa-spinner"></i>
+              <p>Carregando categorias...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal do Produto -->
+  <div id="product-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Adicionar Produto</h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="product-form" enctype="multipart/form-data">
+          <div class="grid-formulario">
+            <div class="grupo-formulario">
+              <label for="product-name">Nome do Produto *</label>
+              <input type="text" id="product-name" name="nome" required>
+            </div>
+
+            <div class="grupo-formulario">
+              <label for="product-category">Categoria *</label>
+              <select id="product-category" name="categoria_id" class="selecao-categoria" required>
+                <option value="">Carregando...</option>
+              </select>
+            </div>
+
+            <div class="grupo-formulario">
+              <label for="product-price">Preço (R$) *</label>
+              <input type="number" id="product-price" name="preco" step="0.01" min="0" required>
+            </div>
+
+            <div class="grupo-formulario">
+              <label for="product-promo-price">Preço Promocional (R$)</label>
+              <input type="number" id="product-promo-price" name="preco_promocional" step="0.01" min="0">
+            </div>
+
+            <div class="grupo-formulario">
+              <label for="product-stock">Estoque</label>
+              <input type="number" id="product-stock" name="estoque" min="0" value="0">
+            </div>
+
+            <div class="grupo-formulario">
+              <label for="product-brand">Marca</label>
+              <input type="text" id="product-brand" name="marca">
+            </div>
+
+            <div class="grupo-formulario">
+              <label for="product-model">Modelo</label>
+              <input type="text" id="product-model" name="modelo">
+            </div>
+
+            <div class="grupo-formulario">
+              <label for="product-sku">SKU</label>
+              <input type="text" id="product-sku" name="sku">
+            </div>
+
+            <div class="grupo-formulario">
+              <label for="product-weight">Peso (kg)</label>
+              <input type="number" id="product-weight" name="peso" step="0.001" min="0">
+            </div>
+
+            <div class="grupo-formulario">
+              <label for="product-dimensions">Dimensões</label>
+              <input type="text" id="product-dimensions" name="dimensoes" placeholder="Ex: 10x20x30 cm">
+            </div>
+
+            <div class="grupo-formulario grupo-formulario-full">
+              <label for="product-short-description">Descrição Curta</label>
+              <textarea id="product-short-description" name="descricao_curta" rows="2"></textarea>
+            </div>
+
+            <div class="grupo-formulario grupo-formulario-full">
+              <label for="product-description">Descrição Completa</label>
+              <textarea id="product-description" name="descricao" rows="4"></textarea>
+            </div>
+
+            <div class="grupo-formulario grupo-formulario-full">
+              <label for="product-specs">Especificações (JSON)</label>
+              <textarea id="product-specs" name="especificacoes" rows="3" placeholder=\'{"cor": "Preto", "tamanho": "Grande"}\'></textarea>
+            </div>
+
+            <div class="grupo-formulario grupo-formulario-full">
+              <label for="product-image">Imagem Principal</label>
+              <div class="container-upload-imagem">
+                <input type="file" id="product-image" name="imagem" accept="image/*" style="display: none;">
+                <input type="text" id="product-image-url" name="imagem_url" placeholder="URL da imagem" readonly>
+                <button type="button" class="btn btn-primary" onclick="document.getElementById(\'product-image\').click()">
+                  <i class="fas fa-upload"></i> Upload
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="window.adminPanelAPI.openImageGallery()">
+                  <i class="fas fa-images"></i> Galeria
+                </button>
+              </div>
+              <div id="preview-imagem" class="preview-imagem" style="display: none;">
+                <img id="preview-img" src="" alt="Preview">
+                <button type="button" class="btn-remove-image" onclick="window.adminPanelAPI.removeImage()">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="grupo-formulario checkbox-group">
+              <input type="checkbox" id="product-featured" name="destaque">
+              <label for="product-featured">Produto em destaque</label>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary modal-close" onclick="window.adminPanelAPI.hideProductModal()">Cancelar</button>
+            <button type="submit" class="btn btn-success">Salvar Produto</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal da Categoria -->
+  <div id="category-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Adicionar Categoria</h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="category-form">
+          <div class="grupo-formulario">
+            <label for="category-name">Nome da Categoria *</label>
+            <input type="text" id="category-name" name="nome" required>
+          </div>
+          <div class="grupo-formulario">
+            <label for="category-slug">Slug da Categoria</label>
+            <input type="text" id="category-slug" name="slug">
+            <small>Será gerado automaticamente se deixado em branco.</small>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary modal-close">Cancelar</button>
+            <button type="submit" class="btn btn-success">Salvar Categoria</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal da Galeria de Imagens -->
+  <div id="modal-galeria-imagens" class="modal">
+    <div class="modal-content" style="max-width: 900px;">
+      <div class="modal-header">
+        <h2 class="modal-title">Galeria de Imagens</h2>
+        <button class="modal-close" onclick="window.adminPanelAPI.closeImageGallery()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="grid-galeria" class="grid-galeria">
+          <div class="loading-state">
+            <i class="fas fa-spinner"></i>
+            <p>Carregando imagens...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../scripts/auth.js"></script>
+  <script src="../scripts/notifications.js"></script>
+  <script src="../scripts/admin-panel-api.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const navLinks = document.querySelectorAll(".nav-link-admin");
+      const sections = document.querySelectorAll(".secao-admin");
+
+      navLinks.forEach(link => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+
+          navLinks.forEach(l => l.classList.remove("active"));
+          link.classList.add("active");
+
+          sections.forEach(section => section.classList.remove("active"));
+
+          const sectionId = link.dataset.section + "-section";
+          const targetSection = document.getElementById(sectionId);
+          if (targetSection) {
+            targetSection.classList.add("active");
+          }
+        });
+      });
+
+      // Ativar a primeira seção por padrão se nenhuma estiver ativa
+      if (!document.querySelector(".secao-admin.active")) {
+        document.getElementById("dashboard-section").classList.add("active");
+        document.querySelector("[data-section=\"dashboard\"]").classList.add("active");
+      }
+
+      // Lógica para o botão de fechar modal
+      document.querySelectorAll(".modal-close").forEach(button => {
+        button.addEventListener("click", () => {
+          button.closest(".modal").classList.remove("show");
+        });
+      });
+    });
+  </script>
+  <script src="../scripts/theme-switcher.js"></script>
+</body>
+</html>
+

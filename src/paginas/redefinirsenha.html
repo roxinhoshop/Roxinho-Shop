@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redefinir Senha | Roxinho Shop</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="../recursos/imagens/favicon-roxinhoshop.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../estilos/login.css"> <!-- Reutilizar estilos de login para consistência -->
+  <link rel="stylesheet" href="../estilos/cabecalhorodape.css">
+
+  <!-- Placeholder para Header -->
+  <div id="header-placeholder"></div>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../estilos/fluent-design.css">
+  <link rel="stylesheet" href="../estilos/dark-mode.css">
+  <link rel="stylesheet" href="../estilos/theme-button.css">
+</head>
+<body>
+
+  <!-- Conteúdo principal -->
+  <main class="container">
+    <div class="login-section">
+
+      <form class="login-card" id="resetPasswordForm" novalidate>
+
+        <h2 class="welcome-text">Redefinir Senha</h2>
+        <p class="welcome-subtitle">Insira sua nova senha</p>
+
+        <!-- Nova Senha -->
+        <div class="form-group">
+          <input type="password" id="newPassword" class="form-input" required>
+          <label class="floating-label">Nova Senha <span class="required">*</span></label>
+          <span class="toggle-password" onclick="togglePasswordVisibility(\'newPassword\')"><i class="fa fa-eye" aria-hidden="true"></i></span>
+        </div>
+
+        <!-- Confirmar Nova Senha -->
+        <div class="form-group">
+          <input type="password" id="confirmNewPassword" class="form-input" required>
+          <label class="floating-label">Confirmar Nova Senha <span class="required">*</span></label>
+          <span class="toggle-password" onclick="togglePasswordVisibility(\'confirmNewPassword\')"><i class="fa fa-eye" aria-hidden="true"></i></span>
+        </div>
+
+        <div id="mensagem-erro" class="error-message" style="display: none;"></div>
+        <div id="mensagem-sucesso" class="success-message" style="display: none;"></div>
+
+        <button type="submit" class="login-button" id="botaoRedefinir">
+          <span>Redefinir Senha</span>
+        </button>
+
+        <p class="register-link">
+          <a href="login.html">Voltar para o login</a>
+        </p>
+      </form>
+    </div>
+  </main>
+
+  <!-- Placeholder para Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="../scripts/system-init.js"></script>
+  <script src="../scripts/auth.js"></script>
+  <script src="../scripts/redefinirsenha.js"></script>
+  
+  <script>
+  fetch(\'cabecalhorodape.html\')
+    .then(response => response.text())
+    .then(data => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(data, \'text/html\');
+
+      const header = doc.querySelector(\'nav.cabecalho\');
+      const categorias = doc.querySelector(\'.barra-categorias\');
+      const footer = doc.querySelector(\'footer.rodape\');
+
+      if (header) document.getElementById(\'header-placeholder\').appendChild(header);
+      if (categorias) document.getElementById(\'header-placeholder\').appendChild(categorias);
+      if (footer) document.getElementById(\'footer-placeholder\').appendChild(footer);
+
+      // Executar scripts do cabecalho/rodape
+      doc.querySelectorAll("script").forEach(oldScript => {
+        const newScript = document.createElement("script");
+        if (oldScript.src) newScript.src = oldScript.src;
+        else newScript.textContent = oldScript.textContent;
+        document.body.appendChild(newScript);
+      });
+    });
+
+    function togglePasswordVisibility(fieldId) {
+        const field = document.getElementById(fieldId);
+        const icon = field.closest(".form-group").querySelector(".toggle-password i");
+        if (field.type === "password") {
+            field.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            field.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
+    }
+  </script>
+
+  <script src="../scripts/theme-switcher.js"></script>
+</body>
+</html>
