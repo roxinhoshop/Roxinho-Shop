@@ -10,6 +10,9 @@ function atualizarEstadoLogin() {
     // Obter elementos do cabeçalho
     const caixaLogin = document.getElementById("caixa-login");
     const statusLogin = document.getElementById("status-login");
+    const subtextoLogin = document.getElementById("subtexto-login");
+    const setaLogin = document.getElementById("seta-login");
+    const avatarUsuario = document.getElementById("avatar-usuario");
     const dropdownUsuario = document.getElementById("dropdown-usuario");
     
     if (!caixaLogin || !statusLogin) {
@@ -28,13 +31,21 @@ function atualizarEstadoLogin() {
         const displayName = userName.charAt(0).toUpperCase() + userName.slice(1);
         
         // Atualizar texto do cabeçalho
-        statusLogin.innerHTML = `Olá, ${displayName}!`;
+        statusLogin.textContent = `Olá, ${displayName}!`;
+        if (subtextoLogin) {
+            subtextoLogin.textContent = "Minha Conta";
+        }
+        
+        // Remover seta quando logado
+        if (setaLogin) {
+            setaLogin.style.display = "none";
+        }
+        
+        // Adicionar classe de logado
         caixaLogin.classList.add("logado");
         
-        // Criar dropdown se não existir
-        if (!dropdownUsuario) {
-            criarDropdownUsuario(isAdmin);
-        } else {
+        // Atualizar dropdown existente
+        if (dropdownUsuario) {
             atualizarDropdownUsuario(isAdmin);
         }
         
@@ -44,10 +55,20 @@ function atualizarEstadoLogin() {
         
     } else {
         // Usuário não logado
-        statusLogin.innerHTML = 'Entre <span class="subtexto-login">ou cadastre-se</span>';
+        statusLogin.textContent = "Entre";
+        if (subtextoLogin) {
+            subtextoLogin.textContent = "Login";
+        }
+        
+        // Mostrar seta quando não logado
+        if (setaLogin) {
+            setaLogin.style.display = "block";
+        }
+        
+        // Remover classe de logado
         caixaLogin.classList.remove("logado");
         
-        // Remover dropdown
+        // Esconder dropdown
         if (dropdownUsuario) {
             dropdownUsuario.style.display = "none";
         }
@@ -59,86 +80,33 @@ function atualizarEstadoLogin() {
 }
 
 /**
- * Cria o dropdown do menu do usuário
- */
-function criarDropdownUsuario(isAdmin) {
-    const caixaLogin = document.getElementById("caixa-login");
-    
-    const dropdown = document.createElement('div');
-    dropdown.id = 'dropdown-usuario';
-    dropdown.className = 'dropdown-usuario';
-    dropdown.style.display = 'none';
-    
-    let menuHTML = '<ul class="menu-usuario">';
-    
-    if (isAdmin) {
-        menuHTML += `
-            <li><a href="admin-panel.html"><i class="fas fa-cog"></i> Painel Admin</a></li>
-            <li><a href="painelusuario.html"><i class="fas fa-user"></i> Painel Usuário</a></li>
-        `;
-    } else {
-        menuHTML += `
-            <li><a href="painelusuario.html"><i class="fas fa-user"></i> Configurações</a></li>
-        `;
-    }
-    
-    menuHTML += `
-        <li class="divider"></li>
-        <li><a href="#" id="btn-logout"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
-    </ul>`;
-    
-    dropdown.innerHTML = menuHTML;
-    caixaLogin.appendChild(dropdown);
-    
-    // Adicionar evento de logout
-    setTimeout(() => {
-        const btnLogout = document.getElementById('btn-logout');
-        if (btnLogout) {
-            btnLogout.onclick = (e) => {
-                e.preventDefault();
-                fazerLogout();
-            };
-        }
-    }, 100);
-}
-
-/**
- * Atualiza o dropdown existente
+ * Atualiza o dropdown do menu do usuário
  */
 function atualizarDropdownUsuario(isAdmin) {
     const dropdown = document.getElementById('dropdown-usuario');
     if (!dropdown) return;
     
-    let menuHTML = '<ul class="menu-usuario">';
-    
-    if (isAdmin) {
-        menuHTML += `
-            <li><a href="admin-panel.html"><i class="fas fa-cog"></i> Painel Admin</a></li>
-            <li><a href="painelusuario.html"><i class="fas fa-user"></i> Painel Usuário</a></li>
-        `;
-    } else {
-        menuHTML += `
-            <li><a href="painelusuario.html"><i class="fas fa-user"></i> Configurações</a></li>
-        `;
+    // Atualizar link de admin no dropdown
+    const linkAdminDropdown = document.getElementById('link-admin-dropdown');
+    if (linkAdminDropdown) {
+        linkAdminDropdown.style.display = isAdmin ? 'block' : 'none';
     }
     
-    menuHTML += `
-        <li class="divider"></li>
-        <li><a href="#" id="btn-logout"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
-    </ul>`;
-    
-    dropdown.innerHTML = menuHTML;
-    
     // Adicionar evento de logout
-    setTimeout(() => {
-        const btnLogout = document.getElementById('btn-logout');
-        if (btnLogout) {
-            btnLogout.onclick = (e) => {
-                e.preventDefault();
-                fazerLogout();
-            };
-        }
-    }, 100);
+    const btnLogout = document.getElementById('botao-logout');
+    if (btnLogout) {
+        btnLogout.onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            fazerLogout();
+        };
+    }
+    
+    // Adicionar link para painel admin se for admin
+    const linkAdmin = document.getElementById('link-admin');
+    if (linkAdmin) {
+        linkAdmin.style.display = isAdmin ? 'flex' : 'none';
+    }
 }
 
 /**
@@ -146,6 +114,7 @@ function atualizarDropdownUsuario(isAdmin) {
  */
 function toggleDropdownUsuario(event) {
     event.stopPropagation();
+    
     const dropdown = document.getElementById('dropdown-usuario');
     if (!dropdown) return;
     
