@@ -1,0 +1,81 @@
+/* Correção do Rodapé - Remover Centralização */
+
+.rodape-container {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.rodape-logo {
+    text-align: left !important;
+    margin-bottom: 10px;
+}
+
+.rodape-logo h2 {
+    text-align: left !important;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.rodape-redes {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+    justify-content: flex-start !important;
+}
+
+.rodape-container h3 {
+    font-size: 1rem;
+    margin-bottom: 16px;
+    color: #7c3aed;
+    font-weight: 600;
+    text-align: left;
+}
+
+.rodape-container ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+}
+
+.rodape-container ul li {
+    margin-bottom: 10px;
+}
+
+.rodape-container ul li a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.rodape-container ul li a:hover {
+    color: #7c3aed;
+    transform: translateX(4px);
+}
+
+/* Responsivo */
+@media (max-width: 968px) {
+    .rodape-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+    
+    .rodape-logo {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 576px) {
+    .rodape-container {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+}
+
