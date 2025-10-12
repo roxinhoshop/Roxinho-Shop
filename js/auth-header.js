@@ -1,6 +1,7 @@
 /**
  * @file auth-header.js
  * @description Gerenciamento do cabeçalho com autenticação e menu do usuário
+ * Mantém usuário logado permanentemente até clicar em Sair
  */
 
 /**
@@ -27,7 +28,9 @@ function atualizarEstadoLogin() {
     const isAdmin = localStorage.getItem("isAdmin") === "true";
 
     if (token && userEmail) {
-        // Usuário logado - extrair nome do email
+        // ========== USUÁRIO LOGADO ==========
+        
+        // Extrair nome do email
         const userName = userEmail.split('@')[0];
         const displayName = userName.charAt(0).toUpperCase() + userName.slice(1);
         
@@ -37,7 +40,7 @@ function atualizarEstadoLogin() {
             subtextoLogin.textContent = "Minha Conta";
         }
         
-        // Manter seta mas mudar para baixo (menu hamburguer)
+        // Mudar seta para baixo (menu hamburguer)
         if (setaLogin) {
             setaLogin.className = "fa-solid fa-chevron-down seta";
         }
@@ -60,7 +63,7 @@ function atualizarEstadoLogin() {
             }
         }
         
-        // Adicionar evento de clique para mostrar dropdown
+        // IMPORTANTE: Apenas abrir menu, NÃO redirecionar
         caixaLogin.style.cursor = "pointer";
         caixaLogin.onclick = toggleDropdownUsuario;
         
@@ -75,7 +78,8 @@ function atualizarEstadoLogin() {
         }
         
     } else {
-        // Usuário não logado
+        // ========== USUÁRIO NÃO LOGADO ==========
+        
         statusLogin.textContent = "Entre";
         if (subtextoLogin) {
             subtextoLogin.textContent = "Login";
@@ -94,7 +98,7 @@ function atualizarEstadoLogin() {
             dropdownUsuario.style.display = "none";
         }
         
-        // Redirecionar para login ao clicar
+        // Redirecionar para login ao clicar (apenas quando NÃO logado)
         caixaLogin.style.cursor = "pointer";
         caixaLogin.onclick = () => window.location.href = "login.html";
     }
@@ -102,8 +106,10 @@ function atualizarEstadoLogin() {
 
 /**
  * Toggle do dropdown do usuário
+ * IMPORTANTE: Não redireciona, apenas abre/fecha o menu
  */
 function toggleDropdownUsuario(event) {
+    event.preventDefault();
     event.stopPropagation();
     
     const dropdown = document.getElementById('dropdown-usuario');
@@ -127,20 +133,27 @@ document.addEventListener('click', (event) => {
 
 /**
  * Fazer logout
+ * IMPORTANTE: Esta é a ÚNICA forma de deslogar
  */
 function fazerLogout() {
-    // Limpar localStorage
+    // Confirmar logout
+    if (!confirm('Deseja realmente sair da sua conta?')) {
+        return;
+    }
+    
+    // Limpar TODO o localStorage relacionado à autenticação
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("userId");
     localStorage.removeItem("userEmail");
     localStorage.removeItem("isAdmin");
+    localStorage.removeItem("userName");
     
     // Disparar evento de mudança de autenticação
     window.dispatchEvent(new Event("authChange"));
     
     // Mostrar notificação
     if (typeof showNotification === 'function') {
-        showNotification("Logout realizado com sucesso!", "success");
+        showNotification("Você saiu da sua conta com sucesso!", "success");
     }
     
     // Redirecionar para home
@@ -149,15 +162,39 @@ function fazerLogout() {
     }, 500);
 }
 
+/**
+ * Verifica se o token ainda é válido
+ * Mantém usuário logado permanentemente até ele clicar em Sair
+ */
+function verificarTokenValido() {
+    const token = localStorage.getItem("jwtToken");
+    
+    // Se tem token, considera válido
+    // Não expira automaticamente
+    return !!token;
+}
+
 // Inicializar ao carregar a página
 document.addEventListener('DOMContentLoaded', () => {
+    // Verificar se usuário está logado
+    if (verificarTokenValido()) {
+        console.log("✅ Usuário mantido logado");
+    }
+    
+    // Atualizar interface
     setTimeout(atualizarEstadoLogin, 100);
 });
 
 // Atualizar quando houver mudança de autenticação
 window.addEventListener('authChange', atualizarEstadoLogin);
 
+// Manter login ao navegar entre páginas
+window.addEventListener('pageshow', () => {
+    atualizarEstadoLogin();
+});
+
 // Exportar funções
 window.atualizarEstadoLogin = atualizarEstadoLogin;
 window.fazerLogout = fazerLogout;
+window.verificarTokenValido = verificarTokenValido;
 
