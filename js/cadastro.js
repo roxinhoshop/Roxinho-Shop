@@ -28,7 +28,9 @@ document.addEventListener("DOMContentLoaded", () => {
     emailInput.addEventListener("input", () => validarCampo(emailInput, "E-mail é obrigatório.", null, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, "E-mail inválido."));
         telefoneInput.addEventListener("input", () => {
             formatarTelefone(telefoneInput);
-            validarCampo(telefoneInput, "Telefone é obrigatório.", "Telefone inválido.", /^\(\d{2}\)\s\d{4,5}-\d{4}$/, "Telefone inválido.");
+            console.log("Telefone formatado para validação:", telefoneInput.value);
+            console.log("Regex de telefone:", /^\(\d{2}\)\s\d{4,5}-\d{4}$/.test(telefoneInput.value));
+            validarCampo(telefoneInput, "Telefone é obrigatório.", "Telefone inválido.", /^\(\d{2}\)\s\d{4,5}-\d{4}$|^\(\d{2}\)\s\d{4}-\d{4}$/, "Telefone inválido.");
         });
     dataNascimentoInput.addEventListener("change", validarDataNascimento);
     senhaInput.addEventListener("input", () => {
@@ -194,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         try {
-            const response = await fetch("https://roxinho-shop-backend.vercel.app/api/auth/register", {
+            const response = await fetch("http://localhost:3000/api/auth/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -224,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let nomeValido = validarCampo(nomeInput, "Nome é obrigatório.", "Nome deve ter pelo menos 2 caracteres.", /^[a-zA-Záàâãéèêíïóôõöúçñ\s]+$/i, "Nome deve conter apenas letras.");
         let sobrenomeValido = validarCampo(sobrenomeInput, "Sobrenome é obrigatório.", "Sobrenome deve ter pelo menos 2 caracteres.", /^[a-zA-Záàâãéèêíïóôõöúçñ\s]+$/i, "Sobrenome deve conter apenas letras.");
         let emailValido = validarCampo(emailInput, "E-mail é obrigatório.", null, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, "E-mail inválido.");
-        let telefoneValido = validarCampo(telefoneInput, "Telefone é obrigatório.", "Telefone inválido.", /^\(\d{2}\)\s\d{4,5}-\d{4}$/, "Telefone inválido.");
+        let telefoneValido = validarCampo(telefoneInput, "Telefone é obrigatório.", "Telefone inválido.", /^\(\d{2}\)\s\d{4,5}-\d{4}$|^\(\d{2}\)\s\d{4}-\d{4}$/, "Telefone inválido.");
         let dataNascimentoValida = validarDataNascimento();
         let senhaValida = validarCampo(senhaInput, "Senha é obrigatória.", "A senha deve ter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.", /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, "A senha deve ter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.", 8);
         let confirmarSenhaValida = validarConfirmacaoSenha();
@@ -285,6 +287,10 @@ function formatarTelefone(input) {
     }
     if (value.length >= 8) {
         formattedValue += "-" + value.substring(7, 11);
+    }
+    if (value.length > 11) { // Limita o tamanho máximo para 11 dígitos (DD + 9 dígitos)
+        value = value.substring(0, 11);
+        formattedValue = formattedValue.substring(0, 15); // Limita o formato para (DD) XXXXX-XXXX
     }
     input.value = formattedValue;
 }

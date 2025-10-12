@@ -55,7 +55,7 @@ async function renderizarProdutosDestaque() {
   }
 
   try {
-    const response = await fetch("http://localhost:3000/api/products/featured"); // Assumindo este endpoint para produtos em destaque
+    const response = await fetch("http://localhost:3000/api/products"); // Endpoint para listar todos os produtos
     if (!response.ok) {
       throw new Error(`Erro HTTP! status:  ${response.status}`);
     }
@@ -74,6 +74,10 @@ async function renderizarProdutosDestaque() {
     const produtosParaExibir = produtos.slice(0, 8); // Exibir os primeiros 8 produtos em destaque
     
     container.innerHTML = produtosParaExibir.map(produto => {
+      // Converter preço de string para número
+      produto.preco = parseFloat(produto.preco);
+      if (produto.precoOriginal) produto.precoOriginal = parseFloat(produto.precoOriginal);
+      if (produto.preco_promocional) produto.preco_promocional = parseFloat(produto.preco_promocional);
       const ehFavorito = false; // Sistema de favoritos pode ser implementado depois
 
       // Determinar como renderizar a imagem

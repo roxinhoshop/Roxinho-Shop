@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const senha = passwordInput.value;
 
         try {
-            const response = await fetch("https://roxinho-shop-backend.vercel.app/api/auth/login", {
+            const response = await fetch("http://localhost:3000/api/auth/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, senha })
