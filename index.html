@@ -10,16 +10,16 @@
   <link rel="icon" type="image/png" href="src/recursos/imagens/favicon-roxinhoshop.png">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="src/estilos/inicio.css">
-  <link rel="stylesheet" href="src/estilos/cabecalho-rodape.css">
-  <link rel="stylesheet" href="src/estilos/responsivo.css">
-  <link rel="stylesheet" href="src/estilos/cabecalho-autenticacao.css">
-  <link rel="stylesheet" href="src/estilos/historico-inicio.css">
-  <link rel="stylesheet" href="src/estilos/notificacoes.css">
-  <link rel="stylesheet" href="src/estilos/design-fluent.css">
-  <link rel="stylesheet" href="src/estilos/modo-escuro.css">
-  <link rel="stylesheet" href="src/estilos/inicio-modo-escuro.css">
-  <link rel="stylesheet" href="src/estilos/botao-tema.css">
+  <link rel="stylesheet" href="src/estilos/componentes/inicio.css">
+  <link rel="stylesheet" href="src/estilos/layouts/cabecalho-rodape.css">
+  <link rel="stylesheet" href="src/estilos/layouts/responsivo.css">
+  <link rel="stylesheet" href="src/estilos/componentes/cabecalho-autenticacao.css">
+  <link rel="stylesheet" href="src/estilos/componentes/historico-inicio.css">
+  <link rel="stylesheet" href="src/estilos/componentes/notificacoes.css">
+  <link rel="stylesheet" href="src/estilos/temas/design-fluent.css">
+  <link rel="stylesheet" href="src/estilos/temas/modo-escuro.css">
+  <link rel="stylesheet" href="src/estilos/componentes/inicio-modo-escuro.css">
+  <link rel="stylesheet" href="src/estilos/temas/botao-tema.css">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
@@ -174,15 +174,15 @@
   <div id="footer-placeholder"></div>
 
   <!-- JS - ORDEM IMPORTANTE! -->
-  <script src="src/scripts/banco-dados.js"></script>
-  <script src="src/scripts/inicio.js"></script>
-  <script src="src/scripts/cabecalho-autenticacao.js"></script>
-  <script src="src/scripts/notificacoes.js"></script>
-  <script src="src/scripts/historico-inicio.js"></script>
-  <script src="src/scripts/alternador-tema.js"></script>
+  <script src="src/scripts/servicos/banco-dados.js"></script>
+  <script src="src/scripts/componentes/inicio.js"></script>
+  <script src="src/scripts/componentes/cabecalho-autenticacao.js"></script>
+  <script src="src/scripts/componentes/notificacoes.js"></script>
+  <script src="src/scripts/componentes/historico-inicio.js"></script>
+  <script src="src/scripts/componentes/alternador-tema.js"></script>
   
   <script>
-  fetch('cabecalho-rodape.html')
+  fetch('src/paginas/cabecalho-rodape.html')
     .then(response => response.text())
     .then(data => {
       const parser = new DOMParser();
