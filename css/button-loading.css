@@ -1,0 +1,44 @@
+/* Animação de Loading nos Botões */
+
+.btn-loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.btn-loading .btn-text {
+    opacity: 0;
+}
+
+.btn-loading::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: button-spin 0.8s linear infinite;
+}
+
+@keyframes button-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Estilos para diferentes tipos de botões */
+.login-button.btn-loading,
+.botao-cadastro.btn-loading {
+    cursor: not-allowed;
+}
+
+/* Garantir que o texto fique oculto durante loading */
+.btn-loading span {
+    visibility: hidden;
+}
+

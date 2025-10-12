@@ -184,13 +184,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     cadastroForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        if (!validarFormularioCompleto()) return;
+        
+        // Validar formulário
+        if (!validarFormularioCompleto()) {
+            showNotification("Por favor, corrija os erros no formulário.", "error");
+            return;
+        }
+
+        // Adicionar loading no botão
+        addButtonLoading(botaoCadastro);
 
         const data = {
-            nome: nomeInput.value,
-            sobrenome: sobrenomeInput.value,
-            email: emailInput.value,
-            telefone: telefoneInput.value,
+            nome: nomeInput.value.trim(),
+            sobrenome: sobrenomeInput.value.trim(),
+            email: emailInput.value.trim(),
+            telefone: telefoneInput.value.trim(),
             data_nascimento: dataNascimentoInput.value,
             senha: senhaInput.value
         };
@@ -222,12 +230,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     }, 1500);
                 }
             } else {
+                // Remover loading do botão
+                removeButtonLoading(botaoCadastro);
                 showNotification(result.message || "Ocorreu um erro ao cadastrar. Tente novamente.", "error");
                 console.error(`Erro: ${result.message}`);
             }
         } catch (error) {
+            // Remover loading do botão
+            removeButtonLoading(botaoCadastro);
             console.error("Erro ao cadastrar:", error);
-            showNotification("Ocorreu um erro. Tente novamente.", "error");
+            showNotification("Erro de conexão. Tente novamente mais tarde.", "error");
         }
     });
 

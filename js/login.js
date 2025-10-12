@@ -1,3 +1,8 @@
+/**
+ * @file login.js
+ * @description Sistema de login com animação de loading e redirecionamento inteligente
+ */
+
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("loginForm");
     const emailInput = document.getElementById("email");
@@ -7,8 +12,17 @@ document.addEventListener("DOMContentLoaded", () => {
     loginForm.addEventListener("submit", async function(event) {
         event.preventDefault();
 
-        const email = emailInput.value;
+        const email = emailInput.value.trim();
         const senha = passwordInput.value;
+
+        // Validação básica
+        if (!email || !senha) {
+            showNotification("Por favor, preencha todos os campos.", "error");
+            return;
+        }
+
+        // Adicionar loading no botão
+        addButtonLoading(loginButton);
 
         try {
             const response = await fetch("https://roxinho-shop-backend.vercel.app/api/auth/login", {
@@ -16,12 +30,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, senha })
             });
+            
             const result = await response.json();
 
             if (result.token) {
                 // Decodificar o token JWT para obter informações do usuário
                 const tokenPayload = JSON.parse(atob(result.token.split('.')[1]));
                 
+                // Salvar dados no localStorage
                 localStorage.setItem("jwtToken", result.token);
                 localStorage.setItem("userId", tokenPayload.userId);
                 localStorage.setItem("userEmail", tokenPayload.email);
@@ -30,27 +46,36 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Disparar evento de mudança de autenticação
                 window.dispatchEvent(new Event("authChange"));
                 
-                // Mostrar animação de sucesso
+                // Determinar página de redirecionamento
+                const isAdmin = tokenPayload.isAdmin;
+                const redirectUrl = isAdmin ? "admin-panel.html" : "painelusuario.html";
+                const userType = isAdmin ? "Administrador" : "Usuário";
+                const userName = tokenPayload.email.split('@')[0];
+                
+                // Mostrar animação de sucesso com redirecionamento inteligente
                 if (typeof showSuccessAnimation === 'function') {
-                    const userName = tokenPayload.email.split('@')[0];
                     showSuccessAnimation(
                         "Login Realizado!",
-                        `Bem-vindo de volta, ${userName}! Redirecionando...`,
-                        "index.html",
+                        `Bem-vindo, ${userName}! Redirecionando para o painel de ${userType.toLowerCase()}...`,
+                        redirectUrl,
                         2000
                     );
                 } else {
-                    showNotification("Login bem-sucedido!", "success");
+                    showNotification(`Login bem-sucedido! Bem-vindo, ${userType}!`, "success");
                     setTimeout(() => {
-                        window.location.href = "index.html";
+                        window.location.href = redirectUrl;
                     }, 1000);
                 }
             } else {
-                showNotification(result.message || "Erro ao fazer login.", "error");
+                // Remover loading do botão
+                removeButtonLoading(loginButton);
+                showNotification(result.message || "Erro ao fazer login. Verifique suas credenciais.", "error");
             }
         } catch (error) {
+            // Remover loading do botão
+            removeButtonLoading(loginButton);
             console.error("Erro de rede:", error);
-            showNotification("Erro de rede ao tentar fazer login.", "error");
+            showNotification("Erro de conexão. Tente novamente mais tarde.", "error");
         }
     });
 
@@ -58,6 +83,9 @@ document.addEventListener("DOMContentLoaded", () => {
     window.togglePasswordVisibility = function(fieldId) {
         const field = document.getElementById(fieldId);
         const icon = field.closest(".form-group").querySelector(".toggle-password i");
+        
+        if (!field || !icon) return;
+        
         if (field.type === "password") {
             field.type = "text";
             icon.classList.remove("fa-eye");
