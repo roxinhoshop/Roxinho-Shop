@@ -9,14 +9,15 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="src/recursos/imagens/favicon-roxinhoshop.png">
 
-  <!-- CSS -->
+  <!-- CSS - Fluent Design System -->
+  <link rel="stylesheet" href="src/estilos/temas/fluent-global.css">
+  <link rel="stylesheet" href="src/estilos/layouts/fluent-cabecalho.css">
+  <link rel="stylesheet" href="src/estilos/componentes/fluent-produtos.css">
   <link rel="stylesheet" href="src/estilos/componentes/inicio.css">
-  <link rel="stylesheet" href="src/estilos/layouts/cabecalho-rodape.css">
   <link rel="stylesheet" href="src/estilos/layouts/responsivo.css">
   <link rel="stylesheet" href="src/estilos/componentes/cabecalho-autenticacao.css">
   <link rel="stylesheet" href="src/estilos/componentes/historico-inicio.css">
   <link rel="stylesheet" href="src/estilos/componentes/notificacoes.css">
-  <link rel="stylesheet" href="src/estilos/temas/design-fluent.css">
   <link rel="stylesheet" href="src/estilos/temas/modo-escuro.css">
   <link rel="stylesheet" href="src/estilos/componentes/inicio-modo-escuro.css">
   <link rel="stylesheet" href="src/estilos/temas/botao-tema.css">
@@ -131,7 +132,7 @@
     <div class="container">
       <h2 class="titulo-secao">Categorias Populares</h2>
       <div class="grid-categorias">
-        <a href="produtos.html?categoria=Hardware" class="categoria-card">
+        <a href="src/paginas/produtos.html?categoria=Hardware" class="categoria-card">
           <div class="categoria-imagem">
             <img src="src/recursos/imagens/Catalogos/categoria-hardware.jpeg" alt="Hardware">
           </div>
@@ -140,7 +141,7 @@
             <p>Processadores, placas de vídeo e mais</p>
           </div>
         </a>
-        <a href="produtos.html?categoria=Periféricos" class="categoria-card">
+        <a href="src/paginas/produtos.html?categoria=Periféricos" class="categoria-card">
           <div class="categoria-imagem">
             <img src="src/recursos/imagens/Catalogos/categoria-perifericos.jpg" alt="Periféricos">
           </div>
@@ -149,7 +150,7 @@
             <p>Teclados, mouses e headsets</p>
           </div>
         </a>
-        <a href="produtos.html?categoria=Computadores" class="categoria-card">
+        <a href="src/paginas/produtos.html?categoria=Computadores" class="categoria-card">
           <div class="categoria-imagem">
             <img src="src/recursos/imagens/Catalogos/categoria-computadores.jpg" alt="Computadores">
           </div>
@@ -158,7 +159,7 @@
             <p>PCs completos e notebooks</p>
           </div>
         </a>
-        <a href="produtos.html?categoria=Games" class="categoria-card">
+        <a href="src/paginas/produtos.html?categoria=Games" class="categoria-card">
           <div class="categoria-imagem">
             <img src="src/recursos/imagens/Catalogos/categoria-games.jpg" alt="Games">
           </div>
@@ -185,6 +186,14 @@
   fetch('src/paginas/cabecalho-rodape.html')
     .then(response => response.text())
     .then(data => {
+      // Corrigir caminhos relativos para funcionar na raiz
+      data = data.replace(/href="\.\.\/recursos/g, 'href="src/recursos');
+      data = data.replace(/src="\.\.\/recursos/g, 'src="src/recursos');
+      data = data.replace(/href="\.\.\/estilos/g, 'href="src/estilos');
+      data = data.replace(/src="\.\.\/scripts/g, 'src="src/scripts');
+      data = data.replace(/href="\.\.\/\.\.\/index\.html"/g, 'href="index.html"');
+      data = data.replace(/href="([a-z\-]+)\.html"/g, 'href="src/paginas/$1.html"');
+      
       const parser = new DOMParser();
       const doc = parser.parseFromString(data, 'text/html');
 
@@ -212,8 +221,13 @@
       // Executar scripts do cabecalho/rodape
       doc.querySelectorAll("script").forEach(oldScript => {
         const newScript = document.createElement("script");
-        if (oldScript.src) newScript.src = oldScript.src;
-        else newScript.textContent = oldScript.textContent;
+        if (oldScript.src) {
+          // Corrigir caminho do script
+          let srcCorrigido = oldScript.src.replace('../scripts', 'src/scripts');
+          newScript.src = srcCorrigido;
+        } else {
+          newScript.textContent = oldScript.textContent;
+        }
         document.body.appendChild(newScript);
       });
 

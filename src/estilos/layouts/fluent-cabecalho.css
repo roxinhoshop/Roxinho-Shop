@@ -1,0 +1,405 @@
+/* ============================================
+   FLUENT DESIGN - WINDOWS 11 STYLE HEADER
+   Cores: Roxo (#7c3aed) e Amarelo (#fbbf24)
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --roxo-primario: #7c3aed;
+  --roxo-escuro: #6d28d9;
+  --roxo-claro: #a78bfa;
+  --amarelo-primario: #fbbf24;
+  --amarelo-escuro: #f59e0b;
+  --branco: #ffffff;
+  --cinza-claro: #f3f4f6;
+  --cinza-medio: #e5e7eb;
+  --cinza-escuro: #6b7280;
+  --texto-escuro: #1f2937;
+  --sombra-fluent: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --sombra-hover: 0 12px 48px rgba(124, 58, 237, 0.15);
+}
+
+body {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  color: var(--texto-escuro);
+  min-height: 100vh;
+}
+
+/* ============================================
+   CABEÇALHO PRINCIPAL - FLUENT DESIGN
+   ============================================ */
+
+.cabecalho {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.1);
+  padding: 1rem 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cabecalho:hover {
+  box-shadow: var(--sombra-fluent);
+}
+
+.container-cabecalho {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ============================================
+   LOGO
+   ============================================ */
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logo:hover {
+  transform: translateY(-2px);
+}
+
+.logo-imagem {
+  height: 90px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(124, 58, 237, 0.15));
+  transition: filter 0.3s ease;
+}
+
+.logo:hover .logo-imagem {
+  filter: drop-shadow(0 6px 12px rgba(124, 58, 237, 0.25));
+}
+
+/* ============================================
+   BARRA DE PESQUISA - FLUENT DESIGN
+   ============================================ */
+
+.caixa-pesquisa {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.caixa-pesquisa input {
+  width: 100%;
+  padding: 0.75rem 3rem 0.75rem 1.25rem;
+  border-radius: 8px;
+  border: 1px solid var(--cinza-medio);
+  outline: none;
+  background: var(--branco);
+  font-size: 0.95rem;
+  color: var(--texto-escuro);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.caixa-pesquisa input::placeholder {
+  color: var(--cinza-escuro);
+}
+
+.caixa-pesquisa input:focus {
+  border-color: var(--roxo-primario);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1),
+              0 4px 16px rgba(124, 58, 237, 0.15);
+  transform: translateY(-1px);
+}
+
+.caixa-pesquisa button {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--roxo-primario);
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.caixa-pesquisa button i {
+  color: var(--branco);
+  font-size: 1rem;
+}
+
+.caixa-pesquisa button:hover {
+  background: var(--roxo-escuro);
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+}
+
+.caixa-pesquisa button:active {
+  transform: translateY(-50%) scale(0.98);
+}
+
+/* ============================================
+   AÇÕES DO CABEÇALHO - FLUENT DESIGN
+   ============================================ */
+
+.acoes-cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.acoes-cabecalho a,
+.acoes-cabecalho button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.acoes-cabecalho a:hover,
+.acoes-cabecalho button:hover {
+  background: rgba(124, 58, 237, 0.08);
+  transform: translateY(-2px);
+}
+
+.acoes-cabecalho a:active,
+.acoes-cabecalho button:active {
+  transform: translateY(0);
+}
+
+.acoes-cabecalho i {
+  font-size: 1.3rem;
+  color: var(--roxo-primario);
+  transition: color 0.3s ease;
+}
+
+.acoes-cabecalho a:hover i,
+.acoes-cabecalho button:hover i {
+  color: var(--roxo-escuro);
+}
+
+/* Contador de itens (carrinho, notificações) */
+.contador-carrinho,
+.contador-notificacoes {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: var(--amarelo-primario);
+  color: var(--texto-escuro);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.4rem;
+  border-radius: 10px;
+  min-width: 18px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(251, 191, 36, 0.4);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Botão de Login/Entrar - Destaque */
+.botao-entrar {
+  display: flex !important;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.5rem !important;
+  background: linear-gradient(135deg, var(--roxo-primario) 0%, var(--roxo-escuro) 100%);
+  color: var(--branco) !important;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  width: auto !important;
+  height: auto !important;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.botao-entrar:hover {
+  background: linear-gradient(135deg, var(--roxo-escuro) 0%, var(--roxo-primario) 100%);
+  box-shadow: var(--sombra-hover);
+  transform: translateY(-2px);
+}
+
+.botao-entrar i {
+  color: var(--branco) !important;
+  font-size: 1rem;
+}
+
+/* ============================================
+   BARRA DE CATEGORIAS - FLUENT DESIGN
+   ============================================ */
+
+.barra-categorias {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.08);
+  padding: 0.75rem 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.container-categorias {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.navegacao-categorias {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.navegacao-categorias::-webkit-scrollbar {
+  display: none;
+}
+
+.navegacao-categorias a,
+.navegacao-categorias button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: var(--texto-escuro);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.navegacao-categorias a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 80%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--roxo-primario), var(--amarelo-primario));
+  border-radius: 2px 2px 0 0;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navegacao-categorias a:hover,
+.navegacao-categorias button:hover {
+  background: rgba(124, 58, 237, 0.08);
+  color: var(--roxo-primario);
+}
+
+.navegacao-categorias a:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.navegacao-categorias a.ativo {
+  background: rgba(124, 58, 237, 0.12);
+  color: var(--roxo-primario);
+  font-weight: 600;
+}
+
+.navegacao-categorias a.ativo::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* Botão DEPARTAMENTOS com destaque */
+.btn-departamentos {
+  background: linear-gradient(135deg, var(--roxo-primario) 0%, var(--roxo-escuro) 100%) !important;
+  color: var(--branco) !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+}
+
+.btn-departamentos:hover {
+  background: linear-gradient(135deg, var(--roxo-escuro) 0%, var(--roxo-primario) 100%) !important;
+  box-shadow: var(--sombra-hover);
+  transform: translateY(-2px);
+}
+
+.btn-departamentos i {
+  color: var(--branco);
+}
+
+/* ============================================
+   RESPONSIVIDADE
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .container-cabecalho {
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+  }
+
+  .caixa-pesquisa {
+    grid-column: 1 / -1;
+    order: 3;
+  }
+}
+
+@media (max-width: 768px) {
+  .cabecalho {
+    padding: 0.75rem 1rem;
+  }
+
+  .logo-imagem {
+    height: 70px;
+  }
+
+  .acoes-cabecalho a,
+  .acoes-cabecalho button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .botao-entrar {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.85rem;
+  }
+
+  .navegacao-categorias a,
+  .navegacao-categorias button {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+

@@ -55,7 +55,10 @@ async function renderizarProdutosDestaque() {
     if (!response.ok) {
       throw new Error(`Erro HTTP! status:  ${response.status}`);
     }
-    const produtos = await response.json();
+    const data = await response.json();
+    
+    // A API retorna {status: 'success', products: [...]}
+    const produtos = data.products || data || [];
 
     if (!produtos || produtos.length === 0) {
       container.innerHTML = `

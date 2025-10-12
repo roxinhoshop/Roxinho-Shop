@@ -83,27 +83,10 @@
   </nav>
 
 <div class="barra-categorias">
-  <div class="container-categorias">
-    <nav class="navegacao-categorias">
-      <button class="btn-departamentos">
-        <i class="fa-solid fa-bars"></i> DEPARTAMENTOS
-      </button>
-      <a href="produtos.html?categoria=Hardware">Hardware</a>
-      <a href="produtos.html?categoria=Periféricos">Periféricos</a>
-      <a href="produtos.html?categoria=Computadores">Computadores</a>
-      <a href="produtos.html?categoria=Games">Games</a>
-      <a href="produtos.html?categoria=Giftcards">Giftcards</a>
-    </nav>
-  </div>
-</div>
-
-<!-- Menu Dropdown de Departamentos (oculto por padrão) -->
-<div class="menu-departamentos" id="menu-departamentos" style="display: none;">
-  <div class="container">
-    <div class="grid-departamentos">
-      <div class="coluna-departamento">
-        <h3>Hardware</h3>
-        <ul class="lista-subcategorias">
+    <ul>
+        <li class="dropdown">
+            <a href="#"><i class="fa-solid fa-bars"></i> DEPARTAMENTOS</a>
+            <ul class="submenu">
                 <li class="tem-submenu">
                     <a href="produtos.html?categoria=Hardware">Hardware <i class="fa-solid fa-chevron-right seta"></i></a>
                     <ul class="submenu">

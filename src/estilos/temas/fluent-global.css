@@ -1,0 +1,407 @@
+/* ============================================
+   FLUENT DESIGN GLOBAL - WINDOWS 11 STYLE
+   Sistema de Design completo para Roxinho Shop
+   ============================================ */
+
+:root {
+  /* Cores Principais */
+  --roxo-primario: #7c3aed;
+  --roxo-escuro: #6d28d9;
+  --roxo-claro: #a78bfa;
+  --roxo-muito-claro: #ddd6fe;
+  --amarelo-primario: #fbbf24;
+  --amarelo-escuro: #f59e0b;
+  --amarelo-claro: #fde68a;
+  
+  /* Cores Neutras */
+  --branco: #ffffff;
+  --cinza-50: #f9fafb;
+  --cinza-100: #f3f4f6;
+  --cinza-200: #e5e7eb;
+  --cinza-300: #d1d5db;
+  --cinza-400: #9ca3af;
+  --cinza-500: #6b7280;
+  --cinza-600: #4b5563;
+  --cinza-700: #374151;
+  --cinza-800: #1f2937;
+  --cinza-900: #111827;
+  
+  /* Cores de Status */
+  --sucesso: #10b981;
+  --erro: #ef4444;
+  --aviso: #f59e0b;
+  --info: #3b82f6;
+  
+  /* Sombras Fluent */
+  --sombra-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --sombra-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+  --sombra-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+  --sombra-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+  --sombra-xl: 0 12px 24px rgba(0, 0, 0, 0.12);
+  --sombra-2xl: 0 20px 40px rgba(0, 0, 0, 0.15);
+  
+  /* Sombras com Cor */
+  --sombra-roxo: 0 8px 24px rgba(124, 58, 237, 0.2);
+  --sombra-amarelo: 0 8px 24px rgba(251, 191, 36, 0.2);
+  
+  /* Bordas */
+  --borda-radius-sm: 6px;
+  --borda-radius-md: 8px;
+  --borda-radius-lg: 12px;
+  --borda-radius-xl: 16px;
+  --borda-radius-full: 9999px;
+  
+  /* Transições */
+  --transicao-rapida: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transicao-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transicao-lenta: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================
+   RESET E BASE
+   ============================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
+  background: linear-gradient(135deg, var(--cinza-50) 0%, var(--cinza-100) 100%);
+  color: var(--cinza-800);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   CARDS FLUENT DESIGN
+   ============================================ */
+
+.card-fluent {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(124, 58, 237, 0.1);
+  border-radius: var(--borda-radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--sombra-md);
+  transition: all var(--transicao-normal);
+}
+
+.card-fluent:hover {
+  box-shadow: var(--sombra-xl);
+  transform: translateY(-4px);
+  border-color: rgba(124, 58, 237, 0.2);
+}
+
+/* ============================================
+   BOTÕES FLUENT DESIGN
+   ============================================ */
+
+.btn-fluent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--borda-radius-md);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transicao-normal);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-fluent::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-fluent:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Botão Primário (Roxo) */
+.btn-primario {
+  background: linear-gradient(135deg, var(--roxo-primario) 0%, var(--roxo-escuro) 100%);
+  color: var(--branco);
+  box-shadow: var(--sombra-roxo);
+}
+
+.btn-primario:hover {
+  background: linear-gradient(135deg, var(--roxo-escuro) 0%, var(--roxo-primario) 100%);
+  box-shadow: 0 12px 32px rgba(124, 58, 237, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-primario:active {
+  transform: translateY(0);
+}
+
+/* Botão Secundário (Amarelo) */
+.btn-secundario {
+  background: linear-gradient(135deg, var(--amarelo-primario) 0%, var(--amarelo-escuro) 100%);
+  color: var(--cinza-900);
+  box-shadow: var(--sombra-amarelo);
+}
+
+.btn-secundario:hover {
+  background: linear-gradient(135deg, var(--amarelo-escuro) 0%, var(--amarelo-primario) 100%);
+  box-shadow: 0 12px 32px rgba(251, 191, 36, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Botão Outline */
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--roxo-primario);
+  color: var(--roxo-primario);
+}
+
+.btn-outline:hover {
+  background: var(--roxo-primario);
+  color: var(--branco);
+  box-shadow: var(--sombra-roxo);
+}
+
+/* Botão Ghost */
+.btn-ghost {
+  background: transparent;
+  color: var(--roxo-primario);
+}
+
+.btn-ghost:hover {
+  background: rgba(124, 58, 237, 0.1);
+}
+
+/* ============================================
+   INPUTS FLUENT DESIGN
+   ============================================ */
+
+.input-fluent {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--cinza-300);
+  border-radius: var(--borda-radius-md);
+  font-size: 0.95rem;
+  color: var(--cinza-800);
+  background: var(--branco);
+  transition: all var(--transicao-normal);
+  box-shadow: var(--sombra-xs);
+}
+
+.input-fluent:focus {
+  outline: none;
+  border-color: var(--roxo-primario);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1),
+              var(--sombra-md);
+  transform: translateY(-1px);
+}
+
+.input-fluent::placeholder {
+  color: var(--cinza-400);
+}
+
+/* ============================================
+   BADGES E TAGS
+   ============================================ */
+
+.badge-fluent {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--borda-radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-roxo {
+  background: rgba(124, 58, 237, 0.1);
+  color: var(--roxo-escuro);
+}
+
+.badge-amarelo {
+  background: rgba(251, 191, 36, 0.2);
+  color: var(--amarelo-escuro);
+}
+
+.badge-sucesso {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--sucesso);
+}
+
+.badge-erro {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--erro);
+}
+
+/* ============================================
+   EFEITO ACRYLIC (VIDRO)
+   ============================================ */
+
+.acrylic {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.acrylic-escuro {
+  background: rgba(31, 41, 55, 0.7);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ============================================
+   ANIMAÇÕES FLUENT
+   ============================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s var(--transicao-normal);
+}
+
+.animate-slideIn {
+  animation: slideIn 0.5s var(--transicao-normal);
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.3s var(--transicao-normal);
+}
+
+/* ============================================
+   SCROLLBAR FLUENT
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cinza-100);
+  border-radius: var(--borda-radius-md);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--roxo-primario), var(--roxo-escuro));
+  border-radius: var(--borda-radius-md);
+  border: 2px solid var(--cinza-100);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, var(--roxo-escuro), var(--roxo-primario));
+}
+
+/* ============================================
+   UTILITÁRIOS
+   ============================================ */
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-roxo {
+  color: var(--roxo-primario);
+}
+
+.text-amarelo {
+  color: var(--amarelo-primario);
+}
+
+.bg-roxo {
+  background: var(--roxo-primario);
+}
+
+.bg-amarelo {
+  background: var(--amarelo-primario);
+}
+
+.rounded-sm {
+  border-radius: var(--borda-radius-sm);
+}
+
+.rounded-md {
+  border-radius: var(--borda-radius-md);
+}
+
+.rounded-lg {
+  border-radius: var(--borda-radius-lg);
+}
+
+.rounded-xl {
+  border-radius: var(--borda-radius-xl);
+}
+
+.shadow-sm {
+  box-shadow: var(--sombra-sm);
+}
+
+.shadow-md {
+  box-shadow: var(--sombra-md);
+}
+
+.shadow-lg {
+  box-shadow: var(--sombra-lg);
+}
+
+.shadow-xl {
+  box-shadow: var(--sombra-xl);
+}
+
