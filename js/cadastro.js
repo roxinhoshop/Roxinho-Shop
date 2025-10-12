@@ -194,7 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         try {
-            const response = await fetch("/api/register", {
+            const response = await fetch("https://roxinho-shop-backend.vercel.app/api/auth/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -204,9 +204,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const result = await response.json();
 
-            if (response.ok) {
+            if (response.ok && result.message) {
                 showNotification("Cadastro realizado com sucesso! Você já pode fazer login.", "success");
-                window.location.href = "login.html"; // Redirecionar para a página de login
+                setTimeout(() => {
+                    window.location.href = "login.html";
+                }, 1500);
             } else {
                 showNotification(result.message || "Ocorreu um erro ao cadastrar. Tente novamente.", "error");
                 console.error(`Erro: ${result.message}`);

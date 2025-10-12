@@ -11,20 +11,31 @@ document.addEventListener("DOMContentLoaded", () => {
         const senha = passwordInput.value;
 
         try {
-            const response = await fetch("/api/login", {
+            const response = await fetch("https://roxinho-shop-backend.vercel.app/api/auth/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, senha })
             });
             const result = await response.json();
 
-            if (result.status === "success") {
-                localStorage.setItem("token", result.token);
-                localStorage.setItem("user_id", result.user.id);
-                localStorage.setItem("user_name", result.user.nome);
-                localStorage.setItem("user_email", result.user.email);
+            if (result.token) {
+                // Decodificar o token JWT para obter informações do usuário
+                const tokenPayload = JSON.parse(atob(result.token.split('.')[1]));
+                
+                localStorage.setItem("jwtToken", result.token);
+                localStorage.setItem("userId", tokenPayload.userId);
+                localStorage.setItem("userEmail", tokenPayload.email);
+                localStorage.setItem("isAdmin", tokenPayload.isAdmin ? "true" : "false");
+                
                 showNotification("Login bem-sucedido!", "success");
-                window.location.href = "index.html"; // Redirecionar para a página inicial
+                
+                // Disparar evento de mudança de autenticação
+                window.dispatchEvent(new Event("authChange"));
+                
+                // Redirecionar para a página inicial
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 1000);
             } else {
                 showNotification(result.message || "Erro ao fazer login.", "error");
             }
@@ -34,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Função para alternar visibilidade da senha (já existente, apenas garantindo que esteja aqui)
+    // Função para alternar visibilidade da senha
     window.togglePasswordVisibility = function(fieldId) {
         const field = document.getElementById(fieldId);
         const icon = field.closest(".form-group").querySelector(".toggle-password i");
