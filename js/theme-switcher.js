@@ -1,6 +1,4 @@
 /**
- * @file theme-switcher.js
- * @description Sistema de alternância entre Dark Mode e Light Mode
  */
 
 /**

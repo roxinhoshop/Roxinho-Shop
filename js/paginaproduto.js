@@ -1,5 +1,3 @@
-// ===== Roxinho Shop - PÁGINA DO PRODUTO ATUALIZADA =====
-// Desenvolvido por Gabriel (gabwvr)
 // Sistema de avaliações da página do produto integrado com carrinho unificado
 // Comentários didáticos para facilitar o entendimento
 

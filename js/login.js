@@ -1,6 +1,4 @@
 /**
- * @file login.js
- * @description Sistema de login com animação de loading e redirecionamento inteligente
  */
 
 document.addEventListener("DOMContentLoaded", () => {

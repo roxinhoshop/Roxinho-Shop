@@ -1,6 +1,4 @@
-/* ======================= MELHORIAS DO PAINEL DE USUÁRIO ======================= */
 
-/* ==================== SEÇÃO DE AVATAR ==================== */
 .perfil-avatar {
   display: flex;
   align-items: center;
@@ -117,7 +115,6 @@
   transform: translateY(-2px);
 }
 
-/* ==================== LISTA DE DESEJOS MELHORADA ==================== */
 .wishlist-header {
   display: flex;
   justify-content: space-between;
@@ -208,7 +205,6 @@
   box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
 }
 
-/* ==================== CARTÕES DE PRODUTOS NA WISHLIST ==================== */
 .produto-wishlist {
   background: white;
   border-radius: 12px;
@@ -332,7 +328,6 @@
   transform: translateY(-2px);
 }
 
-/* ==================== DASHBOARD MELHORADO ==================== */
 .dashboard-header {
   background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
   color: white;
@@ -427,7 +422,6 @@
   color: #ef4444;
 }
 
-/* ==================== SEÇÃO XP MELHORADA ==================== */
 .secao-xp {
   background: white;
   padding: 2rem;
@@ -565,7 +559,6 @@
   display: block;
 }
 
-/* ==================== RESPONSIVIDADE ==================== */
 @media (max-width: 768px) {
   .perfil-avatar {
     flex-direction: column;
@@ -623,11 +616,9 @@
 }
 
 
-/* ======================= ESTILOS GERAIS DO PAINEL DE USUÁRIO ======================= */
 
 
 
-/* ======================= ÁREA PRINCIPAL DE CONTEÚDO ======================= */
 .area-produtos {
     flex: 1;
     display: flex;
@@ -715,7 +706,6 @@ ease;
     display: block; /* Mostra apenas a seção ativa */
 }
 
-/* ======================= DASHBOARD ======================= */
 .dashboard-stats {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -783,7 +773,6 @@ ease;
     color: #dc3545;
 }
 
-/* ======================= SISTEMA DE XP ======================= */
 .secao-xp {
     background-color: #ffffff;
     padding: 30px;
@@ -882,7 +871,6 @@ ease;
     color: #adb5bd;
 }
 
-/* ======================= TABELAS ======================= */
 .tabela-container {
     background-color: #ffffff;
     padding: 30px;
@@ -950,7 +938,6 @@ ease;
     background-color: #dc3545;
 }
 
-/* ======================= BOTÕES ======================= */
 .botao-primario {
     background: linear-gradient(45deg, #7c3aed, #a78bfa);
     color: #ffffff;
@@ -991,7 +978,6 @@ ease;
     font-size: 0.8rem;
 }
 
-/* ======================= FORMULÁRIOS ======================= */
 .formulario-perfil {
     background-color: #ffffff;
     padding: 30px;
@@ -1066,7 +1052,6 @@ ease;
     justify-content: flex-end;
 }
 
-/* ======================= LISTA DE DESEJOS ======================= */
 .grade-produtos.pedidos-lista {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1118,7 +1103,6 @@ ease;
     gap: 10px;
 }
 
-/* ======================= ENDEREÇOS ======================= */
 .lista-enderecos {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1159,7 +1143,6 @@ ease;
     font-size: 0.85rem;
 }
 
-/* ======================= CONFIGURAÇÕES ======================= */
 .secao-configuracoes .grupo-configuracao {
     margin-bottom: 25px;
     padding-bottom: 20px;
@@ -1235,7 +1218,6 @@ ease;
     transform: translateX(20px);
 }
 
-/* ======================= RESPONSIVIDADE ======================= */
 @media (max-width: 992px) {
     .wrapper-conteudo {
         flex-direction: column;
@@ -1321,7 +1303,6 @@ ease;
     }
 }
 
-/* ======================= ESTILOS PARA FOTO DE PERFIL E XP (DO PAINEL ORIGINAL) ======================= */
 .perfil-resumo {
     display: flex;
     align-items: center;
@@ -1453,7 +1434,6 @@ ease;
     position: relative;
 }
 
-/* ======================= MODAL DE ENDEREÇO ======================= */
 .modal-endereco {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -1515,7 +1495,6 @@ ease;
     justify-content: flex-end;
 }
 
-/* ======================= MEDIA QUERIES PARA O MODAL ======================= */
 @media (max-width: 768px) {
     .modal-content-endereco {
         padding: 20px;
@@ -1536,8 +1515,6 @@ ease;
     }
 }
 
-/* ======================= MELHORIAS DO PAINEL DO USUÁRIO ======================= */
-/* Desenvolvido por Gabriel (gabwvr) */
 /* Correções de layout, alinhamento e responsividade */
 
 /* Container principal do painel */

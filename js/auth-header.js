@@ -1,6 +1,4 @@
 /**
- * @file auth-header.js
- * @description Gerenciamento do cabeçalho com autenticação e menu do usuário
  * Mantém usuário logado permanentemente até clicar em Sair
  */
 
@@ -178,11 +176,26 @@ function verificarTokenValido() {
 document.addEventListener('DOMContentLoaded', () => {
     // Verificar se usuário está logado
     if (verificarTokenValido()) {
-        console.log("✅ Usuário mantido logado");
     }
     
     // Atualizar interface
     setTimeout(atualizarEstadoLogin, 100);
+    
+    // Proteção adicional: Re-aplicar comportamento correto após 500ms
+    setTimeout(() => {
+        const caixaLogin = document.getElementById("caixa-login");
+        const token = localStorage.getItem("jwtToken");
+        
+        if (caixaLogin && token) {
+            // Remover TODOS os event listeners
+            const novaCaixa = caixaLogin.cloneNode(true);
+            caixaLogin.parentNode.replaceChild(novaCaixa, caixaLogin);
+            
+            // Adicionar apenas o comportamento correto
+            novaCaixa.onclick = toggleDropdownUsuario;
+            novaCaixa.style.cursor = "pointer";
+        }
+    }, 500);
 });
 
 // Atualizar quando houver mudança de autenticação
@@ -197,4 +210,5 @@ window.addEventListener('pageshow', () => {
 window.atualizarEstadoLogin = atualizarEstadoLogin;
 window.fazerLogout = fazerLogout;
 window.verificarTokenValido = verificarTokenValido;
+window.toggleDropdownUsuario = toggleDropdownUsuario;
 

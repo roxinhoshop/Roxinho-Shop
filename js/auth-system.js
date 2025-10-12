@@ -1,6 +1,4 @@
 /**
- * @file auth-system.js
- * @description Sistema de autenticação e autorização para a Roxinho Shop.
  * Gerencia o registro, login, logout, sessões de usuário e controle de acesso.
  * Utiliza localStorage para persistência de dados e simula hash de senhas.
  */
@@ -28,7 +26,6 @@ class AuthSystem {
     initializeSystem() {
         this.loadStoredSession();
         this.setupSessionCheck();
-        console.log("🔐 Sistema de autenticação inicializado");
     }
 
     /**
@@ -44,10 +41,8 @@ class AuthSystem {
                 if (new Date().getTime() - sessionData.timestamp < this.sessionTimeout) {
                     this.currentUser = sessionData.user;
                     this.sessionToken = sessionData.token;
-                    console.log("✅ Sessão restaurada para:", this.currentUser.nome);
                 } else {
                     this.clearSession();
-                    console.log("⏰ Sessão expirada, removida automaticamente");
                 }
             } catch (error) {
                 console.error("❌ Erro ao carregar sessão:", error);
@@ -145,7 +140,6 @@ class AuthSystem {
                 await window.emailSystem.sendWelcomeEmail(newUser);
             }
 
-            console.log("✅ Usuário registrado com sucesso:", newUser.email);
             return { success: true, user: this.sanitizeUser(newUser) };
 
         } catch (error) {
@@ -184,7 +178,6 @@ class AuthSystem {
             user.ultimo_login = new Date().toISOString();
             await this.updateUser(user);
 
-            console.log("✅ Login realizado com sucesso:", user.email);
             return { success: true, user: this.sanitizeUser(user) };
 
         } catch (error) {
@@ -200,7 +193,6 @@ class AuthSystem {
         this.currentUser = null;
         this.sessionToken = null;
         this.clearSession();
-        console.log("👋 Logout realizado com sucesso");
         
         if (!window.location.pathname.includes("index.html") && 
             !window.location.pathname.includes("index.html") &&
@@ -386,7 +378,6 @@ class AuthSystem {
             };
 
             await this.saveUser(adminUser);
-            console.log("👑 Usuário administrador padrão criado:", adminEmail);
         }
     }
 
@@ -457,4 +448,3 @@ document.addEventListener("DOMContentLoaded", async () => {
 // Exportar para uso em outros arquivos
 window.AuthSystem = AuthSystem;
 
-console.log("🔐 Sistema de autenticação carregado");

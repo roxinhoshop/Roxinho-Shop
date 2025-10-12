@@ -1,9 +1,6 @@
-// ===== Roxinho Shop - PÁGINA HOME ATUALIZADA =====
-// Desenvolvido por Gabriel (gabwvr)
 // Sistema da página home integrado com carrinho unificado
 // Comentários didáticos para facilitar o entendimento
 
-// ======================= CARROSSEL DE BANNERS ======================= //
 
 let slideAtual = 0;
 let slides, indicadores;
@@ -41,7 +38,6 @@ function slideAnterior() {
   mostrarSlide(slideAtual);
 }
 
-// ======================= PRODUTOS EM DESTAQUE ======================= //
 
 // Função para renderizar produtos em destaque
 async function renderizarProdutosDestaque() {
@@ -270,7 +266,6 @@ function tentarCarregarProdutos(tentativas = 0) {
   }
 }
 
-// ======================= INICIALIZAÇÃO ======================= //
 
 // Executar quando a página carregar
 document.addEventListener('DOMContentLoaded', function() {
@@ -357,7 +352,6 @@ setTimeout(() => {
   clearInterval(intervaloProdutos);
 }, 10000);
 
-// ======================= INICIALIZAÇÃO ======================= //
 
 // Função para inicializar a página home
 function inicializarHome() {
@@ -396,7 +390,6 @@ window.addEventListener('load', function() {
   }
 });
 
-// ==================== CARROSSEL MODERNO 2025 ====================
 document.addEventListener('DOMContentLoaded', function() {
   
   // ==================== CONFIGURAÇÕES DO CARROSSEL ====================
@@ -725,7 +718,6 @@ document.addEventListener('DOMContentLoaded', function() {
   inicializar();
 });
 
-// ==================== FUNÇÕES UTILITÁRIAS GLOBAIS ====================
 
 // Função para criar notificações
 window.mostrarNotificacaoHome = function(mensagem, tipo = 'info') {
@@ -770,7 +762,6 @@ window.scrollSuave = function(elemento) {
   }
 };
 
-// ==================== ESTILOS CSS PARA NOTIFICAÇÕES ====================
 const estilosNotificacoes = `
 <style>
 .notificacao-home {

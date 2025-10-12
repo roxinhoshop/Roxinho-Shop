@@ -1,5 +1,3 @@
-/* ===== Roxinho Shop - E-COMMERCE DE ELETRÔNICOS ===== */
-/* Desenvolvido por Gabriel (gabwvr) */
 /* Este arquivo contém estilos para [SEÇÃO] */
 /* Cores principais: Roxo (#7c3aed) e Amarelo (#eab308) */
 
@@ -2323,7 +2321,6 @@ ease;
     right: -6px;
   }
 }
-/* ======================= BOTÕES DOS PRODUTOS ======================= */
 .botoes-produto-home {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -2385,7 +2382,6 @@ ease;
   box-shadow: none;
 }
 
-/* ======================= LAYOUT DOS BOTÕES LADO A LADO ======================= */
 .acoes-produto {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -2394,7 +2390,6 @@ ease;
     margin-top: auto;
 }
 
-/* ======================= PERCENTUAL DE DESCONTO ======================= */
 .percentual-desconto {
     color: #883fd8;
     font-size: 0.8rem;
@@ -2405,7 +2400,6 @@ ease;
 
 
 
-/* ==================== DARK MODE PARA PÁGINA DE PRODUTOS ==================== */
 :root[data-theme="dark"] .categorias-relacionadas h3,
 :root[data-theme="dark"] .categorias-relacionadas a {
     color: #f5f5f5;
@@ -2474,7 +2468,6 @@ ease;
 
 
 
-/* ==================== DARK MODE PARA FILTROS ==================== */
 :root[data-theme="dark"] .barra-filtros,
 :root[data-theme="dark"] .secao-filtro {
     background: var(--bg-secondary);
@@ -2552,7 +2545,6 @@ ease;
 
 
 
-/* ==================== ESTILOS PARA LISTA DE MARCAS ==================== */
 .opcao-marca {
     display: flex;
     align-items: center;

@@ -1,10 +1,7 @@
-/* ===== Roxinho Shop - E-COMMERCE DE ELETRÔNICOS ===== */
-/* Desenvolvido por Gabriel (gabwvr) */
 /* Este arquivo contém estilos para [SEÇÃO] */
 /* Cores principais: Roxo (#7c3aed) e Amarelo (#eab308) */
 
 
-/* ==============================
    🔹 RESET E CONFIGURAÇÕES BASE
 ============================== */
 * {
@@ -31,7 +28,6 @@ body {
   padding: 2rem 1rem;
 }
 
-/* ==============================
    🔹 SEÇÃO DE VERIFICAÇÃO
 ============================== */
 .verificacao-section {
@@ -60,7 +56,6 @@ body {
   background: linear-gradient(90deg, #7c3aed, #883fd8);
 }
 
-/* ==============================
    🔹 ÍCONE E TÍTULOS
 ============================== */
 .icone-verificacao {
@@ -101,14 +96,12 @@ body {
   font-weight: 600;
 }
 
-/* ==============================
    🔹 FORMULÁRIO DE VERIFICAÇÃO
 ============================== */
 .form-verificacao {
   width: 100%;
 }
 
-/* ==============================
    🔹 CAMPOS DO CÓDIGO
 ============================== */
 .codigo-container {
@@ -157,7 +150,6 @@ body {
   75% { transform: translateX(5px); }
 }
 
-/* ==============================
    🔹 MENSAGEM DE ERRO
 ============================== */
 .mensagem-erro {
@@ -191,7 +183,6 @@ body {
   font-size: 1rem;
 }
 
-/* ==============================
    🔹 BOTÃO DE VERIFICAR
 ============================== */
 .botao-verificar {
@@ -238,7 +229,6 @@ body {
   transform: translate(-50%, -50%);
 }
 
-/* ==============================
    🔹 REENVIAR CÓDIGO
 ============================== */
 .reenviar-container {
@@ -278,7 +268,6 @@ body {
   font-weight: 500;
 }
 
-/* ==============================
    🔹 ALTERAR E-MAIL
 ============================== */
 .alterar-email {
@@ -302,7 +291,6 @@ body {
   color: #7c3aed;
 }
 
-/* ==============================
    🔹 INFORMAÇÕES DE SEGURANÇA
 ============================== */
 .info-seguranca {
@@ -326,7 +314,6 @@ body {
   font-size: 0.875rem;
 }
 
-/* ==============================
    🔹 ANIMAÇÕES DE SUCESSO
 ============================== */
 .verificacao-sucesso {
@@ -352,7 +339,6 @@ body {
   100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
 }
 
-/* ==============================
    🔹 RESPONSIVIDADE
 ============================== */
 @media (max-width: 768px) {
@@ -413,7 +399,6 @@ body {
   }
 }
 
-/* ==============================
    🔹 ESTADOS ESPECIAIS
 ============================== */
 .verificacao-card.processando {
@@ -434,7 +419,6 @@ body {
   100% { transform: scale(1); }
 }
 
-/* ==============================
    🔹 ACESSIBILIDADE
 ============================== */
 @media (prefers-reduced-motion: reduce) {

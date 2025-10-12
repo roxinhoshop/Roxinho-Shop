@@ -1,6 +1,5 @@
 /* CSS responsivo para dispositivos móveis e tablets */
 
-/* ======================= BREAKPOINTS ======================= */
 /* 
   - Mobile: até 480px
   - Mobile Large: 481px - 768px  
@@ -8,7 +7,6 @@
   - Desktop: 1025px+
 */
 
-/* ======================= CABEÇALHO RESPONSIVO ======================= */
 @media (max-width: 1024px) {
   .container-cabecalho {
     flex-wrap: wrap;
@@ -79,7 +77,6 @@
   }
 }
 
-/* ======================= BARRA DE CATEGORIAS RESPONSIVA ======================= */
 @media (max-width: 1024px) {
   .barra-categorias {
     padding: 0.5rem 1rem;
@@ -132,7 +129,6 @@
   }
 }
 
-/* ======================= PRODUTOS RESPONSIVOS ======================= */
 @media (max-width: 1024px) {
   .grade-produtos-home {
     grid-template-columns: repeat(3, 1fr);
@@ -189,7 +185,6 @@
   }
 }
 
-/* ======================= BANNER RESPONSIVO ======================= */
 @media (max-width: 1024px) {
   .carrossel-moderno {
     height: 300px;
@@ -224,7 +219,6 @@
   }
 }
 
-/* ======================= VÍDEO RESPONSIVO ======================= */
 @media (max-width: 1024px) {
   .video-anuncio {
     padding: 2rem 1rem;
@@ -269,7 +263,6 @@
   }
 }
 
-/* ======================= CATEGORIAS POPULARES RESPONSIVAS ======================= */
 @media (max-width: 1024px) {
   .grid-categorias {
     grid-template-columns: repeat(2, 1fr);
@@ -306,7 +299,6 @@
   }
 }
 
-/* ======================= RODAPÉ RESPONSIVO ======================= */
 @media (max-width: 1024px) {
   .rodape {
     padding: 30px 15px;
@@ -379,7 +371,6 @@
   }
 }
 
-/* ======================= PÁGINA DE PRODUTOS RESPONSIVA ======================= */
 @media (max-width: 1024px) {
   .wrapper-conteudo {
     grid-template-columns: 1fr;
@@ -445,7 +436,6 @@
   }
 }
 
-/* ======================= PAINEL DO USUÁRIO RESPONSIVO ======================= */
 @media (max-width: 1024px) {
   .wrapper-conteudo {
     grid-template-columns: 1fr;
@@ -527,7 +517,6 @@
   }
 }
 
-/* ======================= UTILITÁRIOS RESPONSIVOS ======================= */
 .hide-mobile {
   display: block;
 }
@@ -546,7 +535,6 @@
   }
 }
 
-/* ======================= MELHORIAS DE TOUCH ======================= */
 @media (hover: none) and (pointer: coarse) {
   /* Dispositivos touch */
   .card-produto-home:hover {
@@ -568,7 +556,6 @@
   }
 }
 
-/* ======================= ORIENTAÇÃO LANDSCAPE ======================= */
 @media (max-width: 768px) and (orientation: landscape) {
   .carrossel-moderno {
     height: 180px;
@@ -583,7 +570,6 @@
   }
 }
 
-/* ======================= ACESSIBILIDADE ======================= */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
@@ -592,7 +578,6 @@
   }
 }
 
-/* ======================= MODO ESCURO RESPONSIVO ======================= */
 @media (prefers-color-scheme: dark) {
   body {
     background-color: white;

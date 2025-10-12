@@ -1,9 +1,6 @@
 /**
- * @file filtros-modernos.css
- * @description Sistema de filtragem moderno inspirado em Amazon e melhores práticas de UX
  */
 
-/* ==================== CONTAINER DE FILTROS ==================== */
 .barra-filtros {
     background: white;
     border-radius: 12px;
@@ -15,7 +12,6 @@
     overflow-y: auto;
 }
 
-/* ==================== HEADER DOS FILTROS ==================== */
 .filtros-header {
     display: flex;
     justify-content: space-between;
@@ -47,7 +43,6 @@
     text-decoration: underline;
 }
 
-/* ==================== SEÇÃO DE FILTRO ==================== */
 .secao-filtro {
     margin-bottom: 24px;
     padding-bottom: 20px;
@@ -84,7 +79,6 @@
     display: none;
 }
 
-/* ==================== OPÇÕES DE FILTRO ==================== */
 .filtro-conteudo {
     display: flex;
     flex-direction: column;
@@ -127,7 +121,6 @@
     color: #999;
 }
 
-/* ==================== BUSCA DENTRO DO FILTRO ==================== */
 .filtro-busca {
     position: relative;
     margin-bottom: 12px;
@@ -156,7 +149,6 @@
     font-size: 14px;
 }
 
-/* ==================== FILTRO DE PREÇO ==================== */
 .filtro-preco {
     display: flex;
     gap: 12px;
@@ -195,7 +187,6 @@
     background: #6d28d9;
 }
 
-/* ==================== VER MAIS/MENOS ==================== */
 .ver-mais-filtros {
     background: none;
     border: none;
@@ -219,7 +210,6 @@
     font-size: 10px;
 }
 
-/* ==================== FILTROS ATIVOS (TAGS) ==================== */
 .filtros-ativos {
     display: flex;
     flex-wrap: wrap;
@@ -254,7 +244,6 @@
     color: #1f2937;
 }
 
-/* ==================== RATING STARS ==================== */
 .filtro-rating {
     display: flex;
     align-items: center;
@@ -271,7 +260,6 @@
     color: #666;
 }
 
-/* ==================== SCROLLBAR CUSTOMIZADA ==================== */
 .barra-filtros::-webkit-scrollbar {
     width: 6px;
 }
@@ -290,7 +278,6 @@
     background: #a0a0a0;
 }
 
-/* ==================== DARK MODE ==================== */
 :root[data-theme="dark"] .barra-filtros {
     background: #0f0f0f;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
@@ -329,7 +316,6 @@
     color: #e0e0e0;
 }
 
-/* ==================== RESPONSIVO ==================== */
 @media (max-width: 1024px) {
     .barra-filtros {
         position: relative;

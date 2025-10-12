@@ -1,7 +1,5 @@
 
 /**
- * @file admin-panel-api.js
- * @description Painel administrativo integrado com API backend para gerenciar produtos
  */
 
 class AdminPanelAPI {

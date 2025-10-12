@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!-- ===== Roxinho Shop - E-COMMERCE DE ELETRÔNICOS ===== -->
-<!-- Desenvolvido por Gabriel (gabwvr) -->
-<!-- Página: [NOME DA PÁGINA] -->
-<!-- Design responsivo com identidade visual roxo e amarelo -->
 
 <html lang="pt-BR">
 <head>
@@ -86,7 +82,6 @@
     </div>
   </nav>
 
-<!-- ======================= BARRA DE CATEGORIAS ======================= -->
 <div class="barra-categorias">
     <ul>
         <li class="dropdown">
@@ -299,7 +294,6 @@
 
   <!-- JS -->
   <script>
-// ==================== SISTEMA DE BUSCA GLOBAL ====================
 document.addEventListener('DOMContentLoaded', function() {
   const campoBusca = document.getElementById('campo-busca-global');
   const botaoBusca = document.getElementById('botao-busca-global');
@@ -440,7 +434,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-// ==================== ANIMAÇÃO SCROLL ====================
 const observador = new IntersectionObserver((entradas) => {
   entradas.forEach((entrada) => {
     if (entrada.isIntersecting) {
@@ -453,7 +446,6 @@ document.querySelectorAll(".fade-slide").forEach((el) => {
   observador.observe(el);
 });
 
-// ==================== SISTEMA DE DROPDOWN DEPARTAMENTOS ====================
 document.addEventListener('DOMContentLoaded', function() {
   const dropdownPrincipal = document.querySelector(".barra-categorias li.dropdown");
   const linkDepartamentos = document.querySelector(".barra-categorias li.dropdown > a");
@@ -548,7 +540,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// ==================== NAVEGAÇÃO POR CATEGORIA ====================
 // Pegar categoria da URL
 const urlParams = new URLSearchParams(window.location.search);
 const categoria = urlParams.get("categoria");
@@ -559,7 +550,6 @@ if (categoria && document.querySelector(".breadcrumb")) {
         `<a href="index.html">Início</a> › <span>${decodeURIComponent(categoria).replace(/[\+\-]/g, " ")}</span>`;
 }
 
-// ==================== FUNÇÃO AUXILIAR PARA DEBUG ====================
 // Função para debug (pode ser removida em produção)
 function debugDropdown() {
   console.log('Elementos encontrados:');
@@ -570,7 +560,6 @@ function debugDropdown() {
 
 // Executar debug se necessário (remover em produção)
 // debugDropdown();
-// ==================== CALCULADOR DE CEP ====================
 document.addEventListener('DOMContentLoaded', function() {
   const inputCep = document.getElementById('input-cep');
   const resultadoCep = document.getElementById('resultado-cep');

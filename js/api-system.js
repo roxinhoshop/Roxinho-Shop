@@ -1,6 +1,4 @@
 /**
- * @file api-system.js
- * @description Sistema de API para a Roxinho Shop.
  * Gerencia as requisições e respostas para as diferentes funcionalidades do e-commerce.
  * Simula um backend RESTful usando localStorage para persistência de dados.
  */

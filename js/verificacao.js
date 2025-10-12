@@ -1,10 +1,7 @@
-// ===== Roxinho Shop - E-COMMERCE DE ELETRÔNICOS =====
-// Desenvolvido por Gabriel (gabwvr)
 // Este arquivo contém funções para gerenciar [FUNCIONALIDADE]
 // Comentários didáticos para facilitar o entendimento
 
 
-// ===== SISTEMA DE VERIFICAÇÃO DE CÓDIGO =====
 
 class SistemaVerificaca  constructor() {
     this.emailUsuario = \'\';
@@ -417,14 +414,12 @@ class SistemaVerificaca  constructor() {
   }
 }
 
-// ===== FUNÇÕES GLOBAIS =====
 function voltarParaCadastro() {
   if (confirm('Tem certeza que deseja alterar o e-mail? Você precisará fazer o cadastro novamente.')) {
     window.location.href = 'cadastro.html';
   }
 }
 
-// ===== ESTILOS PARA ANIMAÇÕES =====
 const estilosAdicionais = document.createElement('style');
 estilosAdicionais.textContent = `
   @keyframes slideInRight {
@@ -451,7 +446,6 @@ estilosAdicionais.textContent = `
 `;
 document.head.appendChild(estilosAdicionais);
 
-// ===== INICIALIZAÇÃO =====
 document.addEventListener('DOMContentLoaded', () => {
   window.sistemaVerificacao = new SistemaVerificacao();
 });

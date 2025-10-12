@@ -1,0 +1,19 @@
+:root[data-theme="dark"] body {
+    background-color: #0a0a0a;
+}
+
+:root[data-theme="dark"] .produtos-destaque,
+:root[data-theme="dark"] .categorias-destaque,
+:root[data-theme="dark"] .banners-promocionais,
+:root[data-theme="dark"] .categorias-populares {
+    background-color: #0a0a0a;
+}
+
+:root[data-theme="dark"] .container {
+    background-color: transparent;
+}
+
+:root[data-theme="dark"] .beneficios {
+    background-color: #141414;
+}
+

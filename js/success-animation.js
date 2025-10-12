@@ -1,6 +1,4 @@
 /**
- * @file success-animation.js
- * @description Animações de sucesso para login e cadastro
  */
 
 function showSuccessAnimation(title, message, redirectUrl, delay = 2000) {

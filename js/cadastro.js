@@ -1,6 +1,4 @@
 /**
- * @file cadastro.js
- * @description Script para gerenciar a lógica de cadastro na página de cadastro da Roxinho Shop.
  */
 
 document.addEventListener("DOMContentLoaded", () => {

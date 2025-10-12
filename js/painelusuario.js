@@ -1,4 +1,3 @@
-// ==================== PAINEL DE USUÁRIO MELHORADO ====================
 document.addEventListener('DOMContentLoaded', function() {
   
   // ==================== CONFIGURAÇÕES GLOBAIS ====================
@@ -614,7 +613,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-// ==================== ESTILOS CSS PARA NOTIFICAÇÕES ====================
 const estilosNotificacoesPainel = `
 <style>
 .notificacao-painel {
@@ -689,7 +687,6 @@ const estilosNotificacoesPainel = `
 // Adicionar estilos ao head
 document.head.insertAdjacentHTML('beforeend', estilosNotificacoesPainel);
 
-// ==================== NAVEGAÇÃO DA BARRA LATERAL ====================
 // Código para corrigir o problema da barra lateral não funcionar
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -791,7 +788,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// ==================== ESTILOS CSS ADICIONAIS ====================
 // Adicionar estilos para garantir que a navegação funcione corretamente
 const estilosNavegacao = `
 <style>

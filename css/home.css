@@ -1,7 +1,6 @@
 /* Estilos para a página inicial (home) */
 
 
-/* ======================= RESET E BASE ======================= */
 * {
   margin: 0;
   padding: 0;
@@ -21,7 +20,6 @@ body {
   padding: 0 20px;
 }
 
-/* ======================= BANNER ======================= */
 .banner {
   position: relative;
   width: 100%;
@@ -99,7 +97,6 @@ body {
   background: white;
 }
 
-/* ======================= BENEFÍCIOS ======================= */
 .beneficios {
   background: white;
   padding: 30px 0;
@@ -129,7 +126,6 @@ body {
   margin: 0;
 }
 
-/* ======================= PRODUTOS EM DESTAQUE ======================= */
 .produtos-destaque {
   padding: 60px 0;
   background: white;
@@ -353,7 +349,6 @@ body {
   -webkit-box-orient: vertical;
 }
 
-/* ======================= AVALIAÇÕES ======================= */
 .produto-avaliacao {
   display: flex;
   align-items: center;
@@ -380,7 +375,6 @@ body {
   color: #666;
 }
 
-/* ======================= PREÇOS ======================= */
 .produto-precos {
   margin-bottom: 8px;
 }
@@ -404,7 +398,6 @@ body {
   margin-bottom: 12px;
 }
 
-/* ======================= STATUS DO PRODUTO ======================= */
 .produto-status {
   display: flex;
   flex-wrap: wrap;
@@ -429,7 +422,6 @@ body {
   color: #8b5cf6;
 }
 
-/* ======================= BOTÕES DOS PRODUTOS ======================= */
 .botoes-produto-home {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -491,7 +483,6 @@ body {
   box-shadow: none;
 }
 
-/* ======================= VER TODOS ======================= */
 .ver-todos {
   text-align: center;
   margin-top: 40px;
@@ -525,7 +516,6 @@ body {
   transform: translateX(5px);
 }
 
-/* ======================= ERRO DE PRODUTOS ======================= */
 .erro-produtos {
   grid-column: 1 / -1;
   text-align: center;
@@ -558,7 +548,6 @@ body {
   transform: translateY(-2px);
 }
 
-/* ======================= NOTIFICAÇÕES ======================= */
 .container-notificacoes {
   position: fixed;
   top: 20px;
@@ -629,7 +618,6 @@ body {
   }
 }
 
-/* ======================= RESPONSIVIDADE ======================= */
 @media (max-width: 768px) {
   .banner {
     height: 250px;
@@ -716,7 +704,6 @@ body {
   }
 }
 
-/* ======================= PERCENTUAL DE DESCONTO ======================= */
 .percentual-desconto {
   color: #883fd8;
   font-size: 0.8rem;
@@ -725,7 +712,6 @@ body {
 }
 
 
-/* ======================= BANNERS PROMOCIONAIS ======================= */
 .banners-promocionais {
   padding: 60px 0;
   background: #f8fafc;
@@ -807,7 +793,6 @@ body {
   color: #7c3aed;
 }
 
-/* ======================= CATEGORIAS POPULARES ======================= */
 .categorias-populares {
   padding: 60px 0;
 }
@@ -857,7 +842,6 @@ body {
   line-height: 1.5;
 }
 
-/* ======================= RESPONSIVIDADE ======================= */
 @media (max-width: 768px) {
   .grid-banners {
     grid-template-columns: 1fr;
@@ -1322,7 +1306,6 @@ body {
   font-size: 1rem;
 }
 
-/* ======================= VÍDEO DE ANÚNCIO ======================= */
 
 .video-anuncio {
   padding: 4rem 0;
@@ -1522,7 +1505,6 @@ body {
   transition: all 0.3s ease;
 }
 
-/* ======================= CATEGORIAS POPULARES MELHORADAS ======================= */
 
 .categorias-populares {
   padding: 4rem 0;
@@ -1613,7 +1595,6 @@ body {
   line-height: 1.5;
 }
 
-/* ======================= ANIMAÇÕES ======================= */
 
 @keyframes slideUp {
   from {
@@ -1635,7 +1616,6 @@ body {
   }
 }
 
-/* ======================= RESPONSIVIDADE ======================= */
 
 @media (max-width: 768px) {
   .carrossel-moderno {
@@ -1718,7 +1698,6 @@ body {
   }
 }
 
-/* ======================= TEMA ESCURO ======================= */
 
 [data-theme="dark"] .categorias-populares {
   background: #1f2937;
@@ -1979,3 +1958,15 @@ body {
   }
 }
 
+
+
+:root[data-theme="dark"] body {
+}
+
+:root[data-theme="dark"] .produtos-destaque,
+:root[data-theme="dark"] .categorias-destaque,
+:root[data-theme="dark"] .banners-promocionais {
+}
+
+:root[data-theme="dark"] .container {
+}

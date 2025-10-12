@@ -1,6 +1,4 @@
 /**
- * @file button-loading.js
- * @description Utilitário para adicionar animação de loading em botões
  */
 
 /**

@@ -84,7 +84,6 @@ main {
     font-size: 0.95rem;
 }
 
-/* ====== ESTRUTURA PADRONIZADA ====== */
 .linha-formulario {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -101,7 +100,6 @@ main {
     margin-bottom: 1.5rem;
 }
 
-/* ====== FLOATING LABEL STYLES ====== */
 .floating-label-container {
     position: relative;
     margin-bottom: 0.5rem;
@@ -131,7 +129,6 @@ main {
     padding: 0 0.5rem;
 }
 
-/* ====== INPUTS PADRONIZADOS ====== */
 .entrada-formulario {
     width: 100%;
     height: 52px;
@@ -171,7 +168,6 @@ main {
     color: var(--error-color);
 }
 
-/* ====== FEEDBACK DA SENHA ====== */
 .feedback-senha {
     margin: 0;             /* não deixa espaço fixo */
     position: relative;
@@ -488,7 +484,6 @@ main {
     100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-/* Design responsivo */
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
@@ -569,7 +564,6 @@ main {
 .floating-label .required {
     color: #e63946;
 }
-/* ===== ANIMAÇÕES PARA NOTIFICAÇÕES ===== */
 @keyframes slideInRight {
   from {
     transform: translateX(100%);

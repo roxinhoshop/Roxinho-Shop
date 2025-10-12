@@ -1,5 +1,3 @@
-// ======================= CABEÇALHO MELHORADO ======================= 
-// Desenvolvido por Gabriel (gabwvr)
 
 document.addEventListener('DOMContentLoaded', function() {
   
@@ -300,13 +298,11 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// ==================== FUNÇÃO AUXILIAR ====================
 function preventDefault(e) {
   e.preventDefault();
 }
 
 
-// ==================== GERENCIAMENTO DE LOGIN NO CABEÇALHO ====================
 // NOTA: Esta função foi DESATIVADA para evitar conflito com auth-header.js
 // O auth-header.js agora gerencia todo o comportamento de login/logout
 // Mantido aqui apenas como referência histórica
@@ -403,6 +399,5 @@ document.addEventListener("DOMContentLoaded", () => {
 window.addEventListener("authChange", atualizarEstadoLogin);
 */
 
-// ==================== FIM DA SEÇÃO DESATIVADA ====================
 console.log("✅ cabecalho-melhorado.js carregado (gerenciamento de login delegado para auth-header.js)");
 

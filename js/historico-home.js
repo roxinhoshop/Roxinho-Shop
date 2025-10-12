@@ -1,6 +1,4 @@
 /**
- * @file historico-home.js
- * @description Gerenciamento do histórico de produtos vistos na página inicial
  */
 
 /**

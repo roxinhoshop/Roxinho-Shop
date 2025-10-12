@@ -55,8 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /**
- * @file notifications-improved.js
- * @description Sistema de notificações melhorado no canto inferior direito
  */
 
 // Criar container de notificações se não existir

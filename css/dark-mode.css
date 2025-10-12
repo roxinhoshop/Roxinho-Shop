@@ -1,16 +1,13 @@
 /**
- * @file dark-mode.css
- * @description Dark Mode com Fluent Design System (Windows 11 Style)
  * Todos os textos em branco/cinza claro para máxima legibilidade
  */
 
-/* ==================== VARIÁVEIS DARK MODE ==================== */
 :root[data-theme="dark"] {
-    /* Backgrounds - PRETO TOTAL */
-    --bg-primary: #000000;
+    /* Backgrounds - PRETO UNIFORME */
+    --bg-primary: #0a0a0a;
     --bg-secondary: #0a0a0a;
     --bg-tertiary: #141414;
-    --bg-card: #0f0f0f;
+    --bg-card: #141414;
     
     /* Textos - TODOS BRANCOS/CLAROS */
     --text-primary: #ffffff;
@@ -41,7 +38,6 @@
     --yellow-accent: #fbbf24;
 }
 
-/* ==================== BODY E ESTRUTURA GERAL ==================== */
 :root[data-theme="dark"] body {
     background: var(--bg-primary);
     color: var(--text-primary);
@@ -63,7 +59,6 @@
     color: var(--text-secondary);
 }
 
-/* ==================== CABEÇALHO COM FLUENT DESIGN ==================== */
 :root[data-theme="dark"] .cabecalho {
     background: var(--fluent-acrylic);
     backdrop-filter: blur(40px) saturate(180%);
@@ -76,7 +71,6 @@
     color: var(--text-primary);
 }
 
-/* ==================== BARRA DE CATEGORIAS ==================== */
 :root[data-theme="dark"] .barra-categorias {
     background: var(--bg-secondary);
     border-bottom: 1px solid var(--border-color);
@@ -91,7 +85,6 @@
     color: var(--text-primary);
 }
 
-/* ==================== BUSCA COM FLUENT DESIGN ==================== */
 :root[data-theme="dark"] .caixa-pesquisa-centralizada input {
     background: var(--bg-tertiary);
     color: var(--text-primary);
@@ -114,7 +107,6 @@
     box-shadow: 0 0 0 3px rgba(157, 91, 210, 0.2);
 }
 
-/* ==================== CAIXA DE LOGIN COM FLUENT DESIGN ==================== */
 :root[data-theme="dark"] .caixa-entre,
 :root[data-theme="dark"] .caixa-login {
     background: var(--fluent-acrylic);
@@ -139,7 +131,6 @@
     color: var(--text-primary);
 }
 
-/* ==================== DROPDOWN COM FLUENT DESIGN ==================== */
 :root[data-theme="dark"] .dropdown-usuario {
     background: var(--fluent-acrylic);
     backdrop-filter: blur(40px) saturate(180%);
@@ -157,7 +148,6 @@
     color: var(--text-primary);
 }
 
-/* ==================== CARDS E PRODUTOS ==================== */
 :root[data-theme="dark"] .card-produto,
 :root[data-theme="dark"] .card-produto-home,
 :root[data-theme="dark"] .cartao-produto {
@@ -184,7 +174,6 @@
     color: var(--text-secondary);
 }
 
-/* ==================== FILTROS COM FLUENT DESIGN ==================== */
 :root[data-theme="dark"] .barra-filtros,
 :root[data-theme="dark"] .secao-filtro {
     background: var(--bg-card);
@@ -211,7 +200,6 @@
     border-color: var(--border-color);
 }
 
-/* ==================== BOTÕES COM FLUENT DESIGN ==================== */
 :root[data-theme="dark"] button,
 :root[data-theme="dark"] .botao,
 :root[data-theme="dark"] .btn {
@@ -241,7 +229,6 @@
     border-color: var(--purple-hover);
 }
 
-/* ==================== RODAPÉ COM FLUENT DESIGN ==================== */
 :root[data-theme="dark"] .rodape,
 :root[data-theme="dark"] footer {
     background: var(--bg-secondary);
@@ -265,7 +252,6 @@
     color: var(--text-primary);
 }
 
-/* ==================== TABELAS ==================== */
 :root[data-theme="dark"] table {
     background: var(--bg-card);
     border-color: var(--border-color);
@@ -286,7 +272,6 @@
     background: var(--hover-bg);
 }
 
-/* ==================== FORMULÁRIOS ==================== */
 :root[data-theme="dark"] input,
 :root[data-theme="dark"] textarea,
 :root[data-theme="dark"] select {
@@ -308,7 +293,6 @@
     color: var(--text-muted);
 }
 
-/* ==================== SCROLLBAR DARK MODE ==================== */
 :root[data-theme="dark"] ::-webkit-scrollbar {
     background: var(--bg-secondary);
 }
@@ -322,7 +306,6 @@
     background: var(--hover-bg);
 }
 
-/* ==================== REVEAL EFFECT (FLUENT DESIGN) ==================== */
 :root[data-theme="dark"] .card-produto::before,
 :root[data-theme="dark"] .card-produto-home::before,
 :root[data-theme="dark"] .cartao-produto::before {
@@ -347,7 +330,6 @@
 
 
 
-/* ==================== DARK MODE PARA LOGIN E CADASTRO ==================== */
 :root[data-theme="dark"] .login-container,
 :root[data-theme="dark"] .cadastro-container,
 :root[data-theme="dark"] .container-login {

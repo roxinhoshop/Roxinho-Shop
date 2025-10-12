@@ -1,4 +1,3 @@
-// ==================== FUNCIONALIDADES DO CABEÇALHO MELHORADO ====================
 document.addEventListener('DOMContentLoaded', function() {
   
   // ==================== SISTEMA DE LOGIN ====================
@@ -299,7 +298,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// ==================== FUNÇÕES GLOBAIS PARA LISTA DE DESEJOS ====================
 window.adicionarAosDesejos = function(produto) {
   let desejos = JSON.parse(localStorage.getItem('listaDesejos') || '[]');
   

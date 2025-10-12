@@ -1,6 +1,4 @@
 /**
- * @file system-init.js
- * @description Inicializador do Sistema para a Roxinho Shop.
  * Coordena a inicialização e integração de todos os módulos do sistema (autenticação, API, e-mail, etc.).
  */
 
