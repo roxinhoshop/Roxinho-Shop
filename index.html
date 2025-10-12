@@ -189,9 +189,13 @@
       data = data.replace(/src="\.\.\/recursos/g, 'src="src/recursos');
       data = data.replace(/href="\.\.\/estilos/g, 'href="src/estilos');
       data = data.replace(/src="\.\.\/scripts/g, 'src="src/scripts');
-      data = data.replace(/href="\.\.\/\.\.\/index\.html"/g, 'href="index.html"');
+      
+      // Corrigir link do logo para voltar à página inicial
+      data = data.replace(/href="\.\.\/\.\.\/index\.html"/g, 'href="/"');
+      
       // Corrigir links para páginas HTML (com ou sem parâmetros)
-      data = data.replace(/href="([a-z\-]+)\.html/g, 'href="src/paginas/$1.html');
+      // Exceto quando já tem src/paginas/ ou começa com ../..
+      data = data.replace(/href="(?!src\/paginas\/)(?!\.\.\/\.\.\/)([a-z\-]+)\.html/g, 'href="src/paginas/$1.html');
       
       const parser = new DOMParser();
       const doc = parser.parseFromString(data, 'text/html');
