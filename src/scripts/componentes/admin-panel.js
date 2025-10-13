@@ -81,22 +81,52 @@ document.getElementById('btn-confirm-import').addEventListener('click', async ()
     if (!currentPreviewData) return;
 
     try {
-        // Gerar ID e salvar
-        currentPreviewData.id = 'prod_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-        
-        const products = JSON.parse(localStorage.getItem('products') || '[]');
-        products.push(currentPreviewData);
-        localStorage.setItem('products', JSON.stringify(products));
+        // Preparar dados do produto para a API
+        const produtoAPI = {
+            nome: currentPreviewData.name,
+            descricao: currentPreviewData.description,
+            preco: currentPreviewData.price,
+            imagem: currentPreviewData.image,
+            categoria: 'eletronicos', // Categoria padrão, pode ser melhorado
+            subcategoria: '',
+            origem: currentPreviewData.source,
+            link_original: currentPreviewData.url,
+            estoque: 10 // Estoque padrão
+        };
 
-        mostrarNotificacao('Produto importado com sucesso!', 'success');
-        
-        // Limpar formulário e preview
-        document.getElementById('import-form').reset();
-        document.getElementById('product-preview').style.display = 'none';
-        currentPreviewData = null;
+        // Usar função da API se disponível
+        if (typeof criarProduto === 'function') {
+            const id = await criarProduto(produtoAPI);
+            
+            if (id) {
+                await alertaFluent('Sucesso!', 'Produto importado e salvo no banco de dados!', 'fas fa-check-circle');
+                
+                // Limpar formulário e preview
+                document.getElementById('import-form').reset();
+                document.getElementById('product-preview').style.display = 'none';
+                currentPreviewData = null;
 
-        // Mudar para aba de produtos
-        document.querySelector('[data-tab="products"]').click();
+                // Mudar para aba de produtos
+                document.querySelector('[data-tab="products"]').click();
+            }
+        } else {
+            // Fallback para localStorage
+            currentPreviewData.id = 'prod_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            
+            const products = JSON.parse(localStorage.getItem('products') || '[]');
+            products.push(currentPreviewData);
+            localStorage.setItem('products', JSON.stringify(products));
+
+            mostrarNotificacao('Produto importado com sucesso!', 'success');
+            
+            // Limpar formulário e preview
+            document.getElementById('import-form').reset();
+            document.getElementById('product-preview').style.display = 'none';
+            currentPreviewData = null;
+
+            // Mudar para aba de produtos
+            document.querySelector('[data-tab="products"]').click();
+        }
     } catch (error) {
         mostrarNotificacao('Erro ao salvar produto: ' + error.message, 'error');
     }
@@ -109,44 +139,75 @@ document.getElementById('btn-cancel-import').addEventListener('click', () => {
 });
 
 // ======================= LISTAR PRODUTOS =======================
-function loadProducts() {
-    const products = scraper.listProducts();
+async function loadProducts() {
     const container = document.getElementById('products-list');
+    
+    // Mostrar loading
+    container.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Carregando produtos...</div>';
+    
+    try {
+        let products = [];
+        
+        // Tentar carregar da API primeiro
+        if (typeof listarProdutos === 'function') {
+            products = await listarProdutos();
+        } else {
+            // Fallback para localStorage
+            products = scraper.listProducts();
+        }
 
-    if (products.length === 0) {
+        if (products.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-box-open"></i>
+                    <h3>Nenhum produto cadastrado</h3>
+                    <p>Importe produtos usando a aba "Importar Produto"</p>
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = products.map(product => {
+            const nome = product.nome || product.name;
+            const preco = product.preco || product.price;
+            const imagem = product.imagem || product.image;
+            const categoria = product.categoria || product.category;
+            const origem = product.origem || product.source || 'manual';
+            
+            return `
+                <div class="product-card" data-id="${product.id}">
+                    <div class="product-image">
+                        <img src="${imagem}" alt="${nome}">
+                        <span class="product-source badge-${origem.toLowerCase().replace(' ', '-')}">
+                            ${origem}
+                        </span>
+                    </div>
+                    <div class="product-info">
+                        <h4>${nome}</h4>
+                        <p class="product-price">R$ ${parseFloat(preco).toFixed(2).replace('.', ',')}</p>
+                        <p class="product-category"><i class="fas fa-tag"></i> ${categoria}</p>
+                        <div class="product-actions">
+                            <button class="btn-icon btn-edit" onclick="editProduct('${product.id}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-icon btn-delete" onclick="deleteProduct('${product.id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    } catch (error) {
+        console.error('Erro ao carregar produtos:', error);
         container.innerHTML = `
             <div class="empty-state">
-                <i class="fas fa-box-open"></i>
-                <h3>Nenhum produto cadastrado</h3>
-                <p>Importe produtos usando a aba "Importar Produto"</p>
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Erro ao carregar produtos</h3>
+                <p>${error.message}</p>
             </div>
         `;
-        return;
     }
-
-    container.innerHTML = products.map(product => `
-        <div class="product-card" data-id="${product.id}">
-            <div class="product-image">
-                <img src="${product.image}" alt="${product.name}">
-                <span class="product-source badge-${product.source.toLowerCase().replace(' ', '-')}">
-                    ${product.source}
-                </span>
-            </div>
-            <div class="product-info">
-                <h4>${product.name}</h4>
-                <p class="product-price">R$ ${product.price.toFixed(2).replace('.', ',')}</p>
-                <p class="product-category"><i class="fas fa-tag"></i> ${product.category}</p>
-                <div class="product-actions">
-                    <button class="btn-icon btn-edit" onclick="editProduct('${product.id}')">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="btn-icon btn-delete" onclick="deleteProduct('${product.id}')">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    `).join('');
 }
 
 // ======================= EDITAR PRODUTO =======================

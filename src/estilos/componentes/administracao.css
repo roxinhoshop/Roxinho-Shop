@@ -15,10 +15,10 @@ body {
 
 /* ======================= HEADER ======================= */
 header {
-    background: linear-gradient(135deg, #904DDB 0%, #7c3aed 100%);
+    background: linear-gradient(90deg, #FFB800 0%, #904DDB 100%);
     color: white;
     padding: 1.5rem 0;
-    box-shadow: 0 4px 16px rgba(144, 77, 219, 0.3);
+    box-shadow: 0 4px 16px rgba(255, 184, 0, 0.3);
     position: sticky;
     top: 0;
     z-index: 100;

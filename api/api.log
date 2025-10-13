@@ -1,0 +1,15 @@
+nohup: ignoring input
+[dotenv@17.2.3] injecting env (6) from .env -- tip: 🔑 add access controls to secrets: https://dotenvx.com/ops
+✅ Conectado ao MySQL Railway com sucesso!
+✅ Tabelas criadas/verificadas com sucesso!
+✅ Categorias e subcategorias inseridas!
+🚀 API rodando em http://localhost:3000
+📊 Endpoints disponíveis:
+   GET    /api/produtos
+   GET    /api/produtos/:id
+   POST   /api/produtos
+   PUT    /api/produtos/:id
+   DELETE /api/produtos/:id
+   GET    /api/categorias
+   GET    /api/categorias/:slug/subcategorias
+   GET    /api/estatisticas

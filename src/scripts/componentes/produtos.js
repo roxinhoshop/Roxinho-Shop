@@ -98,6 +98,42 @@ const gradeProdutos = document.getElementById('gradeProdutos');
 const semResultados = document.getElementById('semResultados');
 const paginacao = document.getElementById('paginacao');
 
+// Função para buscar produtos da API
+async function buscarProdutosDaAPI() {
+  try {
+    // Verificar se a função listarProdutos está disponível (do api-produtos.js)
+    if (typeof listarProdutos === 'function') {
+      const produtos = await listarProdutos();
+      
+      // Transformar produtos da API para o formato esperado
+      return produtos.map(p => ({
+        id: p.id,
+        nome: p.nome,
+        descricao: p.descricao || '',
+        preco: parseFloat(p.preco),
+        imagem: p.imagem || 'https://via.placeholder.com/300x300?text=Sem+Imagem',
+        categoria: p.categoria,
+        subcategoria: p.subcategoria || '',
+        origem: p.origem || 'manual',
+        linkOriginal: p.link_original || '',
+        estoque: p.estoque || 0,
+        emEstoque: (p.estoque || 0) > 0,
+        avaliacao: 4.5, // Valor padrão por enquanto
+        avaliacoes: 0,
+        desconto: 0,
+        freteGratis: false,
+        parcelamento: `em até 12x de R$ ${(parseFloat(p.preco) / 12).toFixed(2)}`
+      }));
+    } else {
+      console.warn('Função listarProdutos não encontrada. Usando produtos vazios.');
+      return [];
+    }
+  } catch (error) {
+    console.error('Erro ao buscar produtos da API:', error);
+    return [];
+  }
+}
+
 // Inicializar a aplicação
 document.addEventListener("DOMContentLoaded", async function() {
   // Carregar produtos da API primeiro
@@ -782,7 +818,7 @@ function renderizarProdutos() {
           </div>
           
           <div class="conteudo-produto">
-            <div class="marca-produto">${produto.marca}</div>
+            ${produto.marca ? `<div class="marca-produto">${produto.marca}</div>` : ''}
             
             <h3 class="nome-produto">${produto.nome}</h3>
             

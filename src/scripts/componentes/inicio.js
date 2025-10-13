@@ -51,14 +51,20 @@ async function renderizarProdutosDestaque() {
   }
 
   try {
-    const response = await fetch("https://roxinho-shop-backend.vercel.app/api/products"); // Endpoint para listar todos os produtos
-    if (!response.ok) {
-      throw new Error(`Erro HTTP! status:  ${response.status}`);
-    }
-    const data = await response.json();
+    let produtos = [];
     
-    // A API retorna {status: 'success', products: [...]}
-    const produtos = data.products || data || [];
+    // Tentar usar a função da API local primeiro
+    if (typeof listarProdutos === 'function') {
+      produtos = await listarProdutos({ limite: 8 });
+    } else {
+      // Fallback para API externa
+      const response = await fetch("http://localhost:3000/api/produtos?limite=8");
+      if (!response.ok) {
+        throw new Error(`Erro HTTP! status: ${response.status}`);
+      }
+      const data = await response.json();
+      produtos = data.produtos || data.products || data || [];
+    }
 
     if (!produtos || produtos.length === 0) {
       container.innerHTML = `
@@ -73,43 +79,47 @@ async function renderizarProdutosDestaque() {
     const produtosParaExibir = produtos.slice(0, 8); // Exibir os primeiros 8 produtos em destaque
     
     container.innerHTML = produtosParaExibir.map(produto => {
-      // Converter preço de string para número
-      produto.preco = parseFloat(produto.preco);
-      if (produto.precoOriginal) produto.precoOriginal = parseFloat(produto.precoOriginal);
-      if (produto.preco_promocional) produto.preco_promocional = parseFloat(produto.preco_promocional);
-      const ehFavorito = false; // Sistema de favoritos pode ser implementado depois
+      // Normalizar dados do produto
+      const nome = produto.nome || produto.name;
+      const preco = parseFloat(produto.preco || produto.price);
+      const imagem = produto.imagem || produto.image;
+      const categoria = produto.categoria || produto.category;
+      const estoque = produto.estoque || produto.stock || 0;
+      const emEstoque = estoque > 0;
+      const marca = produto.marca || produto.brand || categoria;
+      const ehFavorito = false;
 
       // Determinar como renderizar a imagem
       let imagemHTML = '';
-      if (produto.imagem && ehURLImagem(produto.imagem)) {
+      if (imagem && ehURLImagem(imagem)) {
         // Usar imagem real com fallback para gradiente
         imagemHTML = `
-          <img src="${produto.imagem}" alt="${produto.nome}" class="imagem-produto-real" 
+          <img src="${imagem}" alt="${nome}" class="imagem-produto-real" 
                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
           <div class="fundo-gradiente ${produto.imagemFallback || 'gradiente-roxo'}" style="display: none;"></div>
         `;
       } else {
         // Usar gradiente
-        imagemHTML = `<div class="fundo-gradiente ${produto.imagemFallback || produto.imagem || 'gradiente-roxo'}"></div>`;
+        imagemHTML = `<div class="fundo-gradiente ${produto.imagemFallback || imagem || 'gradiente-roxo'}"></div>`;
       }
 
       return `
-        <a href="pagina-produto.html?id=${produto.id}" class="cartao-link">
+        <a href="src/paginas/pagina-produto.html?id=${produto.id}" class="cartao-link">
           <div class="card-produto-home" data-produto-id="${produto.id}">
             <div class="produto-imagem">
               ${imagemHTML}
               <div class="badges-produto">
-                ${!produto.emEstoque ? '<span class="badge indisponivel">Indisponível</span>' : ''}
+                ${!emEstoque ? '<span class="badge indisponivel">Indisponível</span>' : ''}
               </div>
-              <button class="botao-favorito ${ehFavorito ? 'ativo' : ''}" onclick="event.preventDefault(); event.stopPropagation(); alternarFavorito(${produto.id})">
+              <button class="botao-favorito ${ehFavorito ? 'ativo' : ''}" onclick="event.preventDefault(); event.stopPropagation(); alternarFavorito('${produto.id}')">
                 <i class="fas fa-heart"></i>
               </button>
             </div>
             
             <div class="produto-info">
-              <div class="produto-marca">${produto.marca}</div>
+              ${marca ? `<div class="produto-marca">${marca}</div>` : ''}
               
-              <h3 class="produto-nome">${produto.nome}</h3>
+              <h3 class="produto-nome">${nome}</h3>
               
               <div class="produto-avaliacao">
                 <div class="estrelas">
@@ -119,31 +129,31 @@ async function renderizarProdutosDestaque() {
               </div>
               
               <div class="produto-precos">
-                ${produto.precoOriginal ? `<span class="preco-original">R$ ${produto.precoOriginal.toFixed(2).replace('.', ',')}</span>` : ''}
-                <div class="preco-atual">R$ ${produto.preco.toFixed(2).replace('.', ',')}</div>
+                ${produto.precoOriginal ? `<span class="preco-original">R$ ${parseFloat(produto.precoOriginal).toFixed(2).replace('.', ',')}</span>` : ''}
+                <div class="preco-atual">R$ ${preco.toFixed(2).replace('.', ',')}</div>
                 ${produto.desconto > 0 ? `<div class="percentual-desconto">-${produto.desconto}%</div>` : ''}
               </div>
               
               <div class="produto-parcelas">
-                <span>12x de R$ ${(produto.preco / 12).toFixed(2).replace('.', ',')} sem juros</span>
+                <span>12x de R$ ${(preco / 12).toFixed(2).replace('.', ',')} sem juros</span>
               </div>
               
               <div class="produto-status">
-                ${produto.emEstoque ? '<div class="status-item em-estoque"><i class="fas fa-check"></i> Em estoque</div>' : ''}
+                ${emEstoque ? '<div class="status-item em-estoque"><i class="fas fa-check"></i> Em estoque</div>' : ''}
               </div>
             </div>
 
             <!-- Botões de Ação -->
             <div class="botoes-produto-home">
-              <button class="btn-comprar-direto ${!produto.emEstoque ? 'disabled' : ''}" 
-                      onclick="event.preventDefault(); event.stopPropagation(); ${produto.emEstoque ? `comprarDireto(${produto.id})` : 'showNotification(\'Produto indisponível\', \'warning\')'}"
-                      ${!produto.emEstoque ? 'disabled' : ''}>
+              <button class="btn-comprar-direto ${!emEstoque ? 'disabled' : ''}" 
+                      onclick="event.preventDefault(); event.stopPropagation(); ${emEstoque ? `comprarDireto('${produto.id}')` : 'showNotification(\'Produto indisponível\', \'warning\')'}"
+                      ${!emEstoque ? 'disabled' : ''}>
                 <i class="fas fa-bolt"></i>
                 Comprar
               </button>
-              <button class="btn-adicionar-carrinho ${!produto.emEstoque ? 'disabled' : ''}" 
-                      onclick="event.preventDefault(); event.stopPropagation(); ${produto.emEstoque ? `adicionarProdutoAoCarrinho(${produto.id})` : 'showNotification(\'Produto indisponível\', \'warning\')'}"
-                      ${!produto.emEstoque ? 'disabled' : ''}>
+              <button class="btn-adicionar-carrinho ${!emEstoque ? 'disabled' : ''}" 
+                      onclick="event.preventDefault(); event.stopPropagation(); ${emEstoque ? `adicionarProdutoAoCarrinho('${produto.id}')` : 'showNotification(\'Produto indisponível\', \'warning\')'}"
+                      ${!emEstoque ? 'disabled' : ''}>
                 <i class="fas fa-cart-plus"></i>
                 Carrinho
               </button>
@@ -241,33 +251,7 @@ function gerarEstrelas(nota) {
   return estrelas;
 }
 
-// Função para tentar carregar produtos várias vezes
-function tentarCarregarProdutos(tentativas = 0) {
-  const maxTentativas = 10;
-  
-  if (typeof produtos !== 'undefined' && produtos && produtos.length > 0) {
-    renderizarProdutosDestaque();
-    return;
-  }
-  
-  if (tentativas < maxTentativas) {
-    console.log(`Tentativa ${tentativas + 1} de carregar produtos...`);
-    setTimeout(() => {
-      tentarCarregarProdutos(tentativas + 1);
-    }, 200);
-  } else {
-    console.error('Não foi possível carregar os produtos após', maxTentativas, 'tentativas');
-    const container = document.getElementById('grade-produtos-home');
-    if (container) {
-      container.innerHTML = `
-        <div class="erro-produtos">
-          <p>Erro ao carregar produtos. Tente recarregar a página.</p>
-          <button onclick="location.reload()" class="btn-recarregar">Recarregar</button>
-        </div>
-      `;
-    }
-  }
-}
+// Função removida - produtos agora são carregados diretamente da API
 
 
 // Executar quando a página carregar
@@ -302,8 +286,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }, 5000); // Muda slide a cada 5 segundos
   
-  // Tentar carregar produtos
-  tentarCarregarProdutos();
+  // Carregar produtos da API
+  renderizarProdutosDestaque();
   
   // Event listeners para os botões da home
   document.addEventListener('click', function(e) {
