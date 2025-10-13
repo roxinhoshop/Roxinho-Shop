@@ -2653,3 +2653,131 @@ ease;
     }
 }
 
+
+
+
+/* ======================= MODO DARK - PRODUTOS ======================= */
+:root[data-theme="dark"] body {
+    background: #0a0a0a;
+    color: #ffffff;
+}
+
+:root[data-theme="dark"] .conteudo-principal {
+    background: transparent;
+}
+
+:root[data-theme="dark"] .barra-filtros {
+    background: #1c1c1c;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme="dark"] .barra-filtros h3,
+:root[data-theme="dark"] .barra-filtros h4 {
+    color: #ffffff;
+}
+
+:root[data-theme="dark"] .secao-filtro label {
+    color: #cccccc;
+}
+
+:root[data-theme="dark"] .input-busca-marca,
+:root[data-theme="dark"] .input-preco {
+    background: #2a2a2a;
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .produto-card {
+    background: #1c1c1c;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme="dark"] .produto-card:hover {
+    background: #242424;
+    border-color: #904DDB;
+}
+
+:root[data-theme="dark"] .produto-nome {
+    color: #ffffff;
+}
+
+:root[data-theme="dark"] .produto-descricao {
+    color: #cccccc;
+}
+
+:root[data-theme="dark"] .produto-preco {
+    color: #FFB800;
+}
+
+:root[data-theme="dark"] .produto-preco-antigo {
+    color: #999999;
+}
+
+:root[data-theme="dark"] .breadcrumb-dinamico {
+    background: #1c1c1c;
+    color: #cccccc;
+}
+
+:root[data-theme="dark"] .breadcrumb-dinamico a {
+    color: #904DDB;
+}
+
+:root[data-theme="dark"] .breadcrumb-dinamico a:hover {
+    color: #FFB800;
+}
+
+:root[data-theme="dark"] .barra-ordenacao-melhorada {
+    background: #1c1c1c;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme="dark"] .seletor-ordenacao,
+:root[data-theme="dark"] .seletor-exibir {
+    background: #2a2a2a;
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .contador-produtos {
+    color: #cccccc;
+}
+
+:root[data-theme="dark"] .categorias-relacionadas {
+    background: #1c1c1c;
+}
+
+:root[data-theme="dark"] .categoria-relacionada {
+    background: #2a2a2a;
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .categoria-relacionada:hover {
+    background: #904DDB;
+    border-color: #904DDB;
+}
+
+:root[data-theme="dark"] .banner-categoria {
+    background: linear-gradient(135deg, #904DDB 0%, #7c3aed 100%);
+}
+
+/* Manter roxo e amarelo no dark mode */
+:root[data-theme="dark"] .botao-primario {
+    background: #904DDB;
+    color: #ffffff;
+}
+
+:root[data-theme="dark"] .botao-primario:hover {
+    background: #FFB800;
+}
+
+:root[data-theme="dark"] .badge-desconto {
+    background: #FFB800;
+    color: #000000;
+}
+
+:root[data-theme="dark"] .badge-promocao {
+    background: #904DDB;
+    color: #ffffff;
+}
+

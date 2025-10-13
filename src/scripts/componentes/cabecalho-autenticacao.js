@@ -168,7 +168,12 @@ function fazerLogout() {
     
     // Redirecionar para home
     setTimeout(() => {
-        window.location.href = "../../index.html";
+        const currentPath = window.location.pathname;
+        if (currentPath === '/' || currentPath.endsWith('index.html')) {
+            window.location.reload();
+        } else {
+            window.location.href = "../../index.html";
+        }
     }, 500);
 }
 
