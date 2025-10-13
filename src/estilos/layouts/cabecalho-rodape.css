@@ -13,8 +13,8 @@
 }
 
 body {
-  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-  color: #ffffff;
+  background: #f8f9fa;
+  color: #1f2937;
 }
 
 .cabecalho {
@@ -61,7 +61,7 @@ body {
 .logo-imagem {
   margin-left: 10px;
   margin-bottom: -5px;
-  height: 180px;
+  height: 65px;
   width: auto;
   object-fit: contain;
   transition: filter 0.3s ease;
