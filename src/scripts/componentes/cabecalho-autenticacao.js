@@ -46,22 +46,25 @@ function atualizarEstadoLogin() {
         // Adicionar classe de logado
         caixaLogin.classList.add("logado");
         
-        // Configurar link do painel baseado no tipo de usuário
-        if (linkPainelDropdown) {
-            if (isAdmin) {
-                // Admin: mostrar link para painel de administração
-                linkPainelDropdown.href = "administracao.html";
-                if (textoPainel) {
-                    textoPainel.innerHTML = '<i class="fa-solid fa-shield-halved"></i> Painel Admin';
-                }
-                linkPainelDropdown.style.display = "flex";
-            } else {
-                // Usuário comum: mostrar link para painel de usuário
-                linkPainelDropdown.href = "painel-usuario.html";
-                if (textoPainel) {
-                    textoPainel.innerHTML = '<i class="fa-solid fa-user-circle"></i> Meu Painel';
-                }
-                linkPainelDropdown.style.display = "flex";
+        // Configurar links dos painéis baseado no tipo de usuário
+        const linkPainelAdmin = document.getElementById('link-painel-admin');
+        const linkPainelUsuario = document.getElementById('link-painel-usuario');
+        
+        if (isAdmin) {
+            // Admin: mostrar AMBOS os painéis
+            if (linkPainelAdmin) {
+                linkPainelAdmin.style.display = "flex";
+            }
+            if (linkPainelUsuario) {
+                linkPainelUsuario.style.display = "flex";
+            }
+        } else {
+            // Usuário comum: mostrar APENAS painel de usuário
+            if (linkPainelAdmin) {
+                linkPainelAdmin.style.display = "none";
+            }
+            if (linkPainelUsuario) {
+                linkPainelUsuario.style.display = "flex";
             }
         }
         
