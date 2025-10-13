@@ -100,9 +100,14 @@
       <section id="products-section" class="secao-admin">
         <div class="header-secao">
           <h2 class="titulo-secao">Gerenciar Produtos</h2>
-          <button id="btn-add-product" class="btn btn-success">
-            <i class="fas fa-plus"></i> Adicionar Produto
-          </button>
+          <div class="btn-group">
+            <button id="btn-add-product" class="btn btn-success">
+              <i class="fas fa-plus"></i> Adicionar Produto
+            </button>
+            <button id="btn-add-product-url" class="btn btn-primary" onclick="openProductURLLoader()">
+              <i class="fas fa-link"></i> Adicionar via Link
+            </button>
+          </div>
         </div>
         <div class="conteudo-secao">
           <div class="barra-pesquisa">
@@ -348,6 +353,8 @@
     });
   </script>
   <script src="../scripts/componentes/alternador-tema.js"></script>
+  <script src="../scripts/componentes/product-url-loader.js"></script>
+  <link rel="stylesheet" href="../estilos/componentes/product-url-loader.css">
 </body>
 </html>
 
