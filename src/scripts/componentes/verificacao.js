@@ -19,7 +19,6 @@ class SistemaVerificaca  constructor() {
     this.carregarEmailUsuario();
     this.solicitarCodigoInicial();
     
-    console.log(\'🔐 Sistema de verificação inicializado\');
   }
 
   // ===== CONFIGURAÇÕES INICIAIS =====
@@ -272,7 +271,6 @@ class SistemaVerificaca  constructor() {
     this.codigoCorreto = this.gerarCodigoVerificacao();
     this.tentativas = 0;
     
-    console.log('📧 Novo código de verificação (para teste):', this.codigoCorreto);
     
     // Simular reenvio
     this.mostrarNotificacao('Novo código enviado!', 'sucesso');

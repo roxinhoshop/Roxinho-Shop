@@ -86,7 +86,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Link válido - garantir que funcione
         link.addEventListener('click', function(e) {
           // Permitir navegação normal
-          console.log('Navegando para:', href);
         });
       } else {
         // Link inválido - corrigir
@@ -94,7 +93,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const novoHref = `produtos.html?categoria=${encodeURIComponent(textoLink)}`;
         link.setAttribute('href', novoHref);
         
-        console.log(`Link corrigido: "${textoLink}" -> ${novoHref}`);
       }
     });
     
@@ -109,7 +107,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const novoHref = `produtos.html?categoria=${encodeURIComponent(textoLink)}`;
         link.setAttribute('href', novoHref);
         
-        console.log(`Link principal corrigido: "${textoLink}" -> ${novoHref}`);
       }
     });
   }
@@ -253,7 +250,6 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // ==================== INICIALIZAÇÃO ====================
   function inicializar() {
-    console.log('Inicializando melhorias do cabeçalho...');
     
     // Aguardar um pouco para garantir que o DOM esteja completamente carregado
     setTimeout(() => {
@@ -263,7 +259,6 @@ document.addEventListener('DOMContentLoaded', function() {
       adicionarEventoFecharMenus();
       adicionarSuporteTouch();
       
-      console.log('Melhorias do cabeçalho aplicadas com sucesso!');
     }, 100);
   }
   
@@ -284,7 +279,6 @@ document.addEventListener('DOMContentLoaded', function() {
         );
         
         if (barraAdicionada) {
-          console.log('Barra de categorias carregada dinamicamente, reaplicando melhorias...');
           setTimeout(inicializar, 100);
         }
       }
@@ -399,5 +393,4 @@ document.addEventListener("DOMContentLoaded", () => {
 window.addEventListener("authChange", atualizarEstadoLogin);
 */
 
-console.log("✅ cabecalho-melhorado.js carregado (gerenciamento de login delegado para cabecalho-autenticacao.js)");
 

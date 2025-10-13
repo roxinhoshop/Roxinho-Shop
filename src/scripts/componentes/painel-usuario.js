@@ -602,7 +602,6 @@ document.addEventListener('DOMContentLoaded', function() {
     inicializarListaDesejos();
     inicializarDashboard();
     
-    console.log('Painel de usuário melhorado inicializado!');
   }
   
   // Inicializar quando o DOM estiver pronto
@@ -726,7 +725,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        console.log('Sistema de navegação da barra lateral inicializado!');
     }
     
     // ==================== ATUALIZAR BREADCRUMB ====================

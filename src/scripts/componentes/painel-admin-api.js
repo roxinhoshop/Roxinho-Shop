@@ -30,7 +30,6 @@ class AdminPanelAPI {
         await this.loadCategories();
         await this.loadProducts();
         this.setupEventListeners();
-        console.log("👑 Painel administrativo inicializado");
     }
 
     /**
@@ -1323,6 +1322,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-console.log("👑 Painel administrativo API carregado");
 
 

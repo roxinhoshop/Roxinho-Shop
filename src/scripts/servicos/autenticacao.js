@@ -26,13 +26,11 @@ class AuthSystem {
         } else {
             this.currentUser = null;
         }
-        console.log("AuthSystem inicializado. Usuário atual:", this.currentUser);
     }
 
     // Simula o login de um usuário
     async login(email, password) {
         try {
-            console.log("AuthSystem: Tentando login com:", { email, password });
             const response = await fetch("/api/login", {
                 method: "POST",
                 headers: {
@@ -41,9 +39,7 @@ class AuthSystem {
                 body: JSON.stringify({ email, senha: password }),
             });
 
-            console.log("AuthSystem: Resposta da API de login (status):");
             const data = await response.json();
-            console.log("AuthSystem: Resposta da API de login (dados):");
 
             if (data.status === "success") {
                 this.currentUser = {
@@ -104,7 +100,6 @@ class AuthSystem {
         if (typeof showNotification === "function") {
             showNotification(message, type);
         } else {
-            console.log(`[${type.toUpperCase()}] ${message}`);
             alert(message); // Fallback se showNotification não estiver disponível
         }
     }

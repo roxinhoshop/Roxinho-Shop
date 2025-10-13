@@ -317,5 +317,4 @@ window.editProduct = async function(id) {
     await productEditor.openEditModal(id);
 };
 
-console.log('✅ Product Editor carregado!');
 

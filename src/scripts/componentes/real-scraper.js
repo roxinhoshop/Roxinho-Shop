@@ -279,5 +279,4 @@ class RealProductScraper {
 
 // Tornar disponível globalmente
 window.RealProductScraper = RealProductScraper;
-console.log('✅ Real Product Scraper carregado!');
 

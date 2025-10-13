@@ -41,7 +41,6 @@ function slideAnterior() {
 
 // Função para renderizar produtos em destaque
 async function renderizarProdutosDestaque() {
-  console.log("Renderizando produtos em destaque...");
   
   const container = document.getElementById("grade-produtos-home");
   
@@ -163,7 +162,6 @@ async function renderizarProdutosDestaque() {
       `;
     }).join('');
     
-    console.log(`${produtos.length} produtos em destaque renderizados`);
 
   } catch (error) {
     console.error("Erro ao carregar produtos em destaque: ", error);
@@ -220,7 +218,6 @@ function ehURLImagem(url) {
 // Sistema de favoritos (placeholder)
 function alternarFavorito(produtoId) {
   // Implementação do sistema de favoritos pode ser adicionada aqui
-  console.log(`Favorito alternado para produto ${produtoId}`);
   
   // Exemplo de implementação simples com localStorage
   let favoritos = JSON.parse(localStorage.getItem('favoritos') || '[]');
@@ -256,7 +253,6 @@ function gerarEstrelas(nota) {
 
 // Executar quando a página carregar
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('Página inicial carregada');
   
   // Inicializar banner
   inicializarBanner();
@@ -342,7 +338,6 @@ setTimeout(() => {
 
 // Função para inicializar a página home
 function inicializarHome() {
-  console.log('Inicializando página home...');
   
   // Renderizar produtos em destaque
   if (typeof renderizarProdutosDestaque === 'function') {
@@ -359,7 +354,6 @@ function inicializarHome() {
     atualizarContadorCarrinho();
   }
   
-  console.log('Página home inicializada com sucesso!');
 }
 
 // Executar quando o DOM estiver pronto
@@ -620,7 +614,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Track cliques nos slides
     slides.forEach((slide, indice) => {
       slide.addEventListener('click', () => {
-        console.log(`Slide ${indice + 1} clicado`);
         // Aqui você pode integrar com Google Analytics ou outro serviço
       });
     });
@@ -629,7 +622,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let tempoInicio = Date.now();
     window.addEventListener('beforeunload', () => {
       const tempoTotal = Date.now() - tempoInicio;
-      console.log(`Tempo na página: ${Math.round(tempoTotal / 1000)}s`);
     });
   }
   
@@ -681,7 +673,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Acessibilidade
     melhorarAcessibilidade();
     
-    console.log('Home melhorada inicializada com sucesso!');
   }
   
   // ==================== EVENT LISTENERS GLOBAIS ====================

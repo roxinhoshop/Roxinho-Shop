@@ -26,8 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
     emailInput.addEventListener("input", () => validarCampo(emailInput, "E-mail é obrigatório.", null, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, "E-mail inválido."));
         telefoneInput.addEventListener("input", () => {
             formatarTelefone(telefoneInput);
-            console.log("Telefone formatado para validação:", telefoneInput.value);
-            console.log("Regex de telefone:", /^\(\d{2}\)\s\d{4,5}-\d{4}$/.test(telefoneInput.value));
             validarCampo(telefoneInput, "Telefone é obrigatório.", "Telefone inválido.", /^\(\d{2}\)\s\d{4,5}-\d{4}$|^\(\d{2}\)\s\d{4}-\d{4}$/, "Telefone inválido.");
         });
     dataNascimentoInput.addEventListener("change", validarDataNascimento);
@@ -256,7 +254,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function mostrarErro(campo, mensagem) {
-        console.log(`Mostrando erro para o campo: ${campo}, mensagem: ${mensagem}`);
         const erroDiv = document.getElementById(`erro-${campo}`);
         if (!erroDiv) {
             console.error(`Elemento de erro com ID 'erro-${campo}' não encontrado.`);
@@ -267,7 +264,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function limparErro(campo) {
-        console.log(`Limpando erro para o campo: ${campo}`);
         const erroDiv = document.getElementById(`erro-${campo}`);
         if (!erroDiv) {
             console.error(`Elemento de erro com ID 'erro-${campo}' não encontrado.`);

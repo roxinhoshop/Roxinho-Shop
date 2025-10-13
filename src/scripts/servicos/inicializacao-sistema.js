@@ -45,7 +45,6 @@ class SystemInitializer {
      * @throws {Error} Se ocorrer um erro crítico durante a inicialização.
      */
     async performInitialization() {
-        console.log('🚀 Iniciando sistemas da Roxinho Shop...');
         
         try {
             await this.waitForDOM();
@@ -59,7 +58,6 @@ class SystemInitializer {
             await this.postInitializationChecks();
             
             this.isInitialized = true;
-            console.log('✅ Todos os sistemas inicializados com sucesso!');
             
             this.dispatchSystemReadyEvent();
             
@@ -92,7 +90,6 @@ class SystemInitializer {
      * @throws {Error} Se o sistema não puder ser inicializado ou não estiver disponível.
      */
     async initializeSystem(systemName) {
-        console.log(`🔄 Inicializando ${systemName}...`);
         
         try {
             switch (systemName) {
@@ -129,7 +126,6 @@ class SystemInitializer {
             }
             
             this.systems[systemName] = window[systemName];
-            console.log(`✅ ${systemName} inicializado`);
             
         } catch (error) {
             console.error(`❌ Erro ao inicializar ${systemName}:`, error);
@@ -171,7 +167,6 @@ class SystemInitializer {
      * @private
      */
     async setupSystemIntegrations() {
-        console.log('🔗 Configurando integrações entre sistemas...');
         
         try {
             if (window.authSystem && window.emailSystem) {
@@ -190,16 +185,13 @@ class SystemInitializer {
                     return result;
                 };
                 
-                console.log('✅ Integração Auth + Email configurada');
             }
             
             if (window.apiSystem && window.emailSystem) {
-                console.log('ℹ️ Integração API + Email preparada para pedidos');
             }
             
             if (window.dataIntegration && window.authSystem) {
                 await window.dataIntegration.syncUsers();
-                console.log('✅ Integração Data + Auth configurada');
             }
             
         } catch (error) {
@@ -213,7 +205,6 @@ class SystemInitializer {
      * @private
      */
     async postInitializationChecks() {
-        console.log('🔍 Executando verificações pós-inicialização...');
         
         try {
             if (window.dataIntegration) {
@@ -226,17 +217,14 @@ class SystemInitializer {
             if (window.authSystem) {
                 const adminExists = await window.authSystem.checkAdminExists();
                 if (!adminExists) {
-                    console.log('👤 Criando usuário administrador padrão...');
                     await window.authSystem.createDefaultAdmin();
                 }
             }
             
             if (window.emailSystem) {
                 const emailStats = window.emailSystem.getEmailStats();
-                console.log('📧 Estatísticas de e-mail:', emailStats);
             }
             
-            console.log('✅ Verificações pós-inicialização concluídas');
             
         } catch (error) {
             console.error('❌ Erro nas verificações pós-inicialização:', error);
@@ -256,7 +244,6 @@ class SystemInitializer {
         });
         
         document.dispatchEvent(event);
-        console.log('📡 Evento systemReady disparado');
     }
 
     /**
@@ -286,7 +273,6 @@ class SystemInitializer {
      * @throws {Error} Se ocorrer um erro durante a reinicialização.
      */
     async reinitializeSystem(systemName) {
-        console.log(`🔄 Reinicializando ${systemName}...`);
         
         try {
             if (this.systems[systemName]) {
@@ -296,7 +282,6 @@ class SystemInitializer {
             
             await this.initializeSystem(systemName);
             
-            console.log(`✅ ${systemName} reinicializado com sucesso`);
             
         } catch (error) {
             console.error(`❌ Erro ao reinicializar ${systemName}:`, error);
@@ -310,11 +295,9 @@ class SystemInitializer {
     debugSystems() {
         console.group('🔧 Debug dos Sistemas');
         
-        console.log('Status geral:', this.getSystemStatus());
         
         Object.keys(this.systems).forEach(systemName => {
             const system = this.systems[systemName];
-            console.log(`${systemName}:`, system);
         });
         
         console.group('💾 Dados no localStorage');
@@ -323,9 +306,7 @@ class SystemInitializer {
                 const data = localStorage.getItem(key);
                 try {
                     const parsed = JSON.parse(data);
-                    console.log(`${key}:`, Array.isArray(parsed) ? `Array(${parsed.length})` : typeof parsed);
                 } catch {
-                    console.log(`${key}:`, `String(${data.length} chars)`);
                 }
             }
         });
@@ -346,7 +327,6 @@ class SystemInitializer {
                 }
             });
             
-            console.log('🗑️ Todos os dados foram limpos');
             location.reload();
         }
     }
@@ -371,7 +351,6 @@ class SystemInitializer {
         link.download = `roxinho-shop-config-${Date.now()}.json`;
         link.click();
         
-        console.log('📤 Configuração do sistema exportada');
     }
 }
 
@@ -395,7 +374,6 @@ window.debugSystems = function() {
     if (window.systemInitializer) {
         window.systemInitializer.debugSystems();
     } else {
-        console.log('Sistema ainda não inicializado');
     }
 };
 
@@ -421,4 +399,3 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-console.log('🚀 Inicializador do sistema carregado');

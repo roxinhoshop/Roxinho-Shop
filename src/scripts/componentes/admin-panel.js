@@ -365,5 +365,3 @@ async function loadStats() {
 window.editProduct = editProduct;
 window.deleteProduct = deleteProduct;
 window.loadProducts = loadProducts;
-
-console.log('✅ Admin Panel Melhorado carregado!');

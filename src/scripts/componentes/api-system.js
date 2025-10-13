@@ -69,7 +69,6 @@ class ApiSystem {
      * Inicializa o sistema de APIs.
      */
     init() {
-        console.log("📡 Sistema de API inicializado");
     }
 
     /**
@@ -1133,7 +1132,6 @@ class ApiSystem {
                     currency: paymentData.currency || "BRL",
                     date: new Date().toISOString()
                 };
-                console.log("💳 Pagamento processado:", paymentResult);
                 resolve(paymentResult);
             }, 1500);
         });
@@ -1482,4 +1480,3 @@ class ApiSystem {
 // Instanciar o sistema de API globalmente
 window.apiSystem = new ApiSystem();
 
-console.log("📡 api-system.js carregado");

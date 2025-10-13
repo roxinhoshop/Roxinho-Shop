@@ -17,7 +17,6 @@ document.addEventListener(\'DOMContentLoaded\', () => {
     async function fetchHistoricoProdutos() {
         usuarioLogado = getUsuarioLogado();
         if (!usuarioLogado) {
-            console.log(\'Nenhum usuário logado. Não é possível buscar o histórico.\');
             historicoVazioDiv.style.display = \'flex\';
             conteudoHistoricoDiv.style.display = \'none\';
             return;

@@ -62,7 +62,6 @@ async function carregarCategoriasDinamicas() {
             menuDepartamentos.appendChild(li);
         }
 
-        console.log('✅ Categorias carregadas dinamicamente');
     } catch (error) {
         console.error('❌ Erro ao carregar categorias:', error);
     }
