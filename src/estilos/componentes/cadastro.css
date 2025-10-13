@@ -873,3 +873,68 @@ main {
     }
 }
 
+
+
+
+/* ======================= MODO DARK - CADASTRO ======================= */
+:root[data-theme="dark"] body {
+    background: #0a0a0a;
+}
+
+:root[data-theme="dark"] .cartao-cadastro {
+    background: #1c1c1c;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme="dark"] .texto-titulo {
+    color: #ffffff;
+}
+
+:root[data-theme="dark"] .texto-subtitulo {
+    color: #cccccc;
+}
+
+:root[data-theme="dark"] .entrada-formulario {
+    background: #2a2a2a;
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .entrada-formulario:focus {
+    border-color: #904DDB;
+    background: #242424;
+}
+
+:root[data-theme="dark"] .rotulo-formulario {
+    color: #999999;
+}
+
+:root[data-theme="dark"] .entrada-formulario:focus + .rotulo-formulario,
+:root[data-theme="dark"] .entrada-formulario:not(:placeholder-shown) + .rotulo-formulario {
+    color: #904DDB;
+}
+
+:root[data-theme="dark"] .cadastro-banner {
+    background: linear-gradient(135deg, #904DDB 0%, #7c3aed 100%);
+}
+
+:root[data-theme="dark"] .link-login {
+    color: #cccccc;
+}
+
+:root[data-theme="dark"] .link-login a {
+    color: #904DDB;
+}
+
+:root[data-theme="dark"] .link-login a:hover {
+    color: #FFB800;
+}
+
+:root[data-theme="dark"] .mensagem-erro {
+    color: #f87171;
+}
+
+:root[data-theme="dark"] .feedback-senha {
+    color: #cccccc;
+}
+

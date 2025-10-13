@@ -458,3 +458,68 @@ body {
     }
 }
 
+
+
+
+/* ======================= MODO DARK - LOGIN ======================= */
+:root[data-theme="dark"] body {
+    background: #0a0a0a;
+}
+
+:root[data-theme="dark"] .login-card {
+    background: #1c1c1c;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme="dark"] .welcome-text {
+    color: #ffffff;
+}
+
+:root[data-theme="dark"] .welcome-subtitle {
+    color: #cccccc;
+}
+
+:root[data-theme="dark"] .form-input {
+    background: #2a2a2a;
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .form-input:focus {
+    border-color: #904DDB;
+    background: #242424;
+}
+
+:root[data-theme="dark"] .floating-label {
+    color: #999999;
+}
+
+:root[data-theme="dark"] .form-input:focus + .floating-label,
+:root[data-theme="dark"] .form-input:not(:placeholder-shown) + .floating-label {
+    color: #904DDB;
+}
+
+:root[data-theme="dark"] .login-banner {
+    background: linear-gradient(135deg, #904DDB 0%, #7c3aed 100%);
+}
+
+:root[data-theme="dark"] .forgot-password a {
+    color: #904DDB;
+}
+
+:root[data-theme="dark"] .forgot-password a:hover {
+    color: #FFB800;
+}
+
+:root[data-theme="dark"] .signup-link {
+    color: #cccccc;
+}
+
+:root[data-theme="dark"] .signup-link a {
+    color: #904DDB;
+}
+
+:root[data-theme="dark"] .signup-link a:hover {
+    color: #FFB800;
+}
+
