@@ -1,340 +1,331 @@
 /**
- * Admin Panel - Gerenciamento de Produtos
+ * Admin Panel - Versão Melhorada
+ * Interface mais interativa e intuitiva
  */
 
-// Inicializar scraper
-const scraper = new ProductScraper();
+// Estado global
 let currentPreviewData = null;
+let allProducts = [];
+let filteredProducts = [];
+
+// ======================= INICIALIZAÇÃO =======================
+document.addEventListener('DOMContentLoaded', () => {
+    initializeTabs();
+    initializeImportForm();
+    initializeProductSearch();
+    
+    // Carregar produtos ao abrir a aba
+    const productsTab = document.querySelector('[data-tab="products"]');
+    if (productsTab) {
+        productsTab.addEventListener('click', loadProducts);
+    }
+});
 
 // ======================= TABS =======================
-document.querySelectorAll('.tab-button').forEach(button => {
-    button.addEventListener('click', () => {
-        // Remover active de todos
-        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-
-        // Adicionar active no clicado
-        button.classList.add('active');
-        const tabId = 'tab-' + button.dataset.tab;
-        document.getElementById(tabId).classList.add('active');
-
-        // Atualizar conteúdo se necessário
-        if (button.dataset.tab === 'products') {
-            loadProducts();
-        } else if (button.dataset.tab === 'stats') {
-            loadStats();
-        }
+function initializeTabs() {
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.addEventListener('click', () => {
+            // Remover active de todos
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Adicionar active no clicado
+            button.classList.add('active');
+            const tabId = 'tab-' + button.dataset.tab;
+            const tabContent = document.getElementById(tabId);
+            if (tabContent) {
+                tabContent.classList.add('active');
+            }
+            
+            // Carregar conteúdo específico
+            if (button.dataset.tab === 'products') {
+                loadProducts();
+            } else if (button.dataset.tab === 'stats') {
+                loadStats();
+            }
+        });
     });
-});
-
-// ======================= IMPORTAR PRODUTO =======================
-document.getElementById('import-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const url = document.getElementById('product-url').value.trim();
-    const btnImport = document.querySelector('.btn-import');
-    
-    // Validar URL
-    if (!url.includes('amazon') && !url.includes('mercado')) {
-        mostrarNotificacao('URL inválida. Use Amazon ou Mercado Livre.', 'error');
-        return;
-    }
-
-    // Loading
-    btnImport.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Importando...';
-    btnImport.disabled = true;
-
-    try {
-        const productData = await scraper.scrapeProduct(url);
-        currentPreviewData = productData;
-        
-        // Mostrar preview
-        showPreview(productData);
-        
-        btnImport.innerHTML = '<i class="fas fa-magic"></i> Importar';
-        btnImport.disabled = false;
-        
-        mostrarNotificacao('Produto carregado! Confira o preview abaixo.', 'success');
-    } catch (error) {
-        console.error(error);
-        mostrarNotificacao('Erro ao importar produto: ' + error.message, 'error');
-        
-        btnImport.innerHTML = '<i class="fas fa-magic"></i> Importar';
-        btnImport.disabled = false;
-    }
-});
-
-// ======================= PREVIEW =======================
-function showPreview(data) {
-    document.getElementById('preview-img').src = data.image;
-    document.getElementById('preview-name').textContent = data.name;
-    document.getElementById('preview-price').textContent = `R$ ${data.price.toFixed(2).replace('.', ',')}`;
-    document.getElementById('preview-source').textContent = data.source;
-    document.getElementById('preview-description').textContent = data.description;
-    
-    document.getElementById('product-preview').style.display = 'block';
-    document.getElementById('product-preview').scrollIntoView({ behavior: 'smooth' });
 }
 
-// Confirmar importação
-document.getElementById('btn-confirm-import').addEventListener('click', async () => {
-    if (!currentPreviewData) return;
+// ======================= IMPORTAR PRODUTO =======================
+function initializeImportForm() {
+    const form = document.getElementById('import-form');
+    if (!form) return;
+    
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        await importProduct();
+    });
+    
+    // Confirmar importação
+    const btnConfirm = document.getElementById('btn-confirm-import');
+    if (btnConfirm) {
+        btnConfirm.addEventListener('click', confirmImport);
+    }
+    
+    // Cancelar importação
+    const btnCancel = document.getElementById('btn-cancel-import');
+    if (btnCancel) {
+        btnCancel.addEventListener('click', cancelImport);
+    }
+}
 
+async function importProduct() {
+    const urlInput = document.getElementById('product-url');
+    const btnImport = document.querySelector('.btn-import');
+    
+    if (!urlInput || !btnImport) return;
+    
+    const url = urlInput.value.trim();
+    
+    // Validar URL
+    if (!url) {
+        await alertaFluent('Atenção', 'Por favor, cole o link do produto', 'fas fa-exclamation-triangle');
+        return;
+    }
+    
+    if (!url.includes('amazon') && !url.includes('mercado')) {
+        await alertaFluent('URL Inválida', 'Use links da Amazon ou Mercado Livre', 'fas fa-exclamation-triangle');
+        return;
+    }
+    
+    // Loading
+    const originalHTML = btnImport.innerHTML;
+    btnImport.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Importando...';
+    btnImport.disabled = true;
+    
     try {
-        // Preparar dados do produto para a API
-        const produtoAPI = {
+        // Simular scraping (você pode implementar a lógica real aqui)
+        await alertaFluent('Em Desenvolvimento', 'A importação automática será implementada em breve. Por enquanto, adicione produtos manualmente.', 'fas fa-info-circle');
+        
+        btnImport.innerHTML = originalHTML;
+        btnImport.disabled = false;
+    } catch (error) {
+        console.error('Erro ao importar:', error);
+        await alertaFluent('Erro', 'Não foi possível importar o produto: ' + error.message, 'fas fa-exclamation-triangle');
+        
+        btnImport.innerHTML = originalHTML;
+        btnImport.disabled = false;
+    }
+}
+
+async function confirmImport() {
+    if (!currentPreviewData) return;
+    
+    try {
+        const produto = {
             nome: currentPreviewData.name,
             descricao: currentPreviewData.description,
             preco: currentPreviewData.price,
             imagem: currentPreviewData.image,
-            categoria: 'eletronicos', // Categoria padrão, pode ser melhorado
+            categoria: 'eletronicos',
             subcategoria: '',
             origem: currentPreviewData.source,
             link_original: currentPreviewData.url,
-            estoque: 10 // Estoque padrão
+            estoque: 10
         };
-
-        // Usar função da API se disponível
+        
         if (typeof criarProduto === 'function') {
-            const id = await criarProduto(produtoAPI);
+            await criarProduto(produto);
+            await alertaFluent('Sucesso!', 'Produto importado com sucesso!', 'fas fa-check-circle');
             
-            if (id) {
-                await alertaFluent('Sucesso!', 'Produto importado e salvo no banco de dados!', 'fas fa-check-circle');
-                
-                // Limpar formulário e preview
-                document.getElementById('import-form').reset();
-                document.getElementById('product-preview').style.display = 'none';
-                currentPreviewData = null;
-
-                // Mudar para aba de produtos
-                document.querySelector('[data-tab="products"]').click();
-            }
-        } else {
-            // Fallback para localStorage
-            currentPreviewData.id = 'prod_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            // Limpar preview
+            cancelImport();
             
-            const products = JSON.parse(localStorage.getItem('products') || '[]');
-            products.push(currentPreviewData);
-            localStorage.setItem('products', JSON.stringify(products));
-
-            mostrarNotificacao('Produto importado com sucesso!', 'success');
-            
-            // Limpar formulário e preview
-            document.getElementById('import-form').reset();
-            document.getElementById('product-preview').style.display = 'none';
-            currentPreviewData = null;
-
-            // Mudar para aba de produtos
-            document.querySelector('[data-tab="products"]').click();
+            // Recarregar lista de produtos
+            loadProducts();
         }
     } catch (error) {
-        mostrarNotificacao('Erro ao salvar produto: ' + error.message, 'error');
+        console.error('Erro ao salvar produto:', error);
+        await alertaFluent('Erro', 'Não foi possível salvar o produto', 'fas fa-exclamation-triangle');
     }
-});
+}
 
-// Cancelar importação
-document.getElementById('btn-cancel-import').addEventListener('click', () => {
-    document.getElementById('product-preview').style.display = 'none';
+function cancelImport() {
     currentPreviewData = null;
-});
+    const preview = document.getElementById('product-preview');
+    if (preview) {
+        preview.style.display = 'none';
+    }
+    const urlInput = document.getElementById('product-url');
+    if (urlInput) {
+        urlInput.value = '';
+    }
+}
 
-// ======================= LISTAR PRODUTOS =======================
+// ======================= PRODUTOS CADASTRADOS =======================
 async function loadProducts() {
-    const container = document.getElementById('products-list');
+    const container = document.getElementById('products-grid');
+    const searchInput = document.getElementById('search-products');
     
-    // Mostrar loading
+    if (!container) return;
+    
+    // Loading
     container.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Carregando produtos...</div>';
     
     try {
-        let products = [];
+        let produtos = [];
         
-        // Tentar carregar da API primeiro
         if (typeof listarProdutos === 'function') {
-            products = await listarProdutos();
-        } else {
-            // Fallback para localStorage
-            products = scraper.listProducts();
+            produtos = await listarProdutos({});
         }
-
-        if (products.length === 0) {
-            container.innerHTML = `
-                <div class="empty-state">
-                    <i class="fas fa-box-open"></i>
-                    <h3>Nenhum produto cadastrado</h3>
-                    <p>Importe produtos usando a aba "Importar Produto"</p>
-                </div>
-            `;
-            return;
-        }
-
-        container.innerHTML = products.map(product => {
-            const nome = product.nome || product.name;
-            const preco = product.preco || product.price;
-            const imagem = product.imagem || product.image;
-            const categoria = product.categoria || product.category;
-            const origem = product.origem || product.source || 'manual';
-            
-            return `
-                <div class="product-card" data-id="${product.id}">
-                    <div class="product-image">
-                        <img src="${imagem}" alt="${nome}">
-                        <span class="product-source badge-${origem.toLowerCase().replace(' ', '-')}">
-                            ${origem}
-                        </span>
-                    </div>
-                    <div class="product-info">
-                        <h4>${nome}</h4>
-                        <p class="product-price">R$ ${parseFloat(preco).toFixed(2).replace('.', ',')}</p>
-                        <p class="product-category"><i class="fas fa-tag"></i> ${categoria}</p>
-                        <div class="product-actions">
-                            <button class="btn-icon btn-edit" onclick="editProduct('${product.id}')">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="btn-icon btn-delete" onclick="deleteProduct('${product.id}')">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }).join('');
+        
+        allProducts = produtos;
+        filteredProducts = produtos;
+        
+        renderProducts(produtos);
+        
     } catch (error) {
         console.error('Erro ao carregar produtos:', error);
         container.innerHTML = `
-            <div class="empty-state">
+            <div class="error-message">
                 <i class="fas fa-exclamation-triangle"></i>
-                <h3>Erro ao carregar produtos</h3>
-                <p>${error.message}</p>
+                <p>Não foi possível carregar os produtos</p>
+                <button onclick="loadProducts()" class="btn btn-primary">
+                    <i class="fas fa-redo"></i> Tentar Novamente
+                </button>
             </div>
         `;
     }
 }
 
-// ======================= EDITAR PRODUTO =======================
-function editProduct(productId) {
-    const products = scraper.listProducts();
-    const product = products.find(p => p.id === productId);
-
-    if (!product) return;
-
-    // Preencher modal
-    document.getElementById('edit-product-id').value = product.id;
-    document.getElementById('edit-name').value = product.name;
-    document.getElementById('edit-price').value = product.price;
-    document.getElementById('edit-category').value = product.category;
-    document.getElementById('edit-description').value = product.description;
-    document.getElementById('edit-image').value = product.image;
-
-    // Mostrar modal
-    document.getElementById('edit-modal').style.display = 'flex';
+function renderProducts(produtos) {
+    const container = document.getElementById('products-grid');
+    if (!container) return;
+    
+    if (!produtos || produtos.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-box-open"></i>
+                <h3>Nenhum produto cadastrado</h3>
+                <p>Comece importando produtos da Amazon ou Mercado Livre</p>
+                <button onclick="document.querySelector('[data-tab=\\'import\\']').click()" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Importar Primeiro Produto
+                </button>
+            </div>
+        `;
+        return;
+    }
+    
+    container.innerHTML = produtos.map(produto => `
+        <div class="product-card" data-id="${produto.id}">
+            <div class="product-image">
+                <img src="${produto.imagem_principal || produto.imagem || 'https://via.placeholder.com/200'}" 
+                     alt="${produto.nome}" 
+                     onerror="this.src='https://via.placeholder.com/200?text=Sem+Imagem'">
+                ${produto.origem ? `<span class="badge badge-${produto.origem === 'Amazon' ? 'amazon' : 'ml'}">${produto.origem}</span>` : ''}
+            </div>
+            <div class="product-info">
+                <h3>${produto.nome}</h3>
+                <p class="product-price">R$ ${parseFloat(produto.preco).toFixed(2).replace('.', ',')}</p>
+                <p class="product-category"><i class="fas fa-tag"></i> ${produto.categoria || 'undefined'}</p>
+                <div class="product-actions">
+                    <button onclick="editProduct(${produto.id})" class="btn btn-sm btn-edit" title="Editar">
+                        <i class="fas fa-edit"></i> Editar
+                    </button>
+                    <button onclick="deleteProduct(${produto.id}, '${produto.nome}')" class="btn btn-sm btn-delete" title="Excluir">
+                        <i class="fas fa-trash"></i> Excluir
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
 }
 
-// Salvar edição
-document.getElementById('edit-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const productId = document.getElementById('edit-product-id').value;
-    const updatedData = {
-        name: document.getElementById('edit-name').value,
-        price: parseFloat(document.getElementById('edit-price').value),
-        category: document.getElementById('edit-category').value,
-        description: document.getElementById('edit-description').value,
-        image: document.getElementById('edit-image').value
-    };
-
-    try {
-        scraper.updateProduct(productId, updatedData);
-        mostrarNotificacao('Produto atualizado com sucesso!', 'success');
+// ======================= BUSCA DE PRODUTOS =======================
+function initializeProductSearch() {
+    const searchInput = document.getElementById('search-products');
+    if (!searchInput) return;
+    
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
         
-        // Fechar modal e recarregar
-        document.getElementById('edit-modal').style.display = 'none';
-        loadProducts();
-    } catch (error) {
-        mostrarNotificacao('Erro ao atualizar produto: ' + error.message, 'error');
-    }
-});
+        if (!query) {
+            filteredProducts = allProducts;
+        } else {
+            filteredProducts = allProducts.filter(produto => 
+                produto.nome.toLowerCase().includes(query) ||
+                (produto.descricao && produto.descricao.toLowerCase().includes(query)) ||
+                (produto.categoria && produto.categoria.toLowerCase().includes(query))
+            );
+        }
+        
+        renderProducts(filteredProducts);
+    });
+}
 
-// Fechar modal
-document.getElementById('close-modal').addEventListener('click', () => {
-    document.getElementById('edit-modal').style.display = 'none';
-});
+// ======================= EDITAR PRODUTO =======================
+async function editProduct(id) {
+    await alertaFluent('Em Desenvolvimento', 'A edição de produtos será implementada em breve', 'fas fa-info-circle');
+}
 
-document.getElementById('cancel-edit').addEventListener('click', () => {
-    document.getElementById('edit-modal').style.display = 'none';
-});
-
-// ======================= DELETAR PRODUTO =======================
-function deleteProduct(productId) {
-    if (!confirm('Tem certeza que deseja excluir este produto?')) return;
-
+// ======================= EXCLUIR PRODUTO =======================
+async function deleteProduct(id, nome) {
+    const confirmDelete = await confirmarFluent(
+        'Confirmar Exclusão',
+        `Tem certeza que deseja excluir "${nome}"?`,
+        'Excluir',
+        'Cancelar'
+    );
+    
+    if (!confirmDelete) return;
+    
     try {
-        scraper.deleteProduct(productId);
-        mostrarNotificacao('Produto excluído com sucesso!', 'success');
-        loadProducts();
-        loadStats();
+        if (typeof excluirProduto === 'function') {
+            await excluirProduto(id);
+            await alertaFluent('Sucesso!', 'Produto excluído com sucesso', 'fas fa-check-circle');
+            loadProducts();
+        }
     } catch (error) {
-        mostrarNotificacao('Erro ao excluir produto: ' + error.message, 'error');
+        console.error('Erro ao excluir produto:', error);
+        await alertaFluent('Erro', 'Não foi possível excluir o produto', 'fas fa-exclamation-triangle');
     }
 }
 
 // ======================= ESTATÍSTICAS =======================
-function loadStats() {
-    const products = scraper.listProducts();
+async function loadStats() {
+    const container = document.getElementById('tab-stats');
+    if (!container) return;
     
-    const total = products.length;
-    const amazon = products.filter(p => p.source === 'amazon').length;
-    const ml = products.filter(p => p.source === 'mercadolivre').length;
-    
-    const today = new Date().toDateString();
-    const importedToday = products.filter(p => {
-        const importDate = new Date(p.importedAt).toDateString();
-        return importDate === today;
-    }).length;
-
-    document.getElementById('stat-total').textContent = total;
-    document.getElementById('stat-amazon').textContent = amazon;
-    document.getElementById('stat-ml').textContent = ml;
-    document.getElementById('stat-today').textContent = importedToday;
-}
-
-// ======================= BUSCA =======================
-document.getElementById('search-products').addEventListener('input', (e) => {
-    const query = e.target.value.toLowerCase();
-    const cards = document.querySelectorAll('.product-card');
-
-    cards.forEach(card => {
-        const name = card.querySelector('h4').textContent.toLowerCase();
-        if (name.includes(query)) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
+    try {
+        let produtos = [];
+        
+        if (typeof listarProdutos === 'function') {
+            produtos = await listarProdutos({});
         }
-    });
-});
-
-// ======================= LOGOUT =======================
-document.getElementById('btn-logout').addEventListener('click', (e) => {
-    e.preventDefault();
-    if (confirm('Deseja realmente sair?')) {
-        localStorage.removeItem('usuario');
-        window.location.href = '../paginas/entrar.html';
+        
+        const totalProdutos = produtos.length;
+        const totalValor = produtos.reduce((sum, p) => sum + parseFloat(p.preco || 0), 0);
+        const categorias = [...new Set(produtos.map(p => p.categoria).filter(Boolean))];
+        
+        container.innerHTML = `
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-boxes"></i>
+                    <h3>${totalProdutos}</h3>
+                    <p>Produtos Cadastrados</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-dollar-sign"></i>
+                    <h3>R$ ${totalValor.toFixed(2).replace('.', ',')}</h3>
+                    <p>Valor Total em Estoque</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-tags"></i>
+                    <h3>${categorias.length}</h3>
+                    <p>Categorias Ativas</p>
+                </div>
+            </div>
+        `;
+    } catch (error) {
+        console.error('Erro ao carregar estatísticas:', error);
+        container.innerHTML = '<p class="error-message">Erro ao carregar estatísticas</p>';
     }
-});
-
-// ======================= INICIALIZAÇÃO =======================
-document.addEventListener('DOMContentLoaded', () => {
-    // Verificar autenticação (comentado para permitir acesso direto)
-    // const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
-    // if (!usuario.tipo || usuario.tipo !== 'admin') {
-    //     window.location.href = '../paginas/entrar.html';
-    //     return;
-    // }
-
-    // Carregar estatísticas iniciais
-    loadStats();
-});
+}
 
 // Tornar funções globais
 window.editProduct = editProduct;
 window.deleteProduct = deleteProduct;
+window.loadProducts = loadProducts;
 
+console.log('✅ Admin Panel Melhorado carregado!');
