@@ -1,0 +1,254 @@
+/* 
+ * Correção de Espaços Brancos no Modo Escuro
+ * Garante que TODOS os elementos tenham fundo escuro
+ */
+
+/* HTML e Body - Base */
+:root[data-theme="dark"] html {
+    background: #0a0a0a !important;
+}
+
+:root[data-theme="dark"] body {
+    background: #0a0a0a !important;
+    color: #ffffff;
+}
+
+/* Todas as seções */
+:root[data-theme="dark"] section,
+:root[data-theme="dark"] main,
+:root[data-theme="dark"] article,
+:root[data-theme="dark"] aside {
+    background: transparent !important;
+}
+
+/* Containers genéricos */
+:root[data-theme="dark"] .container,
+:root[data-theme="dark"] .wrapper,
+:root[data-theme="dark"] .content,
+:root[data-theme="dark"] .main-content {
+    background: transparent !important;
+}
+
+/* Grids e listas */
+:root[data-theme="dark"] .grid,
+:root[data-theme="dark"] .grid-container,
+:root[data-theme="dark"] .lista,
+:root[data-theme="dark"] .grade-produtos,
+:root[data-theme="dark"] .grade-produtos-home {
+    background: transparent !important;
+}
+
+/* Seções específicas da home */
+:root[data-theme="dark"] .produtos-destaque,
+:root[data-theme="dark"] .categorias-populares,
+:root[data-theme="dark"] .secao-historico-home,
+:root[data-theme="dark"] .banners-promocionais,
+:root[data-theme="dark"] .beneficios {
+    background: transparent !important;
+}
+
+/* Carrossel */
+:root[data-theme="dark"] .carrossel-moderno,
+:root[data-theme="dark"] .container-carrossel,
+:root[data-theme="dark"] .slides-wrapper {
+    background: transparent !important;
+}
+
+/* Página de produtos */
+:root[data-theme="dark"] .secao-produtos,
+:root[data-theme="dark"] .produtos-container,
+:root[data-theme="dark"] .filtros-container,
+:root[data-theme="dark"] .sidebar-filtros {
+    background: transparent !important;
+}
+
+/* Painel de usuário */
+:root[data-theme="dark"] .painel-usuario,
+:root[data-theme="dark"] .painel-container,
+:root[data-theme="dark"] .dashboard,
+:root[data-theme="dark"] .perfil-container {
+    background: transparent !important;
+}
+
+/* Histórico */
+:root[data-theme="dark"] .historico-container,
+:root[data-theme="dark"] .historico-produtos,
+:root[data-theme="dark"] .lista-historico {
+    background: transparent !important;
+}
+
+/* Formulários e páginas de login/cadastro */
+:root[data-theme="dark"] .form-container,
+:root[data-theme="dark"] .login-container,
+:root[data-theme="dark"] .cadastro-container,
+:root[data-theme="dark"] .auth-container {
+    background: transparent !important;
+}
+
+/* Divs genéricas que podem aparecer em branco */
+:root[data-theme="dark"] div:not(.card):not(.produto-card):not(.categoria-card):not(.notification):not(.modal):not(.dropdown-usuario):not(.submenu):not(.banner):not(.slide) {
+    background-color: transparent;
+}
+
+/* Garantir que cards mantenham seu fundo específico */
+:root[data-theme="dark"] .card,
+:root[data-theme="dark"] .produto-card,
+:root[data-theme="dark"] .categoria-card,
+:root[data-theme="dark"] .info-card,
+:root[data-theme="dark"] .stats-card {
+    background: #242424 !important;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Tabelas */
+:root[data-theme="dark"] table {
+    background: transparent !important;
+}
+
+:root[data-theme="dark"] thead,
+:root[data-theme="dark"] tbody,
+:root[data-theme="dark"] tr {
+    background: transparent !important;
+}
+
+:root[data-theme="dark"] th {
+    background: #242424 !important;
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme="dark"] td {
+    background: #1c1c1c !important;
+    color: #e5e5e5;
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme="dark"] tr:hover td {
+    background: #2a2a2a !important;
+}
+
+/* Modais e overlays */
+:root[data-theme="dark"] .modal,
+:root[data-theme="dark"] .modal-content,
+:root[data-theme="dark"] .overlay {
+    background: rgba(28, 28, 28, 0.98) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Sidebar e navegação lateral */
+:root[data-theme="dark"] .sidebar,
+:root[data-theme="dark"] .nav-lateral,
+:root[data-theme="dark"] .menu-lateral {
+    background: #1c1c1c !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Breadcrumbs */
+:root[data-theme="dark"] .breadcrumb,
+:root[data-theme="dark"] .breadcrumbs {
+    background: transparent !important;
+    color: #cccccc;
+}
+
+/* Paginação */
+:root[data-theme="dark"] .pagination,
+:root[data-theme="dark"] .paginacao {
+    background: transparent !important;
+}
+
+:root[data-theme="dark"] .pagination button,
+:root[data-theme="dark"] .paginacao button {
+    background: #242424 !important;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme="dark"] .pagination button:hover,
+:root[data-theme="dark"] .paginacao button:hover {
+    background: #2a2a2a !important;
+}
+
+/* Alertas e mensagens */
+:root[data-theme="dark"] .alert,
+:root[data-theme="dark"] .message,
+:root[data-theme="dark"] .aviso {
+    background: #242424 !important;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+/* Badges e tags */
+:root[data-theme="dark"] .badge,
+:root[data-theme="dark"] .tag,
+:root[data-theme="dark"] .label {
+    background: #2a2a2a !important;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Tooltips */
+:root[data-theme="dark"] .tooltip,
+:root[data-theme="dark"] [data-tooltip]::after {
+    background: #242424 !important;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Accordions */
+:root[data-theme="dark"] .accordion,
+:root[data-theme="dark"] .accordion-item {
+    background: transparent !important;
+}
+
+:root[data-theme="dark"] .accordion-header {
+    background: #242424 !important;
+    color: #ffffff;
+}
+
+:root[data-theme="dark"] .accordion-content {
+    background: #1c1c1c !important;
+    color: #e5e5e5;
+}
+
+/* Tabs */
+:root[data-theme="dark"] .tabs,
+:root[data-theme="dark"] .tab-container {
+    background: transparent !important;
+}
+
+:root[data-theme="dark"] .tab {
+    background: #242424 !important;
+    color: #cccccc;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme="dark"] .tab.active {
+    background: #2a2a2a !important;
+    color: #ffffff;
+    border-bottom-color: #a855f7;
+}
+
+:root[data-theme="dark"] .tab-content {
+    background: transparent !important;
+}
+
+/* Garantir que imagens não tenham fundo branco */
+:root[data-theme="dark"] img {
+    background: transparent;
+}
+
+/* Corrigir possíveis espaços em flex e grid */
+:root[data-theme="dark"] .flex,
+:root[data-theme="dark"] .flex-container,
+:root[data-theme="dark"] .d-flex {
+    background: transparent !important;
+}
+
+/* Espaçadores e separadores */
+:root[data-theme="dark"] hr,
+:root[data-theme="dark"] .divider,
+:root[data-theme="dark"] .separator {
+    border-color: rgba(255, 255, 255, 0.08) !important;
+    background: transparent !important;
+}
+

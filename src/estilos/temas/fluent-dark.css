@@ -1,0 +1,195 @@
+/* 
+ * Fluent Design Dark Mode - Windows 11 Style
+ * Preto moderno com efeitos acrylic e mica
+ */
+
+:root[data-theme="dark"] {
+    /* Backgrounds - Preto Fluent Design */
+    --bg-primary: #1c1c1c;
+    --bg-secondary: #202020;
+    --bg-tertiary: #2a2a2a;
+    --bg-card: #242424;
+    
+    /* Fluent Acrylic Material */
+    --fluent-acrylic: rgba(44, 44, 44, 0.75);
+    --fluent-acrylic-hover: rgba(54, 54, 54, 0.85);
+    --fluent-mica: rgba(32, 32, 32, 0.95);
+    
+    /* Textos */
+    --text-primary: #ffffff;
+    --text-secondary: #e5e5e5;
+    --text-tertiary: #cccccc;
+    --text-muted: #999999;
+    
+    /* Bordas */
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(255, 255, 255, 0.15);
+    
+    /* Sombras Fluent */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.32);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.48);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.64);
+    
+    /* Cores de destaque */
+    --purple-primary: #a855f7;
+    --purple-hover: #c084fc;
+    --yellow-accent: #fbbf24;
+}
+
+/* Body */
+:root[data-theme="dark"] body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Cabeçalho com efeito Acrylic */
+:root[data-theme="dark"] .cabecalho {
+    background: var(--fluent-acrylic);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Barra de categorias */
+:root[data-theme="dark"] .barra-categorias {
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+:root[data-theme="dark"] .barra-categorias a {
+    color: var(--text-secondary);
+}
+
+:root[data-theme="dark"] .barra-categorias a:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-primary);
+}
+
+/* Cards e containers */
+:root[data-theme="dark"] .card,
+:root[data-theme="dark"] .produto-card,
+:root[data-theme="dark"] .categoria-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+}
+
+:root[data-theme="dark"] .card:hover,
+:root[data-theme="dark"] .produto-card:hover,
+:root[data-theme="dark"] .categoria-card:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Inputs */
+:root[data-theme="dark"] input,
+:root[data-theme="dark"] textarea,
+:root[data-theme="dark"] select {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+:root[data-theme="dark"] input::placeholder,
+:root[data-theme="dark"] textarea::placeholder {
+    color: var(--text-muted);
+}
+
+:root[data-theme="dark"] input:focus,
+:root[data-theme="dark"] textarea:focus,
+:root[data-theme="dark"] select:focus {
+    border-color: var(--purple-primary);
+    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+}
+
+/* Botões */
+:root[data-theme="dark"] button,
+:root[data-theme="dark"] .btn {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+:root[data-theme="dark"] button:hover,
+:root[data-theme="dark"] .btn:hover {
+    background: var(--bg-card);
+    border-color: var(--border-hover);
+}
+
+/* Rodapé */
+:root[data-theme="dark"] .rodape {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+/* Seções */
+:root[data-theme="dark"] section {
+    background: transparent;
+}
+
+:root[data-theme="dark"] .secao-categorias,
+:root[data-theme="dark"] .secao-produtos {
+    background: transparent;
+}
+
+/* Títulos */
+:root[data-theme="dark"] h1,
+:root[data-theme="dark"] h2,
+:root[data-theme="dark"] h3,
+:root[data-theme="dark"] h4,
+:root[data-theme="dark"] h5,
+:root[data-theme="dark"] h6 {
+    color: var(--text-primary);
+}
+
+/* Parágrafos e textos */
+:root[data-theme="dark"] p,
+:root[data-theme="dark"] span,
+:root[data-theme="dark"] div:not(.banner):not(.carrossel) {
+    color: var(--text-secondary);
+}
+
+/* Banner e carrossel */
+:root[data-theme="dark"] .banner,
+:root[data-theme="dark"] .carrossel {
+    background: transparent;
+}
+
+/* Dropdown */
+:root[data-theme="dark"] .dropdown-menu,
+:root[data-theme="dark"] .submenu {
+    background: var(--fluent-mica);
+    backdrop-filter: blur(30px);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
+}
+
+:root[data-theme="dark"] .dropdown-menu a,
+:root[data-theme="dark"] .submenu a {
+    color: var(--text-secondary);
+}
+
+:root[data-theme="dark"] .dropdown-menu a:hover,
+:root[data-theme="dark"] .submenu a:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-primary);
+}
+
+/* Scrollbar */
+:root[data-theme="dark"] ::-webkit-scrollbar {
+    width: 12px;
+    background: var(--bg-secondary);
+}
+
+:root[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--purple-primary), var(--purple-hover));
+    border-radius: 6px;
+}
+
+:root[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, var(--purple-hover), var(--purple-primary));
+}
+

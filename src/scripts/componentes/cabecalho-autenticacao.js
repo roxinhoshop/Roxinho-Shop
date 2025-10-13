@@ -49,15 +49,19 @@ function atualizarEstadoLogin() {
         // Configurar link do painel baseado no tipo de usuário
         if (linkPainelDropdown) {
             if (isAdmin) {
-                linkPainelDropdown.href = "painel-administracao.html";
+                // Admin: mostrar link para painel de administração
+                linkPainelDropdown.href = "administracao.html";
                 if (textoPainel) {
-                    textoPainel.textContent = "Painel Admin";
+                    textoPainel.innerHTML = '<i class="fa-solid fa-shield-halved"></i> Painel Admin';
                 }
+                linkPainelDropdown.style.display = "flex";
             } else {
+                // Usuário comum: mostrar link para painel de usuário
                 linkPainelDropdown.href = "painel-usuario.html";
                 if (textoPainel) {
-                    textoPainel.textContent = "Painel Usuário";
+                    textoPainel.innerHTML = '<i class="fa-solid fa-user-circle"></i> Meu Painel';
                 }
+                linkPainelDropdown.style.display = "flex";
             }
         }
         
