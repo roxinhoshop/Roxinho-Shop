@@ -222,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                     showNotification("Cadastro realizado com sucesso! Você já pode fazer login.", "success");
                     setTimeout(() => {
-                        window.location.href = "entrar.html";
+                        window.location.href = "entrar.html?redirect=/index.html";edirect=/index.html";
                     }, 1500);
                 }
             } else {
