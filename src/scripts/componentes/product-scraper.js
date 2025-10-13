@@ -152,24 +152,63 @@ class ProductScraper {
     }
 
     /**
-     * Importa produto e salva no localStorage
+     * Importa produto e salva no MySQL via API
      */
     async importProduct(url) {
         try {
             const productData = await this.scrapeProduct(url);
             
-            // Gerar ID único
-            productData.id = 'prod_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-            
-            // Salvar no localStorage
-            const products = JSON.parse(localStorage.getItem('products') || '[]');
-            products.push(productData);
-            localStorage.setItem('products', JSON.stringify(products));
+            // Preparar dados para a API
+            const produto = {
+                nome: productData.name,
+                descricao: productData.description,
+                preco: productData.price,
+                imagem: productData.image,
+                categoria: this.mapCategory(productData.category),
+                subcategoria: '',
+                origem: productData.source,
+                link_original: url,
+                estoque: 10,
+                ativo: 1
+            };
 
-            return productData;
+            // Salvar no MySQL via API
+            if (typeof criarProduto === 'function') {
+                const id = await criarProduto(produto);
+                produto.id = id;
+                return produto;
+            } else {
+                throw new Error('Função criarProduto não disponível');
+            }
         } catch (error) {
+            console.error('Erro ao importar produto:', error);
             throw error;
         }
+    }
+
+    /**
+     * Mapeia categoria do site para categoria do sistema
+     */
+    mapCategory(category) {
+        const categoryMap = {
+            'eletrônicos': 'eletronicos',
+            'informática': 'hardware',
+            'computadores': 'computadores',
+            'celulares': 'celular-smartphone',
+            'games': 'games',
+            'tv': 'tv-audio',
+            'áudio': 'audio',
+            'acessórios': 'acessorios'
+        };
+
+        const normalized = category.toLowerCase();
+        for (const [key, value] of Object.entries(categoryMap)) {
+            if (normalized.includes(key)) {
+                return value;
+            }
+        }
+
+        return 'eletronicos'; // Categoria padrão
     }
 
     /**

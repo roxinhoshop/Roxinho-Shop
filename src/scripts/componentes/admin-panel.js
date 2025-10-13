@@ -95,14 +95,26 @@ async function importProduct() {
     btnImport.disabled = true;
     
     try {
-        // Simular scraping (você pode implementar a lógica real aqui)
-        await alertaFluent('Em Desenvolvimento', 'A importação automática será implementada em breve. Por enquanto, adicione produtos manualmente.', 'fas fa-info-circle');
+        // Criar instância do scraper
+        const scraper = new ProductScraper();
+        
+        // Importar produto (faz scraping e salva no MySQL)
+        const produto = await scraper.importProduct(url);
+        
+        // Sucesso!
+        await alertaFluent('Sucesso!', `Produto "${produto.nome}" importado com sucesso!`, 'fas fa-check-circle');
+        
+        // Limpar campo
+        urlInput.value = '';
+        
+        // Recarregar lista de produtos
+        loadProducts();
         
         btnImport.innerHTML = originalHTML;
         btnImport.disabled = false;
     } catch (error) {
         console.error('Erro ao importar:', error);
-        await alertaFluent('Erro', 'Não foi possível importar o produto: ' + error.message, 'fas fa-exclamation-triangle');
+        await alertaFluent('Erro', error.message || 'Não foi possível importar o produto', 'fas fa-exclamation-triangle');
         
         btnImport.innerHTML = originalHTML;
         btnImport.disabled = false;
