@@ -1,0 +1,164 @@
+/**
+ * Admin Stats CSS
+ * Estilos para os cards de estatísticas
+ */
+
+/* ======================= STATS GRID ======================= */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* ======================= STAT CARDS ======================= */
+.stat-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(135deg, var(--roxo-primario, #904DDB) 0%, #7c3cc4 100%);
+    transition: height 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card:hover::before {
+    height: 100%;
+    opacity: 0.05;
+}
+
+.stat-card i {
+    font-size: 48px;
+    color: var(--roxo-primario, #904DDB);
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover i {
+    transform: scale(1.1);
+}
+
+.stat-card h3 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #333;
+    margin: 10px 0;
+}
+
+.stat-card p {
+    font-size: 14px;
+    color: #666;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ======================= STAT VARIANTS ======================= */
+
+/* Amazon */
+.stat-card.amazon-stat::before {
+    background: linear-gradient(135deg, #FF9900 0%, #FF6600 100%);
+}
+
+.stat-card.amazon-stat i {
+    color: #FF9900;
+}
+
+.stat-card.amazon-stat:hover {
+    box-shadow: 0 8px 25px rgba(255, 153, 0, 0.3);
+}
+
+/* Mercado Livre */
+.stat-card.ml-stat::before {
+    background: linear-gradient(135deg, #FFE600 0%, #FFC700 100%);
+}
+
+.stat-card.ml-stat i {
+    color: #FFE600;
+}
+
+.stat-card.ml-stat:hover {
+    box-shadow: 0 8px 25px rgba(255, 230, 0, 0.3);
+}
+
+/* Manual */
+.stat-card.manual-stat::before {
+    background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+}
+
+.stat-card.manual-stat i {
+    color: #6c757d;
+}
+
+.stat-card.manual-stat:hover {
+    box-shadow: 0 8px 25px rgba(108, 117, 125, 0.3);
+}
+
+/* ======================= DARK MODE ======================= */
+body.dark-mode .stat-card {
+    background: #2a2a2a;
+}
+
+body.dark-mode .stat-card h3 {
+    color: #fff;
+}
+
+body.dark-mode .stat-card p {
+    color: #ccc;
+}
+
+/* ======================= RESPONSIVE ======================= */
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .stat-card {
+        padding: 20px;
+    }
+    
+    .stat-card i {
+        font-size: 40px;
+    }
+    
+    .stat-card h3 {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stat-card {
+        padding: 15px;
+    }
+    
+    .stat-card i {
+        font-size: 32px;
+    }
+    
+    .stat-card h3 {
+        font-size: 24px;
+    }
+    
+    .stat-card p {
+        font-size: 12px;
+    }
+}
+

@@ -96,7 +96,7 @@ async function importProduct() {
     
     try {
         // Criar instância do scraper
-        const scraper = new ProductScraper();
+        const scraper = new RealProductScraper();
         
         // Importar produto (faz scraping e salva no MySQL)
         const produto = await scraper.importProduct(url);
@@ -308,24 +308,50 @@ async function loadStats() {
         
         const totalProdutos = produtos.length;
         const totalValor = produtos.reduce((sum, p) => sum + parseFloat(p.preco || 0), 0);
-        const categorias = [...new Set(produtos.map(p => p.categoria).filter(Boolean))];
+        
+        // Contar produtos por origem
+        const produtosAmazon = produtos.filter(p => 
+            p.link_amazon || 
+            (p.origem && p.origem.toLowerCase().includes('amazon'))
+        ).length;
+        
+        const produtosMercadoLivre = produtos.filter(p => 
+            p.link_mercado_livre || 
+            (p.origem && p.origem.toLowerCase().includes('mercado'))
+        ).length;
+        
+        const produtosManuais = produtos.filter(p => 
+            !p.link_amazon && 
+            !p.link_mercado_livre && 
+            (!p.origem || p.origem.toLowerCase() === 'manual')
+        ).length;
         
         container.innerHTML = `
             <div class="stats-grid">
                 <div class="stat-card">
                     <i class="fas fa-boxes"></i>
                     <h3>${totalProdutos}</h3>
-                    <p>Produtos Cadastrados</p>
+                    <p>Total de Produtos</p>
                 </div>
                 <div class="stat-card">
                     <i class="fas fa-dollar-sign"></i>
                     <h3>R$ ${totalValor.toFixed(2).replace('.', ',')}</h3>
-                    <p>Valor Total em Estoque</p>
+                    <p>Valor Total</p>
                 </div>
-                <div class="stat-card">
-                    <i class="fas fa-tags"></i>
-                    <h3>${categorias.length}</h3>
-                    <p>Categorias Ativas</p>
+                <div class="stat-card amazon-stat">
+                    <i class="fab fa-amazon"></i>
+                    <h3>${produtosAmazon}</h3>
+                    <p>Produtos da Amazon</p>
+                </div>
+                <div class="stat-card ml-stat">
+                    <i class="fas fa-shopping-bag"></i>
+                    <h3>${produtosMercadoLivre}</h3>
+                    <p>Produtos do Mercado Livre</p>
+                </div>
+                <div class="stat-card manual-stat">
+                    <i class="fas fa-edit"></i>
+                    <h3>${produtosManuais}</h3>
+                    <p>Produtos Manuais</p>
                 </div>
             </div>
         `;
