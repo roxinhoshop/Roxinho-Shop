@@ -19,11 +19,12 @@ async function listarProdutos(filtros = {}) {
         const response = await fetch(`${API_URL}/produtos?${params}`);
         const data = await response.json();
         
-        if (!data.success) {
-            throw new Error(data.message);
+        if (!data.success && data.status !== 'success') {
+            throw new Error(data.message || 'Erro ao carregar produtos');
         }
         
-        return data.produtos;
+        // A API pode retornar 'products' ou 'produtos'
+        return data.produtos || data.products || [];
     } catch (error) {
         console.error('Erro ao listar produtos:', error);
         await alertaFluent('Erro', 'Não foi possível carregar os produtos', 'fas fa-exclamation-triangle');
@@ -37,11 +38,12 @@ async function buscarProduto(id) {
         const response = await fetch(`${API_URL}/produtos/${id}`);
         const data = await response.json();
         
-        if (!data.success) {
-            throw new Error(data.message);
+        if (!data.success && data.status !== 'success') {
+            throw new Error(data.message || 'Erro ao buscar produto');
         }
         
-        return data.produto;
+        // A API pode retornar 'product' ou 'produto'
+        return data.produto || data.product || null;
     } catch (error) {
         console.error('Erro ao buscar produto:', error);
         return null;
