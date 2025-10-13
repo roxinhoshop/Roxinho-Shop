@@ -193,3 +193,59 @@
     background: linear-gradient(135deg, var(--purple-hover), var(--purple-primary));
 }
 
+
+
+
+/* ======================= MANTER CORES ROXO E AMARELO NO DARK MODE ======================= */
+:root[data-theme="dark"] .btn-primary,
+:root[data-theme="dark"] .botao-primario,
+:root[data-theme="dark"] .button-primary {
+    background: #904DDB !important;
+    color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .btn-primary:hover,
+:root[data-theme="dark"] .botao-primario:hover,
+:root[data-theme="dark"] .button-primary:hover {
+    background: #FFB800 !important;
+    color: #000000 !important;
+}
+
+:root[data-theme="dark"] .text-purple,
+:root[data-theme="dark"] .cor-roxo {
+    color: #904DDB !important;
+}
+
+:root[data-theme="dark"] .text-yellow,
+:root[data-theme="dark"] .cor-amarelo {
+    color: #FFB800 !important;
+}
+
+:root[data-theme="dark"] .bg-purple,
+:root[data-theme="dark"] .fundo-roxo {
+    background: #904DDB !important;
+}
+
+:root[data-theme="dark"] .bg-yellow,
+:root[data-theme="dark"] .fundo-amarelo {
+    background: #FFB800 !important;
+}
+
+:root[data-theme="dark"] a {
+    color: #904DDB;
+}
+
+:root[data-theme="dark"] a:hover {
+    color: #FFB800;
+}
+
+:root[data-theme="dark"] .badge-purple {
+    background: #904DDB;
+    color: #ffffff;
+}
+
+:root[data-theme="dark"] .badge-yellow {
+    background: #FFB800;
+    color: #000000;
+}
+

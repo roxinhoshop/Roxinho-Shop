@@ -160,3 +160,71 @@
     }
 }
 
+
+
+
+/* ======================= MODO DARK - DROPDOWN ======================= */
+:root[data-theme="dark"] .caixa-entre {
+    background: #2a2a2a;
+}
+
+:root[data-theme="dark"] .caixa-entre:hover {
+    background: #333333;
+}
+
+:root[data-theme="dark"] .caixa-entre.logado {
+    background: linear-gradient(135deg, #904DDB 0%, #904DDB 100%);
+}
+
+:root[data-theme="dark"] .caixa-entre.logado:hover {
+    background: linear-gradient(135deg, #904DDB 0%, #FFB800 100%);
+}
+
+:root[data-theme="dark"] #status-login {
+    color: #ffffff;
+}
+
+:root[data-theme="dark"] #subtexto-login {
+    color: #cccccc;
+}
+
+:root[data-theme="dark"] .dropdown-usuario {
+    background: #1c1c1c;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme="dark"] .opcoes-usuario a {
+    color: #ffffff;
+}
+
+:root[data-theme="dark"] .opcoes-usuario a:hover {
+    background: #2a2a2a;
+    color: #904DDB;
+    border-left-color: #904DDB;
+}
+
+:root[data-theme="dark"] .opcoes-usuario a i {
+    color: #cccccc;
+}
+
+:root[data-theme="dark"] .opcoes-usuario a:hover i {
+    color: #904DDB;
+}
+
+:root[data-theme="dark"] .opcoes-usuario a:not(:last-child) {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme="dark"] #botao-logout {
+    color: #f87171 !important;
+}
+
+:root[data-theme="dark"] #botao-logout:hover {
+    background: #2a1a1a !important;
+    border-left-color: #f87171 !important;
+}
+
+:root[data-theme="dark"] #botao-logout i {
+    color: #f87171 !important;
+}
+
