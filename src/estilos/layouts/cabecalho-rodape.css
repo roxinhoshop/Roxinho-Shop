@@ -380,39 +380,47 @@ body {
   color: #904DDB;
 }
 
-/* Ativar animação ao hover */
-/* Ativar animação ao hover */
-.barra-categorias ul li.dropdown:hover .submenu {
+/* Ativar animação ao hover - Fluent Design */
+.barra-categorias ul li.dropdown:hover > .submenu {
+  display: block;
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
 
 .barra-categorias li.dropdown.open > .submenu {
+  display: block;
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
 
-/* Submenu de 2º nível (Hardware, Periféricos...) */
-.barra-categorias li.tem-submenu .submenu {
+/* Submenu de 2º nível (Hardware, Periféricos...) - Fluent Design */
+.barra-categorias li.tem-submenu > .submenu {
   display: none;
   position: absolute;
   top: 0;
   left: 100%;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  min-width: 200px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  min-width: 220px;
   border-radius: 12px;
   padding: 0.5rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  border: 1px solid rgba(124, 58, 237, 0.1);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(144, 77, 219, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Hover para abrir submenus de 2º nível */
+/* Hover para abrir submenus de 2º nível com animação Fluent */
 .barra-categorias li.tem-submenu:hover > .submenu {
   display: block;
-}
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
 }
 
 .barra-categorias .submenu li a {

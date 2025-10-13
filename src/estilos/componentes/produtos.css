@@ -2781,3 +2781,147 @@ ease;
     color: #ffffff;
 }
 
+
+
+
+/* ======================= DARK MODE COMPLETO - PRODUTOS (IGUAL PÁGINA INICIAL) ======================= */
+:root[data-theme="dark"] {
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #1c1c1c;
+    --bg-tertiary: #2a2a2a;
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --text-tertiary: #999999;
+    --border-color: rgba(255, 255, 255, 0.08);
+    --purple: #904DDB;
+    --yellow: #FFB800;
+}
+
+:root[data-theme="dark"] body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+:root[data-theme="dark"] .banner img {
+    opacity: 0.9;
+}
+
+:root[data-theme="dark"] .barra-ordenacao-melhorada {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+}
+
+:root[data-theme="dark"] .seletor-ordenacao,
+:root[data-theme="dark"] .seletor-exibir,
+:root[data-theme="dark"] select {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+:root[data-theme="dark"] .contador-produtos {
+    color: var(--text-secondary);
+}
+
+:root[data-theme="dark"] .numero {
+    color: var(--purple);
+}
+
+:root[data-theme="dark"] .botao-visualizacao {
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    border-color: var(--border-color);
+}
+
+:root[data-theme="dark"] .botao-visualizacao.ativo {
+    background: var(--purple);
+    color: var(--text-primary);
+    border-color: var(--purple);
+}
+
+:root[data-theme="dark"] .botao-visualizacao:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--purple);
+}
+
+/* Produtos */
+:root[data-theme="dark"] .produto-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+}
+
+:root[data-theme="dark"] .produto-card:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--purple);
+    box-shadow: 0 8px 24px rgba(144, 77, 219, 0.2);
+}
+
+:root[data-theme="dark"] .produto-nome {
+    color: var(--text-primary);
+}
+
+:root[data-theme="dark"] .produto-descricao {
+    color: var(--text-secondary);
+}
+
+:root[data-theme="dark"] .produto-preco {
+    color: var(--yellow);
+}
+
+:root[data-theme="dark"] .produto-preco-antigo {
+    color: var(--text-tertiary);
+}
+
+/* Badges mantendo cores */
+:root[data-theme="dark"] .badge-desconto {
+    background: var(--yellow);
+    color: #000000;
+}
+
+:root[data-theme="dark"] .badge-promocao,
+:root[data-theme="dark"] .badge-novo {
+    background: var(--purple);
+    color: var(--text-primary);
+}
+
+/* Paginação */
+:root[data-theme="dark"] .paginacao {
+    background: transparent;
+}
+
+:root[data-theme="dark"] .pagina-link {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+:root[data-theme="dark"] .pagina-link:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--purple);
+    color: var(--purple);
+}
+
+:root[data-theme="dark"] .pagina-link.ativo {
+    background: var(--purple);
+    color: var(--text-primary);
+    border-color: var(--purple);
+}
+
+/* Sem resultados */
+:root[data-theme="dark"] .sem-resultados {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+}
+
+:root[data-theme="dark"] .sem-resultados h3 {
+    color: var(--text-primary);
+}
+
+:root[data-theme="dark"] .sem-resultados p {
+    color: var(--text-secondary);
+}
+
+:root[data-theme="dark"] .sem-resultados i {
+    color: var(--text-tertiary);
+}
+
