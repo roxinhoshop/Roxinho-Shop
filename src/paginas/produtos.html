@@ -27,18 +27,23 @@
   <link rel="stylesheet" href="../estilos/temas/correcao-espacos-brancos.css">
   <link rel="stylesheet" href="../estilos/componentes/filtros-modernos.css">
   <link rel="stylesheet" href="../estilos/temas/botao-tema.css">
+  <link rel="stylesheet" href="../estilos/temas/gradiente-hover-global.css">
 </head>
 <body>
     <!-- Placeholder para Header -->
     <div id="header-placeholder"></div>
 
-           <!-- Breadcrumb Dinâmico-->
-      <div class="breadcrumb-dinamico" id="breadcrumbDinamico" style="display: none;">
-       <span class="texto-voce-esta-em"><b>Você está em:</b></span>
-     <div class="caminho" id="caminhoBreadcrumb">
-
-     <!-- Caminho será gerado dinamicamente -->
-</div></div>
+    <!-- Breadcrumb Dinâmico -->
+    <div class="breadcrumb-container">
+        <div class="breadcrumb-dinamico" id="breadcrumbDinamico">
+            <span class="texto-voce-esta-em">Você está em:</span>
+            <div class="caminho" id="caminhoBreadcrumb">
+                <a href="../../index.html" class="item-caminho">Início</a>
+                <span class="separador">></span>
+                <span class="item-caminho ativo" id="categoria-atual">Produtos</span>
+            </div>
+        </div>
+    </div>
 
     <!-- ======================= BANNER ======================= -->
     <section class="banner">

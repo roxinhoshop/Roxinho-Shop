@@ -2925,3 +2925,68 @@ ease;
     color: var(--text-tertiary);
 }
 
+
+/* ======================= BREADCRUMB CONTAINER ======================= */
+.breadcrumb-container {
+    max-width: 1400px;
+    margin: 1.5rem auto 0;
+    padding: 0 2rem;
+}
+
+.breadcrumb-dinamico {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.texto-voce-esta-em {
+    font-weight: 600;
+    color: #6b7280;
+    font-size: 0.95rem;
+}
+
+.caminho {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.item-caminho {
+    color: #FFB800;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.item-caminho:hover {
+    color: #904DDB;
+    text-decoration: underline;
+}
+
+.item-caminho.ativo {
+    color: #1f2937;
+    cursor: default;
+}
+
+.separador {
+    color: #9ca3af;
+    font-weight: 600;
+}
+
+/* Dark Mode */
+:root[data-theme="dark"] .breadcrumb-dinamico {
+    background: rgba(28, 28, 28, 0.8);
+}
+
+:root[data-theme="dark"] .texto-voce-esta-em {
+    color: #9ca3af;
+}
+
+:root[data-theme="dark"] .item-caminho.ativo {
+    color: #ffffff;
+}

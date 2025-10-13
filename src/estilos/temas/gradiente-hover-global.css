@@ -1,0 +1,54 @@
+/* ======================= GRADIENTE HOVER GLOBAL - BOTÕES ROXOS ======================= */
+
+/* Botões com background roxo recebem gradiente roxo→amarelo no hover */
+.btn-primary:hover,
+.login-button:hover,
+.botao-adicionar-carrinho:hover,
+.botao-comprar-agora:hover,
+.btn-adicionar-carrinho:hover,
+.btn-comprar:hover,
+button[style*="#904DDB"]:hover,
+.button-primary:hover,
+.primary-button:hover,
+a.btn-primary:hover {
+    background: linear-gradient(135deg, #904DDB 0%, #FFB800 100%) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(144, 77, 219, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Botões específicos da página inicial */
+.card-produto .btn-adicionar:hover,
+.produto-card button:hover,
+.btn-ver-mais:hover {
+    background: linear-gradient(135deg, #904DDB 0%, #FFB800 100%) !important;
+    transform: translateY(-2px);
+}
+
+/* Botões de ação */
+.action-button:hover,
+.submit-button:hover,
+button[type="submit"]:hover {
+    background: linear-gradient(135deg, #904DDB 0%, #FFB800 100%) !important;
+    transform: translateY(-2px);
+}
+
+/* Garantir transição suave */
+.btn-primary,
+.login-button,
+.botao-adicionar-carrinho,
+.botao-comprar-agora,
+.btn-adicionar-carrinho,
+.btn-comprar,
+.button-primary,
+.primary-button,
+a.btn-primary,
+.card-produto .btn-adicionar,
+.produto-card button,
+.btn-ver-mais,
+.action-button,
+.submit-button,
+button[type="submit"] {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+

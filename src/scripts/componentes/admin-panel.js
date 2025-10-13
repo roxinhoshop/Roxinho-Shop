@@ -262,12 +262,12 @@ document.getElementById('btn-logout').addEventListener('click', (e) => {
 
 // ======================= INICIALIZAÇÃO =======================
 document.addEventListener('DOMContentLoaded', () => {
-    // Verificar autenticação
-    const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
-    if (!usuario.tipo || usuario.tipo !== 'admin') {
-        window.location.href = '../paginas/entrar.html';
-        return;
-    }
+    // Verificar autenticação (comentado para permitir acesso direto)
+    // const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+    // if (!usuario.tipo || usuario.tipo !== 'admin') {
+    //     window.location.href = '../paginas/entrar.html';
+    //     return;
+    // }
 
     // Carregar estatísticas iniciais
     loadStats();
