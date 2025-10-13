@@ -33,16 +33,21 @@
   <link rel="stylesheet" href="../estilos/temas/gradiente-hover-global.css">
 </head>
 <body>
-  <!-- Cabeçalho -->
-  <div id="header-placeholder"></div>
-
-  <!-- Botão Voltar para o Site em Destaque -->
-  <div class="back-to-site-container">
-    <a href="../../index.html" class="btn-back-to-site">
-      <i class="fas fa-home"></i>
-      <span>Voltar para o Site</span>
-    </a>
-  </div>
+  <!-- Header -->
+  <header class="header-painel">
+    <div class="container-header">
+      <div class="logo-painel">
+        <img src="../recursos/imagens/painelusuario.png" alt="Painel Usuário">
+      </div>
+      <nav class="nav-painel">
+        <ul>
+          <li><a href="../../index.html"><i class="fas fa-home"></i> Site</a></li>
+          <li><a href="painel-usuario.html" class="active"><i class="fas fa-user"></i> Meu Painel</a></li>
+          <li><a href="#" id="btn-logout-usuario"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
   <div class="container-painel">
     <div class="container">
@@ -244,6 +249,18 @@
     document.querySelector('.avatar-preview').addEventListener('click', function() {
       document.getElementById('foto-perfil').click();
     });
+
+    // Logout
+    document.getElementById('btn-logout-usuario')?.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (confirm('Deseja realmente sair?')) {
+        localStorage.removeItem('usuario');
+        window.location.href = '../paginas/entrar.html';
+      }
+    });
   </script>
+  
+  <!-- Produtos Vistos -->
+  <script src="../scripts/componentes/produtos-vistos.js"></script>
 </body>
 </html>

@@ -759,3 +759,71 @@ h1 {
     background: #333333;
 }
 
+
+/* ======================= LOGO COM IMAGEM ======================= */
+.logo img {
+    height: 80px;
+    width: auto;
+    transition: opacity 0.3s ease;
+}
+
+.logo img:hover {
+    opacity: 0.9;
+}
+
+/* ======================= ÍCONES DE PLATAFORMAS (BOLINHAS) ======================= */
+.platform-icons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.platform-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.platform-icon:hover {
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.amazon-icon {
+    background: linear-gradient(135deg, #FF9900 0%, #FF7700 100%);
+    color: white;
+}
+
+.amazon-icon:hover {
+    box-shadow: 0 4px 16px rgba(255, 153, 0, 0.4);
+}
+
+.ml-icon {
+    background: linear-gradient(135deg, #FFE600 0%, #FFC700 100%);
+    color: #333;
+}
+
+.ml-icon:hover {
+    box-shadow: 0 4px 16px rgba(255, 230, 0, 0.4);
+}
+
+.ml-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Dark Mode */
+:root[data-theme="dark"] .platform-icon {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+:root[data-theme="dark"] .platform-icon:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+}
