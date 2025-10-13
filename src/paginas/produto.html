@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produto - Roxinho Shop</title>
+    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="../estilos/layouts/cabecalho-rodape.css">
+    <link rel="stylesheet" href="../estilos/temas/fluent-global.css">
+    <link rel="stylesheet" href="../estilos/temas/fluent-dark.css">
+    <link rel="stylesheet" href="../estilos/componentes/modal-produto.css">
+    <link rel="stylesheet" href="../estilos/componentes/produto-detalhes.css">
+    <link rel="stylesheet" href="../estilos/componentes/avaliacoes.css">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <div id="cabecalho"></div>
+
+    <!-- Conteúdo Principal -->
+    <main class="produto-container">
+        <!-- Loading -->
+        <div id="loading-produto" class="loading-container">
+            <div class="loading-spinner"></div>
+            <p>Carregando produto...</p>
+        </div>
+
+        <!-- Conteúdo do Produto -->
+        <div id="produto-content" class="produto-content" style="display: none;">
+            <!-- Galeria de Imagens -->
+            <section class="produto-galeria">
+                <div class="galeria-principal">
+                    <img id="imagem-principal" src="" alt="Produto">
+                </div>
+                <div class="galeria-thumbnails" id="galeria-thumbnails">
+                    <!-- Thumbnails serão inseridos aqui -->
+                </div>
+            </section>
+
+            <!-- Informações do Produto -->
+            <section class="produto-info">
+                <div class="produto-header">
+                    <h1 id="produto-nome" class="produto-titulo"></h1>
+                    <div class="produto-meta">
+                        <span class="produto-sku">SKU: <strong id="produto-sku"></strong></span>
+                        <span class="produto-estoque" id="produto-estoque"></span>
+                    </div>
+                </div>
+
+                <!-- Avaliações Resumo -->
+                <div class="avaliacoes-resumo" id="avaliacoes-resumo">
+                    <!-- Será preenchido via JS -->
+                </div>
+
+                <!-- Descrição Curta -->
+                <div class="produto-descricao-curta">
+                    <p id="produto-descricao-curta"></p>
+                </div>
+
+                <!-- Comparação de Preços -->
+                <div class="comparacao-precos">
+                    <h3>💰 Comparação de Preços</h3>
+                    <div class="precos-grid" id="precos-grid">
+                        <!-- Preços serão inseridos aqui -->
+                    </div>
+                    <div class="melhor-preco" id="melhor-preco">
+                        <!-- Melhor preço será destacado aqui -->
+                    </div>
+                </div>
+
+                <!-- Botões de Ação -->
+                <div class="produto-acoes">
+                    <button class="btn-comprar btn-roxinho" id="btn-comprar-roxinho">
+                        🛒 Comprar na Roxinho Shop
+                    </button>
+                </div>
+            </section>
+
+            <!-- Descrição Completa -->
+            <section class="produto-descricao-completa">
+                <h2>📋 Descrição do Produto</h2>
+                <div id="produto-descricao"></div>
+            </section>
+
+            <!-- Sistema de Avaliações -->
+            <section class="produto-avaliacoes">
+                <h2>⭐ Avaliações de Clientes</h2>
+                
+                <!-- Estatísticas de Avaliações -->
+                <div class="avaliacoes-stats" id="avaliacoes-stats">
+                    <!-- Estatísticas serão inseridas aqui -->
+                </div>
+
+                <!-- Formulário de Avaliação -->
+                <div class="avaliacoes-form-container" id="avaliacoes-form-container">
+                    <h3>Escrever uma avaliação</h3>
+                    <form id="form-avaliacao" class="form-avaliacao">
+                        <div class="form-group">
+                            <label>Nota:</label>
+                            <div class="rating-input" id="rating-input">
+                                <span class="star" data-rating="1">☆</span>
+                                <span class="star" data-rating="2">☆</span>
+                                <span class="star" data-rating="3">☆</span>
+                                <span class="star" data-rating="4">☆</span>
+                                <span class="star" data-rating="5">☆</span>
+                            </div>
+                            <input type="hidden" id="nota-input" name="nota" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="titulo-input">Título da avaliação:</label>
+                            <input type="text" id="titulo-input" name="titulo" maxlength="200">
+                        </div>
+                        <div class="form-group">
+                            <label for="comentario-input">Comentário:</label>
+                            <textarea id="comentario-input" name="comentario" rows="4"></textarea>
+                        </div>
+                        <button type="submit" class="btn-enviar-avaliacao">Enviar Avaliação</button>
+                    </form>
+                </div>
+
+                <!-- Lista de Avaliações -->
+                <div class="avaliacoes-lista" id="avaliacoes-lista">
+                    <!-- Avaliações serão inseridas aqui -->
+                </div>
+            </section>
+        </div>
+
+        <!-- Erro -->
+        <div id="produto-erro" class="erro-container" style="display: none;">
+            <div class="erro-icon">⚠️</div>
+            <h2>Produto não encontrado</h2>
+            <p>O produto que você está procurando não existe ou foi removido.</p>
+            <a href="../paginas/produtos.html" class="btn-voltar">Voltar para Produtos</a>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <div id="rodape"></div>
+
+    <!-- Scripts -->
+    <script src="../scripts/utilitarios/cabecalho-rodape.js"></script>
+    <script src="../scripts/componentes/alternador-tema.js"></script>
+    <script src="../scripts/componentes/modal-manager.js"></script>
+    <script src="../scripts/componentes/produto-detalhes.js"></script>
+    <script src="../scripts/componentes/sistema-avaliacoes.js"></script>
+</body>
+</html>
+
