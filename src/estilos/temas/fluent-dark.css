@@ -31,9 +31,9 @@
     --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.64);
     
     /* Cores de destaque */
-    --purple-primary: #a855f7;
-    --purple-hover: #c084fc;
-    --yellow-accent: #fbbf24;
+    --purple-primary: #904DDB;
+    --purple-hover: #904DDB;
+    --yellow-accent: #FFB800;
 }
 
 /* Body */

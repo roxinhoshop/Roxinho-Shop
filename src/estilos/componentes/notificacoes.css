@@ -150,12 +150,12 @@
 }
 
 .notification.warning {
-    border-left-color: #f59e0b;
+    border-left-color: #FFB800;
     color: #92400e;
 }
 
 .notification.warning::before {
-    background: #f59e0b;
+    background: #FFB800;
 }
 
 .notification.info {
@@ -181,7 +181,7 @@
 }
 
 .notification.warning .notification-icon {
-    color: #f59e0b;
+    color: #FFB800;
 }
 
 .notification.info .notification-icon {

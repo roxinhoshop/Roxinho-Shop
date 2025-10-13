@@ -1,5 +1,5 @@
 /* Este arquivo contém estilos para [SEÇÃO] */
-/* Cores principais: Roxo (#7c3aed) e Amarelo (#eab308) */
+/* Cores principais: Roxo (#904DDB) e Amarelo (#FFB800) */
 
 
     html, body {
@@ -50,7 +50,7 @@
     }
 
     .informacoes-contato i {
-      color: #a855f7;
+      color: #904DDB;
       font-size: 1.2rem;
     }
 
@@ -73,7 +73,7 @@
 
     input:focus, textarea:focus {
       outline: none;
-      border-color: #a855f7;
+      border-color: #904DDB;
       box-shadow: 0 0 6px rgba(112, 112, 112, 0.4);
       background: #fefefe;
     }
@@ -87,7 +87,7 @@
       padding: 1rem;
       border: none;
       border-radius: 10px;
-      background: linear-gradient(90deg, #7c3aed, #a855f7);
+      background: linear-gradient(90deg, #904DDB, #904DDB);
       color: #fff;
       font-size: 1.1rem;
       cursor: pointer;
@@ -97,5 +97,5 @@
 
     button:hover {
       transform: scale(1.02);
-      background: linear-gradient(90deg, #7c3aed, #a78bfa, #7c3aed);
+      background: linear-gradient(90deg, #904DDB, #a78bfa, #904DDB);
     }

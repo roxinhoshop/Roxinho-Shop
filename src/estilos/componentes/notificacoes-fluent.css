@@ -164,7 +164,7 @@
 
 .notification.warning {
     background: rgba(251, 191, 36, 0.15);
-    color: #f59e0b;
+    color: #FFB800;
     border-color: rgba(251, 191, 36, 0.3);
 }
 
@@ -189,7 +189,7 @@
 
 :root[data-theme="dark"] .notification.warning {
     background: rgba(251, 191, 36, 0.2);
-    color: #fbbf24;
+    color: #FFB800;
     border-color: rgba(251, 191, 36, 0.4);
 }
 

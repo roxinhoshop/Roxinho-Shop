@@ -23,15 +23,15 @@
 }
 
 .historico-titulo i {
-    color: #7c3aed;
+    color: #904DDB;
     font-size: 32px;
 }
 
 .historico-ver-todos {
     padding: 12px 24px;
     background: white;
-    border: 2px solid #7c3aed;
-    color: #7c3aed;
+    border: 2px solid #904DDB;
+    color: #904DDB;
     text-decoration: none;
     border-radius: 12px;
     font-weight: 600;
@@ -43,7 +43,7 @@
 }
 
 .historico-ver-todos:hover {
-    background: #7c3aed;
+    background: #904DDB;
     color: white;
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(124, 58, 237, 0.3);
@@ -68,7 +68,7 @@
 .historico-produto-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
-    border-color: #7c3aed;
+    border-color: #904DDB;
 }
 
 .historico-produto-imagem-container {
@@ -108,7 +108,7 @@
 
 .historico-produto-categoria {
     font-size: 12px;
-    color: #7c3aed;
+    color: #904DDB;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -130,7 +130,7 @@
 .historico-produto-preco {
     font-size: 24px;
     font-weight: 700;
-    color: #7c3aed;
+    color: #904DDB;
     margin-bottom: 12px;
 }
 
@@ -151,12 +151,12 @@
 }
 
 .historico-produto-visto i {
-    color: #7c3aed;
+    color: #904DDB;
 }
 
 .historico-produto-btn {
     padding: 8px 16px;
-    background: #7c3aed;
+    background: #904DDB;
     color: white;
     border: none;
     border-radius: 8px;
@@ -167,7 +167,7 @@
 }
 
 .historico-produto-btn:hover {
-    background: #6d28d9;
+    background: #904DDB;
     transform: scale(1.05);
 }
 
@@ -202,7 +202,7 @@
 .historico-vazio-btn {
     display: inline-block;
     padding: 14px 32px;
-    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+    background: linear-gradient(135deg, #904DDB 0%, #904DDB 100%);
     color: white;
     text-decoration: none;
     border-radius: 12px;

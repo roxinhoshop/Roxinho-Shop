@@ -26,7 +26,7 @@
 
 .icone-historico-vazio {
     font-size: 80px;
-    color: #7c3aed;
+    color: #904DDB;
     margin-bottom: 20px;
 }
 
@@ -46,7 +46,7 @@
 }
 
 .botao-explorar-produtos {
-    background-color: #7c3aed;
+    background-color: #904DDB;
     color: #fff;
     padding: 14px 30px;
     border: none;
@@ -243,7 +243,7 @@
 .preco-item {
     font-size: 1em;
     font-weight: 700;
-    color: #7c3aed;
+    color: #904DDB;
     text-align: right;
 }
 
@@ -262,7 +262,7 @@
 }
 
 .btn-ver-detalhes {
-    background-color: #7c3aed;
+    background-color: #904DDB;
     color: #fff;
     padding: 10px 20px;
     border: none;

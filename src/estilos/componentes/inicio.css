@@ -100,7 +100,7 @@ body {
 }
 
 .banner-indicadores span.ativo {
-  background: #fbbf24;
+  background: #FFB800;
   width: 32px;
   border-radius: 6px;
   box-shadow: 0 2px 8px rgba(251, 191, 36, 0.4);
@@ -248,7 +248,7 @@ body {
 }
 
 .fundo-gradiente.gradiente-roxo {
-  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  background: linear-gradient(135deg, #8b5cf6, #904DDB);
 }
 
 .fundo-gradiente.gradiente-azul {
@@ -260,7 +260,7 @@ body {
 }
 
 .fundo-gradiente.gradiente-amarelo {
-  background: linear-gradient(135deg, #f59e0b, #d97706);
+  background: linear-gradient(135deg, #FFB800, #d97706);
 }
 
 .fundo-gradiente.gradiente-vermelho {
@@ -372,7 +372,7 @@ body {
 
 .estrelas i {
   font-size: 0.8rem;
-  color: #fbbf24;
+  color: #FFB800;
 }
 
 .estrelas .far {
@@ -396,7 +396,7 @@ body {
 }
 
 .preco-atual {
-  color: #7c3aed;
+  color: #904DDB;
   font-size: 1.1rem;
   font-weight: 700;
 }
@@ -439,7 +439,7 @@ body {
 }
 
 .btn-adicionar-carrinho {
-  background: linear-gradient(135deg, #7c3aed, #883fd8);
+  background: linear-gradient(135deg, #904DDB, #883fd8);
   color: white;
   border: none;
   padding: 8px 12px;
@@ -455,13 +455,13 @@ body {
 }
 
 .btn-adicionar-carrinho:hover {
-  background: linear-gradient(135deg, #6d28d9, #7c3aed);
+  background: linear-gradient(135deg, #904DDB, #904DDB);
   transform: translateY(-1px);
   box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
 }
 
 .btn-comprar-direto {
-  background: linear-gradient(135deg, #eab308, #f59e0b);
+  background: linear-gradient(135deg, #FFB800, #FFB800);
   color: white;
   border: none;
   padding: 8px 12px;
@@ -477,7 +477,7 @@ body {
 }
 
 .btn-comprar-direto:hover {
-  background: linear-gradient(135deg, #d97706, #eab308);
+  background: linear-gradient(135deg, #d97706, #FFB800);
   transform: translateY(-1px);
   box-shadow: 0 4px 15px rgba(234, 179, 8, 0.3);
 }
@@ -501,7 +501,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  background: linear-gradient(135deg, #8b5cf6, #904DDB);
   color: white;
   text-decoration: none;
   padding: 15px 30px;
@@ -512,7 +512,7 @@ body {
 }
 
 .botao-ver-todos:hover {
-  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  background: linear-gradient(135deg, #904DDB, #904DDB);
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
 }
@@ -553,7 +553,7 @@ body {
 }
 
 .btn-recarregar:hover {
-  background: #7c3aed;
+  background: #904DDB;
   transform: translateY(-2px);
 }
 
@@ -587,7 +587,7 @@ body {
 }
 
 .notificacao.aviso {
-  background: #f59e0b;
+  background: #FFB800;
 }
 
 .notificacao button {
@@ -749,12 +749,12 @@ body {
 }
 
 .banner-grande {
-  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  background: linear-gradient(135deg, #904DDB, #904DDB);
   color: white;
 }
 
 .banner-pequeno:first-of-type {
-  background: linear-gradient(135deg, #eab308, #f59e0b);
+  background: linear-gradient(135deg, #FFB800, #FFB800);
   color: white;
 }
 
@@ -799,7 +799,7 @@ body {
 
 .btn-banner:hover {
   background: white;
-  color: #7c3aed;
+  color: #904DDB;
 }
 
 .categorias-populares {
@@ -828,12 +828,12 @@ body {
 .categoria-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-  border-color: #7c3aed;
+  border-color: #904DDB;
 }
 
 .categoria-card i {
   font-size: 3rem;
-  color: #7c3aed;
+  color: #904DDB;
   margin-bottom: 20px;
   display: block;
 }
@@ -1202,7 +1202,7 @@ body {
 
 .btn-slide {
   display: inline-block;
-  background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+  background: linear-gradient(135deg, #904DDB 0%, #a78bfa 100%);
   color: white;
   padding: 1rem 2rem;
   border-radius: 50px;
@@ -1218,7 +1218,7 @@ body {
 .btn-slide:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(124, 58, 237, 0.6);
-  background: linear-gradient(135deg, #6d28d9 0%, #9333ea 100%);
+  background: linear-gradient(135deg, #904DDB 0%, #904DDB 100%);
 }
 
 /* Controles do Carrossel */
@@ -1403,13 +1403,13 @@ body {
 }
 
 .feature-item i {
-  color: #eab308;
+  color: #FFB800;
   font-size: 1.2rem;
 }
 
 .btn-video {
   display: inline-block;
-  background: linear-gradient(135deg, #eab308 0%, #f59e0b 100%);
+  background: linear-gradient(135deg, #FFB800 0%, #FFB800 100%);
   color: #1f2937;
   padding: 1rem 2rem;
   border-radius: 50px;
@@ -1469,7 +1469,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+  background: linear-gradient(135deg, #904DDB 0%, #a78bfa 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1506,7 +1506,7 @@ body {
 .btn-fallback {
   display: inline-block;
   background: white;
-  color: #7c3aed;
+  color: #904DDB;
   padding: 1rem 2rem;
   border-radius: 50px;
   text-decoration: none;
@@ -1595,7 +1595,7 @@ body {
 }
 
 .categoria-card:hover .categoria-conteudo h3 {
-  color: #7c3aed;
+  color: #904DDB;
 }
 
 .categoria-conteudo p {

@@ -1,6 +1,6 @@
 /* ============================================
    FLUENT DESIGN - WINDOWS 11 STYLE HEADER
-   Cores: Roxo (#7c3aed) e Amarelo (#fbbf24)
+   Cores: Roxo (#904DDB) e Amarelo (#FFB800)
    ============================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&display=swap');
@@ -12,11 +12,11 @@
 }
 
 :root {
-  --roxo-primario: #7c3aed;
-  --roxo-escuro: #6d28d9;
+  --roxo-primario: #904DDB;
+  --roxo-escuro: #904DDB;
   --roxo-claro: #a78bfa;
-  --amarelo-primario: #fbbf24;
-  --amarelo-escuro: #f59e0b;
+  --amarelo-primario: #FFB800;
+  --amarelo-escuro: #FFB800;
   --branco: #ffffff;
   --cinza-claro: #f3f4f6;
   --cinza-medio: #e5e7eb;

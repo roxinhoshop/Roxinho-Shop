@@ -23,7 +23,7 @@
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid #7c3aed;
+  border: 4px solid #904DDB;
   box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
   transition: all 0.3s ease;
 }
@@ -37,14 +37,14 @@
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+  background: linear-gradient(135deg, #904DDB 0%, #a78bfa 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   font-size: 3rem;
   font-weight: bold;
-  border: 4px solid #7c3aed;
+  border: 4px solid #904DDB;
   box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
 }
 
@@ -59,7 +59,7 @@
 }
 
 .btn-upload-avatar {
-  background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+  background: linear-gradient(135deg, #904DDB 0%, #a78bfa 100%);
   color: white;
   border: none;
   padding: 0.8rem 1.5rem;
@@ -136,7 +136,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #7c3aed;
+  color: #904DDB;
   font-weight: 600;
 }
 
@@ -188,7 +188,7 @@
 }
 
 .btn-explorar-produtos {
-  background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+  background: linear-gradient(135deg, #904DDB 0%, #a78bfa 100%);
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -272,7 +272,7 @@
 }
 
 .produto-wishlist .marca-produto {
-  color: #7c3aed;
+  color: #904DDB;
   font-size: 0.9rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
@@ -319,17 +319,17 @@
 }
 
 .btn-carrinho-wishlist {
-  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+  background: linear-gradient(135deg, #904DDB 0%, #904DDB 100%);
   color: white;
 }
 
 .btn-carrinho-wishlist:hover {
-  background: linear-gradient(135deg, #6d28d9 0%, #5b21b6 100%);
+  background: linear-gradient(135deg, #904DDB 0%, #5b21b6 100%);
   transform: translateY(-2px);
 }
 
 .dashboard-header {
-  background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+  background: linear-gradient(135deg, #904DDB 0%, #a78bfa 100%);
   color: white;
   padding: 2rem;
   border-radius: 12px;
@@ -371,7 +371,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+  background: linear-gradient(135deg, #904DDB 0%, #a78bfa 100%);
 }
 
 .stat-card:hover {
@@ -395,7 +395,7 @@
 }
 
 .stat-icon {
-  color: #7c3aed;
+  color: #904DDB;
   font-size: 1.5rem;
 }
 
@@ -444,7 +444,7 @@
 }
 
 .nivel-atual {
-  background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+  background: linear-gradient(135deg, #904DDB 0%, #a78bfa 100%);
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 20px;
@@ -468,7 +468,7 @@
 
 .progresso-xp {
   height: 100%;
-  background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+  background: linear-gradient(135deg, #904DDB 0%, #a78bfa 100%);
   border-radius: 6px;
   transition: width 0.6s ease;
   position: relative;
@@ -520,7 +520,7 @@
 }
 
 .atividade-xp i {
-  color: #7c3aed;
+  color: #904DDB;
   font-size: 1.2rem;
   width: 20px;
   text-align: center;
@@ -719,7 +719,7 @@ ease;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-left: 5px solid #7c3aed;
+    border-left: 5px solid #904DDB;
 }
 
 .stat-card:hover {
@@ -744,7 +744,7 @@ ease;
 
 .stat-icon {
     font-size: 1.8rem;
-    color: #7c3aed;
+    color: #904DDB;
 }
 
 .stat-value {
@@ -801,7 +801,7 @@ ease;
 }
 
 .nivel-atual {
-    background: linear-gradient(45deg, #7c3aed, #a78bfa);
+    background: linear-gradient(45deg, #904DDB, #a78bfa);
     color: #ffffff;
     padding: 5px 15px;
     border-radius: 20px;
@@ -825,7 +825,7 @@ ease;
 
 .progresso-xp {
     height: 100%;
-    background: linear-gradient(90deg, #7c3aed, #a78bfa);
+    background: linear-gradient(90deg, #904DDB, #a78bfa);
     border-radius: 8px;
     width: 0%; /* Será preenchido via JS */
     transition: width 0.5s ease-in-out;
@@ -939,7 +939,7 @@ ease;
 }
 
 .botao-primario {
-    background: linear-gradient(45deg, #7c3aed, #a78bfa);
+    background: linear-gradient(45deg, #904DDB, #a78bfa);
     color: #ffffff;
     border: none;
     padding: 12px 25px;
@@ -1035,7 +1035,7 @@ ease;
 .campo-formulario .input-preco:focus,
 .campo-formulario textarea:focus,
 .campo-formulario select:focus {
-    border-color: #7c3aed;
+    border-color: #904DDB;
     box-shadow: 0 0 0 0.2rem rgba(124, 58, 237, 0.25);
     outline: none;
 }
@@ -1211,7 +1211,7 @@ ease;
 }
 
 .secao-configuracoes input:checked + .slider {
-    background-color: #7c3aed;
+    background-color: #904DDB;
 }
 
 .secao-configuracoes input:checked + .slider:before {
@@ -1317,7 +1317,7 @@ ease;
     height: 60px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #7c3aed;
+    border: 2px solid #904DDB;
 }
 
 .info-perfil-lateral h3 {
@@ -1337,7 +1337,7 @@ ease;
     align-items: center;
     gap: 5px;
     font-size: 0.9rem;
-    color: #7c3aed;
+    color: #904DDB;
     font-weight: 600;
 }
 
@@ -1346,7 +1346,7 @@ ease;
 }
 
 .cartao-boas-vindas {
-    background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+    background: linear-gradient(135deg, #904DDB 0%, #a78bfa 100%);
     color: #ffffff;
     padding: 30px;
     border-radius: 12px;
@@ -1546,7 +1546,7 @@ ease;
 }
 
 .cabecalho-filtros {
-  background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+  background: linear-gradient(135deg, #904DDB 0%, #a78bfa 100%);
   color: white;
   padding: 1.5rem;
   text-align: center;
@@ -1586,13 +1586,13 @@ ease;
 
 .link-navegacao:hover {
   background: #f8fafc;
-  color: #7c3aed;
+  color: #904DDB;
   transform: translateX(5px);
 }
 
 .link-navegacao.active {
   background: #f1f5f9;
-  color: #7c3aed;
+  color: #904DDB;
   border-right: 3px solid #ffc800;
 }
 
@@ -1612,7 +1612,7 @@ ease;
 
 /* Banner de categoria no painel */
 .banner-categoria {
-  background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+  background: linear-gradient(135deg, #904DDB 0%, #a78bfa 100%);
   color: white;
   padding: 2rem;
   text-align: center;
@@ -1676,7 +1676,7 @@ ease;
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+  background: linear-gradient(135deg, #904DDB 0%, #a78bfa 100%);
 }
 
 .stat-card:hover {
@@ -1687,7 +1687,7 @@ ease;
 .stat-value {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #7c3aed;
+  color: #904DDB;
   margin-bottom: 0.5rem;
 }
 
@@ -1815,7 +1815,7 @@ ease;
     padding: 24px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
-    border-left: 4px solid #7c3aed;
+    border-left: 4px solid #904DDB;
 }
 
 .stat-card:hover {
@@ -1842,7 +1842,7 @@ ease;
     width: 48px;
     height: 48px;
     border-radius: 12px;
-    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+    background: linear-gradient(135deg, #904DDB 0%, #904DDB 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1890,7 +1890,7 @@ ease;
 }
 
 .section-title i {
-    color: #7c3aed;
+    color: #904DDB;
 }
 
 .produtos-vistos-grid {
@@ -1911,7 +1911,7 @@ ease;
 .produto-visto-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    border-color: #7c3aed;
+    border-color: #904DDB;
 }
 
 .produto-visto-image {
@@ -1939,7 +1939,7 @@ ease;
 .produto-visto-preco {
     font-size: 18px;
     font-weight: 700;
-    color: #7c3aed;
+    color: #904DDB;
 }
 
 /* Estado vazio */
@@ -1970,7 +1970,7 @@ ease;
 .empty-state-button {
     display: inline-block;
     padding: 12px 32px;
-    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+    background: linear-gradient(135deg, #904DDB 0%, #904DDB 100%);
     color: white;
     text-decoration: none;
     border-radius: 8px;

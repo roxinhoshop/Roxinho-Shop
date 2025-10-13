@@ -21,11 +21,11 @@
 
 /* Estado logado */
 .caixa-entre.logado {
-    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+    background: linear-gradient(135deg, #904DDB 0%, #904DDB 100%);
 }
 
 .caixa-entre.logado:hover {
-    background: linear-gradient(135deg, #6d28d9 0%, #9333ea 100%);
+    background: linear-gradient(135deg, #904DDB 0%, #904DDB 100%);
 }
 
 .caixa-entre.logado #status-login,
@@ -115,8 +115,8 @@
 
 .opcoes-usuario a:hover {
     background: #f5f5f5;
-    color: #7c3aed;
-    border-left-color: #7c3aed;
+    color: #904DDB;
+    border-left-color: #904DDB;
 }
 
 .opcoes-usuario a i {
@@ -126,7 +126,7 @@
 }
 
 .opcoes-usuario a:hover i {
-    color: #7c3aed;
+    color: #904DDB;
 }
 
 /* Separador entre opções */

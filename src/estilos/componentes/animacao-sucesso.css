@@ -16,7 +16,7 @@
 }
 
 .success-modal {
-    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+    background: linear-gradient(135deg, #904DDB 0%, #904DDB 100%);
     border-radius: 20px;
     padding: 40px;
     text-align: center;
@@ -90,19 +90,19 @@
     position: absolute;
     width: 10px;
     height: 10px;
-    background: #fbbf24;
+    background: #FFB800;
     animation: confetti 1s ease-out forwards;
 }
 
-.success-confetti:nth-child(1) { left: 10%; animation-delay: 0s; background: #fbbf24; }
-.success-confetti:nth-child(2) { left: 20%; animation-delay: 0.1s; background: #f59e0b; }
-.success-confetti:nth-child(3) { left: 30%; animation-delay: 0.2s; background: #fbbf24; }
-.success-confetti:nth-child(4) { left: 40%; animation-delay: 0.3s; background: #f59e0b; }
-.success-confetti:nth-child(5) { left: 50%; animation-delay: 0.4s; background: #fbbf24; }
-.success-confetti:nth-child(6) { left: 60%; animation-delay: 0.5s; background: #f59e0b; }
-.success-confetti:nth-child(7) { left: 70%; animation-delay: 0.6s; background: #fbbf24; }
-.success-confetti:nth-child(8) { left: 80%; animation-delay: 0.7s; background: #f59e0b; }
-.success-confetti:nth-child(9) { left: 90%; animation-delay: 0.8s; background: #fbbf24; }
+.success-confetti:nth-child(1) { left: 10%; animation-delay: 0s; background: #FFB800; }
+.success-confetti:nth-child(2) { left: 20%; animation-delay: 0.1s; background: #FFB800; }
+.success-confetti:nth-child(3) { left: 30%; animation-delay: 0.2s; background: #FFB800; }
+.success-confetti:nth-child(4) { left: 40%; animation-delay: 0.3s; background: #FFB800; }
+.success-confetti:nth-child(5) { left: 50%; animation-delay: 0.4s; background: #FFB800; }
+.success-confetti:nth-child(6) { left: 60%; animation-delay: 0.5s; background: #FFB800; }
+.success-confetti:nth-child(7) { left: 70%; animation-delay: 0.6s; background: #FFB800; }
+.success-confetti:nth-child(8) { left: 80%; animation-delay: 0.7s; background: #FFB800; }
+.success-confetti:nth-child(9) { left: 90%; animation-delay: 0.8s; background: #FFB800; }
 
 /* Animações */
 @keyframes fadeIn {

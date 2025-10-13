@@ -28,12 +28,12 @@
 
 .botao-tema i {
     font-size: 18px;
-    color: #7c3aed;
+    color: #904DDB;
     transition: all 0.3s ease;
 }
 
 .botao-tema:hover i {
-    color: #6d28d9;
+    color: #904DDB;
 }
 
 /* Dark Mode - Botão de Tema */
@@ -47,7 +47,7 @@
 }
 
 :root[data-theme="dark"] .botao-tema i {
-    color: #fbbf24;
+    color: #FFB800;
 }
 
 :root[data-theme="dark"] .botao-tema:hover i {

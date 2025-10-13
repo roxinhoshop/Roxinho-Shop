@@ -225,7 +225,7 @@
 :root[data-theme="dark"] .tab.active {
     background: #2a2a2a !important;
     color: #ffffff;
-    border-bottom-color: #a855f7;
+    border-bottom-color: #904DDB;
 }
 
 :root[data-theme="dark"] .tab-content {

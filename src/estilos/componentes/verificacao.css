@@ -1,5 +1,5 @@
 /* Este arquivo contém estilos para [SEÇÃO] */
-/* Cores principais: Roxo (#7c3aed) e Amarelo (#eab308) */
+/* Cores principais: Roxo (#904DDB) e Amarelo (#FFB800) */
 
 
    🔹 RESET E CONFIGURAÇÕES BASE
@@ -53,7 +53,7 @@ body {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #7c3aed, #883fd8);
+  background: linear-gradient(90deg, #904DDB, #883fd8);
 }
 
    🔹 ÍCONE E TÍTULOS
@@ -64,8 +64,8 @@ body {
 
 .icone-verificacao i {
   font-size: 4rem;
-  color: #7c3aed;
-  background: linear-gradient(135deg, #f59e0b, #883fd8);
+  color: #904DDB;
+  background: linear-gradient(135deg, #FFB800, #883fd8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -92,7 +92,7 @@ body {
 }
 
 .subtitulo-verificacao strong {
-  color: #7c3aed;
+  color: #904DDB;
   font-weight: 600;
 }
 
@@ -126,7 +126,7 @@ body {
 }
 
 .codigo-input:focus {
-  border-color: #7c3aed;
+  border-color: #904DDB;
   box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
   transform: scale(1.05);
 }
@@ -188,7 +188,7 @@ body {
 .botao-verificar {
   width: 100%;
   padding: 1rem 1.5rem;
-  background: linear-gradient(135deg, #7c3aed 0%, #883fd8 100%);
+  background: linear-gradient(135deg, #904DDB 0%, #883fd8 100%);
   color: white;
   border: none;
   border-radius: 12px;
@@ -244,7 +244,7 @@ body {
 .link-reenviar {
   background: none;
   border: none;
-  color: #7c3aed;
+  color: #904DDB;
   font-weight: 600;
   cursor: pointer;
   text-decoration: underline;
@@ -253,7 +253,7 @@ body {
 }
 
 .link-reenviar:hover {
-  color: #6d28d9;
+  color: #904DDB;
 }
 
 .link-reenviar:disabled {
@@ -264,7 +264,7 @@ body {
 
 .timer-reenvio {
   font-size: 0.875rem;
-  color: #f59e0b;
+  color: #FFB800;
   font-weight: 500;
 }
 
@@ -288,7 +288,7 @@ body {
 }
 
 .link-alterar-email:hover {
-  color: #7c3aed;
+  color: #904DDB;
 }
 
    🔹 INFORMAÇÕES DE SEGURANÇA
@@ -430,7 +430,7 @@ body {
 }
 
 .codigo-input:focus {
-  outline: 2px solid #7c3aed;
+  outline: 2px solid #904DDB;
   outline-offset: 2px;
 }
   

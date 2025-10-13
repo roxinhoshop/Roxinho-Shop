@@ -35,7 +35,7 @@
     /* Cores de destaque */
     --purple-primary: #9d5bd2;
     --purple-hover: #b47ede;
-    --yellow-accent: #fbbf24;
+    --yellow-accent: #FFB800;
 }
 
 :root[data-theme="dark"] body {

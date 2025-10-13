@@ -5,12 +5,12 @@
 
 :root {
   /* Cores Principais */
-  --roxo-primario: #7c3aed;
-  --roxo-escuro: #6d28d9;
+  --roxo-primario: #904DDB;
+  --roxo-escuro: #904DDB;
   --roxo-claro: #a78bfa;
   --roxo-muito-claro: #ddd6fe;
-  --amarelo-primario: #fbbf24;
-  --amarelo-escuro: #f59e0b;
+  --amarelo-primario: #FFB800;
+  --amarelo-escuro: #FFB800;
   --amarelo-claro: #fde68a;
   
   /* Cores Neutras */
@@ -29,7 +29,7 @@
   /* Cores de Status */
   --sucesso: #10b981;
   --erro: #ef4444;
-  --aviso: #f59e0b;
+  --aviso: #FFB800;
   --info: #3b82f6;
   
   /* Sombras Fluent */

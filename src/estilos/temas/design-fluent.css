@@ -86,7 +86,7 @@
 
 .fluent-input:focus {
     outline: none;
-    border-color: #7c3aed;
+    border-color: #904DDB;
     box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.15);
     background: white;
 }
@@ -148,7 +148,7 @@
 
 .caixa-pesquisa-centralizada input:focus {
     background: white;
-    border-color: #7c3aed;
+    border-color: #904DDB;
     box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.15), var(--fluent-shadow-8);
 }
 
@@ -336,7 +336,7 @@
     inset: 0;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(135deg, #7c3aed, #a855f7);
+    background: linear-gradient(135deg, #904DDB, #904DDB);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -350,7 +350,7 @@
 
 /* Texto com gradiente */
 .fluent-gradient-text {
-    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+    background: linear-gradient(135deg, #904DDB 0%, #904DDB 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -421,7 +421,7 @@
 }
 
 .fluent-high-contrast:hover {
-    border-color: #7c3aed;
+    border-color: #904DDB;
 }
 
 /* Transições suaves globais */
