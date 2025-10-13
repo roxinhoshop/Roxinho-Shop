@@ -102,7 +102,15 @@ function atualizarEstadoLogin() {
         
         // Redirecionar para login ao clicar (apenas quando NÃO logado)
         caixaLogin.style.cursor = "pointer";
-        caixaLogin.onclick = () => window.location.href = "entrar.html";
+        caixaLogin.onclick = () => {
+            // Detectar se está na raiz ou em src/paginas
+            const currentPath = window.location.pathname;
+            if (currentPath === '/' || currentPath.endsWith('index.html')) {
+                window.location.href = "src/paginas/entrar.html";
+            } else {
+                window.location.href = "entrar.html";
+            }
+        };
     }
 }
 

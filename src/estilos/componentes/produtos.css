@@ -2591,3 +2591,65 @@ ease;
     color: #a855f7;
 }
 
+
+
+
+/* ======================= BANNERS LATERAIS ======================= */
+.banners-laterais {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.banner-lateral {
+    display: block;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.banner-lateral:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(124, 58, 237, 0.2);
+}
+
+.banner-lateral img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.banner-lateral:hover img {
+    transform: scale(1.05);
+}
+
+/* Dark Mode para Banners Laterais */
+:root[data-theme="dark"] .banner-lateral {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+:root[data-theme="dark"] .banner-lateral:hover {
+    box-shadow: 0 4px 16px rgba(168, 85, 247, 0.3);
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    .banners-laterais {
+        flex-direction: row;
+        margin-top: 1rem;
+    }
+    
+    .banner-lateral {
+        flex: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .banners-laterais {
+        display: none;
+    }
+}
+
