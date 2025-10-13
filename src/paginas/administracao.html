@@ -3,117 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roxinho Shop - Painel de Administração</title>
+    <title>Painel Admin | Roxinho Shop</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="../recursos/imagens/favicon-roxinhoshop.png">
     
+    <!-- CSS -->
     <link rel="stylesheet" href="../estilos/componentes/administracao.css">
-    <link rel="stylesheet" href="../estilos/componentes/notificacoes-fluent.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link rel="stylesheet" href="../estilos/temas/design-fluent.css">
-  <link rel="stylesheet" href="../estilos/temas/modo-escuro.css">
-  <link rel="stylesheet" href="../estilos/temas/fluent-dark.css">
-  <link rel="stylesheet" href="../estilos/temas/correcao-espacos-brancos.css">
-  <link rel="stylesheet" href="../estilos/temas/botao-tema.css">
+    <link rel="stylesheet" href="../estilos/componentes/notificacoes-fluent.js">
+    <link rel="stylesheet" href="../estilos/temas/design-fluent.css">
+    <link rel="stylesheet" href="../estilos/temas/modo-escuro.css">
+    <link rel="stylesheet" href="../estilos/temas/fluent-dark.css">
+    <link rel="stylesheet" href="../estilos/temas/correcao-espacos-brancos.css">
+    <link rel="stylesheet" href="../estilos/temas/botao-tema.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Header -->
     <header>
         <div class="container">
             <div class="logo">
-                <a href="../../index.html">Roxinho Shop</a>
+                <a href="../../index.html"><i class="fas fa-store"></i> Roxinho Shop Admin</a>
             </div>
             <nav>
                 <ul>
-                    <li><a href="../../index.html">Home</a></li>
-                    <li><a href="administracao.html" class="active">Admin</a></li>
-                    <li><a href="#">Sair</a></li>
+                    <li><a href="../../index.html"><i class="fas fa-home"></i> Site</a></li>
+                    <li><a href="administracao.html" class="active"><i class="fas fa-cog"></i> Admin</a></li>
+                    <li><a href="#" id="btn-logout"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
+    <!-- Main Container -->
     <main class="container">
-        <h1>Painel de Administração de Produtos</h1>
+        <h1><i class="fas fa-boxes"></i> Gerenciamento de Produtos</h1>
 
-        <div class="admin-actions">
-            <button id="btnAdicionarProduto" class="btn btn-primary"><i class="fas fa-plus"></i> Adicionar Novo Produto</button>
+        <!-- Menu de Navegação -->
+        <div class="admin-tabs">
+            <button class="tab-button active" data-tab="import">
+                <i class="fas fa-download"></i> Importar Produto
+            </button>
+            <button class="tab-button" data-tab="products">
+                <i class="fas fa-list"></i> Produtos Cadastrados
+            </button>
+            <button class="tab-button" data-tab="stats">
+                <i class="fas fa-chart-line"></i> Estatísticas
+            </button>
         </div>
 
-        <div class="form-container">
-            <h2 id="form-title">Adicionar Novo Produto</h2>
-            <form id="product-form">
-                <input type="hidden" id="product-id">
-                <label for="product-name">Nome do Produto:</label>
-                <input type="text" id="product-name" required>
-
-                <label for="product-description">Descrição:</label>
-                <textarea id="product-description" required></textarea>
-
-                <label for="product-price">Preço:</label>
-                <input type="number" id="product-price" step="0.01" required>
-
-                <label for="product-stock">Estoque:</label>
-                <input type="number" id="product-stock" required>
-
-                <label for="product-category">Categoria:</label>
-                <input type="text" id="product-category" required>
-
-                <label for="product-subcategory">Subcategoria:</label>
-                <input type="text" id="product-subcategory">
-
-                <label for="product-image-url">URL da Imagem:</label>
-                <input type="url" id="product-image-url" required>
-
-                <div class="checkbox-group">
-                    <input type="checkbox" id="product-featured">
-                    <label for="product-featured">Destaque</label>
+        <!-- Tab: Importar Produto -->
+        <div class="tab-content active" id="tab-import">
+            <div class="import-card">
+                <div class="import-header">
+                    <h2><i class="fas fa-link"></i> Importar Produto via Link</h2>
+                    <p>Cole o link do produto da Amazon ou Mercado Livre</p>
                 </div>
 
-                <div class="checkbox-group">
-                    <input type="checkbox" id="product-active" checked>
-                    <label for="product-active">Ativo</label>
-                </div>
+                <form id="import-form" class="import-form">
+                    <div class="form-group-inline">
+                        <div class="input-with-icon">
+                            <i class="fas fa-link"></i>
+                            <input 
+                                type="url" 
+                                id="product-url" 
+                                placeholder="https://www.amazon.com.br/produto..." 
+                                required
+                            >
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-import">
+                            <i class="fas fa-magic"></i> Importar
+                        </button>
+                    </div>
 
-                <button type="button" id="save-product-btn">Adicionar Produto</button>
-                <button type="button" id="cancel-edit-btn" style="display: none;">Cancelar Edição</button>
-            </form>
+                    <div class="supported-platforms">
+                        <span>Plataformas suportadas:</span>
+                        <div class="platform-badges">
+                            <span class="badge badge-amazon"><i class="fab fa-amazon"></i> Amazon</span>
+                            <span class="badge badge-ml"><i class="fas fa-shopping-cart"></i> Mercado Livre</span>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Preview do Produto -->
+                <div id="product-preview" class="product-preview" style="display: none;">
+                    <h3><i class="fas fa-eye"></i> Preview do Produto</h3>
+                    <div class="preview-content">
+                        <div class="preview-image">
+                            <img id="preview-img" src="" alt="Produto">
+                        </div>
+                        <div class="preview-details">
+                            <h4 id="preview-name">Nome do Produto</h4>
+                            <p class="preview-price" id="preview-price">R$ 0,00</p>
+                            <p class="preview-source"><i class="fas fa-store"></i> <span id="preview-source">Origem</span></p>
+                            <p class="preview-description" id="preview-description">Descrição...</p>
+                            
+                            <div class="preview-actions">
+                                <button class="btn btn-primary" id="btn-confirm-import">
+                                    <i class="fas fa-check"></i> Confirmar Importação
+                                </button>
+                                <button class="btn btn-secondary" id="btn-cancel-import">
+                                    <i class="fas fa-times"></i> Cancelar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="tabela-produtos">
-            <h2>Lista de Produtos</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Preço</th>
-                        <th>Estoque</th>
-                        <th>Categoria</th>
-                        <th>Subcategoria</th>
-                        <th>Imagem</th>
-                        <th>Destaque</th>
-                        <th>Ativo</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody id="product-list">
-                    <!-- Produtos serão carregados aqui via JavaScript -->
-                </tbody>
-            </table>
+        <!-- Tab: Produtos Cadastrados -->
+        <div class="tab-content" id="tab-products">
+            <div class="products-card">
+                <div class="products-header">
+                    <h2><i class="fas fa-box-open"></i> Produtos Cadastrados</h2>
+                    <div class="products-search">
+                        <input type="text" id="search-products" placeholder="Buscar produtos...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+
+                <div id="products-list" class="products-grid">
+                    <!-- Produtos serão carregados aqui -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Estatísticas -->
+        <div class="tab-content" id="tab-stats">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-box"></i>
+                    <h3 id="stat-total">0</h3>
+                    <p>Total de Produtos</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fab fa-amazon"></i>
+                    <h3 id="stat-amazon">0</h3>
+                    <p>Da Amazon</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h3 id="stat-ml">0</h3>
+                    <p>Do Mercado Livre</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-calendar"></i>
+                    <h3 id="stat-today">0</h3>
+                    <p>Importados Hoje</p>
+                </div>
+            </div>
         </div>
     </main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2023 Roxinho Shop. Todos os direitos reservados.</p>
-        </div>
-    </footer>
+    <!-- Modal de Edição -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-edit"></i> Editar Produto</h2>
+                <button class="modal-close" id="close-modal">&times;</button>
+            </div>
+            <form id="edit-form">
+                <input type="hidden" id="edit-product-id">
+                
+                <div class="form-group">
+                    <label for="edit-name">Nome do Produto</label>
+                    <input type="text" id="edit-name" required>
+                </div>
 
+                <div class="form-group">
+                    <label for="edit-price">Preço (R$)</label>
+                    <input type="number" id="edit-price" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-category">Categoria</label>
+                    <input type="text" id="edit-category" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-description">Descrição</label>
+                    <textarea id="edit-description" rows="4" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-image">URL da Imagem</label>
+                    <input type="url" id="edit-image" required>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Salvar Alterações
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="cancel-edit">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../scripts/componentes/product-scraper.js"></script>
     <script src="../scripts/componentes/notificacoes-fluent.js"></script>
-    <script src="../scripts/servicos/autenticacao.js"></script>
-    <script src="../scripts/componentes/administracao.js"></script>
-  <script src="../scripts/componentes/alternador-tema.js"></script>
+    <script src="../scripts/componentes/alternador-tema.js"></script>
+    <script src="../scripts/componentes/admin-panel.js"></script>
 </body>
 </html>
 
