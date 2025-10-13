@@ -1,0 +1,439 @@
+/**
+ * Admin Notifications CSS
+ * Estilos para avisos e notificações do painel admin
+ */
+
+/* ======================= NOTIFICAÇÕES FLUENT ======================= */
+.fluent-notification {
+    position: fixed;
+    top: 80px;
+    right: 30px;
+    min-width: 350px;
+    max-width: 450px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    padding: 20px 25px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 10000;
+    animation: slideInRight 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    border-left: 5px solid var(--roxo-primario, #904DDB);
+}
+
+.fluent-notification.success {
+    border-left-color: #28a745;
+}
+
+.fluent-notification.error {
+    border-left-color: #dc3545;
+}
+
+.fluent-notification.warning {
+    border-left-color: #ffc107;
+}
+
+.fluent-notification.info {
+    border-left-color: #17a2b8;
+}
+
+.fluent-notification-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+}
+
+.fluent-notification.success .fluent-notification-icon {
+    color: #28a745;
+}
+
+.fluent-notification.error .fluent-notification-icon {
+    color: #dc3545;
+}
+
+.fluent-notification.warning .fluent-notification-icon {
+    color: #ffc107;
+}
+
+.fluent-notification.info .fluent-notification-icon {
+    color: #17a2b8;
+}
+
+.fluent-notification-content {
+    flex: 1;
+}
+
+.fluent-notification-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.fluent-notification-message {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.4;
+}
+
+.fluent-notification-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #999;
+    cursor: pointer;
+    padding: 5px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.fluent-notification-close:hover {
+    color: #333;
+    transform: rotate(90deg);
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+}
+
+.fluent-notification.hiding {
+    animation: slideOutRight 0.3s ease forwards;
+}
+
+/* ======================= MODAL DE CONFIRMAÇÃO ======================= */
+.fluent-confirm-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10001;
+    animation: fadeIn 0.3s ease;
+}
+
+.fluent-confirm-modal {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 450px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: scaleIn 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.fluent-confirm-icon {
+    font-size: 60px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.fluent-confirm-icon.warning {
+    color: #ffc107;
+}
+
+.fluent-confirm-icon.danger {
+    color: #dc3545;
+}
+
+.fluent-confirm-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.fluent-confirm-message {
+    font-size: 16px;
+    color: #666;
+    text-align: center;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+.fluent-confirm-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.fluent-confirm-button {
+    padding: 12px 30px;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.fluent-confirm-button.primary {
+    background: linear-gradient(135deg, var(--roxo-primario, #904DDB) 0%, #7c3cc4 100%);
+    color: white;
+}
+
+.fluent-confirm-button.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(144, 77, 219, 0.4);
+}
+
+.fluent-confirm-button.danger {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: white;
+}
+
+.fluent-confirm-button.danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(220, 53, 69, 0.4);
+}
+
+.fluent-confirm-button.secondary {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.fluent-confirm-button.secondary:hover {
+    background: #e0e0e0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ======================= LOADING OVERLAY ======================= */
+.fluent-loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10002;
+    animation: fadeIn 0.3s ease;
+}
+
+.fluent-loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid #f0f0f0;
+    border-top: 5px solid var(--roxo-primario, #904DDB);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.fluent-loading-text {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--roxo-primario, #904DDB);
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ======================= TOOLTIP ======================= */
+.fluent-tooltip {
+    position: absolute;
+    background: #333;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    z-index: 10003;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.fluent-tooltip.show {
+    opacity: 1;
+}
+
+.fluent-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #333;
+}
+
+/* ======================= PROGRESS BAR ======================= */
+.fluent-progress {
+    width: 100%;
+    height: 6px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 15px 0;
+}
+
+.fluent-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--roxo-primario, #904DDB) 0%, #7c3cc4 100%);
+    border-radius: 10px;
+    transition: width 0.3s ease;
+    position: relative;
+}
+
+.fluent-progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(100%); }
+}
+
+/* ======================= BADGE ======================= */
+.fluent-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.fluent-badge.success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.fluent-badge.error {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.fluent-badge.warning {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.fluent-badge.info {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.fluent-badge.primary {
+    background: rgba(144, 77, 219, 0.1);
+    color: var(--roxo-primario, #904DDB);
+}
+
+/* ======================= DARK MODE ======================= */
+body.dark-mode .fluent-notification {
+    background: #2a2a2a;
+}
+
+body.dark-mode .fluent-notification-title {
+    color: #fff;
+}
+
+body.dark-mode .fluent-notification-message {
+    color: #ccc;
+}
+
+body.dark-mode .fluent-confirm-modal {
+    background: #2a2a2a;
+}
+
+body.dark-mode .fluent-confirm-title {
+    color: #fff;
+}
+
+body.dark-mode .fluent-confirm-message {
+    color: #ccc;
+}
+
+body.dark-mode .fluent-confirm-button.secondary {
+    background: #3a3a3a;
+    color: #fff;
+}
+
+body.dark-mode .fluent-confirm-button.secondary:hover {
+    background: #4a4a4a;
+}
+
+body.dark-mode .fluent-loading-overlay {
+    background: rgba(0, 0, 0, 0.95);
+}
+
+body.dark-mode .fluent-loading-text {
+    color: #fff;
+}
+
+/* ======================= RESPONSIVE ======================= */
+@media (max-width: 768px) {
+    .fluent-notification {
+        right: 10px;
+        left: 10px;
+        min-width: auto;
+        max-width: none;
+    }
+    
+    .fluent-confirm-modal {
+        width: 95%;
+        padding: 20px;
+    }
+    
+    .fluent-confirm-buttons {
+        flex-direction: column;
+    }
+    
+    .fluent-confirm-button {
+        width: 100%;
+    }
+}
+
