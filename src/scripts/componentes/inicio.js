@@ -58,7 +58,7 @@ async function renderizarProdutosDestaque() {
       produtos = await listarProdutos({ limite: 8 });
     } else {
       // Fallback para API externa
-      const response = await fetch("http://localhost:3000/api/produtos?limite=8");
+      const response = await fetch("https://roxinho-shop-backend.vercel.app/api/produtos?limite=8");
       if (!response.ok) {
         throw new Error(`Erro HTTP! status: ${response.status}`);
       }

@@ -1,6 +1,6 @@
 // ======================= CLIENTE API DE PRODUTOS =======================
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'https://roxinho-shop-backend.vercel.app/api';
 
 // ======================= PRODUTOS =======================
 
