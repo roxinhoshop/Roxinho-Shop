@@ -283,7 +283,7 @@ body {
 
 /* LINKS PRINCIPAIS */
 .barra-categorias ul li a {
-  color: #1f2937;
+  color: #ffffff;
   text-decoration: none;
   font-weight: 500;
   font-size: 0.9rem;
@@ -310,8 +310,8 @@ body {
 }
 
 .barra-categorias ul li a:hover {
-  background: rgba(124, 58, 237, 0.08);
-  color: #904DDB;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
 }
 
 .barra-categorias ul li a:hover::after {

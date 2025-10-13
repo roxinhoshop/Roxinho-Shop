@@ -122,6 +122,11 @@ function atualizarEstadoLogin() {
  * IMPORTANTE: Não redireciona, apenas abre/fecha o menu
  */
 function toggleDropdownUsuario(event) {
+    // Se clicou em um link dentro do dropdown, permitir navegação
+    if (event.target.tagName === 'A' || event.target.closest('a')) {
+        return; // Deixar o link funcionar normalmente
+    }
+    
     event.preventDefault();
     event.stopPropagation();
     
@@ -138,6 +143,11 @@ function toggleDropdownUsuario(event) {
 document.addEventListener('click', (event) => {
     const caixaLogin = document.getElementById('caixa-login');
     const dropdown = document.getElementById('dropdown-usuario');
+    
+    // Não fechar se clicou em um link dentro do dropdown
+    if (event.target.tagName === 'A' && event.target.closest('#dropdown-usuario')) {
+        return; // Permitir navegação
+    }
     
     if (dropdown && caixaLogin && !caixaLogin.contains(event.target)) {
         dropdown.style.display = 'none';

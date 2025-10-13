@@ -542,3 +542,33 @@ body {
     color: #FFB800;
 }
 
+
+
+:root[data-theme="dark"] label {
+    color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .form-group label {
+    color: #ffffff !important;
+}
+
+:root[data-theme="dark"] .toggle-password {
+    color: #cccccc;
+}
+
+:root[data-theme="dark"] .toggle-password:hover {
+    color: #904DDB;
+}
+
+:root[data-theme="dark"] .register-link {
+    color: #cccccc;
+}
+
+:root[data-theme="dark"] .register-link a {
+    color: #904DDB;
+}
+
+:root[data-theme="dark"] .register-link a:hover {
+    color: #FFB800;
+}
+

@@ -25,7 +25,8 @@
 }
 
 .caixa-entre.logado:hover {
-    background: linear-gradient(135deg, #904DDB 0%, #904DDB 100%);
+    background: linear-gradient(135deg, #904DDB 0%, #FFB800 100%);
+    transform: translateY(-2px);
 }
 
 .caixa-entre.logado #status-login,
