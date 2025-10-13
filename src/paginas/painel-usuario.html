@@ -32,7 +32,8 @@
   <link rel="stylesheet" href="../estilos/temas/botao-tema.css">
 </head>
 <body>
-
+  <!-- Cabeçalho -->
+  <div id="header-placeholder"></div>
 
   <div class="container-painel">
     <div class="container">
@@ -57,12 +58,7 @@
                                 <span>Produtos Vistos</span>
                             </a>
                         </li>
-                        <li class="item-navegacao">
-                            <a href="#" class="link-navegacao">
-                                <i class="fas fa-sign-out-alt"></i>
-                                <span>Sair</span>
-                            </a>
-                        </li>
+
                     </ul>
                 </div>
             </nav>
@@ -108,9 +104,29 @@
                             </div>
                             
                             <div class="campo-formulario">
-                                <label for="foto-perfil">Foto de Perfil</label>
-                                <input type="file" id="foto-perfil" name="foto-perfil" accept="image/*" class="input-preco">
-                                <img id="preview-foto-perfil" src="" alt="Prévia da Foto de Perfil" style="max-width: 100px; max-height: 100px; margin-top: 10px; display: none;">
+                                <label>Foto de Perfil</label>
+                                <div class="upload-avatar-container">
+                                    <div class="avatar-preview">
+                                        <img id="preview-foto-perfil" src="../recursos/imagens/default.png" alt="Avatar">
+                                        <div class="avatar-overlay">
+                                            <i class="fas fa-camera"></i>
+                                            <span>Alterar Avatar</span>
+                                        </div>
+                                    </div>
+                                    <div class="avatar-info">
+                                        <p class="avatar-title">Escolha uma imagem</p>
+                                        <p class="avatar-subtitle">Recomendamos uma imagem de pelo menos 128x128px</p>
+                                        <div class="avatar-buttons">
+                                            <label for="foto-perfil" class="btn-upload">
+                                                <i class="fas fa-upload"></i> Enviar Imagem
+                                            </label>
+                                            <button type="button" class="btn-remove" id="btn-remover-avatar">
+                                                <i class="fas fa-trash"></i> Remover
+                                            </button>
+                                        </div>
+                                        <input type="file" id="foto-perfil" name="foto-perfil" accept="image/*" style="display: none;">
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="campo-formulario">
@@ -195,5 +211,31 @@
   <script src="../scripts/componentes/cabecalho-autenticacao.js"></script>
   <script src="../scripts/componentes/notificacoes-fluent.js"></script>
   <script src="../scripts/componentes/alternador-tema.js"></script>
+  
+  <!-- Script de Preview de Avatar -->
+  <script>
+    // Preview de Avatar estilo Discord
+    document.getElementById('foto-perfil').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          document.getElementById('preview-foto-perfil').src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Remover Avatar
+    document.getElementById('btn-remover-avatar').addEventListener('click', function() {
+      document.getElementById('preview-foto-perfil').src = '../recursos/imagens/default.png';
+      document.getElementById('foto-perfil').value = '';
+    });
+
+    // Clicar no avatar para abrir seletor de arquivo
+    document.querySelector('.avatar-preview').addEventListener('click', function() {
+      document.getElementById('foto-perfil').click();
+    });
+  </script>
 </body>
 </html>
