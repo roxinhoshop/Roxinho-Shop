@@ -1,4 +1,6 @@
 /**
+ * Sistema de Login Melhorado
+ * Com mensagens interativas e redirecionamento inteligente
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -6,6 +8,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const emailInput = document.getElementById("email");
     const passwordInput = document.getElementById("senha");
     const loginButton = document.getElementById("botaoLogin");
+
+    // Verificar se já está logado
+    const token = localStorage.getItem("jwtToken");
+    if (token) {
+        // Já está logado, redirecionar para home
+        if (typeof showNotification === 'function') {
+            showNotification("Você já está logado!", "info");
+        }
+        setTimeout(() => {
+            window.location.href = "../../index.html";
+        }, 1000);
+        return;
+    }
+
+    // Verificar se há redirecionamento pendente
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectUrl = urlParams.get('redirect');
 
     loginForm.addEventListener("submit", async function(event) {
         event.preventDefault();
@@ -15,12 +34,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Validação básica
         if (!email || !senha) {
-            showNotification("Por favor, preencha todos os campos.", "error");
+            if (typeof showNotification === 'function') {
+                showNotification("⚠️ Por favor, preencha todos os campos.", "warning");
+            } else {
+                alert("Por favor, preencha todos os campos.");
+            }
+            return;
+        }
+
+        // Validar formato de email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            if (typeof showNotification === 'function') {
+                showNotification("⚠️ Por favor, insira um e-mail válido.", "warning");
+            } else {
+                alert("Por favor, insira um e-mail válido.");
+            }
             return;
         }
 
         // Adicionar loading no botão
-        addButtonLoading(loginButton);
+        if (typeof addButtonLoading === 'function') {
+            addButtonLoading(loginButton);
+        } else {
+            loginButton.disabled = true;
+            loginButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Entrando...';
+        }
 
         try {
             const response = await fetch("https://roxinho-shop-backend.vercel.app/api/auth/login", {
@@ -37,6 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 // Salvar dados no localStorage
                 localStorage.setItem("jwtToken", result.token);
+                localStorage.setItem("token", result.token); // Alias
                 localStorage.setItem("userId", tokenPayload.userId);
                 localStorage.setItem("userEmail", tokenPayload.email);
                 localStorage.setItem("isAdmin", tokenPayload.isAdmin ? "true" : "false");
@@ -44,34 +84,94 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Disparar evento de mudança de autenticação
                 window.dispatchEvent(new Event("authChange"));
                 
-                // Redirecionar para página inicial
+                // Preparar mensagem de boas-vindas
                 const userName = tokenPayload.email.split('@')[0];
                 const userType = tokenPayload.isAdmin ? "Administrador" : "Usuário";
                 
-                // Mostrar animação de sucesso e redirecionar para home
+                // Determinar URL de redirecionamento
+                let targetUrl = "../../index.html";
+                if (redirectUrl) {
+                    targetUrl = decodeURIComponent(redirectUrl);
+                } else if (tokenPayload.isAdmin) {
+                    // Admin pode ir para painel admin
+                    targetUrl = "../../index.html";
+                }
+                
+                // Mostrar mensagem de sucesso
+                if (typeof showNotification === 'function') {
+                    showNotification(
+                        `✅ Login realizado com sucesso!\n👋 Bem-vindo, ${userName}!`,
+                        "success"
+                    );
+                }
+                
+                // Animação de sucesso se disponível
                 if (typeof showSuccessAnimation === 'function') {
                     showSuccessAnimation(
-                        "Login Realizado!",
-                        `Bem-vindo, ${userName}!`,
-                        "index.html",
-                        2000
+                        "🎉 Login Realizado!",
+                        `Bem-vindo, ${userName}! (${userType})`,
+                        targetUrl,
+                        1500
                     );
                 } else {
-                    showNotification(`Login bem-sucedido! Bem-vindo!`, "success");
+                    // Redirecionar após 1.5 segundos
                     setTimeout(() => {
-                        window.location.href = "../../index.html";
-                    }, 1000);
+                        window.location.href = targetUrl;
+                    }, 1500);
                 }
             } else {
-                // Remover loading do botão
-                removeButtonLoading(loginButton);
-                showNotification(result.message || "Erro ao fazer login. Verifique suas credenciais.", "error");
+                // Erro no login
+                if (typeof removeButtonLoading === 'function') {
+                    removeButtonLoading(loginButton);
+                } else {
+                    loginButton.disabled = false;
+                    loginButton.innerHTML = '<span>Entrar</span>';
+                }
+                
+                // Mensagens de erro específicas
+                let errorMessage = "❌ Erro ao fazer login.";
+                
+                if (result.message) {
+                    if (result.message.includes("não encontrado") || result.message.includes("não existe")) {
+                        errorMessage = "❌ E-mail não cadastrado. Deseja criar uma conta?";
+                    } else if (result.message.includes("senha") || result.message.includes("incorreta")) {
+                        errorMessage = "❌ Senha incorreta. Tente novamente.";
+                    } else if (result.message.includes("verificado")) {
+                        errorMessage = "⚠️ Por favor, verifique seu e-mail antes de fazer login.";
+                    } else {
+                        errorMessage = `❌ ${result.message}`;
+                    }
+                }
+                
+                if (typeof showNotification === 'function') {
+                    showNotification(errorMessage, "error");
+                } else {
+                    alert(errorMessage);
+                }
+                
+                // Limpar senha
+                passwordInput.value = "";
+                passwordInput.focus();
             }
         } catch (error) {
-            // Remover loading do botão
-            removeButtonLoading(loginButton);
+            // Erro de conexão
+            if (typeof removeButtonLoading === 'function') {
+                removeButtonLoading(loginButton);
+            } else {
+                loginButton.disabled = false;
+                loginButton.innerHTML = '<span>Entrar</span>';
+            }
+            
             console.error("Erro de rede:", error);
-            showNotification("Erro de conexão. Tente novamente mais tarde.", "error");
+            
+            if (typeof showNotification === 'function') {
+                showNotification(
+                    "🔌 Erro de conexão. Verifique sua internet e tente novamente.",
+                    "error"
+                );
+            } else {
+                alert("Erro de conexão. Tente novamente mais tarde.");
+            }
         }
     });
 
@@ -92,5 +192,28 @@ document.addEventListener("DOMContentLoaded", () => {
             icon.classList.add("fa-eye");
         }
     };
+
+    // Adicionar feedback visual nos inputs
+    [emailInput, passwordInput].forEach(input => {
+        if (!input) return;
+        
+        input.addEventListener('focus', function() {
+            this.closest('.form-group').classList.add('focused');
+        });
+        
+        input.addEventListener('blur', function() {
+            if (!this.value) {
+                this.closest('.form-group').classList.remove('focused');
+            }
+        });
+        
+        input.addEventListener('input', function() {
+            if (this.value) {
+                this.closest('.form-group').classList.add('has-value');
+            } else {
+                this.closest('.form-group').classList.remove('has-value');
+            }
+        });
+    });
 });
 

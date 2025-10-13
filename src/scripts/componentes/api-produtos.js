@@ -19,12 +19,14 @@ async function listarProdutos(filtros = {}) {
         const response = await fetch(`${API_URL}/produtos?${params}`);
         const data = await response.json();
         
-        if (!data.success && data.status !== 'success') {
+        if (!data.success && data.status !== 'success' && !data.products && !data.produtos) {
             throw new Error(data.message || 'Erro ao carregar produtos');
         }
         
         // A API pode retornar 'products' ou 'produtos'
-        return data.produtos || data.products || [];
+        const produtos = data.produtos || data.products || [];
+        console.log('Produtos carregados:', produtos.length);
+        return produtos;
     } catch (error) {
         console.error('Erro ao listar produtos:', error);
         await alertaFluent('Erro', 'Não foi possível carregar os produtos', 'fas fa-exclamation-triangle');
