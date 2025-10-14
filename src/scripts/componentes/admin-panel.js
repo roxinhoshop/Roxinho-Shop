@@ -96,7 +96,7 @@ async function importProduct() {
     
     try {
         // Fazer requisição direta para a API
-        const response = await fetch('https://roxinho-shop-backend.vercel.app/api/extract-from-url', {
+        const response = await fetch('https://roxinho-shop-backend.vercel.app/api/product-scraper/extract-from-url', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -111,7 +111,7 @@ async function importProduct() {
         }
         
         // Salvar produto no banco
-        const saveResponse = await fetch('https://roxinho-shop-backend.vercel.app/api/produtos', {
+        const saveResponse = await fetch('https://roxinho-shop-backend.vercel.app/api/products', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -199,7 +199,7 @@ async function loadProducts() {
     
     try {
         // Buscar produtos da API
-        const response = await fetch('https://roxinho-shop-backend.vercel.app/api/produtos');
+        const response = await fetch('https://roxinho-shop-backend.vercel.app/api/products');
         const data = await response.json();
         
         let produtos = [];
