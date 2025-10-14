@@ -54,14 +54,18 @@ function atualizarEstadoLogin() {
         // Configurar links dos painéis baseado no tipo de usuário
         const linkPainelAdmin = document.getElementById('link-painel-admin');
         const linkPainelUsuario = document.getElementById('link-painel-usuario');
+        const linkAdminExterno = document.getElementById('link-admin');
         
         if (isAdmin) {
-            // Admin: mostrar AMBOS os painéis
+            // Admin: mostrar AMBOS os painéis e link externo
             if (linkPainelAdmin) {
                 linkPainelAdmin.style.display = "flex";
             }
             if (linkPainelUsuario) {
                 linkPainelUsuario.style.display = "flex";
+            }
+            if (linkAdminExterno) {
+                linkAdminExterno.style.display = "flex";
             }
         } else {
             // Usuário comum: mostrar APENAS painel de usuário
@@ -70,6 +74,9 @@ function atualizarEstadoLogin() {
             }
             if (linkPainelUsuario) {
                 linkPainelUsuario.style.display = "flex";
+            }
+            if (linkAdminExterno) {
+                linkAdminExterno.style.display = "none";
             }
         }
         
