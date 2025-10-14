@@ -5,7 +5,7 @@
 
 class ImportadorProdutos {
     constructor() {
-        this.apiBase = 'https://roxinho-shop-backend.vercel.app/api';
+      this.apiBase = \'https://roxinho-shop-backend.vercel.app/api/products\';
         this.produtoAtual = null;
         this.inicializar();
     }
@@ -84,10 +84,7 @@ class ImportadorProdutos {
             return;
         }
 
-        if (!this.validarUrl(url)) {
-            this.mostrarMensagem('URL não suportada. Use links do Mercado Livre ou Amazon', 'erro');
-            return;
-        }
+
 
         // Mostrar loading
         const textoOriginal = btnExtrair.innerHTML;
@@ -122,12 +119,7 @@ class ImportadorProdutos {
         }
     }
 
-    validarUrl(url) {
-        return url.includes('mercadolivre.com') || 
-               url.includes('mercadolibre.com') || 
-               url.includes('amazon.com') || 
-               url.includes('amazon.com.br');
-    }
+
 
     mostrarPreview(produto) {
         const previewContainer = document.getElementById('preview-produto');
