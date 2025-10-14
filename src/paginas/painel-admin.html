@@ -315,6 +315,8 @@
   <!-- Scripts -->
   <script src="../scripts/servicos/autenticacao.js"></script>
   <script src="../scripts/componentes/notificacoes-fluent.js"></script>
+  <script src="../scripts/componentes/api-produtos.js"></script>
+  <script src="../scripts/componentes/admin-panel.js"></script>
   <script src="../scripts/componentes/painel-admin-api.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -335,6 +337,11 @@
           if (targetSection) {
             targetSection.classList.add("active");
           }
+          
+          // Carregar produtos quando a seção de produtos for ativada
+          if (sectionId === "products-section" && typeof loadProducts === 'function') {
+            loadProducts();
+          }
         });
       });
 
@@ -350,6 +357,14 @@
           button.closest(".modal").classList.remove("show");
         });
       });
+      
+      // Inicializar funções do painel admin
+      if (typeof loadProducts === 'function') {
+        loadProducts();
+        initializeProductSearch();
+      } else {
+        console.error('Funções do painel admin não encontradas');
+      }
     });
   </script>
   <script src="../scripts/componentes/alternador-tema.js"></script>

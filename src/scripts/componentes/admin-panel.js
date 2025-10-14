@@ -167,11 +167,11 @@ function cancelImport() {
 
 // ======================= PRODUTOS CADASTRADOS =======================
 async function loadProducts() {
-    const container = document.getElementById('products-grid');
-    const searchInput = document.getElementById('search-products');
+    const container = document.getElementById('products-table');
+    const searchInput = document.getElementById('admin-search');
     
     if (!container) {
-        console.error('Container products-grid não encontrado');
+        console.error('Container products-table não encontrado');
         return;
     }
     
@@ -252,7 +252,7 @@ function renderProducts(produtos) {
 
 // ======================= BUSCA DE PRODUTOS =======================
 function initializeProductSearch() {
-    const searchInput = document.getElementById('search-products');
+    const searchInput = document.getElementById('admin-search');
     if (!searchInput) return;
     
     searchInput.addEventListener('input', (e) => {
