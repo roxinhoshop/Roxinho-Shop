@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="../estilos/temas/correcao-espacos-brancos.css">
   <link rel="stylesheet" href="../estilos/temas/botao-tema.css">
   <link rel="stylesheet" href="../estilos/temas/gradiente-hover-global.css">
+  <link rel="stylesheet" href="../estilos/componentes/admin-messages.css">
 </head>
 <body>
   <div class="wrapper-admin">
@@ -313,6 +314,35 @@
     </div>
   </div>
 
+  <!-- Modal Adicionar Produto via Link -->
+  <div id="product-url-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Adicionar Produto via Link</h2>
+        <button class="modal-close" onclick="closeProductURLLoader()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="product-url-form">
+          <div class="grupo-formulario">
+            <label for="product-url">URL do Produto (Mercado Livre ou Amazon)</label>
+            <input type="url" id="product-url" name="url" required placeholder="Cole a URL do produto aqui">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" onclick="closeProductURLLoader()">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Extrair Dados</button>
+          </div>
+        </form>
+        <div id="product-url-loader" style="display: none;">
+          <div class="loading-state">
+            <i class="fas fa-spinner"></i>
+            <p>Extraindo dados do produto...</p>
+          </div>
+        </div>
+        <div id="product-url-result" style="display: none;"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script src="../scripts/servicos/autenticacao.js"></script>
   <script src="../scripts/componentes/notificacoes-fluent.js"></script>
@@ -370,7 +400,5 @@
     });
   </script>
   <script src="../scripts/componentes/alternador-tema.js"></script>
-  <link rel="stylesheet" href="../estilos/componentes/product-url-loader.css">
-</body>
+  <link rel="stylesheet" href</body>
 </html>
-

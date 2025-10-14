@@ -6,245 +6,197 @@
 class ProductURLLoader {
     constructor() {
         this.apiBase = 'https://roxinho-shop-backend.vercel.app/api';
-        this.modalElement = null;
+        this.productData = null;
+
+        // Vincular elementos do DOM após o carregamento
+        document.addEventListener('DOMContentLoaded', () => this.bindDOMElements());
     }
 
-    /**
-     * Abre modal para adicionar produto via URL
-     */
+    bindDOMElements() {
+        this.modalElement = document.getElementById('product-url-modal');
+        this.productUrlForm = document.getElementById('product-url-form');
+        this.productUrlInput = document.getElementById('product-url');
+        this.productUrlLoaderDiv = document.getElementById('product-url-loader');
+        this.productUrlResultDiv = document.getElementById('product-url-result');
+        
+        // Os botões de carregar e salvar são dinâmicos na pré-visualização, então os buscamos quando necessário.
+
+        if (this.productUrlForm) {
+            this.productUrlForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.extractData();
+            });
+        }
+
+        const closeButton = this.modalElement.querySelector('.modal-close');
+        if (closeButton) {
+            closeButton.addEventListener('click', () => this.closeModal());
+        }
+
+        const cancelButton = this.modalElement.querySelector('.btn-secondary');
+        if (cancelButton) {
+            cancelButton.addEventListener('click', () => this.closeModal());
+        }
+    }
+
     openModal() {
-        this.createModal();
+        if (!this.modalElement) return;
+        this.modalElement.classList.add('show');
+        this.resetModalState();
     }
 
-    /**
-     * Cria modal de adição de produto via URL
-     */
-    createModal() {
-        const overlay = document.createElement('div');
-        overlay.className = 'product-url-loader-overlay';
-        overlay.innerHTML = `
-            <div class="product-url-loader-modal">
-                <div class="product-url-loader-header">
-                    <h2>Adicionar Produto via Link</h2>
-                    <button class="product-url-loader-close" onclick="productURLLoader.closeModal()">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                
-                <div class="product-url-loader-body">
-                    <form id="product-url-form">
-                        <div class="form-group">
-                            <label for="product-url">
-                                <i class="fas fa-link"></i> Link do Produto
-                            </label>
-                            <input 
-                                type="url" 
-                                id="product-url" 
-                                placeholder="Cole o link do Mercado Livre ou Amazon aqui" 
-                                required
-                            >
-                            <small>Suporta links do Mercado Livre e Amazon</small>
-                        </div>
-                        
-                        <div id="product-preview" class="product-preview" style="display: none;">
-                            <h3>Prévia do Produto</h3>
-                            <div class="preview-content">
-                                <img id="preview-image" src="" alt="Produto">
-                                <div class="preview-details">
-                                    <h4 id="preview-name"></h4>
-                                    <p class="preview-price" id="preview-price"></p>
-                                    <p class="preview-description" id="preview-description"></p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="product-url-loader-actions">
-                            <button type="button" class="btn btn-secondary" onclick="productURLLoader.closeModal()">
-                                Cancelar
-                            </button>
-                            <button type="button" class="btn btn-primary" id="btn-load-product">
-                                <i class="fas fa-download"></i> Carregar Dados
-                            </button>
-                            <button type="submit" class="btn btn-success" id="btn-save-product" style="display: none;">
-                                <i class="fas fa-save"></i> Salvar Produto
-                            </button>
-                        </div>
-                    </form>
-                </div>
+    closeModal() {
+        if (!this.modalElement) return;
+        this.modalElement.classList.remove('show');
+    }
+
+    resetModalState() {
+        if (this.productUrlInput) this.productUrlInput.value = '';
+        if (this.productUrlResultDiv) this.productUrlResultDiv.style.display = 'none';
+        if (this.productUrlLoaderDiv) this.productUrlLoaderDiv.style.display = 'none';
+        this.productData = null;
+        // Redefinir para o formulário inicial
+        this.showInitialForm();
+    }
+
+    showInitialForm() {
+        if (!this.productUrlForm) return;
+        this.productUrlForm.innerHTML = `
+            <div class="grupo-formulario">
+                <label for="product-url">URL do Produto (Mercado Livre ou Amazon)</label>
+                <input type="url" id="product-url" name="url" required placeholder="Cole a URL do produto aqui">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="window.productURLLoader.closeModal()">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Extrair Dados</button>
             </div>
         `;
-        
-        document.body.appendChild(overlay);
-        this.modalElement = overlay;
-        
-        // Event listeners
-        document.getElementById('btn-load-product').addEventListener('click', () => this.loadProductData());
-        document.getElementById('product-url-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.saveProduct();
-        });
-        
-        setTimeout(() => overlay.classList.add('show'), 10);
+        // Re-vincular elementos do formulário
+        this.productUrlInput = document.getElementById('product-url');
     }
 
-    /**
-     * Carrega dados do produto a partir da URL
-     */
-    async loadProductData() {
-        const urlInput = document.getElementById('product-url');
-        const url = urlInput.value.trim();
-        
+    async extractData() {
+        if (!this.productUrlInput) return;
+        const url = this.productUrlInput.value.trim();
+
         if (!url) {
-            this.showNotification('Erro', 'Por favor, insira um link válido', 'error');
+            this.showAdminMessage('Por favor, insira um link válido', 'error');
             return;
         }
-        
-        this.showLoading('Carregando dados do produto...');
-        
+
+        this.showLoading('Extraindo dados do produto...');
+
         try {
             const response = await fetch(`${this.apiBase}/product-scraper/extract-from-url`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ url })
             });
-            
+
             const data = await response.json();
-            
             this.hideLoading();
-            
+
             if (response.ok && data.success) {
-                this.displayProductPreview(data.product);
-                document.getElementById('btn-load-product').style.display = 'none';
-                document.getElementById('btn-save-product').style.display = 'inline-block';
+                this.productData = data.product;
+                this.displayProductPreview();
             } else {
-                throw new Error(data.message || 'Erro ao carregar dados do produto');
+                throw new Error(data.message || 'Erro ao extrair dados do produto');
             }
-            
         } catch (error) {
             this.hideLoading();
-            console.error('Erro ao carregar produto:', error);
-            this.showNotification('Erro', error.message || 'Não foi possível carregar os dados do produto', 'error');
+            console.error('Erro ao extrair dados:', error);
+            this.showAdminMessage(error.message, 'error');
         }
     }
 
-    /**
-     * Exibe prévia do produto carregado
-     */
-    displayProductPreview(product) {
-        const previewDiv = document.getElementById('product-preview');
-        
-        document.getElementById('preview-image').src = product.imagem || 'https://via.placeholder.com/150?text=Produto';
-        document.getElementById('preview-name').textContent = product.nome;
-        document.getElementById('preview-price').textContent = `R$ ${parseFloat(product.preco).toFixed(2)}`;
-        document.getElementById('preview-description').textContent = product.descricao || 'Sem descrição';
-        
-        previewDiv.style.display = 'block';
-        
-        // Armazenar dados do produto para salvar depois
-        this.productData = product;
+    displayProductPreview() {
+        if (!this.productData || !this.productUrlForm) return;
+
+        this.productUrlForm.innerHTML = `
+            <div class="product-preview-container">
+                <img src="${this.productData.imagem || 'https://via.placeholder.com/150?text=Sem+Imagem'}" alt="Prévia do Produto" class="preview-image">
+                <div class="preview-info">
+                    <h4>${this.productData.nome}</h4>
+                    <p>Preço: R$ ${parseFloat(this.productData.preco).toFixed(2)}</p>
+                    <p class="description">${this.productData.descricao ? this.productData.descricao.substring(0, 100) + '...' : 'Sem descrição'}</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="window.productURLLoader.resetModalState()">Cancelar</button>
+                <button type="button" class="btn btn-success" id="btn-save-product-from-url">Salvar Produto</button>
+            </div>
+        `;
+
+        const saveButton = document.getElementById('btn-save-product-from-url');
+        if (saveButton) {
+            saveButton.addEventListener('click', () => this.saveProduct());
+        }
     }
 
-    /**
-     * Salva o produto no banco de dados
-     */
     async saveProduct() {
         if (!this.productData) {
-            this.showNotification('Erro', 'Nenhum produto carregado', 'error');
+            this.showAdminMessage('Nenhum dado de produto para salvar.', 'warning');
             return;
         }
-        
+
         this.showLoading('Salvando produto...');
-        
+
         try {
-            const response = await fetch(`${this.apiBase}/produtos`, {
+            const response = await fetch(`${this.apiBase}/products`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(this.productData)
             });
-            
+
             const data = await response.json();
-            
             this.hideLoading();
-            
+
             if (response.ok && (data.success || data.status === 'success')) {
-                await this.showNotification('Sucesso!', 'Produto adicionado com sucesso', 'success');
+                this.showAdminMessage('Produto adicionado com sucesso!', 'success');
                 this.closeModal();
-                
-                // Recarregar lista de produtos
-                if (typeof loadProducts === 'function') {
-                    loadProducts();
+                // Assumindo que existe uma função global para recarregar os produtos no painel
+                if (typeof window.adminPanelAPI.loadProducts === 'function') {
+                    window.adminPanelAPI.loadProducts();
                 }
             } else {
-                throw new Error(data.message || 'Erro ao salvar produto');
+                throw new Error(data.message || 'Erro ao salvar o produto');
             }
-            
         } catch (error) {
             this.hideLoading();
             console.error('Erro ao salvar produto:', error);
-            await this.showNotification('Erro', error.message || 'Não foi possível salvar o produto', 'error');
+            this.showAdminMessage(error.message, 'error');
         }
     }
 
-    /**
-     * Fecha modal
-     */
-    closeModal() {
-        if (this.modalElement) {
-            this.modalElement.classList.remove('show');
-            setTimeout(() => {
-                this.modalElement.remove();
-                this.modalElement = null;
-                this.productData = null;
-            }, 300);
-        }
+    showAdminMessage(message, type = 'info') {
+        if (!this.productUrlResultDiv) return;
+        this.productUrlResultDiv.innerHTML = `<div class="admin-message ${type}"><i class="fas fa-info-circle"></i> ${message}</div>`;
+        this.productUrlResultDiv.style.display = 'block';
+        setTimeout(() => {
+            if (this.productUrlResultDiv) this.productUrlResultDiv.style.display = 'none';
+        }, 5000);
     }
 
-    /**
-     * Mostra notificação
-     */
-    async showNotification(title, message, type = 'info') {
-        if (typeof showNotification === 'function') {
-            showNotification(`${title}: ${message}`, type);
-        } else {
-            console.log(`${title}: ${message}`);
-        }
-    }
-
-    /**
-     * Mostra loading
-     */
     showLoading(text = 'Carregando...') {
-        const loading = document.createElement('div');
-        loading.className = 'fluent-loading-overlay';
-        loading.id = 'product-url-loader-loading';
-        loading.innerHTML = `
-            <div class="fluent-loading-spinner"></div>
-            <div class="fluent-loading-text">${text}</div>
-        `;
-        document.body.appendChild(loading);
+        if (!this.productUrlLoaderDiv) return;
+        this.productUrlLoaderDiv.innerHTML = `<div class="loading-state"><i class="fas fa-spinner fa-spin"></i><p>${text}</p></div>`;
+        this.productUrlLoaderDiv.style.display = 'block';
     }
 
-    /**
-     * Esconde loading
-     */
     hideLoading() {
-        const loading = document.getElementById('product-url-loader-loading');
-        if (loading) {
-            loading.remove();
-        }
+        if (!this.productUrlLoaderDiv) return;
+        this.productUrlLoaderDiv.style.display = 'none';
     }
 }
 
-// Criar instância global
-const productURLLoader = new ProductURLLoader();
-window.productURLLoader = productURLLoader;
+// Criar instância global e anexar à janela
+window.productURLLoader = new ProductURLLoader();
 
-// Função global para abrir modal
-window.openProductURLLoader = function() {
-    productURLLoader.openModal();
-};
+// Funções globais para interagir com o loader a partir do HTML
+function openProductURLLoader() {
+    window.productURLLoader.openModal();
+}
 
+function closeProductURLLoader() {
+    window.productURLLoader.closeModal();
+}
