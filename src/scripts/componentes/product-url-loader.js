@@ -102,7 +102,7 @@ class ProductURLLoader {
         this.showLoading('Carregando dados do produto...');
         
         try {
-            const response = await fetch(`${this.apiBase}/products/extract-from-url`, {
+            const response = await fetch(`${this.apiBase}/product-scraper/extract-from-url`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -207,14 +207,10 @@ class ProductURLLoader {
      * Mostra notificação
      */
     async showNotification(title, message, type = 'info') {
-        if (typeof alertaFluent === 'function') {
-            const icons = {
-                success: 'fas fa-check-circle',
-                error: 'fas fa-exclamation-triangle',
-                warning: 'fas fa-exclamation-circle',
-                info: 'fas fa-info-circle'
-            };
-            await alertaFluent(title, message, icons[type] || icons.info);
+        if (typeof showNotification === 'function') {
+            showNotification(`${title}: ${message}`, type);
+        } else {
+            console.log(`${title}: ${message}`);
         }
     }
 
