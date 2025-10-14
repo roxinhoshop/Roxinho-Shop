@@ -159,3 +159,9 @@ function updateNotificationCounter(count) {
     }
 }
 
+
+
+
+
+window.showNotification = showNotification;
+

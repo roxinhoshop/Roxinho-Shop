@@ -222,9 +222,24 @@ function loadingFluent(mensagem = 'Carregando...') {
 }
 
 // Exportar para uso global
+/**
+ * Exibe uma animação de sucesso e redireciona após um tempo.
+ * @param {string} titulo - Título da animação.
+ * @param {string} mensagem - Mensagem da animação.
+ * @param {string} redirectUrl - URL para redirecionar após a animação.
+ * @param {number} duration - Duração da animação em milissegundos.
+ */
+function showSuccessAnimation(titulo, mensagem, redirectUrl, duration = 2000) {
+    alertaFluent(titulo, mensagem, 'fas fa-check-circle', 'success');
+    setTimeout(() => {
+        window.location.href = redirectUrl;
+    }, duration);
+}
+
 if (typeof window !== 'undefined') {
     window.alertaFluent = alertaFluent;
     window.confirmarFluent = confirmarFluent;
     window.loadingFluent = loadingFluent;
+    window.showSuccessAnimation = showSuccessAnimation;
 }
 

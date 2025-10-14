@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Validação básica
         if (!email || !senha) {
-            if (typeof showNotification === 'function') {
+            if (window.showNotification) {
                 showNotification("⚠️ Por favor, preencha todos os campos.", "warning");
             } else {
                 alert("Por favor, preencha todos os campos.");
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Validar formato de email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            if (typeof showNotification === 'function') {
+            if (window.showNotification) {
                 showNotification("⚠️ Por favor, insira um e-mail válido.", "warning");
             } else {
                 alert("Por favor, insira um e-mail válido.");
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Adicionar loading no botão
-        if (typeof addButtonLoading === 'function') {
+            if (window.addButtonLoading) {
             addButtonLoading(loginButton);
         } else {
             loginButton.disabled = true;
@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 
                 // Mostrar mensagem de sucesso
-                if (typeof showNotification === 'function') {
+                if (window.showNotification) {
                     showNotification(
                         `✅ Login realizado com sucesso!\n👋 Bem-vindo, ${userName}!`,
                         "success"
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 
                 // Animação de sucesso se disponível
-                if (typeof showSuccessAnimation === 'function') {
+                if (window.showSuccessAnimation) {
                     showSuccessAnimation(
                         "🎉 Login Realizado!",
                         `Bem-vindo, ${userName}! (${userType})`,
@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             } else {
                 // Erro no login
-                if (typeof removeButtonLoading === 'function') {
+                if (window.removeButtonLoading) {
                     removeButtonLoading(loginButton);
                 } else {
                     loginButton.disabled = false;
@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
                 
-                if (typeof showNotification === 'function') {
+                if (window.showNotification) {
                     showNotification(errorMessage, "error");
                 } else {
                     alert(errorMessage);
@@ -158,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         } catch (error) {
             // Erro de conexão
-            if (typeof removeButtonLoading === 'function') {
+            if (window.removeButtonLoading) {
                 removeButtonLoading(loginButton);
             } else {
                 loginButton.disabled = false;
@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
             
             console.error("Erro de rede:", error);
             
-            if (typeof showNotification === 'function') {
+            if (window.showNotification) {
                 showNotification(
                     "🔌 Erro de conexão. Verifique sua internet e tente novamente.",
                     "error"

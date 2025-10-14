@@ -183,12 +183,12 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // Validar formulário
         if (!validarFormularioCompleto()) {
-            showNotification("Por favor, corrija os erros no formulário.", "error");
+            window.showNotification("Por favor, corrija os erros no formulário.", "error");
             return;
         }
 
         // Adicionar loading no botão
-        addButtonLoading(botaoCadastro);
+        window.addButtonLoading(botaoCadastro);
 
         const data = {
             nome: nomeInput.value.trim(),
@@ -215,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 localStorage.setItem("userFirstName", data.nome);
                 
                 // Mostrar animação de sucesso
-                if (typeof showSuccessAnimation === 'function') {
+                if (window.showSuccessAnimation) {
                     showSuccessAnimation(
                         "Cadastro Realizado!",
                         "Bem-vindo à Roxinho Shop! Redirecionando para o login...",
@@ -223,22 +223,22 @@ document.addEventListener("DOMContentLoaded", () => {
                         2500
                     );
                 } else {
-                    showNotification("Cadastro realizado com sucesso! Você já pode fazer login.", "success");
+                    window.showNotification("Cadastro realizado com sucesso! Você já pode fazer login.", "success");
                     setTimeout(() => {
                         window.location.href = "entrar.html?redirect=/index.html";
                     }, 1500);
                 }
             } else {
                 // Remover loading do botão
-                removeButtonLoading(botaoCadastro);
-                showNotification(result.message || "Ocorreu um erro ao cadastrar. Tente novamente.", "error");
+                window.removeButtonLoading(botaoCadastro);
+                window.showNotification(result.message || "Ocorreu um erro ao cadastrar. Tente novamente.", "error");
                 console.error(`Erro: ${result.message}`);
             }
         } catch (error) {
             // Remover loading do botão
-            removeButtonLoading(botaoCadastro);
+            window.removeButtonLoading(botaoCadastro);
             console.error("Erro ao cadastrar:", error);
-            showNotification("Erro de conexão. Tente novamente mais tarde.", "error");
+            window.showNotification("Erro de conexão. Tente novamente mais tarde.", "error");
         }
     });
 
