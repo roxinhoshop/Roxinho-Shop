@@ -1,227 +1,74 @@
 /**
  * Product Scraper - Sistema de Importação de Produtos
- * Suporta: Amazon, Mercado Livre
+ * Utiliza o endpoint do backend para extração de dados de produtos via URL
  */
 
 class ProductScraper {
     constructor() {
-        this.apiEndpoint = 'https://api.allorigins.win/raw?url=';
+        this.backendApiUrl = 'https://roxinho-shop-backend.vercel.app/api/products/extract-from-url'; // URL do seu backend
     }
 
     /**
-     * Detecta a origem do produto pelo URL
-     */
-    detectSource(url) {
-        if (url.includes('amazon.com') || url.includes('amazon.com.br')) {
-            return 'amazon';
-        } else if (url.includes('mercadolivre.com') || url.includes('mercadolibre.com')) {
-            return 'mercadolivre';
-        }
-        return 'unknown';
-    }
-
-    /**
-     * Extrai dados do produto de forma genérica
-     */
-    async scrapeProduct(url) {
-        try {
-            const source = this.detectSource(url);
-            
-            if (source === 'unknown') {
-                throw new Error('URL não suportada. Use Amazon ou Mercado Livre.');
-            }
-
-            // Usar CORS proxy para acessar o conteúdo
-            const response = await fetch(this.apiEndpoint + encodeURIComponent(url));
-            const html = await response.text();
-
-            // Parser HTML
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-
-            let productData = {};
-
-            if (source === 'amazon') {
-                productData = this.parseAmazon(doc, url);
-            } else if (source === 'mercadolivre') {
-                productData = this.parseMercadoLivre(doc, url);
-            }
-
-            productData.source = source;
-            productData.originalUrl = url;
-            productData.importedAt = new Date().toISOString();
-
-            return productData;
-        } catch (error) {
-            console.error('Erro ao fazer scraping:', error);
-            throw error;
-        }
-    }
-
-    /**
-     * Parse de produtos da Amazon
-     */
-    parseAmazon(doc, url) {
-        const title = doc.querySelector('#productTitle')?.textContent.trim() || 
-                     doc.querySelector('h1')?.textContent.trim() || 
-                     'Produto sem título';
-
-        const priceWhole = doc.querySelector('.a-price-whole')?.textContent.trim() || '';
-        const priceFraction = doc.querySelector('.a-price-fraction')?.textContent.trim() || '';
-        const price = priceWhole && priceFraction ? 
-                     `R$ ${priceWhole},${priceFraction}` : 
-                     'Preço não disponível';
-
-        const image = doc.querySelector('#landingImage')?.src || 
-                     doc.querySelector('.a-dynamic-image')?.src || 
-                     doc.querySelector('img[data-old-hires]')?.getAttribute('data-old-hires') ||
-                     '../recursos/imagens/default.png';
-
-        const description = doc.querySelector('#feature-bullets')?.textContent.trim() || 
-                          doc.querySelector('#productDescription')?.textContent.trim() || 
-                          'Sem descrição disponível';
-
-        // Extrair categoria
-        const breadcrumb = doc.querySelector('#wayfinding-breadcrumbs_feature_div');
-        const category = breadcrumb?.textContent.trim().split('›')[1]?.trim() || 'Geral';
-
-        return {
-            name: title,
-            price: this.extractPrice(price),
-            image: image,
-            description: this.cleanDescription(description),
-            category: category,
-            source: 'Amazon'
-        };
-    }
-
-    /**
-     * Parse de produtos do Mercado Livre
-     */
-    parseMercadoLivre(doc, url) {
-        const title = doc.querySelector('.ui-pdp-title')?.textContent.trim() || 
-                     doc.querySelector('h1')?.textContent.trim() || 
-                     'Produto sem título';
-
-        const priceElement = doc.querySelector('.andes-money-amount__fraction') ||
-                            doc.querySelector('.price-tag-fraction');
-        const price = priceElement ? 
-                     `R$ ${priceElement.textContent.trim()}` : 
-                     'Preço não disponível';
-
-        const image = doc.querySelector('.ui-pdp-image')?.src || 
-                     doc.querySelector('img[data-zoom]')?.src || 
-                     doc.querySelector('.ui-pdp-gallery__figure img')?.src ||
-                     '../recursos/imagens/default.png';
-
-        const description = doc.querySelector('.ui-pdp-description')?.textContent.trim() || 
-                          doc.querySelector('.item-description')?.textContent.trim() || 
-                          'Sem descrição disponível';
-
-        // Extrair categoria
-        const breadcrumb = doc.querySelector('.andes-breadcrumb');
-        const category = breadcrumb?.textContent.trim().split('>')[1]?.trim() || 'Geral';
-
-        return {
-            name: title,
-            price: this.extractPrice(price),
-            image: image,
-            description: this.cleanDescription(description),
-            category: category,
-            source: 'Mercado Livre'
-        };
-    }
-
-    /**
-     * Extrai apenas o valor numérico do preço
-     */
-    extractPrice(priceString) {
-        const match = priceString.match(/[\d.,]+/);
-        return match ? parseFloat(match[0].replace('.', '').replace(',', '.')) : 0;
-    }
-
-    /**
-     * Limpa a descrição removendo espaços extras e caracteres especiais
-     */
-    cleanDescription(description) {
-        return description
-            .replace(/\s+/g, ' ')
-            .replace(/[\n\r\t]/g, ' ')
-            .trim()
-            .substring(0, 500); // Limita a 500 caracteres
-    }
-
-    /**
-     * Importa produto e salva no MySQL via API
+     * Importa produto e salva no MySQL via API do backend
      */
     async importProduct(url) {
         try {
-            const productData = await this.scrapeProduct(url);
-            
-            // Preparar dados para a API
+            const response = await fetch(this.backendApiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // Adicione cabeçalhos de autenticação se necessário
+                    // 'Authorization': `Bearer ${seuTokenDeAutenticacao}`
+                },
+                body: JSON.stringify({ url: url })
+            });
+
+            const result = await response.json();
+
+            if (!result.success) {
+                throw new Error(result.message || 'Erro ao importar produto do backend.');
+            }
+
+            const productData = result.product;
+
+            // Preparar dados para a API (ajustar conforme a estrutura esperada pelo frontend)
             const produto = {
-                nome: productData.name,
-                descricao: productData.description,
-                preco: productData.price,
-                imagem: productData.image,
-                categoria: this.mapCategory(productData.category),
-                subcategoria: '',
-                origem: productData.source,
+                nome: productData.nome,
+                descricao: productData.descricao,
+                preco: productData.preco,
+                imagem: productData.imagem,
+                categoria: productData.categoria_id, // Usar o ID da categoria retornado pelo backend
+                subcategoria: '', // O backend não retorna subcategoria diretamente, pode ser ajustado
+                origem: result.platform, // Plataforma detectada pelo backend
                 link_original: url,
-                estoque: 10,
-                ativo: 1
+                estoque: productData.estoque,
+                ativo: productData.ativo
             };
 
-            // Salvar no MySQL via API
+            // Se a função criarProduto estiver disponível globalmente (como no código original)
             if (typeof criarProduto === 'function') {
                 const id = await criarProduto(produto);
                 produto.id = id;
                 return produto;
             } else {
-                throw new Error('Função criarProduto não disponível');
+                // Caso contrário, apenas retorna os dados para o chamador lidar
+                return produto;
             }
+
         } catch (error) {
-            console.error('Erro ao importar produto:', error);
+            console.error('Erro ao importar produto via backend:', error);
             throw error;
         }
     }
 
-    /**
-     * Mapeia categoria do site para categoria do sistema
-     */
-    mapCategory(category) {
-        const categoryMap = {
-            'eletrônicos': 'eletronicos',
-            'informática': 'hardware',
-            'computadores': 'computadores',
-            'celulares': 'celular-smartphone',
-            'games': 'games',
-            'tv': 'tv-audio',
-            'áudio': 'audio',
-            'acessórios': 'acessorios'
-        };
-
-        const normalized = category.toLowerCase();
-        for (const [key, value] of Object.entries(categoryMap)) {
-            if (normalized.includes(key)) {
-                return value;
-            }
-        }
-
-        return 'eletronicos'; // Categoria padrão
-    }
-
-    /**
-     * Lista todos os produtos importados
-     */
+    // Métodos de listagem, atualização e remoção de produtos (se ainda forem usados no frontend)
     listProducts() {
+        // Esta função pode precisar ser adaptada para buscar produtos do backend
         return JSON.parse(localStorage.getItem('products') || '[]');
     }
 
-    /**
-     * Atualiza um produto existente
-     */
     updateProduct(productId, updatedData) {
+        // Esta função pode precisar ser adaptada para atualizar produtos no backend
         const products = this.listProducts();
         const index = products.findIndex(p => p.id === productId);
         
@@ -234,10 +81,8 @@ class ProductScraper {
         throw new Error('Produto não encontrado');
     }
 
-    /**
-     * Remove um produto
-     */
     deleteProduct(productId) {
+        // Esta função pode precisar ser adaptada para remover produtos no backend
         const products = this.listProducts();
         const filtered = products.filter(p => p.id !== productId);
         localStorage.setItem('products', JSON.stringify(filtered));
