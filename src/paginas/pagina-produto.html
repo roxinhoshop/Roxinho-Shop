@@ -10,6 +10,7 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="../estilos/componentes/pagina-produto.css">
+  <link rel="stylesheet" href="../estilos/componentes/pagina-produto-melhorias.css">
   <link rel="stylesheet" href="../estilos/layouts/cabecalho-rodape.css">
 
   <!-- Header -->
@@ -33,9 +34,15 @@
 </head>
 <body>
 
-  <!-- breadcrumb -->
-  <nav class="breadcrumb">
-    <span id="breadcrumb"></span>
+  <!-- Breadcrumb Moderno -->
+  <nav class="breadcrumb-produto">
+    <div class="breadcrumb-container-produto">
+      <a href="../../index.html" class="breadcrumb-item"><i class="fas fa-home"></i> Início</a>
+      <span class="breadcrumb-separator">></span>
+      <a href="produtos.html" class="breadcrumb-item" id="breadcrumbCategoria">Produtos</a>
+      <span class="breadcrumb-separator">></span>
+      <span class="breadcrumb-item ativo" id="breadcrumbProduto">Produto</span>
+    </div>
   </nav>
 
 <!-- Container Principal -->
@@ -43,10 +50,14 @@
   
   <!-- Coluna esquerda (galeria) -->
   <div class="coluna-esquerda">
-    <div class="imagem-principal">
+    <div class="imagem-principal" id="containerImagemPrincipal">
       <img id="imagemProduto" src="" alt="Imagem do produto">
+      <div class="zoom-lens" id="zoomLens" style="display: none;"></div>
+      <div class="zoom-result" id="zoomResult" style="display: none;"></div>
     </div>
-    <div class="miniaturas" id="miniaturas"></div>
+    <div class="miniaturas" id="miniaturas">
+      <!-- Miniaturas serão adicionadas via JavaScript -->
+    </div>
   </div>
 
   <!-- Coluna direita (informações do produto) -->
@@ -74,6 +85,24 @@
           </div>
           <div class="preco-atual" id="precoProduto"></div>
           <div class="parcelamento" id="parcelamentoProduto"></div>
+        </div>
+
+        <!-- Botões Mercado Livre e Amazon -->
+        <div class="botoes-marketplace" id="botoesMarketplace" style="display: none;">
+          <a href="#" id="btnMercadoLivre" class="btn-marketplace btn-ml" target="_blank" style="display: none;">
+            <div class="marketplace-info">
+              <span class="marketplace-nome">Mercado Livre</span>
+              <span class="marketplace-preco" id="precoML">R$ 0,00</span>
+            </div>
+            <i class="fas fa-external-link-alt"></i>
+          </a>
+          <a href="#" id="btnAmazon" class="btn-marketplace btn-amazon" target="_blank" style="display: none;">
+            <div class="marketplace-info">
+              <span class="marketplace-nome">Amazon</span>
+              <span class="marketplace-preco" id="precoAmazon">R$ 0,00</span>
+            </div>
+            <i class="fas fa-external-link-alt"></i>
+          </a>
         </div>
 
         <div class="botoes-acao">
@@ -294,6 +323,32 @@
       });
     });
 </script>
+
+<!-- Produtos Relacionados -->
+<section class="produtos-relacionados">
+  <div class="container-produtos-relacionados">
+    <h2 class="titulo-secao">
+      <i class="fas fa-box"></i>
+      Produtos Relacionados
+    </h2>
+    <div class="grade-produtos-relacionados" id="produtosRelacionados">
+      <!-- Produtos serão carregados via JavaScript -->
+    </div>
+  </div>
+</section>
+
+<!-- Espaços para Banners -->
+<section class="banners-produto">
+  <div class="container-banners">
+    <div class="banner-produto-item">
+      <img src="../recursos/imagens/banner-ofertas.jpg" alt="Ofertas Especiais" onerror="this.style.display='none'">
+    </div>
+    <div class="banner-produto-item">
+      <img src="../recursos/imagens/banner-frete-gratis.jpg" alt="Frete Grátis" onerror="this.style.display='none'">
+    </div>
+  </div>
+</section>
+
   <script src="../scripts/componentes/cabecalho-autenticacao.js"></script>
   <script src="../scripts/componentes/notificacoes-fluent.js"></script>
   <script src="../scripts/componentes/alternador-tema.js"></script>
