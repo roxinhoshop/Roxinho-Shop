@@ -211,6 +211,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const result = await response.json();
 
             if (response.ok && result.message) {
+                // Salvar o primeiro nome do usuário no localStorage
+                localStorage.setItem("userFirstName", data.nome);
+                
                 // Mostrar animação de sucesso
                 if (typeof showSuccessAnimation === 'function') {
                     showSuccessAnimation(
@@ -222,7 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                     showNotification("Cadastro realizado com sucesso! Você já pode fazer login.", "success");
                     setTimeout(() => {
-                        window.location.href = "entrar.html?redirect=/index.html";edirect=/index.html";
+                        window.location.href = "entrar.html?redirect=/index.html";
                     }, 1500);
                 }
             } else {

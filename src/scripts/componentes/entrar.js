@@ -81,6 +81,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 localStorage.setItem("userEmail", tokenPayload.email);
                 localStorage.setItem("isAdmin", tokenPayload.isAdmin ? "true" : "false");
                 
+                // Se não tiver o primeiro nome salvo, extrair do email
+                if (!localStorage.getItem("userFirstName")) {
+                    const userName = tokenPayload.email.split('@')[0];
+                    localStorage.setItem("userFirstName", userName);
+                }
+                
                 // Disparar evento de mudança de autenticação
                 window.dispatchEvent(new Event("authChange"));
                 

@@ -170,7 +170,10 @@ async function loadProducts() {
     const container = document.getElementById('products-grid');
     const searchInput = document.getElementById('search-products');
     
-    if (!container) return;
+    if (!container) {
+        console.error('Container products-grid não encontrado');
+        return;
+    }
     
     // Loading
     container.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Carregando produtos...</div>';
@@ -180,6 +183,9 @@ async function loadProducts() {
         
         if (typeof listarProdutos === 'function') {
             produtos = await listarProdutos({});
+            console.log('Produtos carregados:', produtos.length);
+        } else {
+            console.error('Função listarProdutos não encontrada');
         }
         
         allProducts = produtos;
@@ -268,7 +274,21 @@ function initializeProductSearch() {
 
 // ======================= EDITAR PRODUTO =======================
 async function editProduct(id) {
-    await alertaFluent('Em Desenvolvimento', 'A edição de produtos será implementada em breve', 'fas fa-info-circle');
+    try {
+        // Buscar produto por ID
+        const produto = await buscarProduto(id);
+        
+        if (!produto) {
+            await alertaFluent('Erro', 'Produto não encontrado', 'fas fa-exclamation-triangle');
+            return;
+        }
+        
+        // Redirecionar para a página de edição com o ID do produto
+        window.location.href = `editar-produto.html?id=${id}`;
+    } catch (error) {
+        console.error('Erro ao editar produto:', error);
+        await alertaFluent('Erro', 'Não foi possível editar o produto', 'fas fa-exclamation-triangle');
+    }
 }
 
 // ======================= EXCLUIR PRODUTO =======================
@@ -283,10 +303,14 @@ async function deleteProduct(id, nome) {
     if (!confirmDelete) return;
     
     try {
-        if (typeof excluirProduto === 'function') {
-            await excluirProduto(id);
-            await alertaFluent('Sucesso!', 'Produto excluído com sucesso', 'fas fa-check-circle');
-            loadProducts();
+        if (typeof excluirProdutoAPI === 'function') {
+            const resultado = await excluirProdutoAPI(id);
+            if (resultado) {
+                loadProducts();
+            }
+        } else {
+            console.error('Função excluirProdutoAPI não encontrada');
+            await alertaFluent('Erro', 'Função de exclusão não disponível', 'fas fa-exclamation-triangle');
         }
     } catch (error) {
         console.error('Erro ao excluir produto:', error);

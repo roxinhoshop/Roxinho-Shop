@@ -28,9 +28,14 @@ function atualizarEstadoLogin() {
     if (token && userEmail) {
         // ========== USUÁRIO LOGADO ==========
         
-        // Extrair nome do email
-        const userName = userEmail.split('@')[0];
-        const displayName = userName.charAt(0).toUpperCase() + userName.slice(1);
+        // Obter o nome do usuário do localStorage (se disponível) ou extrair do email
+        let displayName = localStorage.getItem("userFirstName");
+        
+        // Se não tiver o nome armazenado, usar o email como fallback
+        if (!displayName) {
+            const userName = userEmail.split('@')[0];
+            displayName = userName.charAt(0).toUpperCase() + userName.slice(1);
+        }
         
         // Atualizar texto do cabeçalho
         statusLogin.textContent = `Olá, ${displayName}!`;

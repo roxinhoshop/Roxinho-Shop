@@ -62,6 +62,17 @@ class SistemaAvaliacoes {
   renderizarProduto() {
     const produto = this.produtoAtual;
     
+    // Adicionar produto ao histórico de visualizações
+    if (typeof adicionarProdutoVisto === 'function') {
+      adicionarProdutoVisto({
+        id: produto.id,
+        nome: produto.nome,
+        preco: produto.preco,
+        imagem: produto.imagem,
+        link: `pagina-produto.html?id=${produto.id}`
+      });
+    }
+    
     // Breadcrumb - com verificação de elemento
     const breadcrumb = document.getElementById("breadcrumb");
     if (breadcrumb) {
