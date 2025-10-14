@@ -934,7 +934,7 @@ main {
 }
 
 :root[data-theme="dark"] .rotulo-formulario {
-    color: #999999;
+    color: #904DDB;
 }
 
 :root[data-theme="dark"] .entrada-formulario:focus + .rotulo-formulario,

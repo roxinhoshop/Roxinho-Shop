@@ -414,21 +414,21 @@ body {
 }
 
 :root[data-theme="dark"] .floating-label {
-  color: #999999;
+  color: #904DDB;
 }
 
 :root[data-theme="dark"] .form-input:focus + .floating-label,
 :root[data-theme="dark"] .form-input:not(:placeholder-shown) + .floating-label {
   color: #904DDB;
-  background: #1c1c1c;
+  background: #0a0a0a;
 }
 
 :root[data-theme="dark"] label {
-  color: #ffffff !important;
+  color: #904DDB !important;
 }
 
 :root[data-theme="dark"] .form-group label {
-  color: #ffffff !important;
+  color: #904DDB !important;
 }
 
 :root[data-theme="dark"] .toggle-password {

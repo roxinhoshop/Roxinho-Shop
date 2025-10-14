@@ -98,10 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 let targetUrl = "../../index.html";
                 if (redirectUrl) {
                     targetUrl = decodeURIComponent(redirectUrl);
-                } else if (tokenPayload.isAdmin) {
-                    // Admin pode ir para painel admin, mas se houver redirectUrl, priorizá-lo
-                    targetUrl = "../../index.html";
-                }
                 }
                 
                 // Mostrar mensagem de sucesso

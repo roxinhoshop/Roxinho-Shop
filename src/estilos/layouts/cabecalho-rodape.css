@@ -61,7 +61,7 @@ body {
 .logo-imagem {
   margin-left: 10px;
   margin-bottom: -5px;
-  height: 65px;
+  height: 85px;
   width: auto;
   object-fit: contain;
   transition: filter 0.3s ease;
@@ -258,11 +258,11 @@ body {
 .barra-categorias {
   display: flex;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(10, 10, 10, 0.95);
   backdrop-filter: blur(20px);
   padding: 0.75rem 2rem;
-  border-bottom: 1px solid rgba(124, 58, 237, 0.08);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(144, 77, 219, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   position: relative;
   z-index: 100;
 }
@@ -2193,13 +2193,13 @@ body {
     font-weight: 600;
 }
 
-/* Barra de Categorias - Mais Arredondada */
+/* Barra de Categorias - Fluent Design Preto */
 .barra-categorias {
-    background: linear-gradient(135deg, #904DDB 0%, #904DDB 100%);
+    background: rgba(10, 10, 10, 0.95);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 4px 16px rgba(124, 58, 237, 0.2);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(144, 77, 219, 0.2);
     padding: 12px 0;
 }
 
