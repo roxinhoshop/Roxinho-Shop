@@ -198,7 +198,7 @@ function detectarCategoria(nome, descricao = '') {
  */
 async function buscarIdCategoria(nomeCategoria) {
     try {
-        const response = await fetch('https://roxinho-shop-backend.vercel.app/api/categorias');
+        const response = await fetch(`${window.API_BASE_URL}/categories`);
         const data = await response.json();
         
         if (data.success || data.status === 'success') {

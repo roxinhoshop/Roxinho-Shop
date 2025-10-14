@@ -200,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         try {
-            const response = await fetch("https://roxinho-shop-backend.vercel.app/api/auth/register", {
+            const response = await fetch(`${window.API_BASE_URL}/auth/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

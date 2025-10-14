@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const listaProdutosVistosDiv = document.getElementById('lista-produtos-vistos');
     const btnLimparHistorico = document.getElementById('btn-limpar-historico');
 
-    const apiBase = 'https://roxinho-shop-backend.vercel.app/api';
+    const apiBase = window.API_BASE_URL;
     let usuarioLogado = null;
 
     // Função para obter o usuário logado do localStorage

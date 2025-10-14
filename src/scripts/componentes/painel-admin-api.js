@@ -4,7 +4,7 @@
 
 class AdminPanelAPI {
     constructor() {
-        this.apiBaseUrl = 'https://roxinho-shop-backend.vercel.app/api';
+        this.apiBaseUrl = window.API_BASE_URL;
         this.currentProducts = [];
         this.currentCategories = [];
         this.currentPage = 1;

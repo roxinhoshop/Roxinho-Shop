@@ -1,6 +1,6 @@
 // ======================= CLIENTE API DE PRODUTOS =======================
 
-const API_URL = window.API_BASE_URL || 'https://roxinho-shop-backend.vercel.app/api';
+const API_URL = window.API_BASE_URL;
 
 // ======================= PRODUTOS =======================
 
@@ -16,7 +16,7 @@ async function listarProdutos(filtros = {}) {
         if (filtros.limite) params.append('limite', filtros.limite);
         if (filtros.pagina) params.append('pagina', filtros.pagina);
         
-        const response = await fetch(`${API_URL}/produtos?${params}`);
+        const response = await fetch(`${API_URL}/products?${params}`);
         const data = await response.json();
         
         if (!data.success && data.status !== 'success' && !data.products && !data.produtos) {
@@ -37,7 +37,7 @@ async function listarProdutos(filtros = {}) {
 // Buscar produto por ID
 async function buscarProduto(id) {
     try {
-        const response = await fetch(`${API_URL}/produtos/${id}`);
+        const response = await fetch(`${API_URL}/products/${id}`);
         const data = await response.json();
         
         if (!data.success && data.status !== 'success') {
@@ -55,7 +55,7 @@ async function buscarProduto(id) {
 // Criar produto
 async function criarProduto(produto) {
     try {
-        const response = await fetch(`${API_URL}/produtos`, {
+        const response = await fetch(`${API_URL}/products`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -139,7 +139,7 @@ async function excluirProdutoAPI(id) {
 // Listar categorias
 async function listarCategorias() {
     try {
-        const response = await fetch(`${API_URL}/categorias`);
+        const response = await fetch(`${API_URL}/categories`);
         const data = await response.json();
         
         if (!data.success) {
@@ -156,7 +156,7 @@ async function listarCategorias() {
 // Listar subcategorias
 async function listarSubcategorias(categoriaSlug) {
     try {
-        const response = await fetch(`${API_URL}/categorias/${categoriaSlug}/subcategorias`);
+        const response = await fetch(`${API_URL}/categories/${categoriaSlug}/subcategories`);
         const data = await response.json();
         
         if (!data.success) {
@@ -175,7 +175,7 @@ async function listarSubcategorias(categoriaSlug) {
 // Obter estatísticas
 async function obterEstatisticasAPI() {
     try {
-        const response = await fetch(`${API_URL}/estatisticas`);
+        const response = await fetch(`${API_URL}/statistics`);
         const data = await response.json();
         
         if (!data.success) {

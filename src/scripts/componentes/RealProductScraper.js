@@ -6,7 +6,7 @@
 class RealProductScraper {
     constructor() {
         this.corsProxy = 'https://api.allorigins.win/raw?url=';
-        this.apiBase = 'https://roxinho-shop-backend.vercel.app/api';
+        this.apiBase = window.API_BASE_URL;
     }
 
     /**
