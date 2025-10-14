@@ -203,9 +203,12 @@ async function loadProducts() {
         const data = await response.json();
         
         let produtos = [];
-        if (data.success && data.products) {
+        // A API pode retornar {success: true, products: []} ou {status: 'success', products: []}
+        if ((data.success || data.status === 'success') && data.products) {
             produtos = data.products;
             console.log('Produtos carregados:', produtos.length);
+        } else {
+            console.warn('Estrutura de resposta inesperada:', data);
         }
         
         allProducts = produtos;
@@ -228,7 +231,7 @@ async function loadProducts() {
 }
 
 function renderProducts(produtos) {
-    const container = document.getElementById('products-grid');
+    const container = document.getElementById('products-list');
     if (!container) return;
     
     if (!produtos || produtos.length === 0) {
