@@ -95,14 +95,40 @@ async function importProduct() {
     btnImport.disabled = true;
     
     try {
-        // Usar o sistema de importação que já está funcionando
-        if (window.productURLLoader) {
-            window.productURLLoader.openModal();
-        } else {
-            throw new Error('Sistema de importação não disponível');
+        // Fazer requisição direta para a API
+        const response = await fetch('https://roxinho-shop-backend.vercel.app/api/product-scraper/extract-from-url', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ url: url })
+        });
+        
+        const data = await response.json();
+        
+        if (!data.success) {
+            throw new Error(data.message || 'Erro ao extrair produto');
         }
         
-        // Resetar botão
+        // Salvar produto no banco
+        const saveResponse = await fetch('https://roxinho-shop-backend.vercel.app/api/products', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data.product)
+        });
+        
+        const saveData = await saveResponse.json();
+        
+        if (saveData.success) {
+            await alertaFluent('Sucesso!', 'Produto importado com sucesso!', 'fas fa-check-circle');
+            urlInput.value = '';
+            loadProducts();
+        } else {
+            throw new Error(saveData.message || 'Erro ao salvar produto');
+        }
+        
         btnImport.innerHTML = originalHTML;
         btnImport.disabled = false;
     } catch (error) {
@@ -172,13 +198,14 @@ async function loadProducts() {
     container.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Carregando produtos...</div>';
     
     try {
-        let produtos = [];
+        // Buscar produtos da API
+        const response = await fetch('https://roxinho-shop-backend.vercel.app/api/products');
+        const data = await response.json();
         
-        if (typeof listarProdutos === 'function') {
-            produtos = await listarProdutos({});
+        let produtos = [];
+        if (data.success && data.products) {
+            produtos = data.products;
             console.log('Produtos carregados:', produtos.length);
-        } else {
-            console.error('Função listarProdutos não encontrada');
         }
         
         allProducts = produtos;
