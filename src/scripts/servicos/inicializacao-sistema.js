@@ -2,6 +2,8 @@
  * Coordena a inicialização e integração de todos os módulos do sistema (autenticação, API, e-mail, etc.).
  */
 
+window.API_BASE_URL = 'https://roxinho-shop-backend.vercel.app/api';
+
 class SystemInitializer {
     /**
      * Construtor da classe SystemInitializer.
