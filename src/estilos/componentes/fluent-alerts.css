@@ -1,0 +1,297 @@
+/* =====================================================
+   FLUENT DESIGN - AVISOS E MODAIS CENTRALIZADOS
+   ===================================================== */
+
+/* Overlay para avisos */
+.fluent-alert-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Container do alerta */
+.fluent-alert {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 12px;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.15),
+        0 2px 8px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    max-width: 480px;
+    width: 90%;
+    padding: 0;
+    overflow: hidden;
+    animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px) scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Cabeçalho do alerta */
+.fluent-alert-header {
+    padding: 24px 28px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 249, 250, 0.5) 100%);
+}
+
+.fluent-alert-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.fluent-alert-icon.success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+}
+
+.fluent-alert-icon.error {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+}
+
+.fluent-alert-icon.warning {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+}
+
+.fluent-alert-icon.info {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+}
+
+.fluent-alert-title {
+    flex: 1;
+}
+
+.fluent-alert-title h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #1f2937;
+    line-height: 1.3;
+}
+
+/* Corpo do alerta */
+.fluent-alert-body {
+    padding: 24px 28px;
+}
+
+.fluent-alert-message {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #4b5563;
+    margin: 0;
+}
+
+/* Rodapé do alerta */
+.fluent-alert-footer {
+    padding: 20px 28px 24px;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    background: rgba(248, 249, 250, 0.5);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.fluent-alert-button {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    position: relative;
+    overflow: hidden;
+}
+
+.fluent-alert-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+}
+
+.fluent-alert-button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.fluent-alert-button-primary {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+}
+
+.fluent-alert-button-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+}
+
+.fluent-alert-button-primary:active {
+    transform: translateY(0);
+}
+
+.fluent-alert-button-secondary {
+    background: #f3f4f6;
+    color: #4b5563;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.fluent-alert-button-secondary:hover {
+    background: #e5e7eb;
+    transform: translateY(-1px);
+}
+
+.fluent-alert-button-danger {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+.fluent-alert-button-danger:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+/* Modal de confirmação */
+.fluent-confirm {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 12px;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.15),
+        0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 440px;
+    width: 90%;
+    animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Loading spinner */
+.fluent-loading {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 0.8s linear infinite;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Modo escuro */
+@media (prefers-color-scheme: dark) {
+    .fluent-alert {
+        background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+        box-shadow: 
+            0 8px 32px rgba(0, 0, 0, 0.4),
+            0 2px 8px rgba(0, 0, 0, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+    
+    .fluent-alert-header {
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+        background: linear-gradient(180deg, rgba(31, 41, 55, 0.9) 0%, rgba(17, 24, 39, 0.5) 100%);
+    }
+    
+    .fluent-alert-title h3 {
+        color: #f9fafb;
+    }
+    
+    .fluent-alert-message {
+        color: #d1d5db;
+    }
+    
+    .fluent-alert-footer {
+        background: rgba(17, 24, 39, 0.5);
+        border-top-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    .fluent-alert-button-secondary {
+        background: #374151;
+        color: #f3f4f6;
+    }
+    
+    .fluent-alert-button-secondary:hover {
+        background: #4b5563;
+    }
+    
+    .fluent-confirm {
+        background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    }
+}
+
+/* Animação de saída */
+.fluent-alert-overlay.fade-out {
+    animation: fadeOut 0.2s ease-out forwards;
+}
+
+.fluent-alert-overlay.fade-out .fluent-alert,
+.fluent-alert-overlay.fade-out .fluent-confirm {
+    animation: slideDown 0.2s ease-out forwards;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes slideDown {
+    to {
+        transform: translateY(20px) scale(0.95);
+        opacity: 0;
+    }
+}
+
