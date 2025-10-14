@@ -125,27 +125,7 @@ function calcularTempoVisto(dataVisualizacao) {
     return 'Há mais de uma semana';
 }
 
-/**
- * Adiciona produto ao histórico
- */
-function adicionarAoHistorico(produto) {
-    let historico = JSON.parse(localStorage.getItem('produtosVistos') || '[]');
-    
-    // Remover produto se já existir
-    historico = historico.filter(p => p.id !== produto.id);
-    
-    // Adicionar no início com data de visualização
-    historico.unshift({
-        ...produto,
-        dataVisualizacao: new Date().toISOString()
-    });
-    
-    // Limitar a 50 produtos
-    historico = historico.slice(0, 50);
-    
-    // Salvar no localStorage
-    localStorage.setItem('produtosVistos', JSON.stringify(historico));
-}
+
 
 /**
  * Adicionar ao carrinho (placeholder)
@@ -164,6 +144,5 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Exportar funções
-window.adicionarAoHistorico = adicionarAoHistorico;
 window.carregarHistoricoHome = carregarHistoricoHome;
 
