@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "env": {
+    "API_BASE_URL": "https://roxinho-shop-backend.vercel.app/api"
+  }
+}
