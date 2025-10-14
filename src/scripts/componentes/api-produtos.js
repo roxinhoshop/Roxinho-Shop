@@ -1,6 +1,6 @@
 // ======================= CLIENTE API DE PRODUTOS =======================
 
-const API_URL = process.env.API_BASE_URL || 'https://roxinho-shop-backend.vercel.app/api';
+const API_URL = window.API_BASE_URL || 'https://roxinho-shop-backend.vercel.app/api';
 
 // ======================= PRODUTOS =======================
 
