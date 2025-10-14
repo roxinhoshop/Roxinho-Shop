@@ -95,21 +95,14 @@ async function importProduct() {
     btnImport.disabled = true;
     
     try {
-        // Criar instância do scraper
-        const scraper = new RealProductScraper();
+        // Usar o sistema de importação que já está funcionando
+        if (window.productURLLoader) {
+            window.productURLLoader.openModal();
+        } else {
+            throw new Error('Sistema de importação não disponível');
+        }
         
-        // Importar produto (faz scraping e salva no MySQL)
-        const produto = await scraper.importProduct(url);
-        
-        // Sucesso!
-        await alertaFluent('Sucesso!', `Produto "${produto.nome}" importado com sucesso!`, 'fas fa-check-circle');
-        
-        // Limpar campo
-        urlInput.value = '';
-        
-        // Recarregar lista de produtos
-        loadProducts();
-        
+        // Resetar botão
         btnImport.innerHTML = originalHTML;
         btnImport.disabled = false;
     } catch (error) {
