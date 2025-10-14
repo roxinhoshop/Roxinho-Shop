@@ -238,3 +238,67 @@
     }
 }
 
+
+
+/* Dark Mode */
+:root[data-theme="dark"] .secao-historico-home {
+    background: transparent;
+}
+
+:root[data-theme="dark"] .historico-titulo {
+    color: #ffffff;
+}
+
+:root[data-theme="dark"] .historico-titulo i {
+    color: #904DDB;
+}
+
+:root[data-theme="dark"] .historico-ver-todos {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #904DDB;
+    color: #904DDB;
+}
+
+:root[data-theme="dark"] .historico-ver-todos:hover {
+    background: #904DDB;
+    color: white;
+}
+
+:root[data-theme="dark"] .historico-produto-card {
+    background: #1c1c1c;
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme="dark"] .historico-produto-card:hover {
+    background: #242424;
+    border-color: #904DDB;
+}
+
+:root[data-theme="dark"] .historico-produto-imagem-container {
+    background: #2a2a2a;
+}
+
+:root[data-theme="dark"] .historico-produto-nome {
+    color: #ffffff;
+}
+
+:root[data-theme="dark"] .historico-produto-visto {
+    color: #cccccc;
+}
+
+:root[data-theme="dark"] .historico-produto-visto i {
+    color: #904DDB;
+}
+
+:root[data-theme="dark"] .historico-vazio {
+    background: #1c1c1c;
+}
+
+:root[data-theme="dark"] .historico-vazio-titulo {
+    color: #ffffff;
+}
+
+:root[data-theme="dark"] .historico-vazio-descricao {
+    color: #cccccc;
+}
+

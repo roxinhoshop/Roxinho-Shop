@@ -439,9 +439,11 @@ body {
 }
 
 .rodape {
-  background: linear-gradient(135deg, #904DDB 0%, #904DDB 100%);
+  background: rgba(10, 10, 10, 0.98);
+  backdrop-filter: blur(20px);
   color: #eee;
   padding: 3rem 2rem 1.5rem;
+  border-top: 1px solid rgba(144, 77, 219, 0.2);
 }
 
 .rodape-container {
@@ -495,9 +497,11 @@ body {
 }
 
 .rodape-minimalista {
-  background: linear-gradient(135deg, #904DDB 0%, #904DDB 100%);
+  background: rgba(10, 10, 10, 0.98);
+  backdrop-filter: blur(20px);
   text-align: center;
   padding: 3rem 1rem 2rem;
+  border-top: 1px solid rgba(144, 77, 219, 0.2);
 }
 
 .rodape-logo h2 {
@@ -1151,6 +1155,24 @@ body {
 }
 
 [data-theme="dark"] .caixa-pesquisa-centralizada input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+[data-theme="dark"] .caixa-pesquisa i {
+  color: #904DDB;
+}
+
+[data-theme="dark"] .caixa-pesquisa i:hover {
+  color: #FFB800;
+}
+
+[data-theme="dark"] .caixa-pesquisa input {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+[data-theme="dark"] .caixa-pesquisa input::placeholder {
   color: rgba(255, 255, 255, 0.6);
 }
 
