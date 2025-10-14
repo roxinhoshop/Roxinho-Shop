@@ -31,19 +31,19 @@ class ApiSystem {
             
             // Produtos
             products: {
-                list: '/api/products',
-                create: '/api/products',
-                update: '/api/products/:id',
-                delete: '/api/products/:id',
-                get: '/api/products/:id'
+                list: '/api/produtos',
+                create: '/api/produtos',
+                update: '/api/produtos/:id',
+                delete: '/api/produtos/:id',
+                get: '/api/produtos/:id'
             },
             
             // Categorias
             categories: {
-                list: '/api/categories',
-                create: '/api/categories',
-                update: '/api/categories/:id',
-                delete: '/api/categories/:id'
+                list: '/api/categorias',
+                create: '/api/categorias',
+                update: '/api/categorias/:id',
+                delete: '/api/categorias/:id'
             },
             
             // Pedidos
@@ -73,7 +73,7 @@ class ApiSystem {
 
     /**
      * Método genérico para fazer requisições HTTP.
-     * @param {string} endpoint - O endpoint da API (ex: '/api/products').
+     * @param {string} endpoint - O endpoint da API (ex: '/api/produtos').
      * @param {object} [options={}] - Opções de requisição (method, headers, body, etc.).
      * @returns {Promise<object>} Um objeto contendo `success`, `status`, `data` e `message`.
      */

@@ -136,7 +136,7 @@ class AdminPanelAPI {
      */
     async loadCategories() {
         try {
-            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/categories/all`);
+            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/categorias/all`);
             
             if (response && response.status === 'success') {
                 this.currentCategories = response.categories;
@@ -163,7 +163,7 @@ class AdminPanelAPI {
                 ...filters
             });
 
-            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/products?${params}`);
+            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/produtos?${params}`);
             
             if (response && response.status === 'success') {
                 this.currentProducts = response.products;
@@ -514,13 +514,13 @@ class AdminPanelAPI {
         try {
             let response;
             if (this.editingCategory) {
-                response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/categories/${this.editingCategory.id}`, {
+                response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/categorias/${this.editingCategory.id}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(categoryData),
                 });
             } else {
-                response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/categories`, {
+                response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/categorias`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(categoryData),
@@ -563,7 +563,7 @@ class AdminPanelAPI {
             return;
         }
         try {
-            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/categories/${categoryId}`, {
+            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/categorias/${categoryId}`, {
                 method: 'DELETE',
             });
 
@@ -669,14 +669,14 @@ class AdminPanelAPI {
             
             if (this.editingProduct) {
                 // Atualizar produto existente
-                response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/products/${this.editingProduct.id}`, {
+                response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/produtos/${this.editingProduct.id}`, {
                     method: 'PUT',
                     body: formData,
                     // Headers Content-Type não é necessário para FormData, o navegador define
                 });
             } else {
                 // Criar novo produto
-                response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/products`, {
+                response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/produtos`, {
                     method: 'POST',
                     body: formData,
                 });
@@ -705,7 +705,7 @@ class AdminPanelAPI {
      */
     async editProduct(productId) {
         try {
-            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/products/${productId}`);
+            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/produtos/${productId}`);
             
             if (response && response.status === 'success') {
                 this.showProductModal(response.product);
@@ -729,7 +729,7 @@ class AdminPanelAPI {
         }
 
         try {
-            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/products/${productId}`, {
+            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/produtos/${productId}`, {
                 method: 'DELETE',
             });
 

@@ -29,7 +29,7 @@ class ProdutoDetalhes {
     async loadProduto() {
         try {
             // Buscar dados do produto
-            const response = await fetch(`${this.apiBase}/products/${this.produtoId}`);
+            const response = await fetch(`${this.apiBase}/produtos/${this.produtoId}`);
             
             if (!response.ok) {
                 throw new Error('Produto não encontrado');

@@ -1,6 +1,9 @@
 // ======================= CLIENTE API DE PRODUTOS =======================
 
-const API_URL = window.API_BASE_URL;
+// Função para obter a URL da API
+function getAPIURL() {
+    return window.API_BASE_URL || 'https://roxinho-shop-backend.vercel.app/api';
+}
 
 // ======================= PRODUTOS =======================
 
@@ -16,7 +19,7 @@ async function listarProdutos(filtros = {}) {
         if (filtros.limite) params.append('limite', filtros.limite);
         if (filtros.pagina) params.append('pagina', filtros.pagina);
         
-        const response = await fetch(`${API_URL}/products?${params}`);
+        const response = await fetch(`${getAPIURL()}/produtos?${params}`);
         const data = await response.json();
         
         if (!data.success && data.status !== 'success' && !data.products && !data.produtos) {
@@ -37,7 +40,7 @@ async function listarProdutos(filtros = {}) {
 // Buscar produto por ID
 async function buscarProduto(id) {
     try {
-        const response = await fetch(`${API_URL}/products/${id}`);
+        const response = await fetch(`${getAPIURL()}/produtos/${id}`);
         const data = await response.json();
         
         if (!data.success && data.status !== 'success') {
@@ -55,7 +58,7 @@ async function buscarProduto(id) {
 // Criar produto
 async function criarProduto(produto) {
     try {
-        const response = await fetch(`${API_URL}/products`, {
+        const response = await fetch(`${getAPIURL()}/produtos`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -81,7 +84,7 @@ async function criarProduto(produto) {
 // Atualizar produto
 async function atualizarProduto(id, dados) {
     try {
-        const response = await fetch(`${API_URL}/produtos/${id}`, {
+        const response = await fetch(`${getAPIURL()}/produtos/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -115,7 +118,7 @@ async function excluirProdutoAPI(id) {
         
         if (!confirmado) return false;
         
-        const response = await fetch(`${API_URL}/produtos/${id}`, {
+        const response = await fetch(`${getAPIURL()}/produtos/${id}`, {
             method: 'DELETE'
         });
         
@@ -139,14 +142,19 @@ async function excluirProdutoAPI(id) {
 // Listar categorias
 async function listarCategorias() {
     try {
-        const response = await fetch(`${API_URL}/categories`);
+        const response = await fetch(`${getAPIURL()}/categorias`);
         const data = await response.json();
+        
+        // A API pode retornar um array diretamente ou um objeto com categorias
+        if (Array.isArray(data)) {
+            return data;
+        }
         
         if (!data.success) {
             throw new Error(data.message);
         }
         
-        return data.categorias;
+        return data.categorias || [];
     } catch (error) {
         console.error('Erro ao listar categorias:', error);
         return [];
@@ -156,14 +164,25 @@ async function listarCategorias() {
 // Listar subcategorias
 async function listarSubcategorias(categoriaSlug) {
     try {
-        const response = await fetch(`${API_URL}/categories/${categoriaSlug}/subcategories`);
-        const data = await response.json();
+        const response = await fetch(`${getAPIURL()}/categorias/${categoriaSlug}/subcategorias`);
         
-        if (!data.success) {
-            throw new Error(data.message);
+        // Se o endpoint não existir, retornar array vazio
+        if (response.status === 404) {
+            return [];
         }
         
-        return data.subcategorias;
+        const data = await response.json();
+        
+        // A API pode retornar um array diretamente ou um objeto com subcategorias
+        if (Array.isArray(data)) {
+            return data;
+        }
+        
+        if (!data.success) {
+            return [];
+        }
+        
+        return data.subcategorias || [];
     } catch (error) {
         console.error('Erro ao listar subcategorias:', error);
         return [];
@@ -175,7 +194,7 @@ async function listarSubcategorias(categoriaSlug) {
 // Obter estatísticas
 async function obterEstatisticasAPI() {
     try {
-        const response = await fetch(`${API_URL}/statistics`);
+        const response = await fetch(`${getAPIURL()}/estatisticas`);
         const data = await response.json();
         
         if (!data.success) {

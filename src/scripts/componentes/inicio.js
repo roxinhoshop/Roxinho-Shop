@@ -57,7 +57,7 @@ async function renderizarProdutosDestaque() {
       produtos = await listarProdutos({ limite: 8 });
     } else {
       // Fallback para API externa
-      const response = await fetch(`${window.API_BASE_URL}/products?limite=8`);
+      const response = await fetch(`${window.API_BASE_URL}/produtos?limite=8`);
       if (!response.ok) {
         throw new Error(`Erro HTTP! status: ${response.status}`);
       }

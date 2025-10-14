@@ -198,7 +198,7 @@ function detectarCategoria(nome, descricao = '') {
  */
 async function buscarIdCategoria(nomeCategoria) {
     try {
-        const response = await fetch(`${window.API_BASE_URL}/categories`);
+        const response = await fetch(`${window.API_BASE_URL}/categorias`);
         const data = await response.json();
         
         if (data.success || data.status === 'success') {

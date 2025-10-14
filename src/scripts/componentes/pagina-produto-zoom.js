@@ -72,7 +72,7 @@ async function carregarProduto() {
   }
   
   try {
-    const response = await fetch(`${window.API_BASE_URL}/products/${produtoId}`);
+    const response = await fetch(`${window.API_BASE_URL}/produtos/${produtoId}`);
     const data = await response.json();
     
     if (data.success && data.product) {
@@ -205,7 +205,7 @@ async function carregarProdutosRelacionados(categoriaId) {
   if (!categoriaId) return;
   
   try {
-    const response = await fetch(`${window.API_BASE_URL}/products?categoria_id=${categoriaId}&limit=4`);
+    const response = await fetch(`${window.API_BASE_URL}/produtos?categoria_id=${categoriaId}&limit=4`);
     const data = await response.json();
     
     if (data.success && data.products && data.products.length > 0) {

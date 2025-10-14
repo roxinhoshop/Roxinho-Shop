@@ -326,7 +326,7 @@ class RealProductScraper {
                 throw new Error('Você precisa estar logado como admin');
             }
 
-            const response = await fetch(`${this.apiBase}/products`, {
+            const response = await fetch(`${this.apiBase}/produtos`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

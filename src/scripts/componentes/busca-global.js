@@ -60,7 +60,7 @@ class SistemaBuscaGlobal {
     async buscarSugestoes(termo) {
         try {
             // Buscar produtos que correspondem ao termo
-            const response = await fetch(`${window.API_BASE_URL}/products/search?q=${encodeURIComponent(termo)}`);
+            const response = await fetch(`${window.API_BASE_URL}/produtos/search?q=${encodeURIComponent(termo)}`);
             const data = await response.json();
             
             if (data.status === 'success' && data.products && data.products.length > 0) {

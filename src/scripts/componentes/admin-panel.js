@@ -111,7 +111,7 @@ async function importProduct() {
         }
         
         // Salvar produto no banco
-        const saveResponse = await fetch(`${window.API_BASE_URL}/products`, {
+        const saveResponse = await fetch(`${window.API_BASE_URL}/produtos`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -199,7 +199,7 @@ async function loadProducts() {
     
     try {
         // Buscar produtos da API
-        const response = await fetch(`${window.API_BASE_URL}/products`);
+        const response = await fetch(`${window.API_BASE_URL}/produtos`);
         const data = await response.json();
         
         let produtos = [];

@@ -20,7 +20,7 @@ document.addEventListener(\'DOMContentLoaded\', () => {
     // Função para buscar e exibir produtos
     async function fetchProducts() {
         try {
-            const response = await fetch(`${API_URL}/products`);
+            const response = await fetch(`${API_URL}/produtos`);
             const products = await response.json();
             renderProducts(products);
         } catch (error) {
@@ -63,7 +63,7 @@ document.addEventListener(\'DOMContentLoaded\', () => {
     // Função para preencher o formulário para edição
     async function editProduct(id) {
         try {
-            const response = await fetch(`${API_URL}/products/${id}`);
+            const response = await fetch(`${API_URL}/produtos/${id}`);
             const product = await response.json();
             
             formTitle.textContent = \'Editar Produto\';
@@ -90,7 +90,7 @@ document.addEventListener(\'DOMContentLoaded\', () => {
     saveProductButton.addEventListener(\'click\', async () => {
         const id = productIdInput.value;
         const method = id ? \'PUT\' : \'POST\';
-        const url = id ? `${API_URL}/products/${id}` : `${API_URL}/products`;
+        const url = id ? `${API_URL}/produtos/${id}` : `${API_URL}/produtos`;
 
         const token = localStorage.getItem(\'jwtToken\');
         if (!token) {
@@ -147,7 +147,7 @@ document.addEventListener(\'DOMContentLoaded\', () => {
         }
 
         try {
-            const response = await fetch(`${API_URL}/products/${id}`, {
+            const response = await fetch(`${API_URL}/produtos/${id}`, {
                 method: \'DELETE\',
                 headers: {
                     \'Authorization\': `Bearer ${token}`

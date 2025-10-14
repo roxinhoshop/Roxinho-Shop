@@ -31,7 +31,7 @@ class ProductEditor {
      * Busca produto da API
      */
     async fetchProduct(id) {
-        const response = await fetch(`${window.API_BASE_URL}/products/${id}`);
+        const response = await fetch(`${window.API_BASE_URL}/produtos/${id}`);
         const data = await response.json();
         
         if (!data.status === 'success' && !data.success) {
@@ -214,7 +214,7 @@ class ProductEditor {
             this.showLoading('Salvando alterações...');
             
             // Atualizar via API
-            const response = await fetch(`${window.API_BASE_URL}/products/${this.currentProduct.id}`, {
+            const response = await fetch(`${window.API_BASE_URL}/produtos/${this.currentProduct.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

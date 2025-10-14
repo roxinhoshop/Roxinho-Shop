@@ -158,7 +158,7 @@ class ProductURLLoader {
         this.showLoading('Salvando produto...');
         
         try {
-            const response = await fetch(`${this.apiBase}/products`, {
+            const response = await fetch(`${this.apiBase}/produtos`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
