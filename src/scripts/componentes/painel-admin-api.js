@@ -13,6 +13,7 @@ class AdminPanelAPI {
         this.editingCategory = null; // Adicionado para controle de edição de categoria
         
         this.initializeSystem();
+        this.currentUsers = [];
     }
 
     /**
@@ -29,7 +30,9 @@ class AdminPanelAPI {
         await this.loadDashboardData();
         await this.loadCategories();
         await this.loadProducts();
+        await this.loadUsers();
         this.setupEventListeners();
+        this.setupUserTableListeners();
     }
 
     /**
@@ -214,6 +217,125 @@ class AdminPanelAPI {
         `;
 
         this.setupProductTableListeners();
+    }
+
+    /**
+     * Carrega os usuários para administração
+     */
+    async loadUsers() {
+        const usersTable = document.getElementById('users-table');
+        if (!usersTable) return;
+        usersTable.innerHTML = '<div class="loading-state"><i class="fas fa-spinner fa-spin"></i><p>Carregando usuários...</p></div>';
+
+        try {
+            const response = await window.authSystem.authenticatedRequest(`${this.apiBaseUrl}/auth/users`);
+            
+            if (response && response.success) {
+                this.currentUsers = response.users;
+                this.renderUsersTable();
+            } else {
+                console.error("❌ Erro ao carregar usuários: ", response.message);
+                usersTable.innerHTML = '<p class="error-message">Erro ao carregar usuários.</p>';
+                window.authSystem.showMessage(response.message || "Erro ao carregar usuários.", "error");
+            }
+        } catch (error) {
+            console.error("❌ Erro ao carregar usuários: ", error);
+            usersTable.innerHTML = '<p class="error-message">Erro de conexão ao carregar usuários.</p>';
+            window.authSystem.showMessage("Erro de conexão ao carregar usuários.", "error");
+        }
+    }
+
+    /**
+     * Renderiza a tabela de usuários
+     */
+    renderUsersTable() {
+        const tableContainer = document.getElementById("users-table");
+        if (!tableContainer) return;
+
+        if (!this.currentUsers || this.currentUsers.length === 0) {
+            tableContainer.innerHTML = `
+                <div class="empty-state">
+                    <p>Nenhum usuário encontrado</p>
+                </div>
+            `;
+            return;
+        }
+
+        tableContainer.innerHTML = `
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome Completo</th>
+                        <th>Email</th>
+                        <th>Telefone</th>
+                        <th>Data Nascimento</th>
+                        <th>Admin</th>
+                        <th>Verificado</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${this.currentUsers.map(user => this.renderUserRow(user)).join("")}
+                </tbody>
+            </table>
+        `;
+        this.setupUserTableListeners();
+    }
+
+    /**
+     * Renderiza uma linha da tabela de usuários
+     */
+    renderUserRow(user) {
+        const dataNascimento = user.data_nascimento ? new Date(user.data_nascimento).toLocaleDateString('pt-BR') : 'N/A';
+        return `
+            <tr data-user-id="${user.id}">
+                <td>${user.id}</td>
+                <td>${user.nome}</td>
+                <td>${user.email}</td>
+                <td>${user.telefone || "N/A"}</td>
+                <td>${dataNascimento}</td>
+                <td><span class="status-badge ${user.is_admin ? 'status-active' : 'status-inactive'}">${user.is_admin ? "Sim" : "Não"}</span></td>
+                <td><span class="status-badge ${user.verificado ? 'status-active' : 'status-inactive'}">${user.verificado ? "Sim" : "Não"}</span></td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="btn btn-sm btn-primary btn-edit-user" data-user-id="${user.id}" title="Editar Usuário">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger btn-delete-user" data-user-id="${user.id}" title="Excluir Usuário">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    }
+
+    /**
+     * Configura os event listeners para a tabela de usuários
+     */
+    setupUserTableListeners() {
+        const userTable = document.getElementById('users-table');
+        if (!userTable) return;
+
+        userTable.addEventListener("click", (e) => {
+            const editButton = e.target.closest('.btn-edit-user');
+            const deleteButton = e.target.closest('.btn-delete-user');
+
+            if (editButton) {
+                const userId = editButton.dataset.userId;
+                // Implementar lógica de edição de usuário
+                console.log(`Editar usuário ${userId}`);
+                window.authSystem.showMessage(`Funcionalidade de editar usuário (ID: ${userId}) ainda não implementada.`, "info");
+            }
+
+            if (deleteButton) {
+                const userId = deleteButton.dataset.userId;
+                // Implementar lógica de exclusão de usuário
+                console.log(`Excluir usuário ${userId}`);
+                window.authSystem.showMessage(`Funcionalidade de excluir usuário (ID: ${userId}) ainda não implementada.`, "info");
+            }
+        });
     }
 
     /**
@@ -689,6 +811,7 @@ class AdminPanelAPI {
                 );
                 this.hideProductModal();
                 await this.loadProducts();
+        await this.loadUsers();
                 await this.loadDashboardData();
             } else {
                 window.authSystem.showMessage(response.message || 'Erro ao salvar produto', 'error');
@@ -736,6 +859,7 @@ class AdminPanelAPI {
             if (response && response.status === 'success') {
                 window.authSystem.showMessage('Produto removido com sucesso!', 'success');
                 await this.loadProducts();
+        await this.loadUsers();
                 await this.loadDashboardData();
             } else {
                 window.authSystem.showMessage(response.message || 'Erro ao remover produto', 'error');
