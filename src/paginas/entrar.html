@@ -111,79 +111,15 @@
 
   <!-- Scripts -->
   <script src="../scripts/componentes/botao-carregamento.js"></script>
-  <!-- JS - ORDEM IMPORTANTE! -->
   <script src="../scripts/servicos/banco-dados.js"></script>
   <script src="../scripts/componentes/animacao-sucesso.js"></script>
+  <script src="../scripts/componentes/entrar.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="../scripts/utilitarios/cabecalho-rodape.js"></script>
   <script src="../scripts/componentes/cabecalho-autenticacao.js"></script>
   <script src="../scripts/componentes/notificacoes-fluent.js"></script>
-  <script src="../scripts/componentes/entrar.js"></script>
   <script src="../scripts/componentes/alternador-tema.js"></script>
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-  <script>
-  fetch(\'cabecalho-rodape.html\')
-    .then(response => response.text())
-    .then(data => {
-      // Corrigir caminhos relativos para funcionar na raiz
-      data = data.replace(/href="\.\.\/recursos/g, \'href="../recursos\');
-      data = data.replace(/src="\.\.\/recursos/g, \'src="../recursos\');
-      data = data.replace(/href="\.\.\/estilos/g, \'href="../estilos\');
-      data = data.replace(/src="\.\.\/scripts/g, \'src="../scripts\');
-      
-      // Corrigir link do logo para voltar à página inicial
-      data = data.replace(/href="\.\.\/\.\.\/index\.html"/g, \'href="../index.html"\');
-      
-      // Corrigir links para páginas HTML (com ou sem parâmetros)
-      // Exceto quando já tem src/paginas/ ou começa com ../..
-      data = data.replace(/href="(?!src\/paginas\/)(?!\.\.\/\.\.\/)([a-z\-]+)\.html/g, \'href="$1.html\');
-      
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(data, \'text/html\');
 
-      const header = doc.querySelector(\'nav.cabecalho\');
-      const categorias = doc.querySelector(\".barra-categorias\");
-      const footer = doc.querySelector(\'footer.rodape\');
-
-      if (header) {
-        // Adicionar contador do carrinho ao cabeçalho
-        const carrinhoLink = header.querySelector(\".caixa-carrinho\");
-        if (carrinhoLink && !carrinhoLink.querySelector(\".contador-carrinho\")) {
-          const contador = document.createElement(\"span\");
-          contador.id = \'contador-carrinho-cabecalho\';
-          contador.className = \'contador-carrinho\';
-          contador.textContent = \'0\';
-          contador.style.display = \'none\';
-          carrinhoLink.appendChild(contador);
-        }
-        
-        document.getElementById(\'header-placeholder\').appendChild(header);
-      }
-      // Adicionar condição para não exibir categorias na página de administração
-      if (categorias && !window.location.pathname.includes(\'administracao.html\')) {
-        document.getElementById(\'header-placeholder\').appendChild(categorias);
-      }
-      if (footer) document.getElementById(\'footer-placeholder\').appendChild(footer);
-
-      // Executar scripts do cabecalho/rodape
-      doc.querySelectorAll("script").forEach(oldScript => {
-        const newScript = document.createElement("script");
-        if (oldScript.src) {
-          // Corrigir caminho do script
-          let srcCorrigido = oldScript.src.replace(\'../scripts\', \'../scripts\');
-          newScript.src = srcCorrigido;
-        } else {
-          newScript.textContent = oldScript.textContent;
-        }
-        document.body.appendChild(newScript);
-      });
-
-      // Atualizar contador do carrinho após carregar o cabeçalho
-      if (typeof atualizarContadorCarrinho === \'function\') {
-        atualizarContadorCarrinho();
-      }
-    })
-    .catch(error => {
-      console.error(\'Erro ao carregar cabeçalho/rodapé:\', error);
-    });
 </body>
 </html>

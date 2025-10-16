@@ -2318,3 +2318,243 @@ body {
         gap: 20px;
     }
 }
+
+
+/* Rodapé Minimalista Fluent Design */
+.rodape-minimalista {
+  background: rgba(10, 10, 10, 0.95); /* Mesmo fundo da barra de categorias */
+  backdrop-filter: blur(20px);
+  color: #eee;
+  padding: 3rem 2rem 1.5rem;
+  border-top: 1px solid rgba(144, 77, 219, 0.2);
+  font-family: "Nunito Sans", sans-serif;
+}
+
+.rodape-conteudo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto 2rem auto;
+  text-align: left;
+}
+
+.rodape-secao {
+  flex: 1;
+  min-width: 180px;
+}
+
+.rodape-logo {
+  max-width: 150px;
+  margin-bottom: 1rem;
+}
+
+.rodape-secao h4 {
+  color: #fff;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.rodape-secao h4::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, #904DDB, #FFB800);
+  border-radius: 2px;
+}
+
+.rodape-secao p,
+.rodape-secao ul li a {
+  color: #bbb;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.rodape-secao ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.rodape-secao ul li a:hover {
+  color: #904DDB; /* Roxo do site */
+}
+
+.redes-sociais {
+  display: flex;
+  gap: 15px;
+  margin-top: 1rem;
+}
+
+.redes-sociais a {
+  color: #bbb;
+  font-size: 1.2rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.redes-sociais a:hover {
+  color: #904DDB; /* Roxo do site */
+  transform: translateY(-3px);
+}
+
+.rodape-inferior {
+  text-align: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  margin-top: 1.5rem;
+}
+
+.rodape-inferior p {
+  color: #888;
+  font-size: 0.85rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .rodape-conteudo {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .rodape-secao h4::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .rodape-secao ul li a {
+    text-align: center;
+  }
+}
+
+
+
+.rodape-minimalista {
+    background-color: #0A0A0A; /* Fundo preto */
+    color: #E0E0E0;
+    padding: 40px 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-top: 1px solid rgba(144, 77, 219, 0.2); /* Linha sutil no topo */
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2); /* Sombra sutil para profundidade */
+}
+
+.rodape-conteudo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 30px;
+}
+
+.rodape-secao {
+    flex: 1;
+    min-width: 180px;
+    margin-bottom: 20px;
+}
+
+.rodape-secao h4 {
+    color: #904DDB; /* Roxo para títulos */
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.rodape-secao h4::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 3px;
+    background-color: #904DDB; /* Linha roxa sob o título */
+    border-radius: 2px;
+}
+
+.rodape-secao ul {
+    list-style: none;
+    padding: 0;
+}
+
+.rodape-secao ul li {
+    margin-bottom: 10px;
+}
+
+.rodape-secao ul li a {
+    color: #B0B0B0;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
+}
+
+.rodape-secao ul li a:hover {
+    color: #FFFFFF;
+    transform: translateX(5px); /* Efeito sutil ao passar o mouse */
+}
+
+.rodape-logo {
+    max-width: 150px;
+    margin-bottom: 15px;
+    filter: brightness(0) invert(1); /* Para logos brancos em fundo escuro */
+}
+
+.rodape-secao p {
+    color: #B0B0B0;
+    line-height: 1.6;
+}
+
+.redes-sociais {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.redes-sociais a {
+    color: #B0B0B0;
+    font-size: 1.5em;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.redes-sociais a:hover {
+    color: #904DDB; /* Roxo ao passar o mouse */
+    transform: translateY(-3px);
+}
+
+.rodape-inferior {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.9em;
+    color: #808080;
+}
+
+@media (max-width: 768px) {
+    .rodape-conteudo {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .rodape-secao {
+        min-width: 100%;
+    }
+
+    .rodape-secao h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .redes-sociais {
+        justify-content: center;
+    }
+}

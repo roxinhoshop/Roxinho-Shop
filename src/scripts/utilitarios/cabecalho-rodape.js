@@ -1,26 +1,30 @@
-document.addEventListener('DOMContentLoaded', function() {
-  fetch('src/paginas/cabecalho-rodape.html')
-    .then(response => response.text())
-    .then(data => {
-      // Corrigir caminhos relativos para funcionar na raiz
-      data = data.replace(/href="\.\.\/recursos/g, 'href="src/recursos');
-      data = data.replace(/src="\.\.\/recursos/g, 'src="src/recursos');
-      data = data.replace(/href="\.\.\/estilos/g, 'href="src/estilos');
-      data = data.replace(/src="\.\.\/scripts/g, 'src="src/scripts');
-      
-      // Corrigir link do logo para voltar à página inicial
-      data = data.replace(/href="\.\.\/\.\.\/index\.html"/g, 'href="/"');
-      
-      // Corrigir links para páginas HTML (com ou sem parâmetros)
-      // Exceto quando já tem src/paginas/ ou começa com ../..
-      data = data.replace(/href="(?!src\/paginas\/)(?!\.\.\/\.\.\/)([a-z\-]+)\.html/g, 'href="src/paginas/$1.html');
-      
+document.addEventListener('DOMContentLoaded', function() {  Promise.all([
+    fetch(\'src/paginas/cabecalho.html\').then(response => response.text()),
+    fetch(\'src/paginas/rodape.html\').then(response => response.text())
+  ])
+    .then(([headerData, footerData]) => {
       const parser = new DOMParser();
-      const doc = parser.parseFromString(data, 'text/html');
 
-      const header = doc.querySelector('nav.cabecalho');
-      const categorias = doc.querySelector('.barra-categorias');
-      const footer = doc.querySelector('footer.rodape');
+      // Processar dados do cabeçalho
+      headerData = headerData.replace(/href="\.\.\/recursos/g, \'href="src/recursos\');
+      headerData = headerData.replace(/src="\.\.\/recursos/g, \'src="src/recursos\');
+      headerData = headerData.replace(/href="\.\.\/estilos/g, \'href="src/estilos\');
+      headerData = headerData.replace(/src="\.\.\/scripts/g, \'src="src/scripts\');
+      headerData = headerData.replace(/href="\.\.\/\.\.\/index\.html"/g, \'href="/"\');
+      headerData = headerData.replace(/href="(?!src\/paginas\/)(?!\.\.\/\.\.\/)([a-z\-]+)\.html/g, \'href="src/paginas/$1.html\');
+      const headerDoc = parser.parseFromString(headerData, \'text/html\');
+      const header = headerDoc.querySelector(\'nav.cabecalho\');
+      const categorias = headerDoc.querySelector(\'.barra-categorias\');
+
+      // Processar dados do rodapé
+      footerData = footerData.replace(/href="\.\.\/recursos/g, \'href="src/recursos\');
+      footerData = footerData.replace(/src="\.\.\/recursos/g, \'src="src/recursos\');
+      footerData = footerData.replace(/href="\.\.\/estilos/g, \'href="src/estilos\');
+      footerData = footerData.replace(/src="\.\.\/scripts/g, \'src="src/scripts\');
+      footerData = footerData.replace(/href="\.\.\/\.\.\/index\.html"/g, \'href="/"\');
+      footerData = footerData.replace(/href="(?!src\/paginas\/)(?!\.\.\/\.\.\/)([a-z\-]+)\.html/g, \'href="src/paginas/$1.html\');
+      const footerDoc = parser.parseFromString(footerData, \'text/html\');
+      const footer = footerDoc.querySelector(\'footer.rodape-minimalista\');
 
       if (header) {
         // Adicionar contador do carrinho ao cabeçalho
@@ -41,8 +45,20 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       if (footer) document.getElementById('footer-placeholder').appendChild(footer);
 
-      // Executar scripts do cabecalho/rodape
-      doc.querySelectorAll("script").forEach(oldScript => {
+      // Executar scripts do cabeçalho
+      headerDoc.querySelectorAll("script").forEach(oldScript => {
+        const newScript = document.createElement("script");
+        if (oldScript.src) {
+          let srcCorrigido = oldScript.src.replace(\'../scripts\', \'src/scripts\');
+          newScript.src = srcCorrigido;
+        } else {
+          newScript.textContent = oldScript.textContent;
+        }
+        document.body.appendChild(newScript);
+      });
+
+      // Executar scripts do rodapé
+      footerDoc.querySelectorAll("script").forEach(oldScript => {
         const newScript = document.createElement("script");
         if (oldScript.src) {
           // Corrigir caminho do script
@@ -60,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     })
     .catch(error => {
-      console.error('Erro ao carregar cabeçalho/rodapé:', error);
+      console.error(\'Erro ao carregar cabeçalho ou rodapé:\', error);
     });
 });
 
