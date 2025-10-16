@@ -84,7 +84,7 @@ async function renderizarProdutosDestaque() {
       const ehFavorito = false;
 
       // Determinar como renderizar a imagem
-      let imagemHTML = ";
+      let imagemHTML = '';
       if (imagem && ehURLImagem(imagem)) {
         // Usar imagem real com fallback para gradiente
         imagemHTML = `
