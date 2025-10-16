@@ -6,8 +6,8 @@ let slideAtual = 0;
 let slides, indicadores;
 
 function inicializarBanner() {
-  slides = document.querySelectorAll('.banner-slide');
-  indicadores = document.querySelectorAll('.banner-indicadores span');
+  slides = document.querySelectorAll(".banner-slide");
+  indicadores = document.querySelectorAll(".banner-indicadores span");
   
   if (slides.length > 0) {
     mostrarSlide(0);
@@ -18,12 +18,12 @@ function mostrarSlide(indice) {
   if (!slides || !indicadores) return;
   
   // Remover classe ativo de todos os slides e indicadores
-  slides.forEach(slide => slide.classList.remove('ativo'));
-  indicadores.forEach(indicador => indicador.classList.remove('ativo'));
+  slides.forEach(slide => slide.classList.remove("ativo"));
+  indicadores.forEach(indicador => indicador.classList.remove("ativo"));
   
   // Adicionar classe ativo ao slide e indicador atual
-  if (slides[indice]) slides[indice].classList.add('ativo');
-  if (indicadores[indice]) indicadores[indice].classList.add('ativo');
+  if (slides[indice]) slides[indice].classList.add("ativo");
+  if (indicadores[indice]) indicadores[indice].classList.add("ativo");
 }
 
 function proximoSlide() {
@@ -52,19 +52,14 @@ async function renderizarProdutosDestaque() {
   try {
     let produtos = [];
     
-    // Tentar usar a função da API local primeiro
-    if (typeof listarProdutos === 'function') {
-      produtos = await listarProdutos({ limite: 8 });
-    } else {
-      // Fallback para API externa
-      const response = await fetch(`${window.API_BASE_URL}/produtos?limite=8`);
-      if (!response.ok) {
-        throw new Error(`Erro HTTP! status: ${response.status}`);
-      }
-      const data = await response.json();
-      produtos = data.produtos || data.products || data || [];
+    // Chamada direta para a API externa
+    const response = await fetch(`${window.API_BASE_URL}/produtos?limite=8`);
+    if (!response.ok) {
+      throw new Error(`Erro HTTP! status: ${response.status}`);
     }
-
+    const data = await response.json();
+    produtos = data.produtos || data.products || data || [];
+    
     if (!produtos || produtos.length === 0) {
       container.innerHTML = `
         <div class="erro-produtos">
@@ -89,17 +84,17 @@ async function renderizarProdutosDestaque() {
       const ehFavorito = false;
 
       // Determinar como renderizar a imagem
-      let imagemHTML = '';
+      let imagemHTML = ";
       if (imagem && ehURLImagem(imagem)) {
         // Usar imagem real com fallback para gradiente
         imagemHTML = `
           <img src="${imagem}" alt="${nome}" class="imagem-produto-real" 
-               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <div class="fundo-gradiente ${produto.imagemFallback || 'gradiente-roxo'}" style="display: none;"></div>
+               onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">
+          <div class="fundo-gradiente ${produto.imagemFallback || "gradiente-roxo"}" style="display: none;"></div>
         `;
       } else {
         // Usar gradiente
-        imagemHTML = `<div class="fundo-gradiente ${produto.imagemFallback || imagem || 'gradiente-roxo'}"></div>`;
+        imagemHTML = `<div class="fundo-gradiente ${produto.imagemFallback || imagem || "gradiente-roxo"}"></div>`;
       }
 
       return `
@@ -108,15 +103,15 @@ async function renderizarProdutosDestaque() {
             <div class="produto-imagem">
               ${imagemHTML}
               <div class="badges-produto">
-                ${!emEstoque ? '<span class="badge indisponivel">Indisponível</span>' : ''}
+                ${!emEstoque ? "<span class=\"badge indisponivel\">Indisponível</span>" : ""}
               </div>
-              <button class="botao-favorito ${ehFavorito ? 'ativo' : ''}" onclick="event.preventDefault(); event.stopPropagation(); alternarFavorito('${produto.id}')">
+              <button class="botao-favorito ${ehFavorito ? "ativo" : ""}" onclick="event.preventDefault(); event.stopPropagation(); alternarFavorito(\'${produto.id}\')">
                 <i class="fas fa-heart"></i>
               </button>
             </div>
             
             <div class="produto-info">
-              ${marca ? `<div class="produto-marca">${marca}</div>` : ''}
+              ${marca ? `<div class="produto-marca">${marca}</div>` : ""}
               
               <h3 class="produto-nome">${nome}</h3>
               
@@ -128,31 +123,31 @@ async function renderizarProdutosDestaque() {
               </div>
               
               <div class="produto-precos">
-                ${produto.precoOriginal ? `<span class="preco-original">R$ ${parseFloat(produto.precoOriginal).toFixed(2).replace('.', ',')}</span>` : ''}
-                <div class="preco-atual">R$ ${preco.toFixed(2).replace('.', ',')}</div>
-                ${produto.desconto > 0 ? `<div class="percentual-desconto">-${produto.desconto}%</div>` : ''}
+                ${produto.precoOriginal ? `<span class="preco-original">R$ ${parseFloat(produto.precoOriginal).toFixed(2).replace(".", ",")}</span>` : ""}
+                <div class="preco-atual">R$ ${preco.toFixed(2).replace(".", ",")}</div>
+                ${produto.desconto > 0 ? `<div class="percentual-desconto">-${produto.desconto}%</div>` : ""}
               </div>
               
               <div class="produto-parcelas">
-                <span>12x de R$ ${(preco / 12).toFixed(2).replace('.', ',')} sem juros</span>
+                <span>12x de R$ ${(preco / 12).toFixed(2).replace(".", ",")} sem juros</span>
               </div>
               
               <div class="produto-status">
-                ${emEstoque ? '<div class="status-item em-estoque"><i class="fas fa-check"></i> Em estoque</div>' : ''}
+                ${emEstoque ? "<div class=\"status-item em-estoque\"><i class=\"fas fa-check\"></i> Em estoque</div>" : ""}
               </div>
             </div>
 
             <!-- Botões de Ação -->
             <div class="botoes-produto-home">
-              <button class="btn-comprar-direto ${!emEstoque ? 'disabled' : ''}" 
-                      onclick="event.preventDefault(); event.stopPropagation(); ${emEstoque ? `comprarDireto('${produto.id}')` : 'showNotification(\'Produto indisponível\', \'warning\')'}"
-                      ${!emEstoque ? 'disabled' : ''}>
+              <button class="btn-comprar-direto ${!emEstoque ? "disabled" : ""}" 
+                      onclick="event.preventDefault(); event.stopPropagation(); ${emEstoque ? `comprarDireto(\'${produto.id}\')` : "showNotification(\'Produto indisponível\', \'warning\')"}"
+                      ${!emEstoque ? "disabled" : ""}>
                 <i class="fas fa-bolt"></i>
                 Comprar
               </button>
-              <button class="btn-adicionar-carrinho ${!emEstoque ? 'disabled' : ''}" 
-                      onclick="event.preventDefault(); event.stopPropagation(); ${emEstoque ? `adicionarProdutoAoCarrinho('${produto.id}')` : 'showNotification(\'Produto indisponível\', \'warning\')'}"
-                      ${!emEstoque ? 'disabled' : ''}>
+              <button class="btn-adicionar-carrinho ${!emEstoque ? "disabled" : ""}" 
+                      onclick="event.preventDefault(); event.stopPropagation(); ${emEstoque ? `adicionarProdutoAoCarrinho(\'${produto.id}\')` : "showNotification(\'Produto indisponível\', \'warning\')"}"
+                      ${!emEstoque ? "disabled" : ""}>
                 <i class="fas fa-cart-plus"></i>
                 Carrinho
               </button>
@@ -160,7 +155,7 @@ async function renderizarProdutosDestaque() {
           </div>
         </a>
       `;
-    }).join('');
+    }).join("");
     
 
   } catch (error) {
@@ -195,7 +190,7 @@ async function renderizarProdutosDestaque() {
     `;
     
     // Notificação opcional
-    if (typeof showNotification === 'function') {
+    if (typeof showNotification === "function") {
       showNotification("Erro ao carregar produtos em destaque.", "error");
     }
   }
@@ -203,12 +198,12 @@ async function renderizarProdutosDestaque() {
 
 // Função auxiliar para verificar se é URL de imagem
 function ehURLImagem(url) {
-  if (!url || typeof url !== 'string') return false;
+  if (!url || typeof url !== "string") return false;
   
   // Verifica se é uma URL válida
-  if (url.startsWith('http') || url.startsWith('./') || url.startsWith('/')) {
+  if (url.startsWith("http") || url.startsWith("./") || url.startsWith("/")) {
     // Verifica extensões de imagem comuns
-    const extensoesImagem = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'];
+    const extensoesImagem = [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"];
     return extensoesImagem.some(ext => url.toLowerCase().includes(ext));
   }
   
@@ -220,7 +215,7 @@ function alternarFavorito(produtoId) {
   // Implementação do sistema de favoritos pode ser adicionada aqui
   
   // Exemplo de implementação simples com localStorage
-  let favoritos = JSON.parse(localStorage.getItem('favoritos') || '[]');
+  let favoritos = JSON.parse(localStorage.getItem("favoritos") || "[]");
   const index = favoritos.indexOf(produtoId);
   
   if (index > -1) {
@@ -229,7 +224,7 @@ function alternarFavorito(produtoId) {
     favoritos.push(produtoId);
   }
   
-  localStorage.setItem('favoritos', JSON.stringify(favoritos));
+  localStorage.setItem("favoritos", JSON.stringify(favoritos));
   
   // Atualizar UI
   renderizarProdutosDestaque();
@@ -237,12 +232,12 @@ function alternarFavorito(produtoId) {
 
 // Função para gerar estrelas de avaliação
 function gerarEstrelas(nota) {
-  let estrelas = '';
+  let estrelas = ";
   for (let i = 1; i <= 5; i++) {
     if (i <= nota) {
-      estrelas += '<i class="fas fa-star"></i>';
+      estrelas += "<i class=\"fas fa-star\"></i>";
     } else {
-      estrelas += '<i class="far fa-star"></i>';
+      estrelas += "<i class=\"far fa-star\"></i>";
     }
   }
   return estrelas;
@@ -252,23 +247,23 @@ function gerarEstrelas(nota) {
 
 
 // Executar quando a página carregar
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function() {
   
   // Inicializar banner
   inicializarBanner();
   
   // Event listeners para os botões do banner
-  const btnProximo = document.getElementById('nextBtn');
-  const btnAnterior = document.getElementById('prevBtn');
+  const btnProximo = document.getElementById("nextBtn");
+  const btnAnterior = document.getElementById("prevBtn");
   
-  if (btnProximo) btnProximo.addEventListener('click', proximoSlide);
-  if (btnAnterior) btnAnterior.addEventListener('click', slideAnterior);
+  if (btnProximo) btnProximo.addEventListener("click", proximoSlide);
+  if (btnAnterior) btnAnterior.addEventListener("click", slideAnterior);
   
   // Event listeners para os indicadores
   setTimeout(() => {
-    const indicadoresAtuais = document.querySelectorAll('.banner-indicadores span');
+    const indicadoresAtuais = document.querySelectorAll(".banner-indicadores span");
     indicadoresAtuais.forEach((indicador, indice) => {
-      indicador.addEventListener('click', () => {
+      indicador.addEventListener("click", () => {
         slideAtual = indice;
         mostrarSlide(slideAtual);
       });
@@ -286,27 +281,27 @@ document.addEventListener('DOMContentLoaded', function() {
   renderizarProdutosDestaque();
   
   // Event listeners para os botões da home
-  document.addEventListener('click', function(e) {
+  document.addEventListener("click", function(e) {
     // Botão adicionar ao carrinho
-    if (e.target.closest('.btn-adicionar-carrinho')) {
+    if (e.target.closest(".btn-adicionar-carrinho")) {
       e.preventDefault();
-      const botao = e.target.closest('.btn-adicionar-carrinho');
-      const produtoId = parseInt(botao.getAttribute('data-id'));
+      const botao = e.target.closest(".btn-adicionar-carrinho");
+      const produtoId = parseInt(botao.getAttribute("data-id"));
       
-      if (produtoId && typeof adicionarAoCarrinho === 'function') {
+      if (produtoId && typeof adicionarAoCarrinho === "function") {
         adicionarAoCarrinho(produtoId);
       } else {
-        if (typeof showNotification === 'function') {
-          showNotification('Função de carrinho não disponível', 'error');
+        if (typeof showNotification === "function") {
+          showNotification("Função de carrinho não disponível", "error");
         }
       }
     }
     
     // Botão comprar direto
-    if (e.target.closest('.btn-comprar-direto')) {
+    if (e.target.closest(".btn-comprar-direto")) {
       e.preventDefault();
-      const botao = e.target.closest('.btn-comprar-direto');
-      const produtoId = parseInt(botao.getAttribute('data-id'));
+      const botao = e.target.closest(".btn-comprar-direto");
+      const produtoId = parseInt(botao.getAttribute("data-id"));
       
       if (produtoId) {
         comprarDireto(produtoId);
@@ -316,474 +311,164 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Também tentar renderizar quando a janela carregar completamente
-window.addEventListener('load', function() {
+window.addEventListener("load", function() {
   setTimeout(() => {
-    tentarCarregarProdutos();
+    // A função renderizarProdutosDestaque já é chamada no DOMContentLoaded
+    // Se houver necessidade de recarregar, pode ser adicionado aqui
   }, 300);
 });
 
 // Verificar periodicamente se os produtos foram carregados
 const intervaloProdutos = setInterval(() => {
-  if (typeof produtos !== 'undefined' && produtos && produtos.length > 0) {
+  if (typeof produtos !== "undefined" && produtos && produtos.length > 0) {
     renderizarProdutosDestaque();
     clearInterval(intervaloProdutos);
   }
-}, 500);
+}, 1000); // Tentar a cada 1 segundo por um tempo limite (ex: 10 vezes)
 
-// Limpar o intervalo após 10 segundos para evitar loop infinito
-setTimeout(() => {
-  clearInterval(intervaloProdutos);
-}, 10000);
-
-
-// Função para inicializar a página home
+// Adicionar uma função de inicialização para ser chamada em outros lugares, se necessário
 function inicializarHome() {
-  
-  // Renderizar produtos em destaque
-  if (typeof renderizarProdutosDestaque === 'function') {
-    renderizarProdutosDestaque();
-  }
-  
-  // Inicializar banner se existir
-  if (typeof inicializarBanner === 'function') {
-    inicializarBanner();
-  }
-  
-  // Atualizar contador do carrinho
-  if (typeof atualizarContadorCarrinho === 'function') {
-    atualizarContadorCarrinho();
-  }
-  
+  inicializarBanner();
+  renderizarProdutosDestaque();
+  // Outras inicializações da home aqui
 }
 
-// Executar quando o DOM estiver pronto
-document.addEventListener('DOMContentLoaded', function() {
-  // Aguardar um pouco para garantir que todos os scripts foram carregados
-  setTimeout(inicializarHome, 100);
-});
+// Expor funções globais se necessário
+window.inicializarHome = inicializarHome;
 
-// Executar também quando a página for totalmente carregada
-window.addEventListener('load', function() {
-  // Verificar se os produtos já foram renderizados
-  const container = document.getElementById('grade-produtos-home');
-  if (container && container.innerHTML.trim() === '') {
-    inicializarHome();
-  }
-});
+// Variáveis e funções para o carrinho (simplificado para exemplo)
+let carrinho = JSON.parse(localStorage.getItem("carrinho") || "[]");
 
-document.addEventListener('DOMContentLoaded', function() {
-  
-  // ==================== CONFIGURAÇÕES DO CARROSSEL ====================
-  const carrossel = {
-    slideAtual: 0,
-    totalSlides: 3,
-    autoPlay: true,
-    intervalo: 5000,
-    timer: null,
-    
-    elementos: {
-      slidesWrapper: document.getElementById('slidesWrapper'),
-      indicadores: document.querySelectorAll('.indicador'),
-      btnAnterior: document.getElementById('btnAnterior'),
-      btnProximo: document.getElementById('btnProximo'),
-      btnPlayPause: document.getElementById('btnPlayPause')
+function adicionarProdutoAoCarrinho(produtoId) {
+  const produtoExistente = carrinho.find(item => item.id === produtoId);
+  if (produtoExistente) {
+    produtoExistente.quantidade++;
+  } else {
+    carrinho.push({ id: produtoId, quantidade: 1 });
+  }
+  localStorage.setItem("carrinho", JSON.stringify(carrinho));
+  if (typeof showNotification === "function") {
+    showNotification(`Produto ${produtoId} adicionado ao carrinho!`, "success");
+  }
+  atualizarContadorCarrinho();
+}
+
+function comprarDireto(produtoId) {
+  adicionarProdutoAoCarrinho(produtoId);
+  // Redirecionar para a página do carrinho ou checkout
+  if (typeof showNotification === "function") {
+    showNotification(`Redirecionando para o checkout com o produto ${produtoId}.`, "info");
+  }
+  // window.location.href = "src/paginas/carrinho.html"; // Exemplo
+}
+
+function atualizarContadorCarrinho() {
+  const contador = document.getElementById("contador-carrinho");
+  if (contador) {
+    contador.textContent = carrinho.reduce((total, item) => total + item.quantidade, 0);
+  }
+}
+
+// Chamar atualização do contador ao carregar a página
+document.addEventListener("DOMContentLoaded", atualizarContadorCarrinho);
+
+// Exemplo de como obter o BASE_URL da API, pode ser configurado em um arquivo de config.js
+window.API_BASE_URL = "https://roxinho-shop-backend.vercel.app/api"; // URL da sua API Backend
+
+// Função para carregar categorias dinamicamente (exemplo)
+async function carregarCategoriasDinamicas() {
+  const containerCategorias = document.getElementById("menu-categorias");
+  if (!containerCategorias) return;
+
+  try {
+    const response = await fetch(`${window.API_BASE_URL}/categorias`);
+    if (!response.ok) {
+      throw new Error(`Erro HTTP! status: ${response.status}`);
     }
-  };
-  
-  // ==================== FUNÇÕES DO CARROSSEL ====================
-  function irParaSlide(indice) {
-    carrossel.slideAtual = indice;
-    
-    if (carrossel.elementos.slidesWrapper) {
-      const translateX = -indice * 100;
-      carrossel.elementos.slidesWrapper.style.transform = `translateX(${translateX}%)`;
+    const data = await response.json();
+    const categorias = data.categorias || data.categories || data || [];
+
+    if (categorias.length === 0) {
+      console.warn("Nenhuma categoria encontrada");
+      containerCategorias.innerHTML = `<li class="menu-item">Nenhuma categoria</li>`;
+      return;
     }
-    
-    // Atualizar indicadores
-    carrossel.elementos.indicadores.forEach((indicador, i) => {
-      indicador.classList.toggle('ativo', i === indice);
-    });
-    
-    // Atualizar slides ativos
-    const slides = document.querySelectorAll('.slide');
-    slides.forEach((slide, i) => {
-      slide.classList.toggle('ativo', i === indice);
-    });
-  }
-  
-  function proximoSlide() {
-    const proximo = (carrossel.slideAtual + 1) % carrossel.totalSlides;
-    irParaSlide(proximo);
-  }
-  
-  function slideAnterior() {
-    const anterior = carrossel.slideAtual === 0 ? carrossel.totalSlides - 1 : carrossel.slideAtual - 1;
-    irParaSlide(anterior);
-  }
-  
-  function iniciarAutoPlay() {
-    if (carrossel.autoPlay) {
-      carrossel.timer = setInterval(proximoSlide, carrossel.intervalo);
+
+    containerCategorias.innerHTML = categorias.map(categoria => `
+      <li class="menu-item">
+        <a href="src/paginas/produtos.html?categoria=${categoria.slug}">
+          <i class="${categoria.icone || "fas fa-tag"}"></i>
+          <span>${categoria.nome}</span>
+        </a>
+      </li>
+    `).join("");
+
+  } catch (error) {
+    console.error("Erro ao carregar categorias dinâmicas: ", error);
+    if (typeof showNotification === "function") {
+      showNotification("Erro ao carregar categorias.", "error");
     }
   }
-  
-  function pararAutoPlay() {
-    if (carrossel.timer) {
-      clearInterval(carrossel.timer);
-      carrossel.timer = null;
-    }
+}
+
+// Chamar carregamento de categorias ao carregar a página
+document.addEventListener("DOMContentLoaded", carregarCategoriasDinamicas);
+
+
+// Funções de login/logout (placeholders)
+function fazerLogin(username, password) {
+  console.log(`Tentando logar com ${username} e ${password}`);
+  if (typeof showNotification === "function") {
+    showNotification("Login em desenvolvimento.", "info");
   }
-  
-  function alternarAutoPlay() {
-    if (carrossel.autoPlay) {
-      pararAutoPlay();
-      carrossel.autoPlay = false;
-      if (carrossel.elementos.btnPlayPause) {
-        carrossel.elementos.btnPlayPause.innerHTML = '<i class="fas fa-play"></i>';
-      }
+  // Implementar lógica de autenticação aqui
+}
+
+function fazerLogout() {
+  console.log("Fazendo logout");
+  if (typeof showNotification === "function") {
+    showNotification("Logout realizado.", "success");
+  }
+  // Implementar lógica de logout aqui
+}
+
+
+// Funções de autenticação e cabeçalho
+function atualizarEstadoLogin() {
+  const usuarioLogado = localStorage.getItem("usuarioLogado") === "true"; // Exemplo simples
+  const nomeUsuario = localStorage.getItem("nomeUsuario") || "Usuário";
+
+  const authLink = document.getElementById("auth-link");
+  const userMenu = document.getElementById("user-menu");
+  const userNameDisplay = document.getElementById("user-name-display");
+
+  if (authLink && userMenu && userNameDisplay) {
+    if (usuarioLogado) {
+      authLink.style.display = "none";
+      userMenu.style.display = "flex";
+      userNameDisplay.textContent = nomeUsuario;
     } else {
-      iniciarAutoPlay();
-      carrossel.autoPlay = true;
-      if (carrossel.elementos.btnPlayPause) {
-        carrossel.elementos.btnPlayPause.innerHTML = '<i class="fas fa-pause"></i>';
-      }
+      authLink.style.display = "flex";
+      userMenu.style.display = "none";
     }
+  } else {
+    console.warn("Elementos do cabeçalho não encontrados");
   }
-  
-  // ==================== EVENT LISTENERS DO CARROSSEL ====================
-  
-  // Botões de navegação
-  if (carrossel.elementos.btnAnterior) {
-    carrossel.elementos.btnAnterior.addEventListener('click', slideAnterior);
-  }
-  
-  if (carrossel.elementos.btnProximo) {
-    carrossel.elementos.btnProximo.addEventListener('click', proximoSlide);
-  }
-  
-  // Botão play/pause
-  if (carrossel.elementos.btnPlayPause) {
-    carrossel.elementos.btnPlayPause.addEventListener('click', alternarAutoPlay);
-  }
-  
-  // Indicadores
-  carrossel.elementos.indicadores.forEach((indicador, indice) => {
-    indicador.addEventListener('click', () => irParaSlide(indice));
+}
+
+document.addEventListener("DOMContentLoaded", atualizarEstadoLogin);
+
+// Event listener para o botão de logout
+const logoutButton = document.getElementById("logout-button");
+if (logoutButton) {
+  logoutButton.addEventListener("click", function(e) {
+    e.preventDefault();
+    localStorage.removeItem("usuarioLogado");
+    localStorage.removeItem("nomeUsuario");
+    fazerLogout();
+    atualizarEstadoLogin();
   });
-  
-  // Navegação por teclado
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'ArrowLeft') {
-      slideAnterior();
-    } else if (e.key === 'ArrowRight') {
-      proximoSlide();
-    } else if (e.key === ' ') {
-      e.preventDefault();
-      alternarAutoPlay();
-    }
-  });
-  
-  // Pausar autoplay ao passar o mouse
-  const carrosselContainer = document.querySelector('.carrossel-moderno');
-  if (carrosselContainer) {
-    carrosselContainer.addEventListener('mouseenter', pararAutoPlay);
-    carrosselContainer.addEventListener('mouseleave', () => {
-      if (carrossel.autoPlay) {
-        iniciarAutoPlay();
-      }
-    });
-  }
-  
-  // Clique nos slides para navegar
-  const slides = document.querySelectorAll('.slide');
-  slides.forEach((slide, indice) => {
-    slide.addEventListener('click', function() {
-      const link = slide.getAttribute('data-link');
-      if (link) {
-        window.location.href = link;
-      }
-    });
-  });
-  
-  // ==================== CONTROLES DE VÍDEO ====================
-  const video = document.getElementById('videoAnuncio');
-  const btnPlayPauseVideo = document.getElementById('btnPlayPauseVideo');
-  const btnMute = document.getElementById('btnMute');
-  
-  if (video && btnPlayPauseVideo) {
-    btnPlayPauseVideo.addEventListener('click', function() {
-      if (video.paused) {
-        video.play();
-        btnPlayPauseVideo.innerHTML = '<i class="fas fa-pause"></i>';
-      } else {
-        video.pause();
-        btnPlayPauseVideo.innerHTML = '<i class="fas fa-play"></i>';
-      }
-    });
-  }
-  
-  if (video && btnMute) {
-    btnMute.addEventListener('click', function() {
-      if (video.muted) {
-        video.muted = false;
-        btnMute.innerHTML = '<i class="fas fa-volume-up"></i>';
-      } else {
-        video.muted = true;
-        btnMute.innerHTML = '<i class="fas fa-volume-mute"></i>';
-      }
-    });
-  }
-  
-  // ==================== ANIMAÇÕES DE ENTRADA ====================
-  function animarElementos() {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.animation = 'fadeIn 0.8s ease forwards';
-        }
-      });
-    }, {
-      threshold: 0.1
-    });
-    
-    // Observar categorias
-    const categorias = document.querySelectorAll('.categoria-card');
-    categorias.forEach((categoria, indice) => {
-      categoria.style.opacity = '0';
-      categoria.style.animationDelay = `${indice * 0.2}s`;
-      observer.observe(categoria);
-    });
-    
-    // Observar vídeo
-    const videoSection = document.querySelector('.video-anuncio');
-    if (videoSection) {
-      videoSection.style.opacity = '0';
-      observer.observe(videoSection);
-    }
-  }
-  
-  // ==================== OTIMIZAÇÕES DE PERFORMANCE ====================
-  
-  // Lazy loading para imagens
-  function implementarLazyLoading() {
-    const imagens = document.querySelectorAll('img[data-src]');
-    
-    const imageObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          img.src = img.dataset.src;
-          img.classList.remove('lazy');
-          imageObserver.unobserve(img);
-        }
-      });
-    });
-    
-    imagens.forEach(img => imageObserver.observe(img));
-  }
-  
-  // Preload das próximas imagens do carrossel
-  function preloadImagens() {
-    const slides = document.querySelectorAll('.slide img');
-    slides.forEach(img => {
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'image';
-      link.href = img.src;
-      document.head.appendChild(link);
-    });
-  }
-  
-  // ==================== RESPONSIVIDADE AVANÇADA ====================
-  function ajustarParaMobile() {
-    const isMobile = window.innerWidth <= 768;
-    
-    if (isMobile) {
-      // Ajustar intervalo do carrossel para mobile
-      carrossel.intervalo = 7000;
-      
-      // Pausar vídeo em mobile para economizar dados
-      if (video && !video.paused) {
-        video.pause();
-      }
-    }
-  }
-  
-  // ==================== ANALYTICS E TRACKING ====================
-  function trackInteracoes() {
-    // Track cliques nos slides
-    slides.forEach((slide, indice) => {
-      slide.addEventListener('click', () => {
-        // Aqui você pode integrar com Google Analytics ou outro serviço
-      });
-    });
-    
-    // Track tempo de visualização
-    let tempoInicio = Date.now();
-    window.addEventListener('beforeunload', () => {
-      const tempoTotal = Date.now() - tempoInicio;
-    });
-  }
-  
-  // ==================== ACESSIBILIDADE ====================
-  function melhorarAcessibilidade() {
-    // Adicionar ARIA labels
-    const controles = document.querySelectorAll('.btn-controle');
-    controles.forEach(controle => {
-      if (controle.classList.contains('btn-anterior')) {
-        controle.setAttribute('aria-label', 'Slide anterior');
-      } else if (controle.classList.contains('btn-proximo')) {
-        controle.setAttribute('aria-label', 'Próximo slide');
-      }
-    });
-    
-    // Adicionar role para indicadores
-    carrossel.elementos.indicadores.forEach((indicador, indice) => {
-      indicador.setAttribute('role', 'button');
-      indicador.setAttribute('aria-label', `Ir para slide ${indice + 1}`);
-    });
-    
-    // Pausar animações se o usuário preferir
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      carrossel.autoPlay = false;
-      pararAutoPlay();
-    }
-  }
-  
-  // ==================== INICIALIZAÇÃO ====================
-  function inicializar() {
-    // Iniciar carrossel
-    iniciarAutoPlay();
-    
-    // Configurar animações
-    animarElementos();
-    
-    // Implementar lazy loading
-    implementarLazyLoading();
-    
-    // Preload de imagens
-    preloadImagens();
-    
-    // Ajustes para mobile
-    ajustarParaMobile();
-    
-    // Tracking
-    trackInteracoes();
-    
-    // Acessibilidade
-    melhorarAcessibilidade();
-    
-  }
-  
-  // ==================== EVENT LISTENERS GLOBAIS ====================
-  
-  // Redimensionamento da janela
-  window.addEventListener('resize', ajustarParaMobile);
-  
-  // Visibilidade da página (pausar quando não visível)
-  document.addEventListener('visibilitychange', function() {
-    if (document.hidden) {
-      pararAutoPlay();
-      if (video && !video.paused) {
-        video.pause();
-      }
-    } else if (carrossel.autoPlay) {
-      iniciarAutoPlay();
-    }
-  });
-  
-  // ==================== INICIALIZAR TUDO ====================
-  inicializar();
-});
-
-
-// Função para criar notificações
-window.mostrarNotificacaoHome = function(mensagem, tipo = 'info') {
-  const notificacao = document.createElement('div');
-  notificacao.className = `notificacao-home notificacao-${tipo}`;
-  notificacao.innerHTML = `
-    <div class="notificacao-conteudo">
-      <i class="fas fa-${tipo === 'sucesso' ? 'check-circle' : 'info-circle'}"></i>
-      <span>${mensagem}</span>
-    </div>
-  `;
-  
-  document.body.appendChild(notificacao);
-  
-  // Animar entrada
-  setTimeout(() => {
-    notificacao.classList.add('mostrar');
-  }, 100);
-  
-  // Remover após 3 segundos
-  setTimeout(() => {
-    notificacao.classList.remove('mostrar');
-    setTimeout(() => {
-      if (notificacao.parentElement) {
-        notificacao.remove();
-      }
-    }, 300);
-  }, 3000);
-};
-
-// Função para scroll suave
-window.scrollSuave = function(elemento) {
-  if (typeof elemento === 'string') {
-    elemento = document.querySelector(elemento);
-  }
-  
-  if (elemento) {
-    elemento.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    });
-  }
-};
-
-const estilosNotificacoes = `
-<style>
-.notificacao-home {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  padding: 1rem 1.5rem;
-  z-index: 10000;
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
-  max-width: 300px;
 }
 
-.notificacao-home.mostrar {
-  transform: translateX(0);
-}
 
-.notificacao-conteudo {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-}
-
-.notificacao-sucesso {
-  border-left: 4px solid #10b981;
-}
-
-.notificacao-info {
-  border-left: 4px solid #3b82f6;
-}
-
-.notificacao-sucesso i {
-  color: #10b981;
-}
-
-.notificacao-info i {
-  color: #3b82f6;
-}
-</style>
-`;
-
-// Adicionar estilos ao head
-document.head.insertAdjacentHTML('beforeend', estilosNotificacoes);
 
