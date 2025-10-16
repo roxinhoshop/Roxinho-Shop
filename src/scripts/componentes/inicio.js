@@ -232,7 +232,7 @@ function alternarFavorito(produtoId) {
 
 // Função para gerar estrelas de avaliação
 function gerarEstrelas(nota) {
-  let estrelas = ";
+  let estrelas = "";
   for (let i = 1; i <= 5; i++) {
     if (i <= nota) {
       estrelas += "<i class=\"fas fa-star\"></i>";
