@@ -29,21 +29,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <a href="../../index.html" class="logo">
-                <img src="../recursos/imagens/paineladmin.png" alt="Painel Admin">
-            </a>
-            <nav>
-                <ul>
-                    <li><a href="../../index.html"><i class="fas fa-home"></i> Site</a></li>
-                    <li><a href="administracao.html" class="active"><i class="fas fa-cog"></i> Admin</a></li>
-                    <li><a href="#" id="btn-logout"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <div id="header-placeholder"></div>
 
     <!-- Main Container -->
     <main class="container">
@@ -232,6 +218,76 @@
     <script src="../scripts/componentes/notificacoes-fluent.js"></script>
     <script src="../scripts/componentes/alternador-tema.js"></script>
     <script src="../scripts/componentes/admin-panel.js"></script>
-</body>
+    <div id="footer-placeholder"></div>
+    </body>
 </html>
+
+
+
+    <script>
+      fetch('src/paginas/cabecalho-rodape.html')
+        .then(response => response.text())
+        .then(data => {
+          // Corrigir caminhos relativos para funcionar na raiz
+          data = data.replace(/href="\.\.\/recursos/g, 'href="src/recursos');
+          data = data.replace(/src="\.\.\/recursos/g, 'src="src/recursos');
+          data = data.replace(/href="\.\.\/estilos/g, 'href="src/estilos');
+          data = data.replace(/src="\.\.\/scripts/g, 'src="src/scripts');
+          
+          // Corrigir link do logo para voltar à página inicial
+          data = data.replace(/href="\.\.\/\.\.\/index\.html"/g, 'href="/");
+          
+          // Corrigir links para páginas HTML (com ou sem parâmetros)
+          // Exceto quando já tem src/paginas/ ou começa com ../..
+          data = data.replace(/href="(?!src\/paginas\/)(?!\.\.\/\.\.\/)([a-z\-]+)\.html/g, 'href="src/paginas/$1.html");
+          
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(data, 'text/html');
+
+          const header = doc.querySelector('nav.cabecalho');
+          const categorias = doc.querySelector('.barra-categorias');
+          const footer = doc.querySelector('footer.rodape');
+
+          if (header) {
+            // Adicionar contador do carrinho ao cabeçalho
+            const carrinhoLink = header.querySelector('.caixa-carrinho');
+            if (carrinhoLink && !carrinhoLink.querySelector('.contador-carrinho')) {
+              const contador = document.createElement('span');
+              contador.id = 'contador-carrinho-cabecalho';
+              contador.className = 'contador-carrinho';
+              contador.textContent = '0';
+              contador.style.display = 'none';
+              carrinhoLink.appendChild(contador);
+            }
+            
+            document.getElementById('header-placeholder').appendChild(header);
+          }
+          // Adicionar condição para não exibir categorias na página de administração
+          if (categorias && !window.location.pathname.includes('administracao.html')) {
+            document.getElementById('header-placeholder').appendChild(categorias);
+          }
+          if (footer) document.getElementById('footer-placeholder').appendChild(footer);
+
+          // Executar scripts do cabecalho/rodape
+          doc.querySelectorAll("script").forEach(oldScript => {
+            const newScript = document.createElement("script");
+            if (oldScript.src) {
+              // Corrigir caminho do script
+              let srcCorrigido = oldScript.src.replace('../scripts', 'src/scripts');
+              newScript.src = srcCorrigido;
+            } else {
+              newScript.textContent = oldScript.textContent;
+            }
+            document.body.appendChild(newScript);
+          });
+
+          // Atualizar contador do carrinho após carregar o cabeçalho
+          if (typeof atualizarContadorCarrinho === 'function') {
+            atualizarContadorCarrinho();
+          }
+        })
+        .catch(error => {
+          console.error('Erro ao carregar cabeçalho/rodapé:', error);
+        });
+    </script>
 

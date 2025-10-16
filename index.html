@@ -220,7 +220,7 @@
       data = data.replace(/src="\.\.\/scripts/g, 'src="src/scripts');
       
       // Corrigir link do logo para voltar à página inicial
-      data = data.replace(/href="\.\.\/\.\.\/index\.html"/g, 'href="/"');
+      data = data.replace(/href="\.\.\/\.\.\/index\.html"/g, 'href="/');
       
       // Corrigir links para páginas HTML (com ou sem parâmetros)
       // Exceto quando já tem src/paginas/ ou começa com ../..

@@ -294,225 +294,194 @@
     </style>
 </head>
 <body>
-    <!-- Barra Lateral -->
-    <nav class="barra-lateral">
-        <div style="padding: 0 25px; margin-bottom: 30px;">
-            <h2 style="color: #7c3aed; margin: 0;">Roxinho Admin</h2>
-        </div>
-        <a href="#dashboard" class="nav-item ativo" data-secao="dashboard">
-            <i class="fas fa-chart-line"></i> Dashboard
-        </a>
-        <a href="#produtos" class="nav-item" data-secao="produtos">
-            <i class="fas fa-box"></i> Produtos
-        </a>
-        <a href="#usuarios" class="nav-item" data-secao="usuarios">
-            <i class="fas fa-users"></i> Usuários
-        </a>
-        <a href="#categorias" class="nav-item" data-secao="categorias">
-            <i class="fas fa-tags"></i> Categorias
-        </a>
-        <a href="#configuracoes" class="nav-item" data-secao="configuracoes">
-            <i class="fas fa-cog"></i> Configurações
-        </a>
-    </nav>
-    
-    <!-- Conteúdo Principal -->
-    <main class="conteudo-principal">
-        <!-- Seção Dashboard -->
-        <section id="secao-dashboard" class="secao-conteudo ativa">
-            <div class="cabecalho-secao">
-                <h1>Dashboard</h1>
+    <div id="header-placeholder"></div>
+
+    <div class="wrapper-admin">
+        <!-- Sidebar -->
+        <nav class="barra-lateral">
+            <div style="padding: 0 25px; margin-bottom: 30px;">
+                <h2 style="color: #7c3aed; margin: 0;">Roxinho Admin</h2>
             </div>
-            <div id="estatisticas-dashboard">
-                <p>Carregando estatísticas...</p>
-            </div>
-        </section>
+            <a href="#dashboard" class="nav-item ativo" data-secao="dashboard">
+                <i class="fas fa-chart-line"></i> Dashboard
+            </a>
+            <a href="#produtos" class="nav-item" data-secao="produtos">
+                <i class="fas fa-box"></i> Produtos
+            </a>
+            <a href="#usuarios" class="nav-item" data-secao="usuarios">
+                <i class="fas fa-users"></i> Usuários
+            </a>
+            <a href="#categorias" class="nav-item" data-secao="categorias">
+                <i class="fas fa-tags"></i> Categorias
+            </a>
+            <a href="#configuracoes" class="nav-item" data-secao="configuracoes">
+                <i class="fas fa-cog"></i> Configurações
+            </a>
+        </nav>
         
-        <!-- Seção Produtos -->
-        <section id="secao-produtos" class="secao-conteudo">
-            <div class="cabecalho-secao">
-                <h1>Gerenciar Produtos</h1>
-                <div>
-                    <button id="btn-importar-produto" class="btn btn-primario">
-                        <i class="fas fa-link"></i> Importar via Link
-                    </button>
+        <!-- Conteúdo Principal -->
+        <main class="conteudo-principal">
+            <!-- Seção Dashboard -->
+            <section id="secao-dashboard" class="secao-conteudo ativa">
+                <div class="cabecalho-secao">
+                    <h1>Dashboard</h1>
+                </div>
+                <div id="estatisticas-dashboard">
+                    <p>Carregando estatísticas...</p>
+                </div>
+            </section>
+            
+            <!-- Seção Produtos -->
+            <section id="secao-produtos" class="secao-conteudo">
+                <div class="cabecalho-secao">
+                    <h1>Gerenciar Produtos</h1>
+                    <div>
+                        <button id="btn-importar-produto" class="btn btn-primario">
+                            <i class="fas fa-link"></i> Importar via Link
+                        </button>
+                        <button class="btn btn-sucesso">
+                            <i class="fas fa-plus"></i> Adicionar Produto
+                        </button>
+                    </div>
+                </div>
+                <div id="lista-produtos" class="grid-produtos">
+                    <p>Carregando produtos...</p>
+                </div>
+            </section>
+            
+            <!-- Seção Usuários -->
+            <section id="secao-usuarios" class="secao-conteudo">
+                <div class="cabecalho-secao">
+                    <h1>Usuários Cadastrados</h1>
+                </div>
+                <div id="lista-usuarios">
+                    <p>Carregando usuários...</p>
+                </div>
+            </section>
+            
+            <!-- Seção Categorias -->
+            <section id="secao-categorias" class="secao-conteudo">
+                <div class="cabecalho-secao">
+                    <h1>Gerenciar Categorias</h1>
                     <button class="btn btn-sucesso">
-                        <i class="fas fa-plus"></i> Adicionar Produto
+                        <i class="fas fa-plus"></i> Adicionar Categoria
                     </button>
                 </div>
-            </div>
-            <div id="lista-produtos" class="grid-produtos">
-                <p>Carregando produtos...</p>
-            </div>
-        </section>
-        
-        <!-- Seção Usuários -->
-        <section id="secao-usuarios" class="secao-conteudo">
-            <div class="cabecalho-secao">
-                <h1>Usuários Cadastrados</h1>
-            </div>
-            <div id="lista-usuarios">
-                <p>Carregando usuários...</p>
-            </div>
-        </section>
-        
-        <!-- Seção Categorias -->
-        <section id="secao-categorias" class="secao-conteudo">
-            <div class="cabecalho-secao">
-                <h1>Gerenciar Categorias</h1>
-                <button class="btn btn-sucesso">
-                    <i class="fas fa-plus"></i> Adicionar Categoria
-                </button>
-            </div>
-            <div id="lista-categorias">
-                <p>Carregando categorias...</p>
-            </div>
-        </section>
-        
-        <!-- Seção Configurações -->
-        <section id="secao-configuracoes" class="secao-conteudo">
-            <div class="cabecalho-secao">
-                <h1>Configurações do Sistema</h1>
-            </div>
-            <div>
-                <p>Configurações do sistema serão implementadas aqui.</p>
-            </div>
-        </section>
-    </main>
-    
-    <!-- Modal de Importação de Produtos -->
-    <div id="modal-importar-produto" class="modal-importacao">
+                <div id="lista-categorias">
+                    <p>Carregando categorias...</p>
+                </div>
+            </section>
+            
+            <!-- Seção Configurações -->
+            <section id="secao-configuracoes" class="secao-conteudo">
+                <div class="cabecalho-secao">
+                    <h1>Configurações do Sistema</h1>
+                </div>
+                <div id="conteudo-configuracoes">
+                    <p>Conteúdo das configurações será adicionado aqui.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <!-- Modais -->
+    <div id="modal-importacao" class="modal-importacao">
         <div class="modal-conteudo">
             <div class="modal-cabecalho">
                 <h2>Importar Produto via Link</h2>
-                <button class="btn-fechar" onclick="fecharImportadorProdutos()">&times;</button>
+                <button class="btn-fechar">&times;</button>
             </div>
-            
-            <div id="mensagens-importacao"></div>
-            
-            <form id="form-importar-produto">
+            <div class="modal-corpo">
                 <div class="grupo-input">
-                    <label for="url-produto">URL do Produto</label>
-                    <input type="url" id="url-produto" placeholder="Cole aqui o link do Mercado Livre ou Amazon" required>
+                    <label for="url-produto">URL do Produto:</label>
+                    <input type="text" id="url-produto" placeholder="Cole o link do produto aqui">
                 </div>
-                
-                <div style="text-align: center;">
-                    <button type="submit" id="btn-extrair-dados" class="btn btn-primario">
-                        <i class="fas fa-download"></i> Extrair Dados
-                    </button>
+                <div class="preview-produto">
+                    <h3>Pré-visualização do Produto:</h3>
+                    <div class="preview-card">
+                        <div class="preview-imagem">
+                            <img src="" alt="Imagem do Produto" id="preview-imagem-produto">
+                        </div>
+                        <div class="preview-info">
+                            <h3 id="preview-nome-produto"></h3>
+                            <p class="preco" id="preview-preco-produto"></p>
+                            <p class="descricao" id="preview-descricao-produto"></p>
+                            <div class="preview-detalhes">
+                                <span class="detalhe" id="preview-marca-produto"></span>
+                                <span class="detalhe" id="preview-modelo-produto"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="preview-acoes">
+                        <button id="btn-cancelar-importacao" class="btn btn-secundario">Cancelar</button>
+                        <button id="btn-confirmar-importacao" class="btn btn-sucesso">Confirmar Importação</button>
+                    </div>
                 </div>
-            </form>
-            
-            <div id="preview-produto" class="preview-produto">
-                <!-- Preview será inserido aqui via JavaScript -->
+                <div id="mensagem-importacao" class="mensagem" style="display: none;"></div>
             </div>
         </div>
     </div>
-    
-    <!-- Scripts -->
+
+    <script src="../scripts/componentes/notificacoes-fluent.js"></script>
+    <script src="../scripts/componentes/painel-admin.js"></script>
+    <script src="../scripts/componentes/admin-messages.js"></script>
     <script>
-        // Configuração da API
-        window.API_BASE_URL = 'https://roxinho-shop-backend.vercel.app/api';
-    </script>
-    <script src="../scripts/servicos/autenticacao.js"></script>
-    <script src="../scripts/componentes/importador-produtos.js"></script>
-    <script>
-        // Navegação entre seções
-        document.addEventListener('DOMContentLoaded', () => {
-            const navItems = document.querySelectorAll('.nav-item');
-            const secoes = document.querySelectorAll('.secao-conteudo');
-            
-            navItems.forEach(item => {
-                item.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    
-                    // Remover classe ativo de todos
-                    navItems.forEach(nav => nav.classList.remove('ativo'));
-                    secoes.forEach(secao => secao.classList.remove('ativa'));
-                    
-                    // Adicionar classe ativo no clicado
-                    item.classList.add('ativo');
-                    const secaoId = 'secao-' + item.dataset.secao;
-                    const secaoTarget = document.getElementById(secaoId);
-                    if (secaoTarget) {
-                        secaoTarget.classList.add('ativa');
+        // Script para carregamento dinâmico de cabeçalho e rodapé
+        fetch(\'../paginas/cabecalho-rodape.html\')
+            .then(response => response.text())
+            .then(data => {
+                data = data.replace(/href="\.\.\/recursos/g, \'href="../recursos\');
+                data = data.replace(/src="\.\.\/recursos/g, \'src="../recursos\');
+                data = data.replace(/href="\.\.\/estilos/g, \'href="../estilos\');
+                data = data.replace(/src="\.\.\/scripts/g, \'src="../scripts\');
+                data = data.replace(/href="\.\.\/\.\.\/index\.html"/g, \'href="/"\');
+                data = data.replace(/href="(?!src\/paginas\/)(?!\.\.\/\.\.\/)([a-z\-]+)\.html/g, \'href="../paginas/$1.html\');
+                
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data, \'text/html\');
+
+                const header = doc.querySelector(\'nav.cabecalho\');
+                const categorias = doc.querySelector(\'\.barra-categorias\');
+                const footer = doc.querySelector(\'footer.rodape\');
+
+                if (header) {
+                    const carrinhoLink = header.querySelector(\'\.caixa-carrinho\');
+                    if (carrinhoLink && !carrinhoLink.querySelector(\'\.contador-carrinho\')) {
+                        const contador = document.createElement(\'span\');
+                        contador.id = \'contador-carrinho-cabecalho\';
+                        contador.className = \'contador-carrinho\';
+                        contador.textContent = \'0\';
+                        contador.style.display = \'none\';
+                        carrinhoLink.appendChild(contador);
                     }
-                    
-                    // Carregar dados específicos da seção
-                    if (item.dataset.secao === 'produtos') {
-                        carregarProdutos();
+                    document.getElementById(\'header-placeholder\').appendChild(header);
+                }
+                // Adicionar condição para não exibir categorias na página de administração
+                if (categorias && !window.location.pathname.includes(\'administracao.html\') && !window.location.pathname.includes(\'painel-admin.html\') && !window.location.pathname.includes(\'painel-administrador.html\')) {
+                    document.getElementById(\'header-placeholder\').appendChild(categorias);
+                }
+                if (footer) document.getElementById(\'footer-placeholder\').appendChild(footer);
+
+                doc.querySelectorAll("script").forEach(oldScript => {
+                    const newScript = document.createElement("script");
+                    if (oldScript.src) {
+                        let srcCorrigido = oldScript.src.replace(\'../scripts\', \'../scripts\');
+                        newScript.src = srcCorrigido;
+                    } else {
+                        newScript.textContent = oldScript.textContent;
                     }
+                    document.body.appendChild(newScript);
                 });
+
+                if (typeof atualizarContadorCarrinho === \'function\') {
+                    atualizarContadorCarrinho();
+                }
+            })
+            .catch(error => {
+                console.error(\'Erro ao carregar cabeçalho/rodapé:\', error);
             });
-        });
-        
-        // Função para carregar produtos
-        async function carregarProdutos() {
-            const container = document.getElementById('lista-produtos');
-            container.innerHTML = '<p>Carregando produtos...</p>';
-            
-            try {
-                const response = await fetch(`${window.API_BASE_URL}/products`);
-                const data = await response.json();
-                
-                let produtos = [];
-                if ((data.success || data.status === 'success') && data.products) {
-                    produtos = data.products;
-                }
-                
-                if (produtos.length === 0) {
-                    container.innerHTML = `
-                        <div style="text-align: center; padding: 40px;">
-                            <i class="fas fa-box-open" style="font-size: 48px; color: #9ca3af; margin-bottom: 16px;"></i>
-                            <h3 style="color: #6b7280;">Nenhum produto cadastrado</h3>
-                            <p style="color: #9ca3af;">Comece importando produtos do Mercado Livre ou Amazon</p>
-                        </div>
-                    `;
-                    return;
-                }
-                
-                container.innerHTML = produtos.map(produto => `
-                    <div class="card-produto">
-                        <img src="${produto.imagem_principal || produto.imagem || 'https://via.placeholder.com/300x200'}" 
-                             alt="${produto.nome}" 
-                             class="imagem-produto"
-                             onerror="this.src='https://via.placeholder.com/300x200?text=Sem+Imagem'">
-                        <h3 class="nome-produto">${produto.nome}</h3>
-                        <p class="preco-produto">R$ ${parseFloat(produto.preco || 0).toFixed(2).replace('.', ',')}</p>
-                        <div class="acoes-produto">
-                            <button class="btn btn-primario btn-pequeno">
-                                <i class="fas fa-edit"></i> Editar
-                            </button>
-                            <button class="btn btn-secundario btn-pequeno">
-                                <i class="fas fa-trash"></i> Excluir
-                            </button>
-                        </div>
-                    </div>
-                `).join('');
-                
-            } catch (error) {
-                console.error('Erro ao carregar produtos:', error);
-                container.innerHTML = `
-                    <div style="text-align: center; padding: 40px;">
-                        <i class="fas fa-exclamation-triangle" style="font-size: 48px; color: #ef4444; margin-bottom: 16px;"></i>
-                        <h3 style="color: #ef4444;">Erro ao carregar produtos</h3>
-                        <p style="color: #9ca3af;">Tente novamente mais tarde</p>
-                    </div>
-                `;
-            }
-        }
-        
-        // Estilos para seções
-        const style = document.createElement('style');
-        style.textContent = `
-            .secao-conteudo {
-                display: none;
-            }
-            .secao-conteudo.ativa {
-                display: block;
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>
