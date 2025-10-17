@@ -11,11 +11,11 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="src/estilos/componentes/inicio.css">
-  <link rel="stylesheet" href="src/estilos/layouts/cabecalho-rodape.css">
+  
   <link rel="stylesheet" href="src/estilos/layouts/responsivo.css">
   <link rel="stylesheet" href="src/estilos/componentes/cabecalho-autenticacao.css">
   <link rel="stylesheet" href="src/estilos/componentes/historico-inicio.css">
-  <link rel="stylesheet" href="src/estilos/componentes/notificacoes-fluent.css">
+  
   <link rel="stylesheet" href="src/estilos/temas/modo-escuro.css">
   <link rel="stylesheet" href="src/estilos/temas/fluent-dark.css">
   <link rel="stylesheet" href="src/estilos/temas/correcao-espacos-brancos.css">
@@ -23,14 +23,18 @@
   <link rel="stylesheet" href="src/estilos/temas/botao-tema.css">
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="src/estilos/temas/gradiente-hover-global.css">
+  
+  
+  
 </head>
 <body>
+<div id="header-placeholder"></div>
+
+
+
 
   
 
@@ -197,109 +201,26 @@
   
 
   <!-- JS - ORDEM IMPORTANTE! -->
-  <script src="src/scripts/componentes/modal-fluent.js"></script>
-  <script src="src/scripts/componentes/api-produtos.js"></script>
-  <script src="src/scripts/componentes/produtos-vistos.js"></script>
-
-  <script src="src/scripts/utilitarios/cabecalho-rodape.js"></script>
-  <script src="src/scripts/componentes/cabecalho-autenticacao.js"></script>
-  <script src="src/scripts/componentes/notificacoes-fluent.js"></script>
-  <script src="src/scripts/componentes/historico-inicio.js"></script>
-  <script src="src/scripts/componentes/alternador-tema.js"></script>
-  <script>
-    window.API_BASE_URL = "https://roxinho-shop-backend.vercel.app/api";
-  </script>
   
-  <script>
-  fetch('cabecalho-rodape.html')
-    .then(response => response.text())
-    .then(data => {
-      // Corrigir link do logo para voltar à página inicial (ANTES de outras substituições)
-       data = data.replace(/href="\.\.\/\.\.\/index\.html"/g, 'href="/"');
-      
-      // Corrigir caminhos relativos para funcionar na raiz
-      data = data.replace(/src="\.\.\//g, 'src="src/');
-      data = data.replace(/href="\.\.\//g, 'href="src/');
-      
-      // Corrigir links para páginas HTML que não são absolutos e estão na raiz
-      data = data.replace(/href="([a-zA-Z0-9_-]+)\.html"/g, 'href="$1.html"');
-      
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(data, 'text/html');
+  
+  
 
-      // Buscar elementos dentro do body do documento parseado
-      const header = doc.body ? doc.body.querySelector('nav.cabecalho') : doc.querySelector('nav.cabecalho');
-      const categorias = doc.body ? doc.body.querySelector('.barra-categorias') : doc.querySelector('.barra-categorias');
-      const footer = doc.body ? doc.body.querySelector('footer.rodape') : doc.querySelector('footer.rodape');
+  
+  
+  
+  
+  
+  
+  
+  
 
-      if (header) {
-        // Adicionar contador do carrinho ao cabeçalho
-        const carrinhoLink = header.querySelector('.caixa-carrinho');
-        if (carrinhoLink && !carrinhoLink.querySelector('.contador-carrinho')) {
-          const contador = document.createElement('span');
-          contador.id = 'contador-carrinho-cabecalho';
-          contador.className = 'contador-carrinho';
-          contador.textContent = '0';
-          contador.style.display = 'none';
-          carrinhoLink.appendChild(contador);
-        }
-        
-        document.getElementById('header-placeholder').appendChild(header);
-      }
-      if (categorias) document.getElementById('header-placeholder').appendChild(categorias);
-      if (footer) document.getElementById('footer-placeholder').appendChild(footer);
 
-      // Executar scripts do cabecalho/rodape
-      doc.querySelectorAll("script").forEach(oldScript => {
-        const newScript = document.createElement("script");
-        if (oldScript.src) {
-          // Corrigir caminho do script
-          let srcCorrigido = oldScript.src.replace('src/scripts/, 'src/scripts');
-          newScript.src = srcCorrigido;
-        } else {
-          newScript.textContent = oldScript.textContent;
-        }
-        document.body.appendChild(newScript);
-      });
-      
-      // Aguardar um momento para garantir que os elementos foram renderizados
-      setTimeout(() => {
-        // Reinicializar event listeners do pop-up de departamentos
-        const btnDepartamentos = document.getElementById('btn-departamentos');
-        const popupDepartamentos = document.getElementById('popup-departamentos');
-        const popupClose = document.getElementById('popup-close');
-        
-        if (btnDepartamentos && popupDepartamentos) {
-          btnDepartamentos.addEventListener('click', function(e) {
-            e.preventDefault();
-            popupDepartamentos.style.display = 'flex';
-          });
-        }
-        
-        if (popupClose && popupDepartamentos) {
-          popupClose.addEventListener('click', function() {
-            popupDepartamentos.style.display = 'none';
-          });
-        }
-        
-        if (popupDepartamentos) {
-          popupDepartamentos.addEventListener('click', function(e) {
-            if (e.target === popupDepartamentos) {
-              popupDepartamentos.style.display = 'none';
-            }
-          });
-        }
-      }, 100);
 
-      // Atualizar contador do carrinho após carregar o cabeçalho
-      if (typeof atualizarContadorCarrinho === 'function') {
-        atualizarContadorCarrinho();
-      }
-    })
-    .catch(error => {
-      console.error('Erro ao carregar cabeçalho/rodapé:', error);
-    });
-  </script>
+
+
+
+<div id="footer-placeholder"></div>
+<script src="load-header-footer.js"></script>
 </body>
 </html>
 

@@ -1,33 +1,14 @@
-'''
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Roxinho Shop</title>
+<link rel="stylesheet" href="src/estilos/layouts/cabecalho-rodape.css">
+<link rel="stylesheet" href="src/estilos/componentes/notificacoes-fluent.css">
+<link rel="stylesheet" href="src/estilos/componentes/busca-global.css">
+<link rel="stylesheet" href="src/estilos/temas/gradiente-hover-global.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
 
-  <!-- Ícones -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="src/recursos/imagens/favicon-roxinhoshop.png">
-  
-  <!-- Fonte -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="src/estilos/layouts/cabecalho-rodape.css">
-  <link rel="stylesheet" href="src/estilos/componentes/notificacoes-fluent.css">
-  <link rel="stylesheet" href="src/estilos/componentes/busca-global.css">
-  <link rel="stylesheet" href="src/estilos/temas/gradiente-hover-global.css">
-</head>
-<body>
-
-  <!-- ======================= CABEÇALHO ======================= -->
-  <nav class="cabecalho">
+<nav class="cabecalho">
     <div class="container-cabecalho">
       <!-- LOGO -->
       <a class="logo" href="index.html">
@@ -86,4 +67,207 @@
 <div class="barra-categorias">
     <ul>
         <li class="dropdown">
-            <a href="#" id="btn-departamentos'
+            <a href="#" id="btn-departamentos"><i class="fa-solid fa-bars"></i> DEPARTAMENTOS</a>
+            <div class="popup-departamentos" id="popup-departamentos" style="display: none;">
+            <div class="popup-content">
+            <button class="popup-close" id="popup-close">×</button>
+            <h3>Departamentos</h3>
+            <div class="categorias-grid">
+                <li class="tem-submenu">
+                    <a href="produtos.html?categoria=Hardware">Hardware <i class="fa-solid fa-chevron-right seta"></i></a>
+                    <ul class="submenu">
+                        <li><a href="produtos.html?categoria=Hardware&subcategoria=Processadores">Processadores</a></li>
+                        <li><a href="produtos.html?categoria=Hardware&subcategoria=Placas de Vídeo">Placas de Vídeo</a></li>
+                        <li><a href="produtos.html?categoria=Hardware&subcategoria=Memórias RAM">Memórias RAM</a></li>
+                        <li><a href="produtos.html?categoria=Hardware&subcategoria=Placas Mãe">Placas Mãe</a></li>
+                        <li><a href="produtos.html?categoria=Hardware&subcategoria=Fontes">Fontes</a></li>
+                        <li><a href="produtos.html?categoria=Hardware&subcategoria=Coolers">Coolers</a></li>
+                        <li><a href="produtos.html?categoria=Hardware&subcategoria=Gabinetes">Gabinetes</a></li>
+                        <li><a href="produtos.html?categoria=Hardware&subcategoria=Armazenamento">Armazenamento</a></li>
+                        <li><a href="produtos.html?categoria=Hardware&subcategoria=Placas de Som">Placas de Som</a></li>
+                    </ul>
+                </li>
+                <li class="tem-submenu">
+                    <a href="produtos.html?categoria=Periféricos">Periféricos <i class="fa-solid fa-chevron-right seta"></i></a>
+                    <ul class="submenu">
+                        <li><a href="produtos.html?categoria=Periféricos&subcategoria=Teclados">Teclados</a></li>
+                        <li><a href="produtos.html?categoria=Periféricos&subcategoria=Mouses">Mouses</a></li>
+                        <li><a href="produtos.html?categoria=Periféricos&subcategoria=Headsets">Headsets</a></li>
+                        <li><a href="produtos.html?categoria=Periféricos&subcategoria=Webcams">Webcams</a></li>
+                        <li><a href="produtos.html?categoria=Periféricos&subcategoria=Microfones">Microfones</a></li>
+                        <li><a href="produtos.html?categoria=Periféricos&subcategoria=Mousepads">Mousepads</a></li>
+                        <li><a href="produtos.html?categoria=Periféricos&subcategoria=Controles">Controles</a></li>
+                        <li><a href="produtos.html?categoria=Periféricos&subcategoria=Caixas%20de%20Som">Caixas de Som</a></li>
+                        <li><a href="produtos.html?categoria=Periféricos&subcategoria=Monitores">Monitores</a></li>
+                    </ul>
+                </li>
+                <li class="tem-submenu">
+                    <a href="produtos.html?categoria=Computadores">Computadores <i class="fa-solid fa-chevron-right seta"></i></a>
+                    <ul class="submenu">
+                        <li><a href="produtos.html?categoria=Computadores&subcategoria=PCs%20Gamer">PCs Gamer</a></li>
+                        <li><a href="produtos.html?categoria=Computadores&subcategoria=Workstations">Workstations</a></li>
+                        <li><a href="produtos.html?categoria=Computadores&subcategoria=All-in-One">All-in-One</a></li>
+                        <li><a href="produtos.html?categoria=Computadores&subcategoria=Mini%20PCs">Mini PCs</a></li>
+                        <li><a href="produtos.html?categoria=Computadores&subcategoria=Notebooks">Notebooks</a></li>
+                        <li><a href="produtos.html?categoria=Computadores&subcategoria=Chromebooks">Chromebooks</a></li>
+                        <li><a href="produtos.html?categoria=Computadores&subcategoria=Ultrabooks">Ultrabooks</a></li>
+                        <li><a href="produtos.html?categoria=Computadores&subcategoria=Tablets">Tablets</a></li>
+                    </ul>
+                </li>
+                <li class="tem-submenu">
+                    <a href="produtos.html?categoria=Games">Games <i class="fa-solid fa-chevron-right seta"></i></a>
+                    <ul class="submenu">
+                        <li><a href="produtos.html?categoria=Games&subcategoria=Consoles">Consoles</a></li>
+                        <li><a href="produtos.html?categoria=Games&subcategoria=Jogos%20PC">Jogos PC</a></li>
+                        <li><a href="produtos.html?categoria=Games&subcategoria=Jogos%20Console">Jogos Console</a></li>
+                        <li><a href="produtos.html?categoria=Games&subcategoria=Acessórios%20Gaming">Acessórios Gaming</a></li>
+                        <li><a href="produtos.html?categoria=Games&subcategoria=Cadeiras%20Gamer">Cadeiras Gamer</a></li>
+                        <li><a href="produtos.html?categoria=Games&subcategoria=Mesas%20Gamer">Mesas Gamer</a></li>
+                        <li><a href="produtos.html?categoria=Games&subcategoria=Controles">Controles</a></li>
+                        <li><a href="produtos.html?categoria=Games&subcategoria=Volantes">Volantes</a></li>
+                    </ul>
+                </li>
+                <li class="tem-submenu">
+                    <a href="produtos.html?categoria=Celular%20&%20Smartphone">Celular & Smartphone <i class="fa-solid fa-chevron-right seta"></i></a>
+                    <ul class="submenu">
+                        <li><a href="produtos.html?categoria=Celular%20&%20Smartphone&subcategoria=Smartphones">Smartphones</a></li>
+                        <li><a href="produtos.html?categoria=Celular%20&%20Smartphone&subcategoria=Capas%20e%20Pel%C3%ADculas">Capas e Películas</a></li>
+                        <li><a href="produtos.html?categoria=Celular%20&%20Smartphone&subcategoria=Carregadores">Carregadores</a></li>
+                        <li><a href="produtos.html?categoria=Celular%20&%20Smartphone&subcategoria=Fones%20de%20Ouvido">Fones de Ouvido</a></li>
+                        <li><a href="produtos.html?categoria=Celular%20&%20Smartphone&subcategoria=Power%20Banks">Power Banks</a></li>
+                        <li><a href="produtos.html?categoria=Celular%20&%20Smartphone&subcategoria=Suportes">Suportes</a></li>
+                        <li><a href="produtos.html?categoria=Celular%20&%20Smartphone&subcategoria=Smartwatches">Smartwatches</a></li>
+                    </ul>
+                </li>
+                <li class="tem-submenu">
+                    <a href="produtos.html?categoria=TV%20&%20Áudio">TV & Áudio <i class="fa-solid fa-chevron-right seta"></i></a>
+                    <ul class="submenu">
+                        <li><a href="produtos.html?categoria=TV%20&%20Áudio&subcategoria=Smart%20TVs">Smart TVs</a></li>
+                        <li><a href="produtos.html?categoria=TV%20&%20Audio&subcategoria=TVs%204K">TVs 4K</a></li>
+                        <li><a href="produtos.html?categoria=TV%20&%20Áudio&subcategoria=TVs%208K">TVs 8K</a></li>
+                        <li><a href="produtos.html?categoria=TV%20&%20Áudio&subcategoria=Suportes%20TV">Suportes TV</a></li>
+                        <li><a href="produtos.html?categoria=TV%20&%20Áudio&subcategoria=Conversores">Conversores</a></li>
+                        <li><a href="produtos.html?categoria=TV%20&%20Áudio&subcategoria=Antenas">Antenas</a></li>
+                        <li><a href="produtos.html?categoria=TV%20&%20Áudio&subcategoria=Soundbars">Soundbars</a></li>
+                        <li><a href="produtos.html?categoria=TV%20&%20Áudio&subcategoria=Home%20Theater">Home Theater</a></li>
+                    </ul>
+                </li>
+                <li class="tem-submenu">
+                    <a href="produtos.html?categoria=Áudio">Áudio <i class="fa-solid fa-chevron-right seta"></i></a>
+                    <ul class="submenu">
+                        <li><a href="produtos.html?categoria=Áudio&subcategoria=Fones%20de%20Ouvido">Fones de Ouvido</a></li>
+                        <li><a href="produtos.html?categoria=Áudio&subcategoria=Caixas%20de%20Som">Caixas de Som</a></li>
+                        <li><a href="produtos.html?categoria=Áudio&subcategoria=Soundbars">Soundbars</a></li>
+                        <li><a href="produtos.html?categoria=Áudio&subcategoria=Amplificadores">Amplificadores</a></li>
+                        <li><a href="produtos.html?categoria=Áudio&subcategoria=Microfones">Microfones</a></li>
+                        <li><a href="produtos.html?categoria=Áudio&subcategoria=Mesas%20de%20Som">Mesas de Som</a></li>
+                        <li><a href="produtos.html?categoria=Áudio&subcategoria=Instrumentos%20Musicais">Instrumentos Musicais</a></li>
+                    </ul>
+                </li>
+                <li class="tem-submenu">
+                    <a href="produtos.html?categoria=Eletrônicos">Eletrônicos <i class="fa-solid fa-chevron-right seta"></i></a>
+                    <ul class="submenu">
+                        <li><a href="produtos.html?categoria=Eletrônicos&subcategoria=Cameras">Cameras</a></li>
+                        <li><a href="produtos.html?categoria=Eletrônicos&subcategoria=Drones">Drones</a></li>
+                        <li><a href="produtos.html?categoria=Eletrônicos&subcategoria=Smart%20Home">Smart Home</a></li>
+                        <li><a href="produtos.html?categoria=Eletrônicos&subcategoria=Wearables">Wearables</a></li>
+                        <li><a href="produtos.html?categoria=Eletrônicos&subcategoria=Calculadoras">Calculadoras</a></li>
+                        <li><a href="produtos.html?categoria=Eletrônicos&subcategoria=Pilhas%20e%20Baterias">Pilhas e Baterias</a></li>
+                        <li><a href="produtos.html?categoria=Eletrônicos&subcategoria=Acessórios%20Eletrônicos">Acessórios Eletrônicos</a></li>
+                    </ul>
+                </li>
+                <li class="tem-submenu">
+                    <a href="produtos.html?categoria=Informática">Informática <i class="fa-solid fa-chevron-right seta"></i></a>
+                    <ul class="submenu">
+                        <li><a href="produtos.html?categoria=Informática&subcategoria=Roteadores">Roteadores</a></li>
+                        <li><a href="produtos.html?categoria=Informática&subcategoria=Impressoras">Impressoras</a></li>
+                        <li><a href="produtos.html?categoria=Informática&subcategoria=Scanners">Scanners</a></li>
+                        <li><a href="produtos.html?categoria=Informática&subcategoria=Projetores">Projetores</a></li>
+                        <li><a href="produtos.html?categoria=Informática&subcategoria=Nobreaks">Nobreaks</a></li>
+                        <li><a href="produtos.html?categoria=Informática&subcategoria=Softwares">Softwares</a></li>
+                        <li><a href="produtos.html?categoria=Informática&subcategoria=Servidores">Servidores</a></li>
+                        <li><a href="produtos.html?categoria=Informática&subcategoria=Redes">Redes</a></li>
+                    </ul>
+                </li>
+                <li class="tem-submenu">
+                    <a href="produtos.html?categoria=Escritório">Escritório <i class="fa-solid fa-chevron-right seta"></i></a>
+                    <ul class="submenu">
+                        <li><a href="produtos.html?categoria=Escritório&subcategoria=Cadeiras">Cadeiras</a></li>
+                        <li><a href="produtos.html?categoria=Escritório&subcategoria=Mesas">Mesas</a></li>
+                        <li><a href="produtos.html?categoria=Escritório&subcategoria=Organizadores">Organizadores</a></li>
+                        <li><a href="produtos.html?categoria=Escritório&subcategoria=Papelaria">Papelaria</a></li>
+                        <li><a href="produtos.html?categoria=Escritório&subcategoria=Canetas">Canetas</a></li>
+                        <li><a href="produtos.html?categoria=Escritório&subcategoria=Cadernos">Cadernos</a></li>
+                        <li><a href="produtos.html?categoria=Escritório&subcategoria=Mochilas">Mochilas</a></li>
+                    </ul>
+                </li>
+            </div>
+            </div>
+            </div>
+        </li>
+        <li><a href="produtos.html?categoria=Promoções">PROMOÇÕES</a></li>
+        <li><a href="produtos.html?categoria=Novidades">NOVIDADES</a></li>
+        <li><a href="produtos.html?categoria=Mais Vendidos">MAIS VENDIDOS</a></li>
+        <li><a href="contato.html">CONTATO</a></li>
+        <li><a href="sobre-nos.html">SOBRE NÓS</a></li>
+    </ul>
+</div>
+
+  <!-- ======================= RODAPÉ ======================= -->
+  <footer class="rodape">
+    <div class="container-rodape">
+      <div class="coluna">
+        <h4>Institucional</h4>
+        <ul>
+          <li><a href="sobre-nos.html">Sobre Nós</a></li>
+          <li><a href="politicas.html">Políticas de Privacidade</a></li>
+          <li><a href="termos.html">Termos de Uso</a></li>
+          <li><a href="contato.html">Contato</a></li>
+        </ul>
+      </div>
+      <div class="coluna">
+        <h4>Minha Conta</h4>
+        <ul>
+          <li><a href="entrar.html">Login</a></li>
+          <li><a href="cadastro.html">Cadastre-se</a></li>
+          <li><a href="painel-usuario.html">Meu Painel</a></li>
+          <li><a href="historico.html">Histórico de Compras</a></li>
+        </ul>
+      </div>
+      <div class="coluna">
+        <h4>Atendimento</h4>
+        <ul>
+          <li><a href="#">Central de Ajuda</a></li>
+          <li><a href="#">Devoluções</a></li>
+          <li><a href="#">Frete e Entrega</a></li>
+          <li><a href="#">Pagamento</a></li>
+        </ul>
+      </div>
+      <div class="coluna">
+        <h4>Redes Sociais</h4>
+        <div class="redes-sociais">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="rodape-inferior">
+      <p>&copy; 2024 Roxinho Shop. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts JS -->
+  <script src="src/scripts/componentes/notificacoes-fluent.js"></script>
+  <script src="src/scripts/componentes/busca-global.js"></script>
+  <script src="src/scripts/componentes/modal-fluent.js"></script>
+  <script src="src/scripts/componentes/api-produtos.js"></script>
+  <script src="src/scripts/componentes/produtos-vistos.js"></script>
+  <script src="src/scripts/utilitarios/cabecalho-rodape.js"></script>
+  <script src="src/scripts/componentes/cabecalho-autenticacao.js"></script>
+  <script src="src/scripts/componentes/historico-inicio.js"></script>
+  <script src="src/scripts/componentes/alternador-tema.js"></script>
+  <script>
+    window.API_BASE_URL = "https://roxinho-shop-backend.vercel.app/api";
+  </script>
