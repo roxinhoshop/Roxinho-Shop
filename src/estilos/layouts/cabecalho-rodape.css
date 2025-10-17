@@ -3409,10 +3409,11 @@ body {
 /* ===== RODAPÉ FLUENT DESIGN ===== */
 
 .rodape {
-  background: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
+  background: #000000;
   color: #e5e7eb;
   padding: 4rem 2rem 0;
-  border-top: 3px solid #7c3aed;
+  border-top: 3px solid transparent;
+  border-image: linear-gradient(90deg, #7c3aed 0%, #FFB800 50%, #7c3aed 100%) 1;
   position: relative;
   overflow: hidden;
 }
@@ -3423,14 +3424,14 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 1px;
+  height: 2px;
   background: linear-gradient(90deg, 
     transparent 0%, 
-    #7c3aed 20%, 
-    #a78bfa 50%, 
-    #7c3aed 80%, 
+    #7c3aed 15%, 
+    #FFB800 50%, 
+    #7c3aed 85%, 
     transparent 100%);
-  animation: shimmer 3s ease-in-out infinite;
+  animation: shimmer 4s ease-in-out infinite;
 }
 
 @keyframes shimmer {
@@ -3504,11 +3505,17 @@ body {
   background: rgba(124, 58, 237, 0.1);
   border: 2px solid rgba(124, 58, 237, 0.3);
   border-radius: 12px;
-  color: #a78bfa;
   font-size: 1.3rem;
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
   overflow: hidden;
+}
+
+.rodape-redes a i {
+  background: linear-gradient(135deg, #a78bfa 0%, #FFB800 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .rodape-redes a::before {
@@ -3525,11 +3532,17 @@ body {
 }
 
 .rodape-redes a:hover {
-  background: linear-gradient(135deg, #7c3aed, #a78bfa);
-  border-color: #7c3aed;
-  color: #ffffff;
+  background: linear-gradient(135deg, #7c3aed, #FFB800);
+  border-color: #FFB800;
   transform: translateY(-4px) scale(1.1);
-  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
+  box-shadow: 0 8px 24px rgba(255, 184, 0, 0.4);
+}
+
+.rodape-redes a:hover i {
+  background: #ffffff;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .rodape-redes a:hover::before {
@@ -3539,7 +3552,10 @@ body {
 
 /* Títulos das Seções */
 .rodape-titulo {
-  color: #a78bfa;
+  background: linear-gradient(135deg, #a78bfa 0%, #FFB800 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   font-size: 1.15rem;
   font-weight: 700;
   margin: 0 0 0.5rem 0;
@@ -3557,12 +3573,13 @@ body {
   left: 0;
   width: 40px;
   height: 2px;
-  background: linear-gradient(90deg, #7c3aed, #a78bfa);
+  background: linear-gradient(90deg, #7c3aed, #FFB800);
   transition: width 0.3s ease;
 }
 
 .rodape-secao:hover .rodape-titulo::after {
   width: 80px;
+  background: linear-gradient(90deg, #FFB800, #FFC933);
 }
 
 /* Listas do Rodapé */
@@ -3595,7 +3612,7 @@ body {
 
 .rodape-lista li a::before {
   content: '▸';
-  color: #7c3aed;
+  color: #FFB800;
   font-size: 0.9rem;
   opacity: 0;
   transform: translateX(-10px);

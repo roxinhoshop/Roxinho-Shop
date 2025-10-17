@@ -1979,3 +1979,219 @@ body {
 
 :root[data-theme="dark"] .container {
 }
+/* ===== CATEGORIAS POPULARES ===== */
+
+.categorias-populares {
+  padding: 4rem 2rem;
+  background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.categorias-populares .container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.titulo-secao {
+  text-align: center;
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #000000;
+  margin-bottom: 0.75rem;
+  position: relative;
+}
+
+.subtitulo-secao {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #6b7280;
+  margin-bottom: 3rem;
+}
+
+.grid-categorias {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.categoria-card {
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border: 2px solid transparent;
+  position: relative;
+}
+
+.categoria-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #7c3aed, #a78bfa);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.categoria-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 40px rgba(124, 58, 237, 0.2);
+  border-color: #7c3aed;
+}
+
+.categoria-card:hover::before {
+  transform: scaleX(1);
+}
+
+.categoria-imagem {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.categoria-imagem::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+  transition: opacity 0.3s ease;
+}
+
+.categoria-card:hover .categoria-imagem::after {
+  opacity: 0.5;
+}
+
+.categoria-imagem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.categoria-card:hover .categoria-imagem img {
+  transform: scale(1.1);
+}
+
+.categoria-conteudo {
+  padding: 1.75rem 1.5rem;
+  background: #ffffff;
+}
+
+.categoria-conteudo h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #000000;
+  margin: 0 0 0.5rem 0;
+  transition: color 0.3s ease;
+}
+
+.categoria-card:hover .categoria-conteudo h3 {
+  color: #7c3aed;
+}
+
+.categoria-conteudo p {
+  font-size: 0.95rem;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Modo Escuro */
+[data-theme="dark"] .categorias-populares {
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+}
+
+[data-theme="dark"] .titulo-secao {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .subtitulo-secao {
+  color: #9ca3af;
+}
+
+[data-theme="dark"] .categoria-card {
+  background: #1e293b;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .categoria-card:hover {
+  box-shadow: 0 16px 40px rgba(124, 58, 237, 0.4);
+  border-color: #a78bfa;
+}
+
+[data-theme="dark"] .categoria-conteudo {
+  background: #1e293b;
+}
+
+[data-theme="dark"] .categoria-conteudo h3 {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .categoria-card:hover .categoria-conteudo h3 {
+  color: #a78bfa;
+}
+
+[data-theme="dark"] .categoria-conteudo p {
+  color: #9ca3af;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .categorias-populares {
+    padding: 3rem 1.5rem;
+  }
+  
+  .titulo-secao {
+    font-size: 1.85rem;
+  }
+  
+  .subtitulo-secao {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .grid-categorias {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .categoria-imagem {
+    height: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .categorias-populares {
+    padding: 2.5rem 1rem;
+  }
+  
+  .titulo-secao {
+    font-size: 1.65rem;
+  }
+  
+  .grid-categorias {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  
+  .categoria-imagem {
+    height: 160px;
+  }
+  
+  .categoria-conteudo {
+    padding: 1.5rem 1.25rem;
+  }
+  
+  .categoria-conteudo h3 {
+    font-size: 1.2rem;
+  }
+}
+
