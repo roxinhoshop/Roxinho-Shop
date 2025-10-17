@@ -252,22 +252,24 @@ async function loadStats() {
     }
 }
 
-// ======================= ADICIONAR PRODUTO (FORMULÁRIO) =======================async function loadCategoriesIntoSelect() {
-    const select = document.getElementById('categoria-produto');    if (!select) return;
+// ======================= ADICIONAR PRODUTO (FORMULÁRIO) =======================
+async function loadCategoriesIntoSelect() {
+    const select = document.getElementById(\'categoria-produto\');
+    if (!select) return;
 
     try {
         const response = await fetch(`${window.API_BASE_URL}/categorias/all`);
         const data = await response.json();
-        if (data.status === 'success' && data.categories) {
-            select.innerHTML = '<option value="">Selecione uma categoria</option>';
+        if (data.status === \'success\' && data.categories) {
+            select.innerHTML = \'<option value=\"\">Selecione uma categoria</option>\';
             data.categories.forEach(categoria => {
                 select.innerHTML += `<option value="${categoria.id}">${categoria.nome}</option>`;
             });
         } else {
-            console.error('Erro ao carregar categorias:', data.message);
+            console.error(\'Erro ao carregar categorias:\', data.message);
         }
     } catch (error) {
-        console.error('Erro ao carregar categorias:', error);
+        console.error(\'Erro ao carregar categorias:\', error);
     }
 }
 
@@ -338,63 +340,48 @@ function initializeAddProductForm() {
 }
 
 async function loadCategoriesIntoSelectNew() {
-    const select = document.getElementById('product-category');
+    const select = document.getElementById(\'product-category\');
     if (!select) return;
 
-    // Categorias fixas do site
-    const categoriasFixas = [
-        { id: 1, nome: 'Computadores' },
-        { id: 2, nome: 'Periféricos' },
-        { id: 3, nome: 'Hardware' },
-        { id: 4, nome: 'Games' }
-    ];
-
-    select.innerHTML = '<option value="">Selecione uma categoria</option>';
-    categoriasFixas.forEach(categoria => {
-        select.innerHTML += `<option value="${categoria.id}">${categoria.nome}</option>`;
-    });
+    try {
+        const response = await fetch(`${window.API_BASE_URL}/categorias`);
+        const data = await response.json();
+        if (data.success || data.status === \'success\') {
+            select.innerHTML = \'<option value="">Selecione uma categoria</option>\';
+            const categories = data.categories || [];
+            categories.forEach(categoria => {
+                select.innerHTML += `<option value="${categoria.id}">${categoria.nome}</option>`;
+            });
+        }
+    } catch (error) {
+        console.error(\'Erro ao carregar categorias:\', error);
+    }
 }
 
 async function loadSubcategoriesIntoSelect() {
-    const categorySelect = document.getElementById('product-category');
-    const subcategorySelect = document.getElementById('product-subcategory');
+    const categorySelect = document.getElementById(\'product-category\');
+    const subcategorySelect = document.getElementById(\'product-subcategory\');
     if (!categorySelect || !subcategorySelect) return;
 
-    const categoryId = parseInt(categorySelect.value);
-    subcategorySelect.innerHTML = '<option value="">Selecione uma subcategoria (opcional)</option>';
+    const categoryId = categorySelect.value;
+    subcategorySelect.innerHTML = \'<option value="">Selecione uma subcategoria (opcional)</option>\';
     subcategorySelect.disabled = true;
 
-    // Subcategorias fixas do site
-    const subcategoriasFixas = {
-        1: [ // Computadores
-            { id: 101, nome: 'Notebooks' },
-            { id: 102, nome: 'Desktops' },
-            { id: 103, nome: 'All-in-One' }
-        ],
-        2: [ // Periféricos
-            { id: 201, nome: 'Mouses' },
-            { id: 202, nome: 'Teclados' },
-            { id: 203, nome: 'Headsets' },
-            { id: 204, nome: 'Webcams' }
-        ],
-        3: [ // Hardware
-            { id: 301, nome: 'Processadores' },
-            { id: 302, nome: 'Placas de Vídeo' },
-            { id: 303, nome: 'Memórias RAM' },
-            { id: 304, nome: 'SSDs' }
-        ],
-        4: [ // Games
-            { id: 401, nome: 'Consoles' },
-            { id: 402, nome: 'Jogos' },
-            { id: 403, nome: 'Acessórios' }
-        ]
-    };
-
-    if (categoryId && subcategoriasFixas[categoryId]) {
-        subcategoriasFixas[categoryId].forEach(subcategoria => {
-            subcategorySelect.innerHTML += `<option value="${subcategoria.id}">${subcategoria.nome}</option>`;
-        });
-        subcategorySelect.disabled = false;
+    if (categoryId) {
+        try {
+            const response = await fetch(`${window.API_BASE_URL}/categorias/${categoryId}`);
+            const data = await response.json();
+            if (data.status === \'success\' && data.subcategorias) {
+                if (data.subcategorias.length > 0) {
+                    data.subcategorias.forEach(subcategoria => {
+                        subcategorySelect.innerHTML += `<option value="${subcategoria.id}">${subcategoria.nome}</option>`;
+                    });
+                    subcategorySelect.disabled = false;
+                }
+            }
+        } catch (error) {
+            console.error(\'Erro ao carregar subcategorias:\', error);
+        }
     }
 }
 

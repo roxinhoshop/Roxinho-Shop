@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redefinir Senha | Roxinho Shop</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="../recursos/imagens/favicon-roxinhoshop.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../estilos/componentes/entrar.css">
+  <link rel="stylesheet" href="../estilos/layouts/cabecalho-rodape.css">
+  <link rel="stylesheet" href="../estilos/temas/design-fluent.css">
+  <link rel="stylesheet" href="../estilos/temas/modo-escuro.css">
+  <link rel="stylesheet" href="../estilos/temas/fluent-dark.css">
+  <link rel="stylesheet" href="../estilos/temas/correcao-espacos-brancos.css">
+  <link rel="stylesheet" href="../estilos/temas/botao-tema.css">
+  <link rel="stylesheet" href="../estilos/componentes/notificacoes-fluent.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../estilos/temas/gradiente-hover-global.css">
+</head>
+<body>
+
+  <!-- Placeholder para Header -->
+  <div id="header-placeholder"></div>
+
+  <!-- Conteúdo principal -->
+  <main class="container">
+    <div class="login-section">
+
+      <form class="login-card" id="resetPasswordForm" novalidate>
+
+        <h2 class="welcome-text">Redefinir Senha</h2>
+        <p class="welcome-subtitle">Insira sua nova senha</p>
+
+        <!-- Nova Senha -->
+        <div class="form-group">
+          <input type="password" id="newPassword" class="form-input" required>
+          <label class="floating-label">Nova Senha <span class="required">*</span></label>
+          <span class="toggle-password" onclick="togglePasswordVisibility('newPassword')"><i class="fa fa-eye" aria-hidden="true"></i></span>
+        </div>
+
+        <!-- Confirmar Nova Senha -->
+        <div class="form-group">
+          <input type="password" id="confirmNewPassword" class="form-input" required>
+          <label class="floating-label">Confirmar Nova Senha <span class="required">*</span></label>
+          <span class="toggle-password" onclick="togglePasswordVisibility('confirmNewPassword')"><i class="fa fa-eye" aria-hidden="true"></i></span>
+        </div>
+
+        <div id="mensagem-erro" class="error-message" style="display: none;"></div>
+        <div id="mensagem-sucesso" class="success-message" style="display: none;"></div>
+
+        <button type="submit" class="login-button" id="botaoRedefinir">
+          <span>Redefinir Senha</span>
+        </button>
+
+        <p class="register-link">
+          <a href="entrar.html">Voltar para o login</a>
+        </p>
+      </form>
+    </div>
+  </main>
+
+  <!-- Placeholder para Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="../scripts/utilitarios/cabecalho-rodape.js"></script>
+  <script src="../scripts/servicos/inicializacao-sistema.js"></script>
+  <script src="../scripts/servicos/autenticacao.js"></script>
+  <script src="../scripts/componentes/redefinir-senha.js"></script>
+  <script src="../scripts/componentes/cabecalho-autenticacao.js"></script>
+  <script src="../scripts/componentes/notificacoes-fluent.js"></script>
+  <script src="../scripts/componentes/alternador-tema.js"></script>
+  
+  <script>
+    function togglePasswordVisibility(fieldId) {
+        const field = document.getElementById(fieldId);
+        const icon = field.closest(".form-group").querySelector(".toggle-password i");
+        if (field.type === "password") {
+            field.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            field.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
+    }
+  </script>
+</body>
+</html>
+

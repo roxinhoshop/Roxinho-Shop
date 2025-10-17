@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verificar conta | Roxinho Shop</title>
+
+    <!-- Favicon -->
+  <link rel="icon" type="image/png" href="../recursos/imagens/favicon-rooxyce.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../estilos/componentes/verificacao.css">
+  <link rel="stylesheet" href="../estilos/layouts/cabecalho-rodape.css">
+
+  <!-- Placeholder para Header -->
+  <div id="header-placeholder"></div>
+  
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../estilos/temas/design-fluent.css">
+  <link rel="stylesheet" href="../estilos/temas/modo-escuro.css">
+  <link rel="stylesheet" href="../estilos/temas/fluent-dark.css">
+  <link rel="stylesheet" href="../estilos/temas/correcao-espacos-brancos.css">
+  <link rel="stylesheet" href="../estilos/temas/botao-tema.css">
+  <link rel="stylesheet" href="../estilos/componentes/notificacoes-fluent.css">
+  <link rel="stylesheet" href="../estilos/temas/gradiente-hover-global.css">
+</head>
+<body>
+
+  <!-- Conteúdo Verificação -->
+  <main class="container">
+    <div class="verificacao-section">
+      <div class="verificacao-card">
+        
+        <!-- Ícone de verificação -->
+        <div class="icone-verificacao">
+          <i class="fas fa-envelope-open-text"></i>
+        </div>
+
+        <h2 class="titulo-verificacao">Verifique seu E-mail</h2>
+        <p class="subtitulo-verificacao">
+          Enviamos um código de verificação de 6 dígitos para<br>
+          <strong id="email-usuario"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="097a6c7c496c64686065276a6664">[email&#160;protected]</a></strong>
+        </p>
+
+        <!-- Formulário de verificação -->
+        <form class="form-verificacao" id="formularioVerificacao" novalidate>
+          
+          <!-- Campos do código -->
+          <div class="codigo-container">
+            <input type="text" class="codigo-input" maxlength="1" pattern="[0-9]" inputmode="numeric" autocomplete="one-time-code" required>
+            <input type="text" class="codigo-input" maxlength="1" pattern="[0-9]" inputmode="numeric" autocomplete="one-time-code" required>
+            <input type="text" class="codigo-input" maxlength="1" pattern="[0-9]" inputmode="numeric" autocomplete="one-time-code" required>
+            <input type="text" class="codigo-input" maxlength="1" pattern="[0-9]" inputmode="numeric" autocomplete="one-time-code" required>
+            <input type="text" class="codigo-input" maxlength="1" pattern="[0-9]" inputmode="numeric" autocomplete="one-time-code" required>
+            <input type="text" class="codigo-input" maxlength="1" pattern="[0-9]" inputmode="numeric" autocomplete="one-time-code" required>
+          </div>
+
+          <!-- Mensagem de erro -->
+          <div class="mensagem-erro" id="mensagemErro" style="display: none;">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>Código inválido. Tente novamente.</span>
+          </div>
+
+          <!-- Botão de verificar -->
+          <button type="submit" class="botao-verificar" id="botaoVerificar">
+            <span class="texto-botao">Verificar Código</span>
+            <div class="loading-spinner" style="display: none;">
+              <i class="fas fa-spinner fa-spin"></i>
+            </div>
+          </button>
+
+          <!-- Reenviar código -->
+          <div class="reenviar-container">
+            <p class="texto-reenviar">
+              Não recebeu o código? 
+              <button type="button" class="link-reenviar" id="botaoReenviar">
+                Reenviar código
+              </button>
+            </p>
+            <div class="timer-reenvio" id="timerReenvio" style="display: none;">
+              Reenviar em <span id="tempoRestante">60</span>s
+            </div>
+          </div>
+
+          <!-- Alterar e-mail -->
+          <div class="alterar-email">
+            <button type="button" class="link-alterar-email" onclick="voltarParaCadastro()">
+              <i class="fas fa-arrow-left"></i>
+              Alterar e-mail
+            </button>
+          </div>
+
+        </form>
+
+        <!-- Informações de segurança -->
+        <div class="info-seguranca">
+          <div class="item-seguranca">
+            <i class="fas fa-shield-alt"></i>
+            <span>Código válido por 10 minutos</span>
+          </div>
+          <div class="item-seguranca">
+            <i class="fas fa-lock"></i>
+            <span>Conexão segura e criptografada</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Placeholder para Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="../scripts/componentes/verificacao.js"></script>
+
+  <script>
+    // Script para carregamento dinâmico de cabeçalho e rodapé
+    fetch(\'src/paginas/cabecalho-rodape.html\')
+      .then(response => response.text())
+      .then(data => {
+        // Corrigir caminhos relativos para funcionar na raiz
+        data = data.replace(/href="\.\.\/recursos/g, \'href="src/recursos\');
+        data = data.replace(/src="\.\.\/recursos/g, \'src="src/recursos\');
+        data = data.replace(/href="\.\.\/estilos/g, \'href="src/estilos\');
+        data = data.replace(/src="\.\.\/scripts/g, \'src="src/scripts\');
+        
+        // Corrigir link do logo para voltar à página inicial
+        data = data.replace(/href="\.\.\/\.\.\/index\.html"/g, \'href="/"\');
+        
+        // Corrigir links para páginas HTML (com ou sem parâmetros)
+        // Exceto quando já tem src/paginas/ ou começa com ../..
+        data = data.replace(/href="(?!src\/paginas\/)(?!\.\.\/\.\.\/)([a-z\-]+)\.html/g, \'href="src/paginas/$1.html\');
+        
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(data, \'text/html\');
+
+        const header = doc.querySelector(\'nav.cabecalho\');
+        const categorias = doc.querySelector(\'\.barra-categorias\');
+        const footer = doc.querySelector(\'footer.rodape\');
+
+        if (header) {
+          // Adicionar contador do carrinho ao cabeçalho
+        }
+        if (categorias && !window.location.pathname.includes(\'administracao.html\') && !window.location.pathname.includes(\'painel-admin.html\') && !window.location.pathname.includes(\'painel-administrador.html\') && !window.location.pathname.includes(\'painel-usuario.html\')) {
+          document.getElementById(\'header-placeholder\').appendChild(categorias);
+        }
+        if (footer) document.getElementById(\'footer-placeholder\').appendChild(footer);
+
+        // Executar scripts do cabecalho/rodape
+        doc.querySelectorAll("script").forEach(oldScript => {
+          const newScript = document.createElement("script");
+          if (oldScript.src) {
+            // Corrigir caminho do script
+            let srcCorrigido = oldScript.src.replace(\'../scripts\', \'src/scripts\');
+            newScript.src = srcCorrigido;
+          } else {
+            newScript.textContent = oldScript.textContent;
+          }
+          document.body.appendChild(newScript);
+        });
+
+        // Atualizar contador do carrinho após carregar o cabeçalho
+        }
+      })
+      .catch(error => {
+        console.error(\'Erro ao carregar cabeçalho/rodapé:\', error);
+      });
+  </script>
+  <script src="../scripts/componentes/alternador-tema.js"></script>
+</body>
+</html>
+

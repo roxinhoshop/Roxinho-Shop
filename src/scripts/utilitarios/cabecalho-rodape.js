@@ -1,4 +1,5 @@
-// Script unificado para carregar cabeçalho e rodapé em todas as páginas
+// Este arquivo não é mais necessário pois o carregamento do cabeçalho e rodapé
+// é feito diretamente no index.html e nas outras páginas
 
 // Funções globais que podem ser necessárias
 window.atualizarContadorCarrinho = function() {
@@ -44,64 +45,4 @@ window.removerDosDesejos = function(produtoId) {
     contador.textContent = desejos.length;
   }
 };
-
-// Carregar cabeçalho e rodapé dinamicamente
-(function() {
-    const headerPlaceholder = document.getElementById('header-placeholder');
-    const footerPlaceholder = document.getElementById('footer-placeholder');
-    
-    if (!headerPlaceholder && !footerPlaceholder) {
-        return; // Não há placeholders, não fazer nada
-    }
-
-    fetch('cabecalho-rodape.html')
-        .then(response => response.text())
-        .then(data => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(data, 'text/html');
-
-            const header = doc.querySelector('nav.cabecalho');
-            const categorias = doc.querySelector('.barra-categorias');
-            const footer = doc.querySelector('footer.rodape');
-
-            if (header && headerPlaceholder) {
-                headerPlaceholder.appendChild(header);
-            }
-            
-            // Adicionar barra de categorias apenas se não for página de admin/painel
-            const paginasSemCategorias = ['administracao.html', 'painel-admin.html', 'painel-administrador.html', 'painel-usuario.html'];
-            const paginaAtual = window.location.pathname.split('/').pop();
-            
-            if (categorias && headerPlaceholder && !paginasSemCategorias.includes(paginaAtual)) {
-                headerPlaceholder.appendChild(categorias);
-            }
-            
-            if (footer && footerPlaceholder) {
-                footerPlaceholder.appendChild(footer);
-            }
-
-            // Executar scripts do cabeçalho/rodapé
-            doc.querySelectorAll("script").forEach(oldScript => {
-                const newScript = document.createElement("script");
-                if (oldScript.src) {
-                    // Evitar carregar inicio.js novamente se já estiver no index.html
-                    if (oldScript.src.includes('inicio.js')) {
-                        return;
-                    }
-                    newScript.src = oldScript.src;
-                } else {
-                    newScript.textContent = oldScript.textContent;
-                }
-                document.body.appendChild(newScript);
-            });
-
-            // Atualizar contador do carrinho após carregar o cabeçalho
-            if (typeof window.atualizarContadorCarrinho === 'function') {
-                window.atualizarContadorCarrinho();
-            }
-        })
-        .catch(error => {
-            console.error('Erro ao carregar cabeçalho/rodapé:', error);
-        });
-})();
 

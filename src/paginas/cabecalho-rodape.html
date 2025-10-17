@@ -1,0 +1,637 @@
+  <!-- ======================= CABEÇALHO ======================= -->
+  <nav class="cabecalho">
+    <div class="container-cabecalho">
+      <!-- LOGO -->
+      <a class="logo" href="../../index.html">
+        <img src="../recursos/imagens/logo-roxinhoshop-transparent.png" alt="Roxinho Shop" class="logo-imagem">
+      </a>
+
+      <!-- BARRA DE PESQUISA CENTRALIZADA -->
+      <div class="caixa-pesquisa-centralizada">
+        <input type="text" id="campo-busca-global" placeholder="Buscar produtos, marcas ou categorias..." autocomplete="off">
+        <button type="button" id="botao-busca-global" class="botao-busca">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <!-- Dropdown de sugestões -->
+        <div id="sugestoes-busca" class="sugestoes-busca" style="display: none;">
+          <!-- Sugestões serão inseridas aqui via JavaScript -->
+        </div>
+      </div>
+
+      <!-- ÍCONES DE AÇÕES RÁPIDAS -->
+      <div class="icones">
+        <!-- 🔹 Caixa do Histórico -->
+        <a href="historico.html" class="caixa-historico">
+          <i class="fa-solid fa-eye icone-historico"></i>
+          <span class="texto-historico">Histórico de Produtos</span>
+        </a>
+
+        <!-- 🌙 Botão de Tema (Dark/Light Mode) -->
+        <button class="botao-tema" id="botao-tema" onclick="toggleTheme()" title="Alternar tema">
+          <i class="fas fa-moon" id="theme-icon"></i>
+        </button>
+
+        <!-- 🔹 Caixinha de Login -->
+        <div class="caixa-entre" id="caixa-login">
+          <img src="../recursos/imagens/default.png" alt="Avatar" class="avatar" id="avatar-usuario">         <div class="texto" id="texto-login">
+            <strong id="status-login">Entre</strong>
+            <br><span id="subtexto-login">Login</span>
+          </div>
+          <i class="fa-solid fa-arrow-right seta" id="seta-login"></i>
+          <!-- Dropdown do usuário logado -->
+          <div id="dropdown-usuario" class="dropdown-usuario" style="display: none;">
+            <div class="opcoes-usuario">
+              <a href="administracao.html" id="link-painel-admin" style="display: none;">
+                <i class="fa-solid fa-shield-halved"></i> Painel Admin
+              </a>
+              <a href="painel-usuario.html" id="link-painel-usuario">
+                <i class="fa-solid fa-user-circle"></i> Meu Painel
+              </a>
+              <a href="#" id="botao-logout"><i class="fa-solid fa-sign-out-alt"></i> Sair da Conta</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+<div class="barra-categorias">
+    <ul>
+        <li class="dropdown">
+            <a href="#" id="btn-departamentos"><i class="fa-solid fa-bars"></i> DEPARTAMENTOS</a>
+            <div class="popup-departamentos" id="popup-departamentos" style="display: none;">
+                <div class="popup-content">
+                    <button class="popup-close" id="popup-close">×</button>
+                    <h3>Departamentos</h3>
+                    <div class="categorias-container">
+                        <!-- Hardware -->
+                        <div class="categoria-principal">
+                            <h4 class="categoria-titulo">
+                                <a href="produtos.html?categoria=Hardware">Hardware</a>
+                            </h4>
+                            <ul class="subcategorias-lista">
+                                <li><a href="produtos.html?categoria=Hardware&subcategoria=Processadores">Processadores</a></li>
+                                <li><a href="produtos.html?categoria=Hardware&subcategoria=Placas de Vídeo">Placas de Vídeo</a></li>
+                                <li><a href="produtos.html?categoria=Hardware&subcategoria=Memórias RAM">Memórias RAM</a></li>
+                                <li><a href="produtos.html?categoria=Hardware&subcategoria=Placas Mãe">Placas Mãe</a></li>
+                                <li><a href="produtos.html?categoria=Hardware&subcategoria=Fontes">Fontes</a></li>
+                                <li><a href="produtos.html?categoria=Hardware&subcategoria=Coolers">Coolers</a></li>
+                                <li><a href="produtos.html?categoria=Hardware&subcategoria=Gabinetes">Gabinetes</a></li>
+                                <li><a href="produtos.html?categoria=Hardware&subcategoria=Armazenamento">Armazenamento</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Periféricos -->
+                        <div class="categoria-principal">
+                            <h4 class="categoria-titulo">
+                                <a href="produtos.html?categoria=Periféricos">Periféricos</a>
+                            </h4>
+                            <ul class="subcategorias-lista">
+                                <li><a href="produtos.html?categoria=Periféricos&subcategoria=Teclados">Teclados</a></li>
+                                <li><a href="produtos.html?categoria=Periféricos&subcategoria=Mouses">Mouses</a></li>
+                                <li><a href="produtos.html?categoria=Periféricos&subcategoria=Headsets">Headsets</a></li>
+                                <li><a href="produtos.html?categoria=Periféricos&subcategoria=Webcams">Webcams</a></li>
+                                <li><a href="produtos.html?categoria=Periféricos&subcategoria=Microfones">Microfones</a></li>
+                                <li><a href="produtos.html?categoria=Periféricos&subcategoria=Mousepads">Mousepads</a></li>
+                                <li><a href="produtos.html?categoria=Periféricos&subcategoria=Monitores">Monitores</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Computadores -->
+                        <div class="categoria-principal">
+                            <h4 class="categoria-titulo">
+                                <a href="produtos.html?categoria=Computadores">Computadores</a>
+                            </h4>
+                            <ul class="subcategorias-lista">
+                                <li><a href="produtos.html?categoria=Computadores&subcategoria=PCs Gamer">PCs Gamer</a></li>
+                                <li><a href="produtos.html?categoria=Computadores&subcategoria=Workstations">Workstations</a></li>
+                                <li><a href="produtos.html?categoria=Computadores&subcategoria=Notebooks">Notebooks</a></li>
+                                <li><a href="produtos.html?categoria=Computadores&subcategoria=All-in-One">All-in-One</a></li>
+                                <li><a href="produtos.html?categoria=Computadores&subcategoria=Mini PCs">Mini PCs</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Games -->
+                        <div class="categoria-principal">
+                            <h4 class="categoria-titulo">
+                                <a href="produtos.html?categoria=Games">Games</a>
+                            </h4>
+                            <ul class="subcategorias-lista">
+                                <li><a href="produtos.html?categoria=Games&subcategoria=Consoles">Consoles</a></li>
+                                <li><a href="produtos.html?categoria=Games&subcategoria=Jogos PC">Jogos PC</a></li>
+                                <li><a href="produtos.html?categoria=Games&subcategoria=Jogos Console">Jogos Console</a></li>
+                                <li><a href="produtos.html?categoria=Games&subcategoria=Acessórios Gaming">Acessórios Gaming</a></li>
+                                <li><a href="produtos.html?categoria=Games&subcategoria=Cadeiras Gamer">Cadeiras Gamer</a></li>
+                                <li><a href="produtos.html?categoria=Games&subcategoria=Mesas Gamer">Mesas Gamer</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Celular & Smartphone -->
+                        <div class="categoria-principal">
+                            <h4 class="categoria-titulo">
+                                <a href="produtos.html?categoria=Celular & Smartphone">Celular & Smartphone</a>
+                            </h4>
+                            <ul class="subcategorias-lista">
+                                <li><a href="produtos.html?categoria=Celular & Smartphone&subcategoria=Smartphones">Smartphones</a></li>
+                                <li><a href="produtos.html?categoria=Celular & Smartphone&subcategoria=Capas e Películas">Capas e Películas</a></li>
+                                <li><a href="produtos.html?categoria=Celular & Smartphone&subcategoria=Carregadores">Carregadores</a></li>
+                                <li><a href="produtos.html?categoria=Celular & Smartphone&subcategoria=Fones de Ouvido">Fones de Ouvido</a></li>
+                                <li><a href="produtos.html?categoria=Celular & Smartphone&subcategoria=Smartwatches">Smartwatches</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- TV & Áudio -->
+                        <div class="categoria-principal">
+                            <h4 class="categoria-titulo">
+                                <a href="produtos.html?categoria=TV & Áudio">TV & Áudio</a>
+                            </h4>
+                            <ul class="subcategorias-lista">
+                                <li><a href="produtos.html?categoria=TV & Áudio&subcategoria=Smart TVs">Smart TVs</a></li>
+                                <li><a href="produtos.html?categoria=TV & Áudio&subcategoria=TVs 4K">TVs 4K</a></li>
+                                <li><a href="produtos.html?categoria=TV & Áudio&subcategoria=Soundbars">Soundbars</a></li>
+                                <li><a href="produtos.html?categoria=TV & Áudio&subcategoria=Home Theater">Home Theater</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Áudio -->
+                        <div class="categoria-principal">
+                            <h4 class="categoria-titulo">
+                                <a href="produtos.html?categoria=Áudio">Áudio</a>
+                            </h4>
+                            <ul class="subcategorias-lista">
+                                <li><a href="produtos.html?categoria=Áudio&subcategoria=Fones de Ouvido">Fones de Ouvido</a></li>
+                                <li><a href="produtos.html?categoria=Áudio&subcategoria=Caixas de Som">Caixas de Som</a></li>
+                                <li><a href="produtos.html?categoria=Áudio&subcategoria=Microfones">Microfones</a></li>
+                                <li><a href="produtos.html?categoria=Áudio&subcategoria=Amplificadores">Amplificadores</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Espaço Gamer -->
+                        <div class="categoria-principal">
+                            <h4 class="categoria-titulo">
+                                <a href="produtos.html?categoria=Espaço Gamer">Espaço Gamer</a>
+                            </h4>
+                            <ul class="subcategorias-lista">
+                                <li><a href="produtos.html?categoria=Espaço Gamer&subcategoria=Cadeiras Gamer">Cadeiras Gamer</a></li>
+                                <li><a href="produtos.html?categoria=Espaço Gamer&subcategoria=Mesas Gamer">Mesas Gamer</a></li>
+                                <li><a href="produtos.html?categoria=Espaço Gamer&subcategoria=Iluminação RGB">Iluminação RGB</a></li>
+                                <li><a href="produtos.html?categoria=Espaço Gamer&subcategoria=Decoração">Decoração</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Casa Inteligente -->
+                        <div class="categoria-principal">
+                            <h4 class="categoria-titulo">
+                                <a href="produtos.html?categoria=Casa Inteligente">Casa Inteligente</a>
+                            </h4>
+                            <ul class="subcategorias-lista">
+                                <li><a href="produtos.html?categoria=Casa Inteligente&subcategoria=Assistentes Virtuais">Assistentes Virtuais</a></li>
+                                <li><a href="produtos.html?categoria=Casa Inteligente&subcategoria=Câmeras Segurança">Câmeras Segurança</a></li>
+                                <li><a href="produtos.html?categoria=Casa Inteligente&subcategoria=Lâmpadas Smart">Lâmpadas Smart</a></li>
+                                <li><a href="produtos.html?categoria=Casa Inteligente&subcategoria=Fechaduras Digitais">Fechaduras Digitais</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Energia -->
+                        <div class="categoria-principal">
+                            <h4 class="categoria-titulo">
+                                <a href="produtos.html?categoria=Energia">Energia</a>
+                            </h4>
+                            <ul class="subcategorias-lista">
+                                <li><a href="produtos.html?categoria=Energia&subcategoria=No-breaks">No-breaks</a></li>
+                                <li><a href="produtos.html?categoria=Energia&subcategoria=Estabilizadores">Estabilizadores</a></li>
+                                <li><a href="produtos.html?categoria=Energia&subcategoria=Filtros de Linha">Filtros de Linha</a></li>
+                                <li><a href="produtos.html?categoria=Energia&subcategoria=Baterias">Baterias</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li><a href="produtos.html?categoria=Promoções">Promoções</a></li>
+        <li><a href="produtos.html?categoria=Mais Vendidos">Mais Vendidos</a></li>
+        <li><a href="produtos.html?categoria=PC Gamer">PC Gamer</a></li>
+        <li><a href="produtos.html?categoria=Hardware">Hardware</a></li>
+    </ul>
+</div>
+
+  <!-- ======================= CONTEÚDO ======================= -->
+  <main class="conteudo">
+    <!-- Aqui você coloca o conteúdo específico de cada página -->
+  </main>
+
+  <!-- ======================= RODAPÉ ======================= -->
+  <footer class="rodape">
+    <div class="rodape-container">
+      
+      <!-- Seção 1: Logo e Descrição -->
+      <div class="rodape-secao rodape-logo-secao">
+        <div class="rodape-logo">
+          <a href="../../index.html">
+            <img src="../recursos/imagens/logop.png" alt="Logo Roxinho Shop" class="logo-rodape">
+          </a>
+        </div>
+        <p class="rodape-descricao">
+          Sua loja especializada em tecnologia, hardware e periféricos. As melhores marcas e produtos com preços competitivos.
+        </p>
+        <div class="rodape-redes">
+          <a href="https://www.instagram.com/roxinhoshop_store" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="https://www.tiktok.com/@roxinhoshop_store" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+            <i class="fa-brands fa-tiktok"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Seção 2: Categorias da Loja -->
+      <div class="rodape-secao">
+        <h3 class="rodape-titulo">Categorias</h3>
+        <ul class="rodape-lista">
+          <li><a href="produtos.html?categoria=Hardware">Hardware</a></li>
+          <li><a href="produtos.html?categoria=Periféricos">Periféricos</a></li>
+          <li><a href="produtos.html?categoria=Computadores">Computadores</a></li>
+          <li><a href="produtos.html?categoria=Games">Games</a></li>
+          <li><a href="produtos.html?categoria=PC Gamer">PC Gamer</a></li>
+        </ul>
+      </div>
+
+      <!-- Seção 3: Conta e Login -->
+      <div class="rodape-secao">
+        <h3 class="rodape-titulo">Minha Conta</h3>
+        <ul class="rodape-lista">
+          <li><a href="entrar.html">Login</a></li>
+          <li><a href="cadastro.html">Cadastro</a></li>
+          <li><a href="painel-usuario.html">Meu Painel</a></li>
+        </ul>
+      </div>
+
+      <!-- Seção 4: Institucional -->
+      <div class="rodape-secao">
+        <h3 class="rodape-titulo">Institucional</h3>
+        <ul class="rodape-lista">
+          <li><a href="sobre-nos.html">Sobre Nós</a></li>
+          <li><a href="contato.html">Contato</a></li>
+          <li><a href="termos.html">Termos e Condições</a></li>
+          <li><a href="politicas.html">Política de Privacidade</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Barra de Copyright -->
+    <div class="rodape-copyright">
+      <p>&copy; 2025 Roxinho Shop. Todos os direitos reservados.</p>
+      <p class="rodape-cnpj">CNPJ: 00.000.000/0001-00</p>
+    </div>
+  </footer>
+
+    botaoBusca.addEventListener('click', executarBusca);
+    
+    campoBusca.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        executarBusca();
+      }
+    });
+    
+    // Sistema de sugestões (se produtos estiverem disponíveis)
+    let timeoutSugestoes;
+    campoBusca.addEventListener('input', function(e) {
+      const termo = e.target.value.trim();
+      
+      clearTimeout(timeoutSugestoes);
+      
+      if (termo.length >= 2) {
+        timeoutSugestoes = setTimeout(() => {
+          mostrarSugestoes(termo);
+        }, 300);
+      } else {
+        ocultarSugestoes();
+      }
+    });
+    
+    // Ocultar sugestões ao clicar fora
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.caixa-pesquisa-centralizada')) {
+        ocultarSugestoes();
+      }
+    });
+  }
+  
+  function mostrarSugestoes(termo) {
+    if (typeof produtos === 'undefined' || !produtos || !sugestoesBusca) return;
+    
+    const termoLower = termo.toLowerCase();
+    const sugestoes = [];
+    
+    // Buscar em produtos
+    produtos.forEach(produto => {
+      if (produto.nome.toLowerCase().includes(termoLower) ||
+          produto.marca.toLowerCase().includes(termoLower) ||
+          produto.categoria.toLowerCase().includes(termoLower)) {
+        sugestoes.push({
+          tipo: 'produto',
+          texto: produto.nome,
+          categoria: produto.categoria,
+          preco: produto.preco,
+          url: `pagina-produto.html?id=${produto.id}`
+        });
+      }
+    });
+    
+    // Buscar categorias únicas
+    const categorias = [...new Set(produtos.map(p => p.categoria))];
+    categorias.forEach(categoria => {
+      if (categoria.toLowerCase().includes(termoLower)) {
+        sugestoes.push({
+          tipo: 'categoria',
+          texto: categoria,
+          url: `produtos.html?categoria=${encodeURIComponent(categoria)}`
+        });
+      }
+    });
+    
+    // Buscar marcas únicas
+    const marcas = [...new Set(produtos.map(p => p.marca))];
+    marcas.forEach(marca => {
+      if (marca.toLowerCase().includes(termoLower)) {
+        sugestoes.push({
+          tipo: 'marca',
+          texto: marca,
+          url: `produtos.html?marca=${encodeURIComponent(marca)}`
+        });
+      }
+    });
+    
+    // Limitar sugestões
+    const sugestoesLimitadas = sugestoes.slice(0, 8);
+    
+    if (sugestoesLimitadas.length > 0) {
+      sugestoesBusca.innerHTML = sugestoesLimitadas.map(sugestao => {
+        let icone = '';
+        let info = '';
+        
+        switch (sugestao.tipo) {
+          case 'produto':
+            icone = '<i class="fas fa-cube"></i>';
+            info = `<span class="sugestao-categoria">${sugestao.categoria}</span><span class="sugestao-preco">R$ ${sugestao.preco.toFixed(2).replace('.', ',')}</span>`;
+            break;
+          case 'categoria':
+            icone = '<i class="fas fa-tags"></i>';
+            info = '<span class="sugestao-tipo">Categoria</span>';
+            break;
+          case 'marca':
+            icone = '<i class="fas fa-industry"></i>';
+            info = '<span class="sugestao-tipo">Marca</span>';
+            break;
+        }
+        
+        return `
+          <div class="sugestao-item" onclick="window.location.href='${sugestao.url}'">
+            <div class="sugestao-icone">${icone}</div>
+            <div class="sugestao-conteudo">
+              <div class="sugestao-texto">${sugestao.texto}</div>
+              <div class="sugestao-info">${info}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      
+      sugestoesBusca.style.display = 'block';
+    } else {
+      ocultarSugestoes();
+    }
+  }
+  
+  function ocultarSugestoes() {
+    if (sugestoesBusca) {
+      sugestoesBusca.style.display = 'none';
+    }
+  }
+});
+
+const observador = new IntersectionObserver((entradas) => {
+  entradas.forEach((entrada) => {
+    if (entrada.isIntersecting) {
+      entrada.target.classList.add("visible");
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll(".fade-slide").forEach((el) => {
+  observador.observe(el);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Pop-up de Departamentos
+  const btnDepartamentos = document.getElementById('btn-departamentos');
+  const popupDepartamentos = document.getElementById('popup-departamentos');
+  const popupClose = document.getElementById('popup-close');
+  
+  if (btnDepartamentos && popupDepartamentos) {
+    btnDepartamentos.addEventListener('click', function(e) {
+      e.preventDefault();
+      popupDepartamentos.style.display = 'flex';
+    });
+  }
+  
+  if (popupClose && popupDepartamentos) {
+    popupClose.addEventListener('click', function() {
+      popupDepartamentos.style.display = 'none';
+    });
+  }
+  
+  // Fechar ao clicar fora do pop-up
+  if (popupDepartamentos) {
+    popupDepartamentos.addEventListener('click', function(e) {
+      if (e.target === popupDepartamentos) {
+        popupDepartamentos.style.display = 'none';
+      }
+    });
+  }
+  
+  const dropdownPrincipal = document.querySelector(".barra-categorias li.dropdown");
+  const linkDepartamentos = document.querySelector(".barra-categorias li.dropdown > a");
+  
+  if (dropdownPrincipal && linkDepartamentos) {
+    let timeoutId;
+    
+    // Abrir dropdown ao passar o mouse
+    dropdownPrincipal.addEventListener('mouseenter', function() {
+      clearTimeout(timeoutId);
+      this.classList.add('open');
+    });
+    
+    // Fechar dropdown ao sair com o mouse (com delay)
+    dropdownPrincipal.addEventListener('mouseleave', function() {
+      timeoutId = setTimeout(() => {
+        this.classList.remove('open');
+      }, 300); // Delay de 300ms para melhor experiência
+    });
+    
+    // Prevenir comportamento padrão do link
+    linkDepartamentos.addEventListener('click', function(e) {
+      e.preventDefault();
+      // Toggle manual para dispositivos touch
+      dropdownPrincipal.classList.toggle('open');
+    });
+    
+    // Gerenciar submenus aninhados
+    const itensComSubmenu = document.querySelectorAll(".barra-categorias .tem-submenu");
+    
+    itensComSubmenu.forEach(item => {
+      let submenuTimeout;
+      
+      item.addEventListener('mouseenter', function() {
+        clearTimeout(submenuTimeout);
+        // Remover 'active' de outros submenus no mesmo nível
+        item.parentElement.querySelectorAll('.tem-submenu.active').forEach(sibling => {
+          if (sibling !== item) {
+            sibling.classList.remove('active');
+          }
+        });
+        this.classList.add('active');
+      });
+      
+      item.addEventListener('mouseleave', function() {
+        submenuTimeout = setTimeout(() => {
+          this.classList.remove('active');
+        }, 200);
+      });
+      
+      // Prevenir comportamento padrão dos links de categoria principal
+      const linkCategoria = item.querySelector('a');
+      if (linkCategoria) {
+        linkCategoria.addEventListener('click', function(e) {
+          // Se tiver submenu, prevenir navegação e fazer toggle
+          const temSubmenuFilho = item.querySelector('.submenu');
+          if (temSubmenuFilho) {
+            e.preventDefault();
+            item.classList.toggle('active');
+          }
+          // Caso contrário, permitir navegação normal
+        });
+      }
+    });
+  }
+  
+  // Fechar todos os dropdowns ao clicar fora
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.barra-categorias')) {
+      document.querySelectorAll('.barra-categorias li.dropdown.open').forEach(dropdown => {
+        dropdown.classList.remove('open');
+      });
+      document.querySelectorAll('.barra-categorias .tem-submenu.active').forEach(submenu => {
+        submenu.classList.remove('active');
+      });
+    }
+  });
+  
+  // Suporte para dispositivos touch/mobile
+  document.querySelectorAll('.barra-categorias a').forEach(link => {
+    link.addEventListener('touchstart', function(e) {
+      // Adicionar classe hover para dispositivos touch
+      this.classList.add('touch-active');
+    });
+    
+    link.addEventListener('touchend', function(e) {
+      // Remover classe hover após um tempo
+      setTimeout(() => {
+        this.classList.remove('touch-active');
+      }, 150);
+    });
+  });
+});
+
+// Pegar categoria da URL
+const urlParams = new URLSearchParams(window.location.search);
+const categoria = urlParams.get("categoria");
+
+// Mostrar breadcrumb dinâmico
+if (categoria && document.querySelector(".breadcrumb")) {
+    document.querySelector(".breadcrumb").innerHTML =
+        `<a href="../../index.html">Início</a> › <span>${decodeURIComponent(categoria).replace(/[\+\-]/g, " ")}</span>`;
+}
+
+// Função para debug (pode ser removida em produção)
+function debugDropdown() {
+  console.log('Elementos encontrados:');
+  console.log('Dropdown principal:', document.querySelector(".barra-categorias li.dropdown"));
+  console.log('Link departamentos:', document.querySelector(".barra-categorias li.dropdown > a"));
+  console.log('Itens com submenu:', document.querySelectorAll(".barra-categorias .tem-submenu").length);
+}
+
+// Executar debug se necessário (remover em produção)
+// debugDropdown();
+document.addEventListener('DOMContentLoaded', function() {
+  const inputCep = document.getElementById('input-cep');
+  const resultadoCep = document.getElementById('resultado-cep');
+  
+  if (inputCep && resultadoCep) {
+    // Máscara para CEP
+    inputCep.addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length > 5) {
+        value = value.replace(/^(\d{5})(\d)/, '$1-$2');
+      }
+      e.target.value = value;
+      
+      // Consultar CEP quando tiver 8 dígitos
+      if (value.replace(/\D/g, '').length === 8) {
+        consultarCEP(value.replace(/\D/g, ''));
+      } else if (value.length === 0) {
+        resultadoCep.textContent = 'Consultar frete';
+        resultadoCep.className = 'resultado-cep';
+      }
+    });
+    
+    // Consultar CEP ao pressionar Enter
+    inputCep.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        const cep = e.target.value.replace(/\D/g, '');
+        if (cep.length === 8) {
+          consultarCEP(cep);
+        }
+      }
+    });
+  }
+  
+  function consultarCEP(cep) {
+    if (!resultadoCep) return;
+    
+    resultadoCep.textContent = 'Consultando...';
+    resultadoCep.className = 'resultado-cep loading';
+    
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.erro) {
+          resultadoCep.textContent = 'CEP não encontrado';
+          resultadoCep.className = 'resultado-cep error';
+        } else {
+          resultadoCep.textContent = `${data.localidade} - ${data.uf}`;
+          resultadoCep.className = 'resultado-cep success';
+          
+          // Calcular frete simulado
+          setTimeout(() => {
+            const freteGratis = Math.random() > 0.5;
+            if (freteGratis) {
+              resultadoCep.textContent = 'Frete grátis!';
+            } else {
+              const valorFrete = (Math.random() * 20 + 5).toFixed(2);
+              resultadoCep.textContent = `Frete: R$ ${valorFrete}`;
+            }
+          }, 1500);
+        }
+      })
+      .catch(error => {
+        console.error('Erro ao consultar CEP:', error);
+        resultadoCep.textContent = 'Erro na consulta';
+        resultadoCep.className = 'resultado-cep error';
+      });
+  }
+});
+
+  // Event listener da caixa de login é gerenciado por cabecalho-autenticacao.js
+  </script>

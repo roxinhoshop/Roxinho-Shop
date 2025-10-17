@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produto | Roxinho Shop</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../recursos/imagens/favicon-roxinhoshop.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../estilos/layouts/cabecalho-rodape.css">
+    <link rel="stylesheet" href="../estilos/layouts/responsivo.css">
+    <link rel="stylesheet" href="../estilos/temas/design-fluent.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+        }
+        
+        .container-produto {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .breadcrumb a {
+            color: #3483fa;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        .produto-principal {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .galeria-imagens {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .imagem-principal {
+            width: 100%;
+            height: 400px;
+            object-fit: contain;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            background: white;
+        }
+        
+        .miniaturas {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 5px 0;
+        }
+        
+        .miniatura {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border: 2px solid transparent;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        
+        .miniatura:hover, .miniatura.ativa {
+            border-color: #3483fa;
+        }
+        
+        .info-produto {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .titulo-produto {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            line-height: 1.3;
+        }
+        
+        .avaliacao {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .estrelas {
+            display: flex;
+            gap: 2px;
+        }
+        
+        .estrela {
+            color: #ffa500;
+            font-size: 16px;
+        }
+        
+        .estrela.vazia {
+            color: #ddd;
+        }
+        
+        .preco-produto {
+            font-size: 36px;
+            font-weight: 300;
+            color: #333;
+        }
+        
+        .preco-original {
+            font-size: 16px;
+            color: #999;
+            text-decoration: line-through;
+            margin-bottom: 5px;
+        }
+        
+        .desconto {
+            background: #00a650;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .frete-info {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #00a650;
+        }
+        
+        .frete-gratis {
+            color: #00a650;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .botoes-compra {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .btn-plataforma {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            border: 2px solid;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .btn-mercado-livre {
+            background: #fff159;
+            border-color: #fff159;
+            color: #333;
+        }
+        
+        .btn-mercado-livre:hover {
+            background: #ffed4e;
+            transform: translateY(-2px);
+        }
+        
+        .btn-amazon {
+            background: #ff9900;
+            border-color: #ff9900;
+            color: white;
+        }
+        
+        .btn-amazon:hover {
+            background: #e88900;
+            transform: translateY(-2px);
+        }
+        
+        .preco-plataforma {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .frete-plataforma {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .melhor-preco {
+            position: absolute;
+            top: -8px;
+            right: 10px;
+            background: #00a650;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .especificacoes {
+            margin: 40px 0;
+        }
+        
+        .especificacoes h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .spec-label {
+            font-weight: 600;
+            color: #666;
+        }
+        
+        .spec-value {
+            color: #333;
+        }
+        
+        .comentarios-secao {
+            margin: 40px 0;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+        
+        .comentarios-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-comentario {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .form-comentario textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        
+        .form-comentario textarea:focus {
+            outline: none;
+            border-color: #3483fa;
+        }
+        
+        .rating-input {
+            display: flex;
+            gap: 5px;
+            margin: 15px 0;
+        }
+        
+        .rating-star {
+            font-size: 24px;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .rating-star:hover,
+        .rating-star.ativo {
+            color: #ffa500;
+        }
+        
+        .btn-enviar-comentario {
+            background: #3483fa;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .btn-enviar-comentario:hover {
+            background: #2968c8;
+        }
+        
+        .comentario {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .comentario-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .comentario-autor {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .comentario-data {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .comentario-rating {
+            display: flex;
+            gap: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .comentario-texto {
+            color: #333;
+            line-height: 1.5;
+        }
+        
+        .avaliacoes-externas {
+            margin: 30px 0;
+        }
+        
+        .avaliacoes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .avaliacao-externa {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .avaliacao-fonte {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .fonte-logo {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .produtos-relacionados {
+            margin: 40px 0;
+        }
+        
+        .produtos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .produto-relacionado {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .produto-relacionado:hover {
+            transform: translateY(-2px);
+        }
+        
+        .produto-relacionado img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .produto-relacionado h4 {
+            font-size: 14px;
+            margin: 10px 0;
+            color: #333;
+        }
+        
+        .produto-relacionado .preco {
+            font-size: 16px;
+            font-weight: bold;
+            color: #00a650;
+        }
+        
+        @media (max-width: 768px) {
+            .produto-principal {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .botoes-compra {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 15px;
+                box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+                z-index: 100;
+            }
+            
+            .container-produto {
+                margin-bottom: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Breadcrumb -->
+    <div class="container-produto">
+        <nav class="breadcrumb">
+            <a href="../index.html">Início</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="#" id="categoria-link">Eletrônicos</a>
+            <i class="fas fa-chevron-right"></i>
+            <span id="produto-breadcrumb">Produto</span>
+        </nav>
+        
+        <!-- Produto Principal -->
+        <div class="produto-principal">
+            <!-- Galeria de Imagens -->
+            <div class="galeria-imagens">
+                <img id="imagem-principal" src="https://via.placeholder.com/500x400" alt="Produto" class="imagem-principal">
+                <div class="miniaturas" id="miniaturas-container">
+                    <!-- Miniaturas serão inseridas aqui via JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Informações do Produto -->
+            <div class="info-produto">
+                <h1 id="titulo-produto" class="titulo-produto">Carregando produto...</h1>
+                
+                <div class="avaliacao">
+                    <div class="estrelas" id="estrelas-produto">
+                        <i class="fas fa-star estrela"></i>
+                        <i class="fas fa-star estrela"></i>
+                        <i class="fas fa-star estrela"></i>
+                        <i class="fas fa-star estrela"></i>
+                        <i class="fas fa-star estrela vazia"></i>
+                    </div>
+                    <span id="total-avaliacoes">(0 avaliações)</span>
+                </div>
+                
+                <div class="preco-container">
+                    <div id="preco-original" class="preco-original" style="display: none;"></div>
+                    <div class="preco-produto">
+                        <span id="preco-atual">R$ 0,00</span>
+                        <span id="desconto-badge" class="desconto" style="display: none;"></span>
+                    </div>
+                </div>
+                
+                <div class="frete-info">
+                    <div class="frete-gratis">
+                        <i class="fas fa-truck"></i> Frete grátis
+                    </div>
+                    <div>Chegará entre <strong id="prazo-entrega">3 a 5 dias úteis</strong></div>
+                </div>
+                
+                <div class="botoes-compra">
+                    <a href="#" id="btn-mercado-livre" class="btn-plataforma btn-mercado-livre" target="_blank">
+                        <div>
+                            <div class="preco-plataforma" id="preco-ml">R$ 0,00</div>
+                            <div class="frete-plataforma">Frete calculado na finalização</div>
+                        </div>
+                        <i class="fas fa-external-link-alt"></i>
+                        <div class="melhor-preco" id="melhor-preco-ml" style="display: none;">Melhor Preço!</div>
+                    </a>
+                    
+                    <a href="#" id="btn-amazon" class="btn-plataforma btn-amazon" target="_blank">
+                        <div>
+                            <div class="preco-plataforma" id="preco-amazon">R$ 0,00</div>
+                            <div class="frete-plataforma">Frete calculado na finalização</div>
+                        </div>
+                        <i class="fas fa-external-link-alt"></i>
+                        <div class="melhor-preco" id="melhor-preco-amazon" style="display: none;">Melhor Preço!</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Especificações -->
+        <section class="especificacoes">
+            <h3>Especificações do Produto</h3>
+            <div class="spec-grid" id="especificacoes-grid">
+                <!-- Especificações serão inseridas aqui via JavaScript -->
+            </div>
+        </section>
+        
+        <!-- Descrição -->
+        <section class="descricao-produto">
+            <h3>Descrição</h3>
+            <div id="descricao-conteudo">
+                <p>Carregando descrição...</p>
+            </div>
+        </section>
+        
+        <!-- Seção de Comentários -->
+        <section class="comentarios-secao">
+            <div class="comentarios-header">
+                <h3>Avaliações e Comentários</h3>
+                <button id="btn-adicionar-comentario" class="btn-enviar-comentario">
+                    <i class="fas fa-plus"></i> Adicionar Avaliação
+                </button>
+            </div>
+            
+            <!-- Formulário de Comentário -->
+            <div id="form-comentario" class="form-comentario" style="display: none;">
+                <h4>Deixe sua avaliação</h4>
+                <div class="rating-input" id="rating-input">
+                    <i class="fas fa-star rating-star" data-rating="1"></i>
+                    <i class="fas fa-star rating-star" data-rating="2"></i>
+                    <i class="fas fa-star rating-star" data-rating="3"></i>
+                    <i class="fas fa-star rating-star" data-rating="4"></i>
+                    <i class="fas fa-star rating-star" data-rating="5"></i>
+                </div>
+                <textarea id="comentario-texto" placeholder="Escreva sua avaliação sobre o produto..."></textarea>
+                <div style="margin-top: 15px;">
+                    <button id="enviar-comentario" class="btn-enviar-comentario">
+                        <i class="fas fa-paper-plane"></i> Enviar Avaliação
+                    </button>
+                    <button id="cancelar-comentario" class="btn-enviar-comentario" style="background: #6b7280; margin-left: 10px;">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Lista de Comentários -->
+            <div id="comentarios-lista">
+                <!-- Comentários serão inseridos aqui via JavaScript -->
+            </div>
+        </section>
+        
+        <!-- Avaliações Externas -->
+        <section class="avaliacoes-externas">
+            <h3>Avaliações de Outras Plataformas</h3>
+            <div class="avaliacoes-grid" id="avaliacoes-externas-grid">
+                <!-- Avaliações externas serão inseridas aqui via JavaScript -->
+            </div>
+        </section>
+        
+        <!-- Produtos Relacionados -->
+        <section class="produtos-relacionados">
+            <h3>Produtos Relacionados</h3>
+            <div class="produtos-grid" id="produtos-relacionados-grid">
+                <!-- Produtos relacionados serão inseridos aqui via JavaScript -->
+            </div>
+        </section>
+    </div>
+    
+    <!-- Scripts -->
+    <script>
+        // Configuração da API
+        window.API_BASE_URL = 'https://roxinho-shop-backend.vercel.app/api';
+        
+        // Estado do produto
+        let produtoAtual = null;
+        let ratingAtual = 0;
+        
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            carregarProduto();
+            configurarEventos();
+        });
+        
+        // Obter ID do produto da URL
+        function obterIdProduto() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
+        }
+        
+        // Carregar dados do produto
+        async function carregarProduto() {
+            const id = obterIdProduto();
+            if (!id) {
+                window.location.href = '../index.html';
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${window.API_BASE_URL}/products/${id}`);
+                const data = await response.json();
+                
+                if (data.success || data.status === 'success') {
+                    produtoAtual = data.product;
+                    renderizarProduto(produtoAtual);
+                    carregarComentarios();
+                    carregarProdutosRelacionados();
+                } else {
+                    throw new Error('Produto não encontrado');
+                }
+            } catch (error) {
+                console.error('Erro ao carregar produto:', error);
+                document.body.innerHTML = `
+                    <div style="text-align: center; padding: 50px;">
+                        <h2>Produto não encontrado</h2>
+                        <a href="../index.html">Voltar ao início</a>
+                    </div>
+                `;
+            }
+        }
+        
+        // Renderizar produto na página
+        function renderizarProduto(produto) {
+            // Título e breadcrumb
+            document.getElementById('titulo-produto').textContent = produto.nome;
+            document.getElementById('produto-breadcrumb').textContent = produto.nome;
+            document.title = `${produto.nome} | Roxinho Shop`;
+            
+            // Imagem principal
+            const imagemPrincipal = produto.imagem_principal || produto.imagem || 'https://via.placeholder.com/500x400';
+            document.getElementById('imagem-principal').src = imagemPrincipal;
+            
+            // Miniaturas
+            const miniaturas = produto.galeria_imagens ? JSON.parse(produto.galeria_imagens) : [imagemPrincipal];
+            const miniaturasContainer = document.getElementById('miniaturas-container');
+            miniaturasContainer.innerHTML = miniaturas.map((img, index) => `
+                <img src="${img}" alt="Miniatura ${index + 1}" class="miniatura ${index === 0 ? 'ativa' : ''}" 
+                     onclick="trocarImagemPrincipal('${img}', this)">
+            `).join('');
+            
+            // Preços
+            const preco = parseFloat(produto.preco || 0);
+            const precoPromo = parseFloat(produto.preco_promocional || 0);
+            
+            if (precoPromo > 0 && precoPromo < preco) {
+                document.getElementById('preco-original').textContent = `R$ ${preco.toFixed(2).replace('.', ',')}`;
+                document.getElementById('preco-original').style.display = 'block';
+                document.getElementById('preco-atual').textContent = `R$ ${precoPromo.toFixed(2).replace('.', ',')}`;
+                
+                const desconto = Math.round(((preco - precoPromo) / preco) * 100);
+                document.getElementById('desconto-badge').textContent = `${desconto}% OFF`;
+                document.getElementById('desconto-badge').style.display = 'inline';
+            } else {
+                document.getElementById('preco-atual').textContent = `R$ ${preco.toFixed(2).replace('.', ',')}`;
+            }
+            
+            // Links das plataformas
+            const precoML = parseFloat(produto.preco_mercado_livre || preco);
+            const precoAmazon = parseFloat(produto.preco_amazon || preco);
+            
+            document.getElementById('preco-ml').textContent = `R$ ${precoML.toFixed(2).replace('.', ',')}`;
+            document.getElementById('preco-amazon').textContent = `R$ ${precoAmazon.toFixed(2).replace('.', ',')}`;
+            
+            if (produto.link_mercado_livre) {
+                document.getElementById('btn-mercado-livre').href = produto.link_mercado_livre;
+            }
+            if (produto.link_amazon) {
+                document.getElementById('btn-amazon').href = produto.link_amazon;
+            }
+            
+            // Melhor preço
+            if (precoML < precoAmazon) {
+                document.getElementById('melhor-preco-ml').style.display = 'block';
+            } else if (precoAmazon < precoML) {
+                document.getElementById('melhor-preco-amazon').style.display = 'block';
+            }
+            
+            // Descrição
+            document.getElementById('descricao-conteudo').innerHTML = `<p>${produto.descricao || 'Sem descrição disponível.'}</p>`;
+            
+            // Especificações
+            const especificacoes = produto.especificacoes ? JSON.parse(produto.especificacoes) : {};
+            const especGrid = document.getElementById('especificacoes-grid');
+            
+            const especPadrao = {
+                'Marca': produto.marca || 'Não informado',
+                'Modelo': produto.modelo || 'Não informado',
+                'SKU': produto.sku || 'Não informado',
+                'Peso': produto.peso ? `${produto.peso} kg` : 'Não informado',
+                'Dimensões': produto.dimensoes || 'Não informado',
+                ...especificacoes
+            };
+            
+            especGrid.innerHTML = Object.entries(especPadrao).map(([key, value]) => `
+                <div class="spec-item">
+                    <span class="spec-label">${key}:</span>
+                    <span class="spec-value">${value}</span>
+                </div>
+            `).join('');
+        }
+        
+        // Trocar imagem principal
+        function trocarImagemPrincipal(src, elemento) {
+            document.getElementById('imagem-principal').src = src;
+            document.querySelectorAll('.miniatura').forEach(img => img.classList.remove('ativa'));
+            elemento.classList.add('ativa');
+        }
+        
+        // Configurar eventos
+        function configurarEventos() {
+            // Botão adicionar comentário
+            document.getElementById('btn-adicionar-comentario').addEventListener('click', () => {
+                const form = document.getElementById('form-comentario');
+                form.style.display = form.style.display === 'none' ? 'block' : 'none';
+            });
+            
+            // Rating input
+            document.querySelectorAll('.rating-star').forEach(star => {
+                star.addEventListener('click', (e) => {
+                    ratingAtual = parseInt(e.target.dataset.rating);
+                    atualizarRatingVisual();
+                });
+            });
+            
+            // Enviar comentário
+            document.getElementById('enviar-comentario').addEventListener('click', enviarComentario);
+            
+            // Cancelar comentário
+            document.getElementById('cancelar-comentario').addEventListener('click', () => {
+                document.getElementById('form-comentario').style.display = 'none';
+                document.getElementById('comentario-texto').value = '';
+                ratingAtual = 0;
+                atualizarRatingVisual();
+            });
+        }
+        
+        // Atualizar visual do rating
+        function atualizarRatingVisual() {
+            document.querySelectorAll('.rating-star').forEach((star, index) => {
+                if (index < ratingAtual) {
+                    star.classList.add('ativo');
+                } else {
+                    star.classList.remove('ativo');
+                }
+            });
+        }
+        
+        // Enviar comentário
+        async function enviarComentario() {
+            const texto = document.getElementById('comentario-texto').value.trim();
+            
+            if (!texto || ratingAtual === 0) {
+                alert('Por favor, escreva um comentário e selecione uma avaliação.');
+                return;
+            }
+            
+            const comentario = {
+                produto_id: obterIdProduto(),
+                autor: 'Usuário Anônimo', // Em produção, pegar do sistema de auth
+                texto: texto,
+                rating: ratingAtual,
+                data: new Date().toISOString()
+            };
+            
+            // Salvar no localStorage (em produção, enviar para API)
+            let comentarios = JSON.parse(localStorage.getItem('comentarios') || '[]');
+            comentarios.push(comentario);
+            localStorage.setItem('comentarios', JSON.stringify(comentarios));
+            
+            // Limpar formulário
+            document.getElementById('form-comentario').style.display = 'none';
+            document.getElementById('comentario-texto').value = '';
+            ratingAtual = 0;
+            atualizarRatingVisual();
+            
+            // Recarregar comentários
+            carregarComentarios();
+        }
+        
+        // Carregar comentários
+        function carregarComentarios() {
+            const comentarios = JSON.parse(localStorage.getItem('comentarios') || '[]');
+            const comentariosProduto = comentarios.filter(c => c.produto_id === obterIdProduto());
+            
+            const container = document.getElementById('comentarios-lista');
+            
+            if (comentariosProduto.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #666;">
+                        <i class="fas fa-comments" style="font-size: 48px; margin-bottom: 16px;"></i>
+                        <p>Nenhuma avaliação ainda. Seja o primeiro a avaliar!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = comentariosProduto.map(comentario => `
+                <div class="comentario">
+                    <div class="comentario-header">
+                        <span class="comentario-autor">${comentario.autor}</span>
+                        <span class="comentario-data">${new Date(comentario.data).toLocaleDateString('pt-BR')}</span>
+                    </div>
+                    <div class="comentario-rating">
+                        ${Array.from({length: 5}, (_, i) => `
+                            <i class="fas fa-star estrela ${i < comentario.rating ? '' : 'vazia'}"></i>
+                        `).join('')}
+                    </div>
+                    <div class="comentario-texto">${comentario.texto}</div>
+                </div>
+            `).join('');
+        }
+        
+        // Carregar produtos relacionados
+        async function carregarProdutosRelacionados() {
+            try {
+                const response = await fetch(`${window.API_BASE_URL}/products`);
+                const data = await response.json();
+                
+                let produtos = [];
+                if ((data.success || data.status === 'success') && data.products) {
+                    produtos = data.products.filter(p => p.id !== obterIdProduto()).slice(0, 4);
+                }
+                
+                const container = document.getElementById('produtos-relacionados-grid');
+                
+                if (produtos.length === 0) {
+                    container.innerHTML = '<p>Nenhum produto relacionado encontrado.</p>';
+                    return;
+                }
+                
+                container.innerHTML = produtos.map(produto => `
+                    <div class="produto-relacionado">
+                        <img src="${produto.imagem_principal || produto.imagem || 'https://via.placeholder.com/250x150'}" 
+                             alt="${produto.nome}"
+                             onerror="this.src='https://via.placeholder.com/250x150?text=Sem+Imagem'">
+                        <h4>${produto.nome}</h4>
+                        <div class="preco">R$ ${parseFloat(produto.preco || 0).toFixed(2).replace('.', ',')}</div>
+                        <a href="produto.html?id=${produto.id}" style="text-decoration: none; color: inherit;">Ver produto</a>
+                    </div>
+                `).join('');
+                
+            } catch (error) {
+                console.error('Erro ao carregar produtos relacionados:', error);
+            }
+        }
+        
+        // Tornar funções globais
+        window.trocarImagemPrincipal = trocarImagemPrincipal;
+    </script>
+</body>
+</html>

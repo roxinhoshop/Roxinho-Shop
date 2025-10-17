@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin | Roxinho Shop</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../recursos/imagens/favicon-roxinhoshop.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../estilos/componentes/administracao.css">
+    <link rel="stylesheet" href="../estilos/componentes/admin-alerts.css">
+    <link rel="stylesheet" href="../estilos/componentes/admin-notifications.css">
+    <link rel="stylesheet" href="../estilos/componentes/admin-stats.css">
+    <link rel="stylesheet" href="../estilos/componentes/product-editor.css">
+    <link rel="stylesheet" href="../estilos/componentes/modal-produto.css">
+    <link rel="stylesheet" href="../estilos/temas/design-fluent.css">
+    <link rel="stylesheet" href="../estilos/temas/modo-escuro.css">
+    <link rel="stylesheet" href="../estilos/temas/fluent-dark.css">
+    <link rel="stylesheet" href="../estilos/temas/correcao-espacos-brancos.css">
+    <link rel="stylesheet" href="../estilos/temas/botao-tema.css">
+    <link rel="stylesheet" href="../estilos/temas/gradiente-hover-global.css">
+
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="header-admin-placeholder"></div>
+
+
+    <!-- Main Container -->
+    <main class="container">
+        <h1><i class="fas fa-boxes"></i> Gerenciamento de Produtos</h1>
+
+        <!-- Menu de Navegação -->
+        <div class="admin-tabs">
+            <button class="tab-button active" data-tab="import">
+                <i class="fas fa-download"></i> Importar Produto
+            </button>
+            <button class="tab-button" data-tab="products">
+                <i class="fas fa-list"></i> Produtos Cadastrados
+            </button>
+            <button class="tab-button" data-tab="stats">
+                <i class="fas fa-chart-line"></i> Estatísticas
+            </button>
+        </div>
+
+        <!-- Tab: Adicionar Produto -->
+        <div class="tab-content active" id="tab-import">
+            <div class="import-card">
+                <div class="import-header">
+                    <h2><i class="fas fa-plus-circle"></i> Adicionar Novo Produto</h2>
+                    <p>Preencha os campos abaixo para adicionar um produto</p>
+                </div>
+
+                <form id="add-product-form" class="import-form">
+                    <div class="form-group">
+                        <label for="product-name">Nome do Produto</label>
+                        <input type="text" id="product-name" placeholder="Ex: Notebook Dell Inspiron" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product-description">Descrição do Produto</label>
+                        <textarea id="product-description" rows="4" placeholder="Descreva o produto..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product-category">Categoria</label>
+                        <select id="product-category" required>
+                            <option value="">Selecione uma categoria</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product-subcategory">Subcategoria</label>
+                        <select id="product-subcategory">
+                            <option value="">Selecione uma subcategoria (opcional)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product-price-ml">Valor Mercado Livre (R$)</label>
+                        <input type="number" id="product-price-ml" step="0.01" placeholder="0.00" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product-price-amazon">Valor Amazon (R$)</label>
+                        <input type="number" id="product-price-amazon" step="0.01" placeholder="0.00" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product-image-url">Link da Imagem do Produto</label>
+                        <input type="url" id="product-image-url" placeholder="https://exemplo.com/imagem.jpg" required>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Salvar Produto
+                        </button>
+                        <button type="reset" class="btn btn-secondary">
+                            <i class="fas fa-redo"></i> Limpar Formulário
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Tab: Produtos Cadastrados -->
+        <div class="tab-content" id="tab-products">
+            <div class="products-card">
+                <div class="products-header">
+                    <h2><i class="fas fa-box-open"></i> Produtos Cadastrados</h2>
+                    <div class="products-search">
+                        <input type="text" id="search-products" placeholder="Buscar produtos...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+
+                <div id="products-list" class="products-grid">
+                    <!-- Produtos serão carregados aqui -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Estatísticas -->
+        <div class="tab-content" id="tab-stats">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-box"></i>
+                    <h3 id="stat-total">0</h3>
+                    <p>Total de Produtos</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fab fa-amazon"></i>
+                    <h3 id="stat-amazon">0</h3>
+                    <p>Da Amazon</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h3 id="stat-ml">0</h3>
+                    <p>Do Mercado Livre</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-calendar"></i>
+                    <h3 id="stat-today">0</h3>
+                    <p>Importados Hoje</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Edição -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-edit"></i> Editar Produto</h2>
+                <button class="modal-close" id="close-modal">&times;</button>
+            </div>
+            <form id="edit-form">
+                <input type="hidden" id="edit-product-id">
+                
+                <div class="form-group">
+                    <label for="edit-name">Nome do Produto</label>
+                    <input type="text" id="edit-name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-price">Preço (R$)</label>
+                    <input type="number" id="edit-price" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-category">Categoria</label>
+                    <input type="text" id="edit-category" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-description">Descrição</label>
+                    <textarea id="edit-description" rows="4" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-image">URL da Imagem</label>
+                    <input type="url" id="edit-image" required>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Salvar Alterações
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="cancel-edit">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+        <!-- Scripts -->
+        <script src="../scripts/utilitarios/load-admin-layout.js"></script>
+     
+    <script>
+        // Definir a URL base da API
+        window.API_BASE_URL = 'https://roxinho-shop-backend.vercel.app/api';
+    </script>
+
+    <script src="../scripts/componentes/modal-manager.js"></script>
+    <script src="../scripts/componentes/modal-fluent.js"></script>
+    <script src="../scripts/componentes/api-produtos.js"></script>
+    <script src="../scripts/componentes/RealProductScraper.js"></script>
+    <script src="../scripts/componentes/product-editor.js"></script>
+    <script src="../scripts/componentes/notificacoes-fluent.js"></script>
+    <script src="../scripts/componentes/alternador-tema.js"></script>
+    <script src="../scripts/componentes/admin-panel.js"></script>
+
+    <div id="footer-admin-placeholder"></div>
+    </body>
+</html>
+

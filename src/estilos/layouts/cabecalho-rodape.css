@@ -262,7 +262,7 @@ body {
 .barra-categorias {
   display: flex;
   justify-content: center;
-  background: #141414;
+  background: linear-gradient(135deg, rgba(144, 77, 219, 0.95) 0%, rgba(167, 139, 250, 0.95) 100%);
   backdrop-filter: blur(20px);
   padding: 0.75rem 2rem;
   border-bottom: 1px solid rgba(144, 77, 219, 0.3);
@@ -443,7 +443,7 @@ body {
 }
 
 .rodape {
-  background: #141414;
+  background: rgba(10, 10, 10, 0.98);
   backdrop-filter: blur(20px);
   color: #eee;
   padding: 3rem 2rem 1.5rem;
@@ -501,7 +501,7 @@ body {
 }
 
 .rodape-minimalista {
-  background: #141414;
+  background: rgba(10, 10, 10, 0.98);
   backdrop-filter: blur(20px);
   text-align: center;
   padding: 3rem 1rem 2rem;
@@ -3736,34 +3736,5 @@ body {
   .rodape-lista li a {
     font-size: 0.9rem;
   }
-}
-
-
-
-
-/* ======================= TÍTULO ADMIN ======================= */
-.titulo-admin {
-  flex: 1;
-  text-align: center;
-  color: #ffffff;
-}
-
-.titulo-admin h1 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.titulo-admin i {
-  color: #FFB800;
-}
-
-/* Dark Mode */
-:root[data-theme="dark"] .titulo-admin h1 {
-  color: #ffffff;
 }
 

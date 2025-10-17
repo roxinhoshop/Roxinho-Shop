@@ -72,8 +72,8 @@
 }
 
 :root[data-theme="dark"] .barra-categorias {
-    background: #141414;
-    border-bottom: 1px solid rgba(144, 77, 219, 0.3);
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
 }
 
 :root[data-theme="dark"] .barra-categorias a {
@@ -231,8 +231,8 @@
 
 :root[data-theme="dark"] .rodape,
 :root[data-theme="dark"] footer {
-    background: #141414;
-    border-top: 1px solid rgba(144, 77, 219, 0.2);
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
 }
 
 :root[data-theme="dark"] .rodape *,

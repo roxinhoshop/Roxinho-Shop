@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastre-se | Roxinho Shop</title>
+  <link rel="icon" type="image/png" href="../recursos/imagens/favicon-roxinhoshop.png">
+  <link rel="stylesheet" href="../estilos/componentes/cadastro.css">
+  <link rel="stylesheet" href="../estilos/layouts/cabecalho-rodape.css">
+  <link rel="stylesheet" href="../estilos/componentes/animacao-sucesso.css">
+  <link rel="stylesheet" href="../estilos/componentes/botao-carregamento.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link rel="stylesheet" href="../estilos/componentes/notificacoes-fluent.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../estilos/temas/design-fluent.css">
+  <link rel="stylesheet" href="../estilos/temas/modo-escuro.css">
+  <link rel="stylesheet" href="../estilos/temas/fluent-dark.css">
+  <link rel="stylesheet" href="../estilos/temas/correcao-espacos-brancos.css">
+  <link rel="stylesheet" href="../estilos/temas/botao-tema.css">
+  <link rel="stylesheet" href="../estilos/temas/gradiente-hover-global.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  
+  <main class="container">
+    <div class="secao-cadastro">
+      <!-- Banner Lateral -->
+      <div class="cadastro-banner">
+        <div class="banner-content">
+          <h2>Junte-se a nós!</h2>
+          <p>Crie sua conta e aproveite ofertas exclusivas</p>
+          <div class="banner-image-placeholder">
+            <img src="../recursos/imagens/banner-cadastro.jpg" alt="Junte-se a nós">
+          </div>
+        </div>
+      </div>
+      
+      <form class="cartao-cadastro" id="cadastroForm">
+        <h2 class="texto-titulo">Crie sua Conta</h2>
+        <p class="texto-subtitulo">Preencha seus dados para começar</p>
+
+        <!-- Nome e Sobrenome -->
+        <div class="linha-formulario">
+          <div class="grupo-formulario">
+            <div class="floating-label-container">
+              <input type="text" id="nome" name="nome" class="entrada-formulario" placeholder=" " autocomplete="given-name" required aria-describedby="erro-nome">
+              <label for="nome" class="rotulo-formulario floating-label">Nome <span class="required">*</span></label>
+            </div>
+            <div id="erro-nome" class="mensagem-erro" aria-live="polite"></div>
+          </div>
+          
+          <div class="grupo-formulario">
+            <div class="floating-label-container">
+              <input type="text" id="sobrenome" name="sobrenome" class="entrada-formulario" placeholder=" " autocomplete="family-name" required aria-describedby="erro-sobrenome">
+              <label for="sobrenome" class="rotulo-formulario floating-label">Sobrenome <span class="required">*</span></label>
+            </div>
+            <div id="erro-sobrenome" class="mensagem-erro" aria-live="polite"></div>
+          </div>
+        </div>
+        
+        <!-- Telefone -->
+        <div class="grupo-formulario coluna-completa">
+          <div class="floating-label-container">
+            <input type="tel" id="telefone" name="telefone" class="entrada-formulario" placeholder=" " autocomplete="tel" required aria-describedby="erro-telefone">
+            <label for="telefone" class="rotulo-formulario floating-label">Telefone <span class="required">*</span></label>
+          </div>
+          <div id="erro-telefone" class="mensagem-erro" aria-live="polite"></div>
+        </div>
+
+        <!-- Data de Nascimento -->
+        <div class="grupo-formulario coluna-completa">
+          <div class="floating-label-container">
+            <input type="date" id="dataNascimento" name="dataNascimento" class="entrada-formulario" placeholder=" " aria-describedby="erro-dataNascimento">
+            <label for="dataNascimento" class="rotulo-formulario floating-label">Data de Nascimento <span class="required">*</span></label>
+          </div>
+          <div id="erro-dataNascimento" class="mensagem-erro" aria-live="polite"></div>
+        </div>
+
+        <!-- E-mail -->
+        <div class="grupo-formulario coluna-completa">
+          <div class="floating-label-container">
+            <input type="email" id="email" name="email" class="entrada-formulario" placeholder=" " autocomplete="email" required aria-describedby="erro-email">
+            <label for="email" class="rotulo-formulario floating-label">E-mail <span class="required">*</span></label>
+          </div>
+          <div id="erro-email" class="mensagem-erro" aria-live="polite"></div>
+        </div>
+        
+        <!-- Senha -->
+        <div class="grupo-formulario coluna-completa">
+          <div class="floating-label-container">
+            <input type="password" id="senha" name="senha" class="entrada-formulario" placeholder=" " autocomplete="new-password" required aria-describedby="erro-senha">
+            <label for="senha" class="rotulo-formulario floating-label">Senha <span class="required">*</span></label>
+            <span class="toggle-password" onclick="togglePasswordVisibility('senha')"><i class="fa fa-eye" aria-hidden="true"></i></span> 
+          </div>
+          
+          <!-- Feedback da senha -->
+          <div id="feedback-senha" class="feedback-senha">
+            <div id="indicador-senha-container" class="indicador-senha-container">
+              <div class="barra-forca-senha">
+                <div id="progresso-senha" class="progresso-forca-senha"></div>
+              </div>
+              <div class="texto-forca-senha">
+                <span id="nivel-senha" class="nivel-forca"></span>
+                <span id="pontuacao-senha" class="pontuacao-forca"></span>
+              </div>
+            </div>
+
+          </div>
+          
+          <div id="erro-senha" class="mensagem-erro" aria-live="polite"></div>
+        </div>
+        
+        <!-- Confirmar Senha -->
+        <div class="grupo-formulario coluna-completa">
+          <div class="floating-label-container">
+            <input type="password" id="confirmarSenha" name="confirmarSenha" class="entrada-formulario" placeholder=" " autocomplete="new-password" required aria-describedby="erro-confirmarSenha">
+            <label for="confirmarSenha" class="rotulo-formulario floating-label">Confirmar Senha <span class="required">*</span></label>
+            <span class="toggle-password" onclick="togglePasswordVisibility('confirmarSenha')"><i class="fa fa-eye" aria-hidden="true"></i></span>
+          </div>
+          <div id="erro-confirmarSenha" class="mensagem-erro" aria-live="polite"></div>
+        </div>
+        
+        <!-- Termos e Condições -->
+        <div class="grupo-formulario coluna-completa">
+          <div class="checkbox-container">
+            <input type="checkbox" id="termos" name="termos" required aria-describedby="erro-termos">
+            <label for="termos">Eu li e concordo com os <a href="termos.html" target="_blank">Termos e Condições</a> e a <a href="politicas.html" target="_blank">Política de Privacidade</a> <span class="required">*</span></label>
+          </div>
+          <div id="erro-termos" class="mensagem-erro" aria-live="polite"></div>
+        </div>
+
+        <!-- Botão de cadastro -->
+        <button type="submit" class="botao-cadastro" id="botaoCadastro">
+          <span>Criar Conta</span>
+        </button>
+        
+        <!-- Link para login -->
+        <p class="link-login">
+          Já tem uma conta? 
+          <a href="./entrar.html">Fazer login</a>
+        </p>
+      </form>
+    </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <!-- JS -->
+  <script src="../scripts/componentes/botao-carregamento.js"></script>
+  <script src="../scripts/componentes/animacao-sucesso.js"></script>
+  <script src="../scripts/servicos/inicializacao-sistema.js"></script>
+  <script src="../scripts/servicos/sistema-autenticacao.js"></script>
+  <script src="../scripts/componentes/cadastro.js"></script>
+  <script src="../scripts/componentes/notificacoes-fluent.js"></script>
+  <script src="../scripts/utilitarios/cabecalho-rodape.js"></script>
+  <script src="../scripts/componentes/alternador-tema.js"></script>
+</body>
+</html>

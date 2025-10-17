@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Histórico de Produtos Vistos | Roxinho Shop</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="../recursos/imagens/favicon-roxinhoshop.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../estilos/componentes/historico.css">
+  <link rel="stylesheet" href="../estilos/layouts/cabecalho-rodape.css">
+  <link rel="stylesheet" href="../estilos/componentes/cabecalho-autenticacao.css">
+  <link rel="stylesheet" href="../estilos/componentes/notificacoes-fluent.css">
+  <link rel="stylesheet" href="../estilos/temas/design-fluent.css">
+  <link rel="stylesheet" href="../estilos/temas/modo-escuro.css">
+  <link rel="stylesheet" href="../estilos/temas/fluent-dark.css">
+  <link rel="stylesheet" href="../estilos/temas/correcao-espacos-brancos.css">
+  <link rel="stylesheet" href="../estilos/temas/botao-tema.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../estilos/temas/gradiente-hover-global.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <!-- Main Content -->
+  <main class="conteudo-principal">
+    <!-- Empty History State -->
+    <div id="historico-vazio" class="estado-historico-vazio">
+      <div class="conteudo-vazio">
+        <div class="icone-historico-vazio">
+          <i class="fas fa-eye"></i>
+        </div>
+        <h2 class="titulo-vazio">Você ainda não visualizou nenhum produto</h2>
+        <p class="descricao-vazia">Comece a explorar nossos produtos e eles aparecerão aqui!</p>
+        <button class="botao-explorar-produtos" onclick="window.location.href='produtos.html'">
+          <i class="fas fa-arrow-left"></i>
+          Explorar Produtos
+        </button>
+      </div>
+    </div>
+
+    <!-- History Content -->
+    <div id="conteudo-historico" class="layout-historico">
+      <div class="secao-produtos-vistos">
+        <div class="cabecalho-secao">
+          <h2>Produtos Vistos Recentemente</h2>
+          <div class="acoes">
+            <button id="btn-limpar-historico">
+              <i class="fas fa-trash"></i>
+              Limpar Histórico
+            </button>
+          </div>
+        </div>
+        <div id="lista-produtos-vistos" class="lista-produtos-vistos">
+          <!-- Produtos vistos serão inseridos aqui dinamicamente -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Notificações (Toast) -->
+  <div id="container-notificacoes" class="container-notificacoes"></div>
+
+  <div id="footer-placeholder"></div>
+
+  <!-- JS -->
+  <script src="../scripts/servicos/banco-dados.js"></script>
+  <script src="../scripts/componentes/produtos.js"></script>
+  <script src="../scripts/componentes/historico.js"></script>
+  <script src="../scripts/utilitarios/cabecalho-rodape.js"></script>
+  <script src="../scripts/componentes/cabecalho-autenticacao.js"></script>
+  <script src="../scripts/componentes/notificacoes-fluent.js"></script>
+  <script src="../scripts/componentes/alternador-tema.js"></script>
+</body>
+</html>
+

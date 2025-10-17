@@ -4,7 +4,7 @@
 
 window.API_BASE_URL = 'https://Roxinho-Shop-BACKEND.vercel.app/api';
 
-var slideAtual = 0;
+let slideAtual = 0;
 let slides, indicadores;
 
 function inicializarBanner() {
