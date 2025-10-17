@@ -3738,3 +3738,45 @@ body {
   }
 }
 
+
+
+/* Estilos para os botões de compra */
+.botoes-compra {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.botoes-compra a {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.botao-mercado-livre {
+    background-color: #ffe600; /* Amarelo Mercado Livre */
+    color: #333;
+    border: 1px solid #ffe600;
+}
+
+.botao-mercado-livre:hover {
+    background-color: #ffdb00;
+    box-shadow: 0 4px 10px rgba(255, 230, 0, 0.4);
+}
+
+.botao-amazon {
+    background-color: #ff9900; /* Laranja Amazon */
+    color: #fff;
+    border: 1px solid #ff9900;
+}
+
+.botao-amazon:hover {
+    background-color: #e68a00;
+    box-shadow: 0 4px 10px rgba(255, 153, 0, 0.4);
+}
+

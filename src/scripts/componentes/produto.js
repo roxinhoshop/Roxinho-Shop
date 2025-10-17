@@ -27,7 +27,7 @@
             }
             
             try {
-                const response = await fetch(`${window.API_BASE_URL}/products/${id}`);
+                const response = await fetch(`${window.API_BASE_URL}/produtos/${id}`);
                 const data = await response.json();
                 
                 if (data.success || data.status === 'success') {
@@ -45,20 +45,46 @@
 
         // Renderizar o produto na página
         function renderizarProduto(produto) {
-            document.getElementById('titulo-produto').textContent = produto.name;
-            document.getElementById('preco-atual').textContent = `R$ ${produto.price_ml.toFixed(2)}`;
-            document.getElementById('descricao-conteudo').innerHTML = produto.description;
-            document.getElementById('imagem-principal').src = produto.image_url;
+            document.getElementById("titulo-produto").textContent = produto.nome;
+            // Exibir o preço do Mercado Livre se disponível, caso contrário, o preço base
+            document.getElementById("preco-atual").textContent = `R$ ${(produto.preco_mercado_livre || produto.preco).toFixed(2)}`;
+            document.getElementById("descricao-conteudo").innerHTML = produto.descricao;
+            document.getElementById("imagem-principal").src = produto.imagem_principal;
             
             // Atualizar links de compra
-            document.getElementById('btn-mercado-livre').href = produto.link_ml;
-            document.getElementById('btn-amazon').href = produto.link_amazon;
-            document.getElementById('preco-ml').textContent = `R$ ${produto.price_ml.toFixed(2)}`;
-            document.getElementById('preco-amazon').textContent = `R$ ${produto.price_amazon.toFixed(2)}`;
+            const btnMercadoLivre = document.getElementById("btn-mercado-livre");
+            const btnAmazon = document.getElementById("btn-amazon");
+            const precoML = document.getElementById("preco-ml");
+            const precoAmazon = document.getElementById("preco-amazon");
+
+            if (produto.link_mercado_livre && produto.preco_mercado_livre) {
+                btnMercadoLivre.href = produto.link_mercado_livre;
+                precoML.textContent = `R$ ${produto.preco_mercado_livre.toFixed(2)}`;
+                btnMercadoLivre.style.display = "inline-block";
+            } else {
+                btnMercadoLivre.style.display = "none";
+            }
+
+            if (produto.link_amazon && produto.preco_amazon) {
+                btnAmazon.href = produto.link_amazon;
+                precoAmazon.textContent = `R$ ${produto.preco_amazon.toFixed(2)}`;
+                btnAmazon.style.display = "inline-block";
+            } else {
+                btnAmazon.style.display = "none";
+            }
+
+            // Se apenas um link estiver disponível, exibir apenas o preço correspondente
+            if (btnMercadoLivre.style.display === "none" && btnAmazon.style.display === "inline-block") {
+                document.getElementById("preco-atual").textContent = `R$ ${produto.preco_amazon.toFixed(2)}`;
+            } else if (btnMercadoLivre.style.display === "inline-block" && btnAmazon.style.display === "none") {
+                document.getElementById("preco-atual").textContent = `R$ ${produto.preco_mercado_livre.toFixed(2)}`;
+            } else if (btnMercadoLivre.style.display === "none" && btnAmazon.style.display === "none") {
+                document.getElementById("preco-atual").textContent = `R$ ${produto.preco.toFixed(2)}`;
+            }
 
             // Breadcrumb
-            document.getElementById('categoria-link').textContent = produto.category;
-            document.getElementById('produto-breadcrumb').textContent = produto.name;
+            document.getElementById("categoria-link").textContent = produto.categoria_nome;
+            document.getElementById("produto-breadcrumb").textContent = produto.nome;
         }
 
         // Configurar eventos
