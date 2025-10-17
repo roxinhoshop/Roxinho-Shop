@@ -141,18 +141,16 @@ async function renderizarProdutosDestaque() {
 
             <!-- Botões de Ação -->
             <div class="botoes-produto-home">
-              <button class="btn-comprar-direto ${!emEstoque ? "disabled" : ""}" 
-                      onclick="event.preventDefault(); event.stopPropagation(); ${emEstoque ? `comprarDireto(\'${produto.id}\')` : "showNotification(\'Produto indisponível\', \'warning\')"}"
-                      ${!emEstoque ? "disabled" : ""}>
-                <i class="fas fa-bolt"></i>
-                Comprar
-              </button>
-              <button class="btn-adicionar-carrinho ${!emEstoque ? "disabled" : ""}" 
-                      onclick="event.preventDefault(); event.stopPropagation(); ${emEstoque ? `adicionarProdutoAoCarrinho(\'${produto.id}\')` : "showNotification(\'Produto indisponível\', \'warning\')"}"
-                      ${!emEstoque ? "disabled" : ""}>
-                <i class="fas fa-cart-plus"></i>
-                Carrinho
-              </button>
+              ${produto.linkMercadoLivre && produto.precoMercadoLivre ? `
+              <a href="${produto.linkMercadoLivre}" target="_blank" rel="noopener noreferrer" class="btn-mercado-livre-card">
+                Mercado Livre <span class="preco-comparativo">R$ ${produto.precoMercadoLivre.toFixed(2).replace(".", ",")}</span>
+              </a>
+              ` : ``}
+              ${produto.linkAmazon && produto.precoAmazon ? `
+              <a href="${produto.linkAmazon}" target="_blank" rel="noopener noreferrer" class="btn-amazon-card">
+                Amazon <span class="preco-comparativo">R$ ${produto.precoAmazon.toFixed(2).replace(".", ",")}</span>
+              </a>
+              ` : ``}
             </div>
           </div>
         </a>

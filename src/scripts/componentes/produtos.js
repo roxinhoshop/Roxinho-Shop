@@ -4,36 +4,47 @@
 // Sistema de categorias expandido e produtos unificado
 const sistemaCategorias = {
   'Hardware': {
+    icone: 'fas fa-microchip',
     subcategorias: ['Processadores', 'Placas de Vídeo', 'Memórias RAM', 'Placas Mãe', 'Fontes', 'Coolers', 'Gabinetes', 'Armazenamento', 'Placas de Som'],
   },
   'Periféricos': {
+    icone: 'fas fa-keyboard',
     subcategorias: ['Teclados', 'Mouses', 'Headsets', 'Webcams', 'Microfones', 'Mousepads', 'Controles', 'Caixas de Som', 'Monitores'],
   },
   'Computadores': {
+    icone: 'fas fa-desktop',
     subcategorias: ['PCs Gamer', 'Workstations', 'All-in-One', 'Mini PCs', 'Notebooks', 'Chromebooks', 'Ultrabooks', 'Tablets'],
   },
   'Games': {
+    icone: 'fas fa-gamepad',
     subcategorias: ['Consoles', 'Jogos PC', 'Jogos Console', 'Acessórios Gaming', 'Cadeiras Gamer', 'Mesas Gamer', 'Controles', 'Volantes'],
   },
   'Celular & Smartphone': {
+    icone: 'fas fa-mobile-alt',
     subcategorias: ['Smartphones', 'Capas e Películas', 'Carregadores', 'Fones de Ouvido', 'Power Banks', 'Suportes', 'Smartwatches'],
   },
   'TV & Áudio': {
+    icone: 'fas fa-tv',
     subcategorias: ['Smart TVs', 'TVs 4K', 'TVs 8K', 'Suportes TV', 'Conversores', 'Antenas', 'Soundbars', 'Home Theater'],
   },
   'Áudio': {
+    icone: 'fas fa-headphones-alt',
     subcategorias: ['Fones de Ouvido', 'Caixas de Som', 'Soundbars', 'Amplificadores', 'Microfones', 'Interfaces de Áudio', 'Monitores de Referência'],
   },
   'Espaço Gamer': {
+    icone: 'fas fa-chair',
     subcategorias: ['Cadeiras Gamer', 'Mesas Gamer', 'Suportes Monitor', 'Iluminação RGB', 'Decoração', 'Organizadores', 'Tapetes'],
   },
   'Casa Inteligente': {
+    icone: 'fas fa-lightbulb',
     subcategorias: ['Assistentes Virtuais', 'Câmeras Segurança', 'Lâmpadas Smart', 'Tomadas Smart', 'Sensores', 'Fechaduras Digitais', 'Termostatos'],
   },
   'PC Gamer': {
+    icone: 'fas fa-laptop-code',
     subcategorias: ['PCs Montados', 'Componentes Gamer', 'Periféricos Gaming', 'Monitores Gamer', 'Cadeiras Gamer'],
   },
   'Giftcards': {
+    icone: 'fas fa-gift',
     subcategorias: ['Mais populares','Serviços', 'Jogos', 'Xbox', 'Nintendo'],
   }
 };
@@ -52,7 +63,8 @@ let filtrosAtuais = {
   avaliacaoMinima: 0,
   emEstoque: false,
   desconto: false,
-  freteGratis: false
+  freteGratis: false,
+  tags: []
 };
 
 // Configurações de paginação
@@ -116,13 +128,19 @@ async function buscarProdutosDaAPI() {
         subcategoria: p.subcategoria || '',
         origem: p.origem || 'manual',
         linkOriginal: p.link_original || '',
+        marca: p.marca || '',
+        tags: p.tags ? p.tags.split(",").map(tag => tag.trim()) : [], // Assumindo tags como string separada por vírgulas
+        condicao: p.condicao || '',
+        linkMercadoLivre: p.link_mercado_livre || '',
+        precoMercadoLivre: p.preco_mercado_livre ? parseFloat(p.preco_mercado_livre) : null,
+        linkAmazon: p.link_amazon || '',
+        precoAmazon: p.preco_amazon ? parseFloat(p.preco_amazon) : null,
         estoque: p.estoque || 0,
         emEstoque: (p.estoque || 0) > 0,
         avaliacao: 4.5, // Valor padrão por enquanto
         avaliacoes: 0,
         desconto: 0,
-        freteGratis: false,
-        parcelamento: `em até 12x de R$ ${(parseFloat(p.preco) / 12).toFixed(2)}`
+        freteGratis: false,        parcelamento: `em até 12x de R$ ${(parseFloat(p.preco) / 12).toFixed(2)}`
       }));
     } else {
       console.warn('Função listarProdutos não encontrada. Usando produtos vazios.');
@@ -615,8 +633,8 @@ function aplicarFiltros() {
 produtosFiltrados = todosOsProdutos.filter(produto => {
     const correspondeABusca = !filtrosAtuais.busca || 
       produto.nome.toLowerCase().includes(filtrosAtuais.busca.toLowerCase()) ||
-      produto.marca.toLowerCase().includes(filtrosAtuais.busca.toLowerCase()) ||
-      produto.tags.some(tag => tag.toLowerCase().includes(filtrosAtuais.busca.toLowerCase()));
+      (produto.marca && produto.marca.toLowerCase().includes(filtrosAtuais.busca.toLowerCase())) ||
+      (produto.tags && produto.tags.some(tag => tag.toLowerCase().includes(filtrosAtuais.busca.toLowerCase())));
 
     const correspondeACategoria = !filtrosAtuais.categoria || produto.categoria === filtrosAtuais.categoria;
     const correspondeASubcategoria = !filtrosAtuais.subcategoria || produto.subcategoria === filtrosAtuais.subcategoria;
@@ -626,6 +644,12 @@ produtosFiltrados = todosOsProdutos.filter(produto => {
       (Array.isArray(filtrosAtuais.marca) 
         ? filtrosAtuais.marca.includes(produto.marca) 
         : produto.marca === filtrosAtuais.marca);
+
+    const correspondeACondicao = !filtrosAtuais.condicao || produto.condicao === filtrosAtuais.condicao;
+
+    // Adicionar log para depuração
+    // console.log(`Produto: ${produto.nome}, Categoria: ${produto.categoria}, Subcategoria: ${produto.subcategoria}, Marca: ${produto.marca}, Busca: ${filtrosAtuais.busca}, Categoria Filtro: ${filtrosAtuais.categoria}, Subcategoria Filtro: ${filtrosAtuais.subcategoria}, Corresponde Categoria: ${correspondeACategoria}, Corresponde Subcategoria: ${correspondeASubcategoria}`);
+
     const correspondeAoPreco = produto.preco >= filtrosAtuais.precoMinimo && produto.preco <= filtrosAtuais.precoMaximo;
     const correspondeAAvaliacao = produto.avaliacao >= filtrosAtuais.avaliacaoMinima;
     const correspondeAoEstoque = !filtrosAtuais.emEstoque || produto.emEstoque;
@@ -845,24 +869,17 @@ function renderizarProdutos() {
 
           <!-- Botões de Ação -->
           <div class="acoes-produto">
-            <button class="botao-comprar-direto ${!produto.emEstoque ? 'indisponivel' : ''}" 
-                    onclick="event.preventDefault(); event.stopPropagation(); ${produto.emEstoque ? `comprarDireto(${produto.id})` : 'mostrarNotificacao(\'Produto indisponível\', \'aviso\')'}"
-                    ${!produto.emEstoque ? 'disabled' : ''}>
-              <i class="fas fa-bolt"></i>
-              ${produto.emEstoque ? 'Comprar' : 'Indisponível'}
-            </button>
-            <button class="botao-adicionar-carrinho ${!produto.emEstoque ? 'indisponivel' : ''}" 
-                    onclick="event.preventDefault(); event.stopPropagation(); ${produto.emEstoque ? `adicionarProdutoAoCarrinho(${produto.id})` : 'mostrarNotificacao(\'Produto indisponível\', \'aviso\')'}"
-                    ${!produto.emEstoque ? 'disabled' : ''}>
-              <i class="fas fa-cart-plus"></i>
-              ${produto.emEstoque ? 'Carrinho' : 'Indisponível'}
-            </button>
+            ${produto.linkMercadoLivre && produto.precoMercadoLivre ? `
+            <a href="${produto.linkMercadoLivre}" target="_blank" rel="noopener noreferrer" class="btn-mercado-livre-card">
+              Mercado Livre <span class="preco-comparativo">R$ ${produto.precoMercadoLivre.toFixed(2).replace(".", ",")}</span>
+            </a>
+            ` : ``}
+            ${produto.linkAmazon && produto.precoAmazon ? `
+            <a href="${produto.linkAmazon}" target="_blank" rel="noopener noreferrer" class="btn-amazon-card">
+              Amazon <span class="preco-comparativo">R$ ${produto.precoAmazon.toFixed(2).replace(".", ",")}</span>
+            </a>
+            ` : ``}
           </div>
-        </div>
-      </a>
-    `;
-  }).join('');
-}
 
 // Renderizar paginação minimalista
 function renderizarPaginacao() {

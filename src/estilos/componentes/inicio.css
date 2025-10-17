@@ -2070,10 +2070,10 @@ body {
 }
 
 .categoria-imagem img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
+  max-width: 80%; /* Reduzir o tamanho da imagem */
+  max-height: 80%; /* Reduzir o tamanho da imagem */
+  object-fit: contain;
+  transition: transform 0.3s ease;
 }
 
 .categoria-card:hover .categoria-imagem img {
