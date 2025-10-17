@@ -224,15 +224,19 @@ document.addEventListener("DOMContentLoaded", () => {
                         2500
                     );
                 } else {
-                    window.showNotification("Cadastro realizado com sucesso! Você já pode fazer login.", "success");
+                    showNotification("✅ Cadastro realizado com sucesso! Redirecionando para o login...", "success");
                     setTimeout(() => {
-                        window.location.href = "entrar.html?redirect=/index.html";
-                    }, 1500);
+                        window.location.href = "./entrar.html";
+                    }, 2000);
                 }
             } else {
                 // Remover loading do botão
                 window.removeButtonLoading(botaoCadastro);
-                window.showNotification(result.message || "Ocorreu um erro ao cadastrar. Tente novamente.", "error");
+                let errorMessage = result.message || "Ocorreu um erro ao cadastrar. Tente novamente.";
+                if (result.message && result.message.includes("já está cadastrado")) {
+                    errorMessage = "❌ Este e-mail já está cadastrado. Por favor, faça login ou use outro e-mail.";
+                }
+                window.showNotification(errorMessage, "error");
                 console.error(`Erro: ${result.message}`);
             }
         } catch (error) {

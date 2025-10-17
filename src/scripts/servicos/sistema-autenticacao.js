@@ -267,7 +267,7 @@ class AuthSystem {
     validateUserData(userData) {
         if (!userData.nome || userData.nome.trim().length < 2) return false;
         if (!userData.sobrenome || userData.sobrenome.trim().length < 2) return false;
-        if (!userData.email || !/^[^
+        if (!userData.email || !/^[\w.-]+@[\w.-]+\.\w+$/.test(userData.email)) return false;
         if (!userData.senha || userData.senha.length < 8) return false;
         return true;
     }

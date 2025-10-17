@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
             showNotification("Você já está logado!", "info");
         }
         setTimeout(() => {
-            window.location.href = "../../index.html";
+            window.location.href = "/index.html";
         }, 1000);
         return;
     }
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const userType = tokenPayload.isAdmin ? "Administrador" : "Usuário";
                 
                 // Determinar URL de redirecionamento
-                let targetUrl = "../../index.html";
+                let targetUrl = "/index.html";
                 if (redirectUrl) {
                     targetUrl = decodeURIComponent(redirectUrl);
                 }

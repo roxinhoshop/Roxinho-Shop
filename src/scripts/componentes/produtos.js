@@ -129,7 +129,7 @@ async function buscarProdutosDaAPI() {
         origem: p.origem || 'manual',
         linkOriginal: p.link_original || '',
         marca: p.marca || '',
-        tags: p.tags ? p.tags.split(",").map(tag => tag.trim()) : [], // Assumindo tags como string separada por vírgulas
+        tags: p.tags ? p.tags.split(',').map(tag => tag.trim()) : [], // Assumindo tags como string separada por vírgulas
         condicao: p.condicao || '',
         linkMercadoLivre: p.link_mercado_livre || '',
         precoMercadoLivre: p.preco_mercado_livre ? parseFloat(p.preco_mercado_livre) : null,
@@ -175,75 +175,65 @@ document.addEventListener("DOMContentLoaded", async function() {
 
 // Função para inicializar as categorias do cabeçalho
 function inicializarCategoriasCabecalho() {
-  // Selecionar todos os links da barra de categorias (exceto departamentos)
-  const linksCategorias = document.querySelectorAll('.barra-categorias ul li:not(.dropdown) a');
-  
-  linksCategorias.forEach(link => {
-    const titulo = link.textContent.trim();
-    
-    // Adicionar event listener para navegação
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      navegarParaCategoria(titulo);
-    });
-  });
-
-  // Selecionar todos os dropdowns da barra de categorias
-  const barraCategoriasDropdowns = document.querySelectorAll('.barra-categorias .dropdown');
-  
-  barraCategoriasDropdowns.forEach(dropdown => {
-    const linkPrincipal = dropdown.querySelector('a');
-    const titulo = linkPrincipal.textContent.trim().replace(/\s*DEPARTAMENTOS\s*/i, '').trim();
-    const submenu = dropdown.querySelector('.submenu');
-    
-    if (sistemaCategorias[titulo] && submenu) {
-      // Limpar submenu existente
-      submenu.innerHTML = '';
-      
-      // Adicionar link da categoria principal
-      const linkCategoriaPrincipal = document.createElement('li');
-      const aCategoriaPrincipal = document.createElement('a');
-      aCategoriaPrincipal.href = '#';
-      aCategoriaPrincipal.textContent = `Ver todos em ${titulo}`;
-      aCategoriaPrincipal.style.fontWeight = 'bold';
-      aCategoriaPrincipal.style.borderBottom = '1px solid #eee';
-      aCategoriaPrincipal.style.paddingBottom = '8px';
-      aCategoriaPrincipal.style.marginBottom = '8px';
-      aCategoriaPrincipal.addEventListener('click', function(e) {
-        e.preventDefault();
-        navegarParaCategoria(titulo);
-      });
-      linkCategoriaPrincipal.appendChild(aCategoriaPrincipal);
-      submenu.appendChild(linkCategoriaPrincipal);
-      
-      // Adicionar subcategorias
-      sistemaCategorias[titulo].subcategorias.forEach(subcategoria => {
-        const li = document.createElement('li');
-        const link = document.createElement('a');
-        link.href = '#';
-        link.textContent = subcategoria;
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          navegarParaCategoria(titulo, subcategoria);
+    const linksCategorias = document.querySelectorAll('.barra-categorias ul li:not(.dropdown) a');
+    linksCategorias.forEach(link => {
+        const titulo = link.textContent.trim();
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            navegarParaCategoria(titulo);
         });
-        li.appendChild(link);
-        submenu.appendChild(li);
-      });
-      
-      // Atualizar o link principal também
-      linkPrincipal.addEventListener('click', function(e) {
-        e.preventDefault();
-        navegarParaCategoria(titulo);
-      });
-    }
-  });
+    });
+
+    const barraCategoriasDropdowns = document.querySelectorAll('.barra-categorias .dropdown');
+    barraCategoriasDropdowns.forEach(dropdown => {
+        const linkPrincipal = dropdown.querySelector('a');
+        const titulo = linkPrincipal.textContent.trim().replace(/\s*DEPARTAMENTOS\s*/i, '').trim();
+        const submenu = dropdown.querySelector('.submenu');
+
+        if (sistemaCategorias[titulo] && submenu) {
+            submenu.innerHTML = '';
+
+            const linkCategoriaPrincipal = document.createElement('li');
+            const aCategoriaPrincipal = document.createElement('a');
+            aCategoriaPrincipal.href = '#';
+            aCategoriaPrincipal.textContent = `Ver todos em ${titulo}`;
+            aCategoriaPrincipal.style.fontWeight = 'bold';
+            aCategoriaPrincipal.style.borderBottom = '1px solid #eee';
+            aCategoriaPrincipal.style.paddingBottom = '8px';
+            aCategoriaPrincipal.style.marginBottom = '8px';
+            aCategoriaPrincipal.addEventListener('click', function (e) {
+                e.preventDefault();
+                navegarParaCategoria(titulo);
+            });
+            linkCategoriaPrincipal.appendChild(aCategoriaPrincipal);
+            submenu.appendChild(linkCategoriaPrincipal);
+
+            sistemaCategorias[titulo].subcategorias.forEach(subcategoria => {
+                const li = document.createElement('li');
+                const link = document.createElement('a');
+                link.href = '#';
+                link.textContent = subcategoria;
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    navegarParaCategoria(titulo, subcategoria);
+                });
+                li.appendChild(link);
+                submenu.appendChild(li);
+            });
+
+            linkPrincipal.addEventListener('click', function (e) {
+                e.preventDefault();
+                navegarParaCategoria(titulo);
+            });
+        }
+    });
 }
 
 // Função para navegar para categoria/subcategoria
 function navegarParaCategoria(categoria, subcategoria = '') {
-  filtrosAtuais.categoria = categoria;
-  filtrosAtuais.subcategoria = subcategoria;
-  categoriaAtivaSelecionada = categoria;
+  filtrosAtuais.categoria = categoria.toLowerCase();
+  filtrosAtuais.subcategoria = subcategoria.toLowerCase();
+  categoriaAtivaSelecionada = categoria.toLowerCase();
   paginacaoConfig.paginaAtual = 1;
   
   // Atualizar URL sem recarregar página
@@ -261,7 +251,7 @@ function navegarParaCategoria(categoria, subcategoria = '') {
   aplicarFiltros();
 }
 
-// Função para processar parâmetros da URL
+// Processar parâmetros da URL na inicialização
 function processarParametrosURL() {
   const urlParams = new URLSearchParams(window.location.search);
   const categoriaParam = urlParams.get('categoria');
@@ -269,11 +259,11 @@ function processarParametrosURL() {
   const buscaParam = urlParams.get('busca');
   
   if (categoriaParam) {
-    filtrosAtuais.categoria = categoriaParam;
-    categoriaAtivaSelecionada = categoriaParam;
+    filtrosAtuais.categoria = categoriaParam.toLowerCase();
+    categoriaAtivaSelecionada = categoriaParam.toLowerCase();
     
     if (subcategoriaParam) {
-      filtrosAtuais.subcategoria = subcategoriaParam;
+      filtrosAtuais.subcategoria = subcategoriaParam.toLowerCase();
     }
     
     mostrarBannerCategoria(categoriaParam, subcategoriaParam);
@@ -431,7 +421,7 @@ function renderizarCategoriasRelacionadas() {
 
   Object.entries(sistemaCategorias).forEach(([categoria, data]) => {
     // Se há uma categoria ativa selecionada e não é esta, não mostrar
-    if (categoriaAtivaSelecionada && categoriaAtivaSelecionada !== categoria) {
+    if (categoriaAtivaSelecionada && categoriaAtivaSelecionada.toLowerCase() !== categoria.toLowerCase()) {
       return;
     }
 
@@ -441,12 +431,12 @@ function renderizarCategoriasRelacionadas() {
 
     // Criar label da categoria principal
     const labelCategoria = document.createElement('span');
-    labelCategoria.className = `label-categoria ${filtrosAtuais.categoria === categoria ? 'ativo' : ''}`;
+    labelCategoria.className = `label-categoria ${filtrosAtuais.categoria.toLowerCase() === categoria.toLowerCase() ? 'ativo' : ''}`;
     labelCategoria.innerHTML = `<i class="${data.icone}"></i> ${categoria}`;
 
     labelCategoria.addEventListener('click', () => {
       // Se clicar na categoria já ativa, limpar seleção
-      if (filtrosAtuais.categoria === categoria) {
+      if (filtrosAtuais.categoria.toLowerCase() === categoria.toLowerCase()) {
         filtrosAtuais.categoria = '';
         filtrosAtuais.subcategoria = '';
         categoriaAtivaSelecionada = '';
@@ -471,7 +461,7 @@ function renderizarCategoriasRelacionadas() {
     categoriaItem.appendChild(labelCategoria);
 
     // Se esta categoria está ativa, mostrar subcategorias
-    if (categoriaAtivaSelecionada === categoria) {
+    if (categoriaAtivaSelecionada.toLowerCase() === categoria.toLowerCase()) {
       const subcategoriasContainer = document.createElement('div');
       subcategoriasContainer.className = 'subcategorias-container visivel';
       
@@ -480,13 +470,13 @@ function renderizarCategoriasRelacionadas() {
         subcategoriaItem.className = 'subcategoria-item';
         
         const labelSub = document.createElement('span');
-        labelSub.className = `label-subcategoria ${filtrosAtuais.subcategoria === subcategoria ? 'ativo' : ''}`;
+        labelSub.className = `label-subcategoria ${filtrosAtuais.subcategoria.toLowerCase() === subcategoria.toLowerCase() ? 'ativo' : ''}`;
         labelSub.textContent = subcategoria;
         
         labelSub.addEventListener('click', (e) => {
           e.stopPropagation();
           
-          if (filtrosAtuais.subcategoria === subcategoria) {
+          if (filtrosAtuais.subcategoria.toLowerCase() === subcategoria.toLowerCase()) {
             navegarParaCategoria(categoria);
           } else {
             navegarParaCategoria(categoria, subcategoria);
@@ -630,25 +620,22 @@ function inicializarEventListeners() {
 // Aplicar filtros
 function aplicarFiltros() {
   // Filtrar produtos
-produtosFiltrados = todosOsProdutos.filter(produto => {
+  produtosFiltrados = todosOsProdutos.filter(produto => {
     const correspondeABusca = !filtrosAtuais.busca || 
       produto.nome.toLowerCase().includes(filtrosAtuais.busca.toLowerCase()) ||
       (produto.marca && produto.marca.toLowerCase().includes(filtrosAtuais.busca.toLowerCase())) ||
       (produto.tags && produto.tags.some(tag => tag.toLowerCase().includes(filtrosAtuais.busca.toLowerCase())));
 
-    const correspondeACategoria = !filtrosAtuais.categoria || produto.categoria === filtrosAtuais.categoria;
-    const correspondeASubcategoria = !filtrosAtuais.subcategoria || produto.subcategoria === filtrosAtuais.subcategoria;
+    const correspondeACategoria = !filtrosAtuais.categoria || (produto.categoria && produto.categoria.toLowerCase() === filtrosAtuais.categoria.toLowerCase());
+    const correspondeASubcategoria = !filtrosAtuais.subcategoria || (produto.subcategoria && produto.subcategoria.toLowerCase() === filtrosAtuais.subcategoria.toLowerCase());
     
     // Suportar filtro de marca como string ou array
     const correspondeAMarca = !filtrosAtuais.marca || 
       (Array.isArray(filtrosAtuais.marca) 
         ? filtrosAtuais.marca.includes(produto.marca) 
-        : produto.marca === filtrosAtuais.marca);
+        : (produto.marca && produto.marca.toLowerCase() === filtrosAtuais.marca.toLowerCase()));
 
     const correspondeACondicao = !filtrosAtuais.condicao || produto.condicao === filtrosAtuais.condicao;
-
-    // Adicionar log para depuração
-    // console.log(`Produto: ${produto.nome}, Categoria: ${produto.categoria}, Subcategoria: ${produto.subcategoria}, Marca: ${produto.marca}, Busca: ${filtrosAtuais.busca}, Categoria Filtro: ${filtrosAtuais.categoria}, Subcategoria Filtro: ${filtrosAtuais.subcategoria}, Corresponde Categoria: ${correspondeACategoria}, Corresponde Subcategoria: ${correspondeASubcategoria}`);
 
     const correspondeAoPreco = produto.preco >= filtrosAtuais.precoMinimo && produto.preco <= filtrosAtuais.precoMaximo;
     const correspondeAAvaliacao = produto.avaliacao >= filtrosAtuais.avaliacaoMinima;
@@ -704,274 +691,172 @@ function ordenarProdutos() {
 // Calcular paginação
 function calcularPaginacao() {
   paginacaoConfig.totalPaginas = Math.ceil(produtosFiltrados.length / paginacaoConfig.itensPorPagina);
-
-  // Garantir que a página atual não exceda o total
-  if (paginacaoConfig.paginaAtual > paginacaoConfig.totalPaginas && paginacaoConfig.totalPaginas > 0) {
-    paginacaoConfig.paginaAtual = paginacaoConfig.totalPaginas;
-  } else if (paginacaoConfig.totalPaginas === 0) {
-    paginacaoConfig.paginaAtual = 1;
-  }
 }
 
-// Obter produtos da página atual
-function obterProdutosPaginaAtual() {
-  const inicio = (paginacaoConfig.paginaAtual - 1) * paginacaoConfig.itensPorPagina;
-  const fim = inicio + paginacaoConfig.itensPorPagina;
-  return produtosFiltrados.slice(inicio, fim);
-}
-
-// Atualizar breadcrumb dinâmico
+// Atualizar breadcrumb
 function atualizarBreadcrumb() {
-  // Atualizar breadcrumb dinâmico
-  if (breadcrumbDinamico && caminhoBreadcrumb) {
-    if (filtrosAtuais.categoria || filtrosAtuais.subcategoria) {
-      breadcrumbDinamico.style.display = 'block';
+  if (caminhoBreadcrumb) {
+    caminhoBreadcrumb.innerHTML = '<a href="index.html" class="item-caminho">Início</a>';
 
-      let caminhoHTML = '';
-      
-      if (filtrosAtuais.categoria) {
-        const dadosCategoria = sistemaCategorias[filtrosAtuais.categoria];
-        caminhoHTML += `<span class="item-caminho ${!filtrosAtuais.subcategoria ? 'ativo' : ''}">
-          <i class="${dadosCategoria?.icone }"></i> ${filtrosAtuais.categoria}
-        </span>`;
-        
-        if (filtrosAtuais.subcategoria) {
-          caminhoHTML += '<span class="separador">›</span>';
-          caminhoHTML += `<span class="item-caminho ativo">${filtrosAtuais.subcategoria}</span>`;
-        }
-      }
-      
-      caminhoBreadcrumb.innerHTML = caminhoHTML;
-    } else {
-      breadcrumbDinamico.style.display = 'none';
+    if (filtrosAtuais.categoria) {
+      caminhoBreadcrumb.innerHTML += ` <span class="separador">></span> <a href="produtos.html?categoria=${encodeURIComponent(filtrosAtuais.categoria)}" class="item-caminho">${filtrosAtuais.categoria}</a>`;
     }
-  }
 
-  // Breadcrumb original (manter para compatibilidade)
-  if (breadcrumb) {
-    if (filtrosAtuais.categoria || filtrosAtuais.subcategoria) {
-      breadcrumb.style.display = 'block';
-      let breadcrumbHTML = 'Início';
-
-      if (filtrosAtuais.categoria) {
-        breadcrumbHTML += ` › <span class="ativo">${filtrosAtuais.categoria}</span>`;
-      }
-      
-      if (filtrosAtuais.subcategoria) {
-        breadcrumbHTML += ` › <span class="ativo">${filtrosAtuais.subcategoria}</span>`;
-      }
-      
-      breadcrumb.innerHTML = breadcrumbHTML;
+    if (filtrosAtuais.subcategoria) {
+      caminhoBreadcrumb.innerHTML += ` <span class="separador">></span> <span class="item-caminho ativo">${filtrosAtuais.subcategoria}</span>`;
+    } else if (filtrosAtuais.categoria) {
+      caminhoBreadcrumb.querySelector('a:last-of-type').classList.add('ativo');
     } else {
-      breadcrumb.style.display = 'none';
+      caminhoBreadcrumb.innerHTML += ' <span class="separador">></span> <span class="item-caminho ativo">Produtos</span>';
     }
   }
 }
 
-// Atualizar informações dos resultados
+
+// Atualizar informações de resultados
 function atualizarInfoResultados() {
   if (contadorResultados) {
-    contadorResultados.textContent = `${produtosFiltrados.length}`;
-  }
-
-  if (infoCategoria) {
-    if (filtrosAtuais.categoria) {
-      let textoCategoria = `em ${filtrosAtuais.categoria}`;
-      if (filtrosAtuais.subcategoria) {
-        textoCategoria += ` › ${filtrosAtuais.subcategoria}`;
-      }
-      infoCategoria.innerHTML = `<span style="color: #7c3aed; margin-left: 0.5rem;">${textoCategoria}</span>`;
-    } else {
-      infoCategoria.innerHTML = '';
-    }
+    contadorResultados.textContent = produtosFiltrados.length;
   }
 }
 
-// Função para verificar se uma string é uma URL de imagem
-function ehURLImagem(str) {
-  return str && (str.startsWith('http') || str.startsWith('./') || str.startsWith('/'));
-}
-
-// Renderizar produtos - com suporte a imagens reais e botão de comprar funcional
+// Renderizar produtos
 function renderizarProdutos() {
   if (!gradeProdutos) return;
 
-  const produtosPagina = obterProdutosPaginaAtual();
+  gradeProdutos.innerHTML = '';
+  gradeProdutos.className = `grade-produtos ${modoVisualizacao}`;
 
-  if (produtosPagina.length === 0) {
-    gradeProdutos.style.display = 'none';
-    if (paginacao) paginacao.style.display = 'none';
-    if (semResultados) semResultados.style.display = 'block';
+  if (produtosFiltrados.length === 0) {
+    semResultados.style.display = 'flex';
+    paginacao.style.display = 'none';
     return;
   }
 
-  gradeProdutos.style.display = 'grid';
-  if (semResultados) semResultados.style.display = 'none';
+  semResultados.style.display = 'none';
 
-  // Atualizar classe da grade baseada no modo de visualização
-  gradeProdutos.className = `grade-produtos ${modoVisualizacao === 'lista' ? 'visualizacao-lista' : ''}`;
+  const inicio = (paginacaoConfig.paginaAtual - 1) * paginacaoConfig.itensPorPagina;
+  const fim = inicio + paginacaoConfig.itensPorPagina;
+  const produtosDaPagina = produtosFiltrados.slice(inicio, fim);
 
-  gradeProdutos.innerHTML = produtosPagina.map(produto => {
-    const ehFavorito = favoritos.includes(produto.id);
+  produtosDaPagina.forEach(produto => {
+    const card = document.createElement('div');
+    card.className = 'card-produto';
+    card.dataset.id = produto.id;
 
-    // Determinar como renderizar a imagem
-    let imagemHTML = '';
-    if (produto.imagem && ehURLImagem(produto.imagem)) {
-      // Usar imagem real com fallback para gradiente
-      imagemHTML = `
-        <img src="${produto.imagem}" alt="${produto.nome}" class="imagem-produto-real" 
-             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <div class="fundo-gradiente ${produto.imagemFallback || 'gradiente-roxo'}" style="display: none;"></div>
-      `;
+    let precoPrincipal = produto.precoMercadoLivre || produto.precoAmazon || produto.preco;
+
+    card.innerHTML = `
+      <div class="imagem-produto">
+        <a href="produto.html?id=${produto.id}">
+          <img src="${produto.imagem}" alt="${produto.nome}" loading="lazy">
+        </a>
+        <div class="tags-produto">
+          ${produto.desconto > 0 ? `<span class="tag-desconto">-${produto.desconto}%</span>` : ''}
+          ${produto.freteGratis ? '<span class="tag-frete">Frete Grátis</span>' : ''}
+        </div>
+        <button class="botao-favorito ${favoritos.includes(produto.id) ? 'ativo' : ''}" onclick="alternarFavorito(${produto.id}, this)">
+          <i class="far fa-heart"></i>
+        </button>
+      </div>
+      <div class="info-produto">
+        <h3 class="nome-produto"><a href="produto.html?id=${produto.id}">${produto.nome}</a></h3>
+        <div class="avaliacao-produto">
+          ${renderizarEstrelas(produto.avaliacao)}
+          <span class="num-avaliacoes">(${produto.avaliacoes})</span>
+        </div>
+        <div class="preco-produto">
+          ${produto.desconto > 0 ? `<span class="preco-antigo">R$ ${(precoPrincipal / (1 - produto.desconto / 100)).toFixed(2)}</span>` : ''}
+          <span class="preco-atual">R$ ${precoPrincipal.toFixed(2)}</span>
+        </div>
+        <div class="parcelamento-produto">${produto.parcelamento}</div>
+        <div class="botoes-compra-card">
+            ${produto.linkMercadoLivre ? `<a href="${produto.linkMercadoLivre}" target="_blank" class="botao-mercadolivre"><i class="fas fa-shopping-cart"></i> Mercado Livre <span class="preco-card">R$ ${produto.precoMercadoLivre.toFixed(2)}</span></a>` : ''}
+            ${produto.linkAmazon ? `<a href="${produto.linkAmazon}" target="_blank" class="botao-amazon"><i class="fab fa-amazon"></i> Amazon <span class="preco-card">R$ ${produto.precoAmazon.toFixed(2)}</span></a>` : ''}
+        </div>
+      </div>
+    `;
+
+    gradeProdutos.appendChild(card);
+  });
+
+  renderizarPaginacao();
+}
+
+// Renderizar estrelas de avaliação
+function renderizarEstrelas(avaliacao) {
+  let estrelas = '';
+  for (let i = 1; i <= 5; i++) {
+    if (i <= avaliacao) {
+      estrelas += '<i class="fas fa-star"></i>';
+    } else if (i - 0.5 <= avaliacao) {
+      estrelas += '<i class="fas fa-star-half-alt"></i>';
     } else {
-      // Usar gradiente
-      imagemHTML = `<div class="fundo-gradiente ${produto.imagemFallback || produto.imagem || 'gradiente-roxo'}"></div>`;
+      estrelas += '<i class="far fa-star"></i>';
     }
+  }
+  return `<div class="estrelas">${estrelas}</div>`;
+}
 
-    return `
-      <a href="pagina-produto.html?id=${produto.id}" class="cartao-link">
-        <div class="cartao-produto ${modoVisualizacao === 'lista' ? 'visualizacao-lista' : ''}" data-produto-id="${produto.id}">
-          <div class="imagem-produto">
-            ${imagemHTML}
-            <div class="badges-produto">
-              ${!produto.emEstoque ? '<span class="badge indisponivel">Indisponível</span>' : ''}
-            </div>
-            <button class="botao-favorito ${ehFavorito ? 'ativo' : ''}" onclick="event.preventDefault(); event.stopPropagation(); alternarFavorito(${produto.id})">
-              <i class="fas fa-heart"></i>
-            </button>
-          </div>
-          
-          <div class="conteudo-produto">
-            ${produto.marca ? `<div class="marca-produto">${produto.marca}</div>` : ''}
-            
-            <h3 class="nome-produto">${produto.nome}</h3>
-            
-            <div class="avaliacao-produto">
-              <div class="estrelas">
-                ${gerarEstrelas(produto.avaliacao)}
-              </div>
-              <span class="numero-avaliacoes">(${produto.avaliacoes})</span>
-            </div>
-            
-            <div class="preco-produto">
-              ${produto.precoOriginal ? `<span class="preco-original">R$ ${produto.precoOriginal.toFixed(2).replace('.', ',')}</span>` : ''}
-              <div class="preco-atual">R$ ${produto.preco.toFixed(2).replace('.', ',')}</div>
-              ${produto.desconto > 0 ? `<div class="percentual-desconto">-${produto.desconto}%</div>` : ''}
-            </div>
-            
-            <div class="parcelamento">${produto.parcelamento}</div>
+// Alternar favorito
+function alternarFavorito(id, botao) {
+  if (favoritos.includes(id)) {
+    favoritos = favoritos.filter(favId => favId !== id);
+    botao.classList.remove('ativo');
+  } else {
+    favoritos.push(id);
+    botao.classList.add('ativo');
+  }
+  localStorage.setItem('favoritos', JSON.stringify(favoritos));
+}
 
-            
-            <div class="status-produto">
-              ${produto.emEstoque ? '<div class="status-item em-estoque"><i class="fas fa-check"></i> Em estoque</div>' : ''}
-            </div>
-          </div>
-
-          <!-- Botões de Ação -->
-          <div class="acoes-produto">
-            ${produto.linkMercadoLivre && produto.precoMercadoLivre ? `
-            <a href="${produto.linkMercadoLivre}" target="_blank" rel="noopener noreferrer" class="btn-mercado-livre-card">
-              Mercado Livre <span class="preco-comparativo">R$ ${produto.precoMercadoLivre.toFixed(2).replace(".", ",")}</span>
-            </a>
-            ` : ``}
-            ${produto.linkAmazon && produto.precoAmazon ? `
-            <a href="${produto.linkAmazon}" target="_blank" rel="noopener noreferrer" class="btn-amazon-card">
-              Amazon <span class="preco-comparativo">R$ ${produto.precoAmazon.toFixed(2).replace(".", ",")}</span>
-            </a>
-            ` : ``}
-          </div>
-
-// Renderizar paginação minimalista
+// Renderizar paginação
 function renderizarPaginacao() {
-  if (!paginacao || paginacaoConfig.totalPaginas <= 1) {
-    if (paginacao) paginacao.style.display = 'none';
+  if (!paginacao) return;
+
+  paginacao.innerHTML = '';
+
+  if (paginacaoConfig.totalPaginas <= 1) {
+    paginacao.style.display = 'none';
     return;
   }
 
   paginacao.style.display = 'flex';
 
-  let paginacaoHTML = '';
-
-  // Botão anterior
-  paginacaoHTML += `<button class="botao-paginacao anterior" ${paginacaoConfig.paginaAtual === 1 ? 'disabled' : ''} onclick="irParaPagina(${paginacaoConfig.paginaAtual - 1})">
-    <i class="fas fa-chevron-left"></i>
-  </button>`;
-
-  // Lógica para mostrar páginas
-  const paginaAtual = paginacaoConfig.paginaAtual;
-  const totalPaginas = paginacaoConfig.totalPaginas;
-
-  // Sempre mostrar primeira página
-  if (paginaAtual > 3) {
-    paginacaoHTML += `<button class="botao-paginacao" onclick="irParaPagina(1)">1</button>`;
-    if (paginaAtual > 4) {
-      paginacaoHTML += `<span class="separador-paginacao">...</span>`;
-    }
-  }
-
-  // Páginas ao redor da atual
-  const inicio = Math.max(1, paginaAtual - 2);
-  const fim = Math.min(totalPaginas, paginaAtual + 2);
-
-  for (let i = inicio; i <= fim; i++) {
-    paginacaoHTML += `<button class="botao-paginacao ${i === paginaAtual ? 'ativo' : ''}" onclick="irParaPagina(${i})">
-      ${i}
-    </button>`;
-  }
-
-  // Sempre mostrar última página
-  if (paginaAtual < totalPaginas - 2) {
-    if (paginaAtual < totalPaginas - 3) {
-      paginacaoHTML += `<span class="separador-paginacao">...</span>`;
-    }
-    paginacaoHTML += `<button class="botao-paginacao" onclick="irParaPagina(${totalPaginas})">${totalPaginas}</button>`;
-  }
-
-  // Botão próximo
-  paginacaoHTML += `<button class="botao-paginacao proximo" ${paginacaoConfig.paginaAtual === totalPaginas ? 'disabled' : ''} onclick="irParaPagina(${paginacaoConfig.paginaAtual + 1})">
-    <i class="fas fa-chevron-right"></i>
-  </button>`;
-
-  paginacao.innerHTML = paginacaoHTML;
-}
-
-// Ir para página específica
-function irParaPagina(numeroPagina) {
-  if (numeroPagina >= 1 && numeroPagina <= paginacaoConfig.totalPaginas) {
-    paginacaoConfig.paginaAtual = numeroPagina;
+  // Botão "Anterior"
+  const botaoAnterior = document.createElement('button');
+  botaoAnterior.textContent = 'Anterior';
+  botaoAnterior.disabled = paginacaoConfig.paginaAtual === 1;
+  botaoAnterior.addEventListener('click', () => {
+    paginacaoConfig.paginaAtual--;
     renderizarProdutos();
-    renderizarPaginacao();
+    window.scrollTo(0, 0);
+  });
+  paginacao.appendChild(botaoAnterior);
 
-    // Scroll suave para o topo da área de produtos
-    const areaProdutos = document.querySelector('.area-produtos');
-    if (areaProdutos) {
-      areaProdutos.scrollIntoView({ 
-        behavior: 'smooth', 
-        block: 'start' 
-      });
-    }
-  }
-}
-
-// Gerar HTML das estrelas
-function gerarEstrelas(avaliacao) {
-  let htmlEstrelas = '';
-  for (let i = 1; i <= 5; i++) {
-    htmlEstrelas += `<i class="fas fa-star estrela ${i <= Math.floor(avaliacao) ? '' : 'vazia'}"></i>`;
-  }
-  return htmlEstrelas;
-}
-
-// Alternar favorito
-function alternarFavorito(idProduto) {
-  if (favoritos.includes(idProduto)) {
-    favoritos = favoritos.filter(id => id !== idProduto);
-  } else {
-    favoritos.push(idProduto);
+  // Números das páginas
+  for (let i = 1; i <= paginacaoConfig.totalPaginas; i++) {
+    const botaoPagina = document.createElement('button');
+    botaoPagina.textContent = i;
+    botaoPagina.className = paginacaoConfig.paginaAtual === i ? 'ativo' : '';
+    botaoPagina.addEventListener('click', () => {
+      paginacaoConfig.paginaAtual = i;
+      renderizarProdutos();
+      window.scrollTo(0, 0);
+    });
+    paginacao.appendChild(botaoPagina);
   }
 
-  localStorage.setItem('favoritos', JSON.stringify(favoritos));
-  renderizarProdutos();
+  // Botão "Próximo"
+  const botaoProximo = document.createElement('button');
+  botaoProximo.textContent = 'Próximo';
+  botaoProximo.disabled = paginacaoConfig.paginaAtual === paginacaoConfig.totalPaginas;
+  botaoProximo.addEventListener('click', () => {
+    paginacaoConfig.paginaAtual++;
+    renderizarProdutos();
+    window.scrollTo(0, 0);
+  });
+  paginacao.appendChild(botaoProximo);
 }
 
 // Limpar filtros
@@ -987,52 +872,34 @@ function limparFiltros() {
     avaliacaoMinima: 0,
     emEstoque: false,
     desconto: false,
-    freteGratis: false
+    freteGratis: false,
+    tags: []
   };
-
-  paginacaoConfig.paginaAtual = 1;
-  categoriaAtivaSelecionada = '';
-
+  
   // Limpar URL
   const url = new URL(window.location);
-  url.searchParams.delete('categoria');
-  url.searchParams.delete('subcategoria');
-  url.searchParams.delete('busca');
+  url.search = '';
   window.history.pushState({}, '', url);
 
-  // Resetar elementos do formulário
+  // Resetar campos do formulário
   if (campoBusca) campoBusca.value = '';
-  if (seletorMarca) seletorMarca.value = '';
+  if (seletorMarca) seletorMarca.selectedIndex = 0;
   if (faixaPrecoMinimo) faixaPrecoMinimo.value = 0;
   if (faixaPrecoMaximo) faixaPrecoMaximo.value = 15000;
+  if (spanPrecoMinimo) spanPrecoMinimo.textContent = 0;
+  if (spanPrecoMaximo) spanPrecoMaximo.textContent = 15000;
   if (filtroAvaliacao) filtroAvaliacao.value = 0;
+  if (valorAvaliacao) valorAvaliacao.textContent = 0;
   if (apenasEmEstoque) apenasEmEstoque.checked = false;
   if (apenasComDesconto) apenasComDesconto.checked = false;
   if (apenasFreteGratis) apenasFreteGratis.checked = false;
-  if (spanPrecoMinimo) spanPrecoMinimo.textContent = 0;
-  if (spanPrecoMaximo) spanPrecoMaximo.textContent = 15000;
-  if (valorAvaliacao) valorAvaliacao.textContent = 0;
 
-  // Ocultar banner
-  if (bannerCategoria) bannerCategoria.style.display = 'none';
-
+  paginacaoConfig.paginaAtual = 1;
+  categoriaAtivaSelecionada = '';
   renderizarCategoriasRelacionadas();
   aplicarFiltros();
 }
 
-// Função global para fechar menu (compatibilidade)
-function fecharMenu() {
-  const menuHamburger = document.getElementById('menu-hamburger');
-  if (menuHamburger) {
-    menuHamburger.classList.remove('ativo');
-  }
 }
 
-// Exportar funções para uso global
-if (typeof window !== 'undefined') {
-  window.navegarParaCategoria = navegarParaCategoria;
-  window.irParaPagina = irParaPagina;
-  window.alternarFavorito = alternarFavorito;
-  window.limparFiltros = limparFiltros;
-  window.fecharMenu = fecharMenu;
-}
+
