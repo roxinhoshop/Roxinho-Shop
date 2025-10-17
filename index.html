@@ -178,8 +178,8 @@
       data = data.replace(/src="\.\./scripts/g, 'src="src/scripts');
       
       // Corrigir links para páginas HTML (com ou sem parâmetros)
-      // Exceto quando já tem src/paginas/ ou começa com ../..
-      data = data.replace(/href="(?!src\/paginas\/)(?!\.\.\/\.\.\/|\/)([a-z\-]+)\.html/g, 'href="src/paginas/$1.html');
+      // Exceto quando já tem src/paginas/ ou começa com / ou ../..
+      data = data.replace(/href="(?!src\/paginas\/)(?!http)(?!\/)(?!\.\.\/\.\.)([a-z\-]+)\.html/g, 'href="src/paginas/$1.html');
       
       const parser = new DOMParser();
       const doc = parser.parseFromString(data, 'text/html');
