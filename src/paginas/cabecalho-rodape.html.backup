@@ -20,9 +20,12 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="../estilos/layouts/cabecalho-rodape.css">
-  <link rel="stylesheet" href="../estilos/componentes/notificacoes.css">
+  <link rel="stylesheet" href="../estilos/componentes/notificacoes-fluent.css">
+  <link rel="stylesheet" href="../estilos/componentes/busca-global.css">
+  <link rel="stylesheet" href="../estilos/temas/gradiente-hover-global.css">
 </head>
-<script src="../scripts/componentes/notificacoes.js"></script>
+<script src="../scripts/componentes/notificacoes-fluent.js"></script>
+<script src="../scripts/componentes/busca-global.js"></script>
 
   <!-- ======================= CABEÇALHO ======================= -->
   <nav class="cabecalho">
@@ -57,12 +60,6 @@
           <i class="fas fa-moon" id="theme-icon"></i>
         </button>
 
-        <!-- ⚙️ Botão de Administração (Apenas para Admin) -->
-        <a href="administracao.html" class="caixa-configuracoes" id="link-admin" style="display: none;">
-          <i class="fa-solid fa-gear icone-configuracoes"></i>
-          <span class="texto-configuracoes">Admin</span>
-        </a>
-
         <!-- 🔹 Caixinha de Login -->
         <div class="caixa-entre" id="caixa-login">
           <img src="../recursos/imagens/default.png" alt="Avatar" class="avatar" id="avatar-usuario">         <div class="texto" id="texto-login">
@@ -73,7 +70,12 @@
           <!-- Dropdown do usuário logado -->
           <div id="dropdown-usuario" class="dropdown-usuario" style="display: none;">
             <div class="opcoes-usuario">
-              <a href="#" id="link-painel-dropdown"><i class="fa-solid fa-user-circle"></i> <span id="texto-painel">Painel</span></a>
+              <a href="administracao.html" id="link-painel-admin" style="display: none;">
+                <i class="fa-solid fa-shield-halved"></i> Painel Admin
+              </a>
+              <a href="painel-usuario.html" id="link-painel-usuario">
+                <i class="fa-solid fa-user-circle"></i> Meu Painel
+              </a>
               <a href="#" id="botao-logout"><i class="fa-solid fa-sign-out-alt"></i> Sair da Conta</a>
             </div>
           </div>
@@ -85,8 +87,12 @@
 <div class="barra-categorias">
     <ul>
         <li class="dropdown">
-            <a href="#"><i class="fa-solid fa-bars"></i> DEPARTAMENTOS</a>
-            <ul class="submenu">
+            <a href="#" id="btn-departamentos"><i class="fa-solid fa-bars"></i> DEPARTAMENTOS</a>
+            <div class="popup-departamentos" id="popup-departamentos" style="display: none;">
+            <div class="popup-content">
+            <button class="popup-close" id="popup-close">×</button>
+            <h3>Departamentos</h3>
+            <div class="categorias-grid">
                 <li class="tem-submenu">
                     <a href="produtos.html?categoria=Hardware">Hardware <i class="fa-solid fa-chevron-right seta"></i></a>
                     <ul class="submenu">
@@ -214,8 +220,9 @@
                         <li><a href="produtos.html?categoria=Energia&subcategoria=Carregadores">Carregadores</a></li>
                         <li><a href="produtos.html?categoria=Energia&subcategoria=Cabos%20de%20Força">Cabos de Força</a></li>
                     </ul>
-                </li>
-            </ul>
+                </div>
+            </div>
+            </div>
         </li>
         <li><a href="produtos.html?categoria=Promoções">Promoções</a></li>
         <li><a href="produtos.html?categoria=Mais Vendidos">Mais Vendidos</a></li>
@@ -238,7 +245,9 @@
       <div>
     <div class="rodape-logo">
       <!-- Logo da loja -->
-      <img src="../recursos/imagens/logop.png" alt="Logo Roxinho Shop" class="logo">
+      <a href="../../index.html">
+        <img src="../recursos/imagens/logop.png" alt="Logo Roxinho Shop" class="logo">
+      </a>
         </div>
         <p class="copy">Todos os direitos reservados © 2025</p>
         <div class="rodape-redes">
@@ -264,19 +273,8 @@
         </ul>
       </div>
 
-      <!-- Formas de pagamento e Newsletter (lado a lado) -->
-      <div class="rodape-pagamento-newsletter">
-        <div class="rodape-pagamento">
-          <h3>Formas de pagamento</h3>
-          <div class="payment-icons">
-            <img src="../recursos/imagens/pix.png" alt="Pix">
-            <img src="../recursos/imagens/visa.png" alt="Visa">
-            <img src="../recursos/imagens/mastercard.webp" alt="Mastercard">
-            <img src="../recursos/imagens/nubank.webp" alt="Nubank">
-            <img src="../recursos/imagens/boleto.png" alt="Boleto">
-          </div>
-        </div>
-
+      <!-- Newsletter -->
+      <div class="rodape-newsletter-container">
         <div class="rodape-newsletter">
           <h3>Newsletter</h3>
           <form class="newsletter-form">
@@ -447,6 +445,33 @@ document.querySelectorAll(".fade-slide").forEach((el) => {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Pop-up de Departamentos
+  const btnDepartamentos = document.getElementById('btn-departamentos');
+  const popupDepartamentos = document.getElementById('popup-departamentos');
+  const popupClose = document.getElementById('popup-close');
+  
+  if (btnDepartamentos && popupDepartamentos) {
+    btnDepartamentos.addEventListener('click', function(e) {
+      e.preventDefault();
+      popupDepartamentos.style.display = 'flex';
+    });
+  }
+  
+  if (popupClose && popupDepartamentos) {
+    popupClose.addEventListener('click', function() {
+      popupDepartamentos.style.display = 'none';
+    });
+  }
+  
+  // Fechar ao clicar fora do pop-up
+  if (popupDepartamentos) {
+    popupDepartamentos.addEventListener('click', function(e) {
+      if (e.target === popupDepartamentos) {
+        popupDepartamentos.style.display = 'none';
+      }
+    });
+  }
+  
   const dropdownPrincipal = document.querySelector(".barra-categorias li.dropdown");
   const linkDepartamentos = document.querySelector(".barra-categorias li.dropdown > a");
   
@@ -635,5 +660,10 @@ document.addEventListener('DOMContentLoaded', function() {
     window.location.href = "entrar.html";
   });
   </script>
+
+  <!-- Carregar API de produtos e categorias dinâmicas -->
+  <script src="../scripts/componentes/modal-fluent.js"></script>
+  <script src="../scripts/componentes/api-produtos.js"></script>
+  <script src="../scripts/componentes/categorias-dinamicas.js"></script>
 </body>
 </html>
