@@ -184,9 +184,10 @@
       const parser = new DOMParser();
       const doc = parser.parseFromString(data, 'text/html');
 
-      const header = doc.querySelector('nav.cabecalho');
-      const categorias = doc.querySelector('.barra-categorias');
-      const footer = doc.querySelector('footer.rodape');
+      // Buscar elementos dentro do body do documento parseado
+      const header = doc.body ? doc.body.querySelector('nav.cabecalho') : doc.querySelector('nav.cabecalho');
+      const categorias = doc.body ? doc.body.querySelector('.barra-categorias') : doc.querySelector('.barra-categorias');
+      const footer = doc.body ? doc.body.querySelector('footer.rodape') : doc.querySelector('footer.rodape');
 
       if (header) {
         // Adicionar contador do carrinho ao cabeçalho
