@@ -152,11 +152,127 @@ document.addEventListener('click', (event) => {
 
 
 function fazerLogout() {
-    // Confirmar logout
-    if (!confirm('Deseja realmente sair da sua conta?')) {
-        return;
-    }
-    
+    // Criar modal de confirmação fluent design
+    mostrarModalLogout();
+}
+
+function mostrarModalLogout() {
+    // Criar overlay
+    const overlay = document.createElement('div');
+    overlay.id = 'logout-modal-overlay';
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(4px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        animation: fadeIn 0.2s ease;
+    `;
+
+    // Criar modal
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        background: var(--cor-fundo-card, #ffffff);
+        border-radius: 12px;
+        padding: 24px;
+        max-width: 400px;
+        width: 90%;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        animation: slideUp 0.3s ease;
+    `;
+
+    modal.innerHTML = `
+        <div style="text-align: center;">
+            <div style="font-size: 48px; color: #f59e0b; margin-bottom: 16px;">
+                <i class="fas fa-sign-out-alt"></i>
+            </div>
+            <h3 style="margin: 0 0 8px 0; font-size: 20px; color: var(--cor-texto, #000);">Deseja realmente sair da conta?</h3>
+            <p style="margin: 0 0 24px 0; color: var(--cor-texto-secundario, #666); font-size: 14px;">Você precisará fazer login novamente para acessar sua conta.</p>
+            <div style="display: flex; gap: 12px; justify-content: center;">
+                <button id="btn-cancelar-logout" style="
+                    padding: 10px 24px;
+                    border: 2px solid var(--cor-primaria, #7c3aed);
+                    background: transparent;
+                    color: var(--cor-primaria, #7c3aed);
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    font-weight: 600;
+                    transition: all 0.2s;
+                ">
+                    Cancelar
+                </button>
+                <button id="btn-confirmar-logout" style="
+                    padding: 10px 24px;
+                    border: none;
+                    background: var(--cor-primaria, #7c3aed);
+                    color: white;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    font-weight: 600;
+                    transition: all 0.2s;
+                ">
+                    Sair da Conta
+                </button>
+            </div>
+        </div>
+    `;
+
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+
+    // Adicionar estilos de animação
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        #btn-cancelar-logout:hover {
+            background: var(--cor-primaria, #7c3aed);
+            color: white;
+        }
+        #btn-confirmar-logout:hover {
+            background: var(--cor-primaria-hover, #6d28d9);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Event listeners
+    document.getElementById('btn-cancelar-logout').addEventListener('click', () => {
+        overlay.remove();
+        style.remove();
+    });
+
+    document.getElementById('btn-confirmar-logout').addEventListener('click', () => {
+        overlay.remove();
+        style.remove();
+        executarLogout();
+    });
+
+    // Fechar ao clicar fora
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            overlay.remove();
+            style.remove();
+        }
+    });
+}
+
+function executarLogout() {
     // Limpar TODO o localStorage relacionado à autenticação
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("userId");
