@@ -89,30 +89,25 @@
 
         <!-- Botões Mercado Livre e Amazon -->
         <div class="botoes-acao">
-          <a href="https://www.mercadolivre.com.br" id="btnMercadoLivre" class="btn-marketplace btn-ml" target="_blank">
-            <i class="fas fa-shopping-bag"></i>
-            <span>Comprar no Mercado Livre</span>
-            <i class="fas fa-external-link-alt"></i>
-          </a>
-          <a href="https://www.amazon.com.br" id="btnAmazon" class="btn-marketplace btn-amazon" target="_blank">
-            <i class="fab fa-amazon"></i>
-            <span>Comprar na Amazon</span>
-            <i class="fas fa-external-link-alt"></i>
-          </a>
+            <div class="preco-marketplace" id="precoMercadoLivre"></div>
+            <a href="#" id="btnMercadoLivre" class="btn-marketplace btn-ml" target="_blank">
+              <i class="fas fa-shopping-bag"></i>
+              <span>Comprar no Mercado Livre</span>
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+            <div class="preco-marketplace" id="precoAmazon"></div>
+            <a href="#" id="btnAmazon" class="btn-marketplace btn-amazon" target="_blank">
+              <i class="fab fa-amazon"></i>
+              <span>Comprar na Amazon</span>
+              <i class="fas fa-external-link-alt"></i>
+            </a>
         </div>
       </div>     
 
-      <!-- Informações de Entrega -->
-      <div class="info-entrega">
-        <h4><i class="fa-solid fa-truck-fast"></i> Informações de Entrega</h4>
-        <div class="entrega-item">
-          <span class="entrega-label">Frete:</span>
-          <span class="entrega-valor" id="freteProduto"></span>
-        </div>
-        <div class="entrega-item">
-          <span class="entrega-label">Prazo de entrega:</span>
-          <span class="entrega-valor">2 a 5 dias úteis</span>
-        </div>
+      <!-- Descrição do Produto -->
+      <div class="descricao-completa">
+        <h4><i class="fa-solid fa-file-alt"></i> Descrição do Produto</h4>
+        <p id="descricaoProdutoCompleta"></p>
       </div>
     </div>
   </div>
@@ -269,12 +264,17 @@
 </div>
 
 <!-- Produtos Relacionados -->
-<div class="produtos-relacionados">
-  <h2>Produtos Relacionados</h2>
-  <div class="grade-relacionados" id="gradeRelacionados">
-    <!-- Produtos serão carregados via JavaScript -->
+<section class="produtos-relacionados">
+  <div class="container-produtos-relacionados">
+    <h2 class="titulo-secao">
+      <i class="fas fa-box"></i>
+      Produtos Relacionados
+    </h2>
+    <div class="grade-produtos-relacionados" id="gradeRelacionados">
+      <!-- Produtos serão carregados via JavaScript -->
+    </div>
   </div>
-</div>
+</section>
 
 <!-- Footer -->
 <div id="footer-placeholder"></div>
@@ -284,19 +284,6 @@
 <script src="../scripts/componentes/pagina-produto.js"></script>
 
 
-
-<!-- Produtos Relacionados -->
-<section class="produtos-relacionados">
-  <div class="container-produtos-relacionados">
-    <h2 class="titulo-secao">
-      <i class="fas fa-box"></i>
-      Produtos Relacionados
-    </h2>
-    <div class="grade-produtos-relacionados" id="produtosRelacionados">
-      <!-- Produtos serão carregados via JavaScript -->
-    </div>
-  </div>
-</section>
 
 <!-- Espaços para Banners -->
 <section class="banners-produto">

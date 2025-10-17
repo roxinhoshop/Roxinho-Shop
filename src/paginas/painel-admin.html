@@ -336,13 +336,41 @@
                 <div class="cabecalho-secao">
                     <h1>Gerenciar Produtos</h1>
                     <div>
-                        <button id="btn-importar-produto" class="btn btn-primario">
-                            <i class="fas fa-link"></i> Importar via Link
-                        </button>
-                        <button class="btn btn-sucesso">
+
+                        <button id="btn-adicionar-produto" class="btn btn-sucesso">
                             <i class="fas fa-plus"></i> Adicionar Produto
                         </button>
                     </div>
+                </div>
+                <div id="formulario-adicionar-produto" style="display: none;">
+                        <form id="form-adicionar-produto">
+        <div class="grupo-input">
+            <label for="produto-nome">Nome do Produto</label>
+            <input type="text" id="produto-nome" required>
+        </div>
+        <div class="grupo-input">
+            <label for="produto-descricao">Descrição</label>
+            <textarea id="produto-descricao" rows="4" required></textarea>
+        </div>
+        <div class="grupo-input">
+            <label for="produto-preco-ml">Preço Mercado Livre</label>
+            <input type="number" id="produto-preco-ml" step="0.01" required>
+        </div>
+        <div class="grupo-input">
+            <label for="produto-preco-amazon">Preço Amazon</label>
+            <input type="number" id="produto-preco-amazon" step="0.01" required>
+        </div>
+        <div class="grupo-input">
+            <label for="produto-categoria">Categoria</label>
+            <select id="produto-categoria" required></select>
+        </div>
+        <div class="grupo-input">
+            <label for="produto-imagem-url">URL da Imagem</label>
+            <input type="text" id="produto-imagem-url" required>
+        </div>
+        <button type="submit" class="btn btn-sucesso">Salvar Produto</button>
+        <button type="button" id="btn-cancelar-adicionar" class="btn btn-secundario">Cancelar</button>
+    </form>
                 </div>
                 <div id="lista-produtos" class="grid-produtos">
                     <p>Carregando produtos...</p>

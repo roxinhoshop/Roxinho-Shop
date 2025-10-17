@@ -3,22 +3,12 @@
  * Interface mais interativa e intuitiva
  */
 
-// Estado global
-let currentPreviewData = null;
-let allProducts = [];
-let filteredProducts = [];
-
 // ======================= INICIALIZAÇÃO =======================
 document.addEventListener('DOMContentLoaded', () => {
     initializeTabs();
-    initializeImportForm();
     initializeProductSearch();
-    
-    // Carregar produtos ao abrir a aba
-    const productsTab = document.querySelector('[data-tab="products"]');
-    if (productsTab) {
-        productsTab.addEventListener('click', loadProducts);
-    }
+    loadProducts(); // Carrega produtos inicialmente ao carregar a página de produtos
+    initializeAddProductForm();
 });
 
 // ======================= TABS =======================
@@ -47,147 +37,9 @@ function initializeTabs() {
     });
 }
 
-// ======================= IMPORTAR PRODUTO =======================
-function initializeImportForm() {
-    const form = document.getElementById('import-form');
-    if (!form) return;
-    
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        await importProduct();
-    });
-    
-    // Confirmar importação
-    const btnConfirm = document.getElementById('btn-confirm-import');
-    if (btnConfirm) {
-        btnConfirm.addEventListener('click', confirmImport);
-    }
-    
-    // Cancelar importação
-    const btnCancel = document.getElementById('btn-cancel-import');
-    if (btnCancel) {
-        btnCancel.addEventListener('click', cancelImport);
-    }
-}
-
-async function importProduct() {
-    const urlInput = document.getElementById('product-url');
-    const btnImport = document.querySelector('.btn-import');
-    
-    if (!urlInput || !btnImport) return;
-    
-    const url = urlInput.value.trim();
-    
-    // Validar URL
-    if (!url) {
-        await alertaFluent('Atenção', 'Por favor, cole o link do produto', 'fas fa-exclamation-triangle');
-        return;
-    }
-    
-    if (!url.includes('amazon') && !url.includes('mercado')) {
-        await alertaFluent('URL Inválida', 'Use links da Amazon ou Mercado Livre', 'fas fa-exclamation-triangle');
-        return;
-    }
-    
-    // Loading
-    const originalHTML = btnImport.innerHTML;
-    btnImport.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Importando...';
-    btnImport.disabled = true;
-    
-    try {
-        // Fazer requisição direta para a API
-        const response = await fetch(`${window.API_BASE_URL}/product-scraper/extract-from-url`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ url: url })
-        });
-        
-        const data = await response.json();
-        
-        if (!data.success) {
-            throw new Error(data.message || 'Erro ao extrair produto');
-        }
-        
-        // Salvar produto no banco
-        const saveResponse = await fetch(`${window.API_BASE_URL}/produtos`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data.product)
-        });
-        
-        const saveData = await saveResponse.json();
-        
-        if (saveData.success) {
-            await alertaFluent('Sucesso!', 'Produto importado com sucesso!', 'fas fa-check-circle');
-            urlInput.value = '';
-            loadProducts();
-        } else {
-            throw new Error(saveData.message || 'Erro ao salvar produto');
-        }
-        
-        btnImport.innerHTML = originalHTML;
-        btnImport.disabled = false;
-    } catch (error) {
-        console.error('Erro ao importar:', error);
-        await alertaFluent('Erro', error.message || 'Não foi possível importar o produto', 'fas fa-exclamation-triangle');
-        
-        btnImport.innerHTML = originalHTML;
-        btnImport.disabled = false;
-    }
-}
-
-async function confirmImport() {
-    if (!currentPreviewData) return;
-    
-    try {
-        const produto = {
-            nome: currentPreviewData.name,
-            descricao: currentPreviewData.description,
-            preco: currentPreviewData.price,
-            imagem: currentPreviewData.image,
-            categoria: 'eletronicos',
-            subcategoria: '',
-            origem: currentPreviewData.source,
-            link_original: currentPreviewData.url,
-            estoque: 10
-        };
-        
-        if (typeof criarProduto === 'function') {
-            await criarProduto(produto);
-            await alertaFluent('Sucesso!', 'Produto importado com sucesso!', 'fas fa-check-circle');
-            
-            // Limpar preview
-            cancelImport();
-            
-            // Recarregar lista de produtos
-            loadProducts();
-        }
-    } catch (error) {
-        console.error('Erro ao salvar produto:', error);
-        await alertaFluent('Erro', 'Não foi possível salvar o produto', 'fas fa-exclamation-triangle');
-    }
-}
-
-function cancelImport() {
-    currentPreviewData = null;
-    const preview = document.getElementById('product-preview');
-    if (preview) {
-        preview.style.display = 'none';
-    }
-    const urlInput = document.getElementById('product-url');
-    if (urlInput) {
-        urlInput.value = '';
-    }
-}
-
 // ======================= PRODUTOS CADASTRADOS =======================
 async function loadProducts() {
     const container = document.getElementById('products-list');
-    const searchInput = document.getElementById('search-products');
     
     if (!container) {
         console.error('Container products-list não encontrado');
@@ -203,16 +55,11 @@ async function loadProducts() {
         const data = await response.json();
         
         let produtos = [];
-        // A API pode retornar {success: true, products: []} ou {status: 'success', products: []}
         if ((data.success || data.status === 'success') && data.products) {
             produtos = data.products;
-            console.log('Produtos carregados:', produtos.length);
         } else {
             console.warn('Estrutura de resposta inesperada:', data);
         }
-        
-        allProducts = produtos;
-        filteredProducts = produtos;
         
         renderProducts(produtos);
         
@@ -239,9 +86,9 @@ function renderProducts(produtos) {
             <div class="empty-state">
                 <i class="fas fa-box-open"></i>
                 <h3>Nenhum produto cadastrado</h3>
-                <p>Comece importando produtos da Amazon ou Mercado Livre</p>
-                <button onclick="document.querySelector('[data-tab=\\'import\\']').click()" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> Importar Primeiro Produto
+                <p>Comece adicionando produtos</p>
+                <button onclick="document.getElementById('btn-adicionar-produto').click()" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Adicionar Primeiro Produto
                 </button>
             </div>
         `;
@@ -278,35 +125,32 @@ function initializeProductSearch() {
     const searchInput = document.getElementById('search-products');
     if (!searchInput) return;
     
-    searchInput.addEventListener('input', (e) => {
+    searchInput.addEventListener('input', async (e) => {
         const query = e.target.value.toLowerCase().trim();
         
+        const response = await fetch(`${window.API_BASE_URL}/produtos`);
+        const data = await response.json();
+        let allProducts = [];
+        if ((data.success || data.status === 'success') && data.products) {
+            allProducts = data.products;
+        }
+
         if (!query) {
-            filteredProducts = allProducts;
+            renderProducts(allProducts);
         } else {
-            filteredProducts = allProducts.filter(produto => 
+            const filteredProducts = allProducts.filter(produto => 
                 produto.nome.toLowerCase().includes(query) ||
                 (produto.descricao && produto.descricao.toLowerCase().includes(query)) ||
                 (produto.categoria && produto.categoria.toLowerCase().includes(query))
             );
+            renderProducts(filteredProducts);
         }
-        
-        renderProducts(filteredProducts);
     });
 }
 
 // ======================= EDITAR PRODUTO =======================
 async function editProduct(id) {
     try {
-        // Buscar produto por ID
-        const produto = await buscarProduto(id);
-        
-        if (!produto) {
-            await alertaFluent('Erro', 'Produto não encontrado', 'fas fa-exclamation-triangle');
-            return;
-        }
-        
-        // Redirecionar para a página de edição com o ID do produto
         window.location.href = `editar-produto.html?id=${id}`;
     } catch (error) {
         console.error('Erro ao editar produto:', error);
@@ -326,18 +170,17 @@ async function deleteProduct(id, nome) {
     if (!confirmDelete) return;
     
     try {
-        if (typeof excluirProdutoAPI === 'function') {
-            const resultado = await excluirProdutoAPI(id);
-            if (resultado) {
-                loadProducts();
-            }
+        const response = await fetch(`${window.API_BASE_URL}/produtos/${id}`, { method: 'DELETE' });
+        const result = await response.json();
+
+        if (result.success) {
+            loadProducts();
         } else {
-            console.error('Função excluirProdutoAPI não encontrada');
-            await alertaFluent('Erro', 'Função de exclusão não disponível', 'fas fa-exclamation-triangle');
+            await alertaFluent('Erro', 'Não foi possível excluir o produto.', 'fas fa-exclamation-triangle');
         }
     } catch (error) {
         console.error('Erro ao excluir produto:', error);
-        await alertaFluent('Erro', 'Não foi possível excluir o produto', 'fas fa-exclamation-triangle');
+        await alertaFluent('Erro', 'Não foi possível excluir o produto.', 'fas fa-exclamation-triangle');
     }
 }
 
@@ -347,16 +190,16 @@ async function loadStats() {
     if (!container) return;
     
     try {
+        const response = await fetch(`${window.API_BASE_URL}/produtos`);
+        const data = await response.json();
         let produtos = [];
-        
-        if (typeof listarProdutos === 'function') {
-            produtos = await listarProdutos({});
+        if ((data.success || data.status === 'success') && data.products) {
+            produtos = data.products;
         }
         
         const totalProdutos = produtos.length;
         const totalValor = produtos.reduce((sum, p) => sum + parseFloat(p.preco || 0), 0);
         
-        // Contar produtos por origem
         const produtosAmazon = produtos.filter(p => 
             p.link_amazon || 
             (p.origem && p.origem.toLowerCase().includes('amazon'))
@@ -405,6 +248,105 @@ async function loadStats() {
     } catch (error) {
         console.error('Erro ao carregar estatísticas:', error);
         container.innerHTML = '<p class="error-message">Erro ao carregar estatísticas</p>';
+    }
+}
+
+// ======================= ADICIONAR PRODUTO (FORMULÁRIO) =======================
+async function loadCategoriesIntoSelect() {
+    const select = document.getElementById(\'categoria-produto\');
+    if (!select) return;
+
+    try {
+        const response = await fetch(`${window.API_BASE_URL}/categorias/all`);
+        const data = await response.json();
+        if (data.status === \'success\' && data.categories) {
+            select.innerHTML = \'<option value=\"\">Selecione uma categoria</option>\';
+            data.categories.forEach(categoria => {
+                select.innerHTML += `<option value="${categoria.id}">${categoria.nome}</option>`;
+            });
+        } else {
+            console.error(\'Erro ao carregar categorias:\', data.message);
+        }
+    } catch (error) {
+        console.error(\'Erro ao carregar categorias:\', error);
+    }
+}
+
+
+function initializeAddProductForm() {
+    const btnAdicionarProduto = document.getElementById('btn-adicionar-produto');
+    const formularioAdicionarProduto = document.getElementById('formulario-adicionar-produto');
+    const btnCancelarAdicionar = document.getElementById('btn-cancelar-adicionar');
+    const formAdicionarProduto = document.getElementById('form-adicionar-produto');
+
+    if (btnAdicionarProduto && formularioAdicionarProduto) {
+        btnAdicionarProduto.addEventListener('click', () => {
+            formularioAdicionarProduto.style.display = 'block';
+            loadCategoriesIntoSelect();
+        });
+    }
+
+    if (btnCancelarAdicionar && formularioAdicionarProduto) {
+        btnCancelarAdicionar.addEventListener('click', () => {
+            formularioAdicionarProduto.style.display = 'none';
+        });
+    }
+
+    if (formAdicionarProduto) {
+        formAdicionarProduto.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(formAdicionarProduto);
+            const produto = {
+                nome: formData.get('nome'),
+                descricao: formData.get('descricao'),
+                preco_mercado_livre: formData.get('preco_mercado_livre'),
+                preco_amazon: formData.get('preco_amazon'),
+                categoria: formData.get('categoria'),
+                imagem_url: formData.get('imagem_url'),
+            };
+
+            try {
+                const response = await fetch(`${window.API_BASE_URL}/produtos`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(produto)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    await alertaFluent('Sucesso!', 'Produto adicionado com sucesso!', 'fas fa-check-circle');
+                    formAdicionarProduto.reset();
+                    formularioAdicionarProduto.style.display = 'none';
+                    loadProducts();
+                } else {
+                    await alertaFluent('Erro', result.message || 'Não foi possível adicionar o produto.', 'fas fa-exclamation-triangle');
+                }
+            } catch (error) {
+                console.error('Erro ao adicionar produto:', error);
+                await alertaFluent('Erro', 'Não foi possível adicionar o produto.', 'fas fa-exclamation-triangle');
+            }
+        });
+    }
+}
+
+async function loadCategoriesIntoSelect() {
+    const select = document.getElementById('categoria-produto');
+    if (!select) return;
+
+    try {
+        const response = await fetch(`${window.API_BASE_URL}/categorias`);
+        const data = await response.json();
+        if (data.success) {
+            select.innerHTML = '<option value="">Selecione uma categoria</option>';
+            data.categories.forEach(categoria => {
+                select.innerHTML += `<option value="${categoria.nome}">${categoria.nome}</option>`;
+            });
+        }
+    } catch (error) {
+        console.error('Erro ao carregar categorias:', error);
     }
 }
 

@@ -330,7 +330,7 @@ body {
 }
 
 /* Delivery Information */
-.info-entrega {
+.descricao-completa {
   background: #F9FAFB;
   border: 1px solid var(--borda);
   border-radius: 20px;
@@ -339,7 +339,7 @@ body {
   margin-top: 15px;
 }
 
-.info-entrega h4 {
+.descricao-completa h4 {
   font-size: 16px;
   color: var(--texto-principal);
   margin-bottom: 15px;
@@ -348,28 +348,22 @@ body {
   gap: 8px;
 }
 
-.entrega-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 0;
+.descricao-completa p {
   font-size: 14px;
-}
-
-.entrega-label {
   color: var(--texto-secundario);
+  line-height: 1.6;
 }
 
-.entrega-valor {
+.preco-marketplace {
+  font-size: 1.1rem;
   font-weight: bold;
   color: var(--texto-principal);
+  margin-bottom: 5px;
+  text-align: center;
+  display: none; /* Escondido por padrão, será exibido via JS se houver preço */
 }
 
-.entrega-valor.gratis {
-  color: var(--cor-sucesso);
-}
-
-   SEÇÃO DE AVALIAÇÕES
-========================= */
+/* ========================= SEÇÃO DE AVALIAÇÕES ========================= */
 
 .secao-avaliacoes {
   max-width: 1200px;
@@ -1676,5 +1670,11 @@ body {
 
 [data-theme="dark"] .btn-amazon {
   background: linear-gradient(135deg, #FF8800 0%, #FF6600 100%);
+}
+
+
+
+.modal-avaliacao {
+  display: none;
 }
 
