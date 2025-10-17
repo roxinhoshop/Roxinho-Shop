@@ -65,15 +65,15 @@
 ## Próximas Fases (Pendentes)
 
 ### Fase 5: Página administração.html
-- ⏳ Sistema de adicionar produtos
-- ⏳ Aba de controle de produtos (editar/excluir)
-- ⏳ Aba de estatísticas
-- ⏳ Implementar cabeçalho sem barra de categorias
+- ✅ Sistema de adicionar produtos (já implementado)
+- ✅ Aba de controle de produtos (editar/excluir) (já implementado)
+- ✅ Aba de estatísticas (já implementado)
+- ✅ Cabeçalho sem barra de categorias criado (cabecalho-admin.html)
 
 ### Fase 6: Página pagina-produto.html
-- ⏳ Sistema de redirecionamento ao clicar no card
-- ⏳ Formulário de avaliação centralizado
-- ⏳ Produtos relacionados organizados
+- ✅ Sistema de redirecionamento ao clicar no card (já implementado)
+- ✅ Formulário de avaliação com fundo transparente (backdrop-filter)
+- ✅ Produtos relacionados organizados (já implementado)
 
 ### Fase 7: Sistema de Produtos e Categorias
 - ⏳ Unificar sistema de categorias
