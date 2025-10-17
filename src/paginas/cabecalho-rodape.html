@@ -87,8 +87,12 @@
 <div class="barra-categorias">
     <ul>
         <li class="dropdown">
-            <a href="#"><i class="fa-solid fa-bars"></i> DEPARTAMENTOS</a>
-            <ul class="submenu">
+            <a href="#" id="btn-departamentos"><i class="fa-solid fa-bars"></i> DEPARTAMENTOS</a>
+            <div class="popup-departamentos" id="popup-departamentos" style="display: none;">
+            <div class="popup-content">
+            <button class="popup-close" id="popup-close">×</button>
+            <h3>Departamentos</h3>
+            <div class="categorias-grid">
                 <li class="tem-submenu">
                     <a href="produtos.html?categoria=Hardware">Hardware <i class="fa-solid fa-chevron-right seta"></i></a>
                     <ul class="submenu">
@@ -216,8 +220,9 @@
                         <li><a href="produtos.html?categoria=Energia&subcategoria=Carregadores">Carregadores</a></li>
                         <li><a href="produtos.html?categoria=Energia&subcategoria=Cabos%20de%20Força">Cabos de Força</a></li>
                     </ul>
-                </li>
-            </ul>
+                </div>
+            </div>
+            </div>
         </li>
         <li><a href="produtos.html?categoria=Promoções">Promoções</a></li>
         <li><a href="produtos.html?categoria=Mais Vendidos">Mais Vendidos</a></li>
@@ -440,6 +445,33 @@ document.querySelectorAll(".fade-slide").forEach((el) => {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Pop-up de Departamentos
+  const btnDepartamentos = document.getElementById('btn-departamentos');
+  const popupDepartamentos = document.getElementById('popup-departamentos');
+  const popupClose = document.getElementById('popup-close');
+  
+  if (btnDepartamentos && popupDepartamentos) {
+    btnDepartamentos.addEventListener('click', function(e) {
+      e.preventDefault();
+      popupDepartamentos.style.display = 'flex';
+    });
+  }
+  
+  if (popupClose && popupDepartamentos) {
+    popupClose.addEventListener('click', function() {
+      popupDepartamentos.style.display = 'none';
+    });
+  }
+  
+  // Fechar ao clicar fora do pop-up
+  if (popupDepartamentos) {
+    popupDepartamentos.addEventListener('click', function(e) {
+      if (e.target === popupDepartamentos) {
+        popupDepartamentos.style.display = 'none';
+      }
+    });
+  }
+  
   const dropdownPrincipal = document.querySelector(".barra-categorias li.dropdown");
   const linkDepartamentos = document.querySelector(".barra-categorias li.dropdown > a");
   

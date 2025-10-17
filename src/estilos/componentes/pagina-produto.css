@@ -1617,3 +1617,64 @@ body {
   transform: none;
   box-shadow: none;
 }
+
+/* ======================= BOTÕES MARKETPLACE ======================= */
+.btn-marketplace {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.btn-marketplace:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-marketplace i:first-child {
+  font-size: 1.3rem;
+}
+
+.btn-marketplace i:last-child {
+  font-size: 0.9rem;
+  margin-left: auto;
+}
+
+.btn-ml {
+  background: linear-gradient(135deg, #FFE600 0%, #FFC700 100%);
+  color: #333;
+}
+
+.btn-ml:hover {
+  background: linear-gradient(135deg, #FFC700 0%, #FFB000 100%);
+}
+
+.btn-amazon {
+  background: linear-gradient(135deg, #FF9900 0%, #FF7700 100%);
+  color: white;
+}
+
+.btn-amazon:hover {
+  background: linear-gradient(135deg, #FF7700 0%, #FF5500 100%);
+}
+
+/* Modo Escuro */
+[data-theme="dark"] .btn-ml {
+  background: linear-gradient(135deg, #FFD700 0%, #FFB700 100%);
+  color: #1a1a1a;
+}
+
+[data-theme="dark"] .btn-amazon {
+  background: linear-gradient(135deg, #FF8800 0%, #FF6600 100%);
+}
+
