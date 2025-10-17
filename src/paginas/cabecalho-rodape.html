@@ -228,74 +228,69 @@
   <!-- ======================= RODAPÉ ======================= -->
   <footer class="rodape">
     <div class="rodape-container">
-
-      <!-- Logo + Redes -->
-      <div>
-    <div class="rodape-logo">
-      <!-- Logo da loja -->
-      <a href="../../index.html">
-        <img src="../recursos/imagens/logop.png" alt="Logo Roxinho Shop" class="logo">
-      </a>
+      
+      <!-- Seção 1: Logo e Descrição -->
+      <div class="rodape-secao rodape-logo-secao">
+        <div class="rodape-logo">
+          <a href="../../index.html">
+            <img src="../recursos/imagens/logop.png" alt="Logo Roxinho Shop" class="logo-rodape">
+          </a>
         </div>
-        <p class="copy">Todos os direitos reservados © 2025</p>
+        <p class="rodape-descricao">
+          Sua loja especializada em tecnologia, hardware e periféricos. As melhores marcas e produtos com preços competitivos.
+        </p>
         <div class="rodape-redes">
-          <a href="https://www.instagram.com/roxinhoshop_store"><i class="fa-brands fa-instagram"></i></a>
-          <a href="https://www.tiktok.com/@roxinhoshop_store"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="https://www.instagram.com/roxinhoshop_store" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="https://www.tiktok.com/@roxinhoshop_store" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+            <i class="fa-brands fa-tiktok"></i>
+          </a>
         </div>
       </div>
 
-      <!-- Links do Rodapé -->
-      <div>
-        <h3>Sobre nós</h3>
-        <ul>
-          <li><a href="sobre-nos.html">Quem somos</a></li>
-          <li><a href="historico.html"Contato</a></li>
+      <!-- Seção 2: Categorias da Loja -->
+      <div class="rodape-secao">
+        <h3 class="rodape-titulo">Categorias</h3>
+        <ul class="rodape-lista">
+          <li><a href="produtos.html?categoria=Hardware">Hardware</a></li>
+          <li><a href="produtos.html?categoria=Periféricos">Periféricos</a></li>
+          <li><a href="produtos.html?categoria=Computadores">Computadores</a></li>
+          <li><a href="produtos.html?categoria=Games">Games</a></li>
+          <li><a href="produtos.html?categoria=PC Gamer">PC Gamer</a></li>
         </ul>
       </div>
 
-      <div>
-        <h3>Políticas</h3>
-        <ul>
+      <!-- Seção 3: Conta e Login -->
+      <div class="rodape-secao">
+        <h3 class="rodape-titulo">Minha Conta</h3>
+        <ul class="rodape-lista">
+          <li><a href="entrar.html">Login</a></li>
+          <li><a href="cadastro.html">Cadastro</a></li>
+          <li><a href="painel-usuario.html">Meu Painel</a></li>
+        </ul>
+      </div>
+
+      <!-- Seção 4: Institucional -->
+      <div class="rodape-secao">
+        <h3 class="rodape-titulo">Institucional</h3>
+        <ul class="rodape-lista">
+          <li><a href="sobre-nos.html">Sobre Nós</a></li>
+          <li><a href="contato.html">Contato</a></li>
           <li><a href="termos.html">Termos e Condições</a></li>
-          <li><a href="politicas.html">Política de Segurança e Privacidade</a></li>
+          <li><a href="politicas.html">Política de Privacidade</a></li>
         </ul>
-      </div>
-
-      <!-- Newsletter -->
-      <div class="rodape-newsletter-container">
-        <div class="rodape-newsletter">
-          <h3>Newsletter</h3>
-          <form class="newsletter-form">
-            <input type="email" placeholder="Digite seu e-mail">
-            <button type="submit">ASSINAR</button>
-          </form>
-        </div>
       </div>
 
     </div>
+
+    <!-- Barra de Copyright -->
+    <div class="rodape-copyright">
+      <p>&copy; 2025 Roxinho Shop. Todos os direitos reservados.</p>
+      <p class="rodape-cnpj">CNPJ: 00.000.000/0001-00</p>
+    </div>
   </footer>
 
-    <script src="../scripts/utilitarios/cabecalho-rodape.js"></script>
-    
-
-  <!-- JS -->
-  <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const campoBusca = document.getElementById('campo-busca-global');
-  const botaoBusca = document.getElementById('botao-busca-global');
-  const sugestoesBusca = document.getElementById('sugestoes-busca');
-  
-  if (campoBusca && botaoBusca) {
-    // Função de busca
-    function executarBusca() {
-      const termo = campoBusca.value.trim();
-      if (termo) {
-        // Redirecionar para página de produtos com termo de busca
-        window.location.href = `produtos.html?busca=${encodeURIComponent(termo)}`;
-      }
-    }
-    
-    // Event listeners
     botaoBusca.addEventListener('click', executarBusca);
     
     campoBusca.addEventListener('keypress', function(e) {
@@ -573,7 +568,74 @@ function debugDropdown() {
 
 // Executar debug se necessário (remover em produção)
 // debugDropdown();
-
+document.addEventListener('DOMContentLoaded', function() {
+  const inputCep = document.getElementById('input-cep');
+  const resultadoCep = document.getElementById('resultado-cep');
+  
+  if (inputCep && resultadoCep) {
+    // Máscara para CEP
+    inputCep.addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length > 5) {
+        value = value.replace(/^(\d{5})(\d)/, '$1-$2');
+      }
+      e.target.value = value;
+      
+      // Consultar CEP quando tiver 8 dígitos
+      if (value.replace(/\D/g, '').length === 8) {
+        consultarCEP(value.replace(/\D/g, ''));
+      } else if (value.length === 0) {
+        resultadoCep.textContent = 'Consultar frete';
+        resultadoCep.className = 'resultado-cep';
+      }
+    });
+    
+    // Consultar CEP ao pressionar Enter
+    inputCep.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        const cep = e.target.value.replace(/\D/g, '');
+        if (cep.length === 8) {
+          consultarCEP(cep);
+        }
+      }
+    });
+  }
+  
+  function consultarCEP(cep) {
+    if (!resultadoCep) return;
+    
+    resultadoCep.textContent = 'Consultando...';
+    resultadoCep.className = 'resultado-cep loading';
+    
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.erro) {
+          resultadoCep.textContent = 'CEP não encontrado';
+          resultadoCep.className = 'resultado-cep error';
+        } else {
+          resultadoCep.textContent = `${data.localidade} - ${data.uf}`;
+          resultadoCep.className = 'resultado-cep success';
+          
+          // Calcular frete simulado
+          setTimeout(() => {
+            const freteGratis = Math.random() > 0.5;
+            if (freteGratis) {
+              resultadoCep.textContent = 'Frete grátis!';
+            } else {
+              const valorFrete = (Math.random() * 20 + 5).toFixed(2);
+              resultadoCep.textContent = `Frete: R$ ${valorFrete}`;
+            }
+          }, 1500);
+        }
+      })
+      .catch(error => {
+        console.error('Erro ao consultar CEP:', error);
+        resultadoCep.textContent = 'Erro na consulta';
+        resultadoCep.className = 'resultado-cep error';
+      });
+  }
+});
 
   // Event listener da caixa de login é gerenciado por cabecalho-autenticacao.js
   </script>
