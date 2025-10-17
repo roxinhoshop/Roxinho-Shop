@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     dataNascimentoInput.addEventListener("change", validarDataNascimento);
     senhaInput.addEventListener("input", () => {
-        validarCampo(senhaInput, "Senha é obrigatória.", "A senha deve ter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.", /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, "A senha deve ter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.", 8);
+        validarCampo(senhaInput, "Senha é obrigatória.", "A senha deve ter no mínimo 6 caracteres.", /^.{6,}$/, "A senha deve ter no mínimo 6 caracteres.", 6);
         verificarForcaSenha();
         if (confirmarSenhaInput.value) validarConfirmacaoSenha();
     });
@@ -116,8 +116,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const temEspecial = /[^a-zA-Z0-9]/.test(senha);
 
         // Pontuação baseada no comprimento
-        if (senha.length >= 8) forca += 20;
-        if (senha.length >= 12) forca += 20;
+        if (senha.length >= 6) forca += 20;
+        if (senha.length >= 10) forca += 20;
 
         // Pontuação baseada na variedade de caracteres
         let tiposCaracteres = 0;
@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (avisoSenhaCurta) {
-            if (senha.length > 0 && senha.length < 8) {
+            if (senha.length > 0 && senha.length < 6) {
                 avisoSenhaCurta.style.display = "flex";
             } else {
                 avisoSenhaCurta.style.display = "none";
@@ -250,7 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let emailValido = validarCampo(emailInput, "E-mail é obrigatório.", null, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, "E-mail inválido.");
         let telefoneValido = validarCampo(telefoneInput, "Telefone é obrigatório.", "Telefone inválido.", /^\(\d{2}\)\s\d{4,5}-\d{4}$|^\(\d{2}\)\s\d{4}-\d{4}$/, "Telefone inválido.");
         let dataNascimentoValida = validarDataNascimento();
-        let senhaValida = validarCampo(senhaInput, "Senha é obrigatória.", "A senha deve ter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.", /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, "A senha deve ter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.", 8);
+        let senhaValida = validarCampo(senhaInput, "Senha é obrigatória.", "A senha deve ter no mínimo 6 caracteres.", /^.{6,}$/, "A senha deve ter no mínimo 6 caracteres.", 6);
         let confirmarSenhaValida = validarConfirmacaoSenha();
         let termosValidos = validarTermos();
 

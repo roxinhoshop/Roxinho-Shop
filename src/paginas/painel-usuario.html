@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Usuário | Roxinho Shop</title>
+    <title>Configurações | Roxinho Shop</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="../estilos/layouts/cabecalho-rodape.css">
@@ -50,8 +50,8 @@
                             </li>
                             <li class="item-navegacao">
                                 <a href="#" class="link-navegacao" data-section="historico">
-                                    <i class="fas fa-eye"></i>
-                                    <span>Produtos Vistos</span>
+                                    <i class="fas fa-history"></i>
+                                    <span>Histórico</span>
                                 </a>
                             </li>
                         </ul>
@@ -64,7 +64,7 @@
                     <div class="breadcrumb-dinamico">
                         <span class="texto-voce-esta-em">Você está em:</span>
                         <div class="caminho">
-                            <span class="item-caminho">Painel</span>
+                            <span class="item-caminho">Configurações</span>
                             <span class="separador">></span>
                             <span class="item-caminho ativo" id="breadcrumb-atual">Perfil</span>
                         </div>
@@ -72,7 +72,7 @@
                     
                     <div class="banner-categoria">
                         <div class="conteudo-banner">
-                            <h2 class="titulo-categoria" id="titulo-secao">Perfil</h2>
+                            <h2 class="titulo-categoria" id="titulo-secao">Configurações</h2>
                         </div>
                     </div>
 
@@ -136,36 +136,6 @@
                                     <input type="password" id="confirmar-nova-senha" name="confirmar-nova-senha" class="input-preco">
                                 </div>
 
-                                <hr>
-
-                                <h3>Autenticação de Dois Fatores (2FA)</h3>
-                                <div class="grupo-formulario">
-                                    <div class="campo-formulario">
-                                        <label class="switch">
-                                            <input type="checkbox" id="toggle-2fa">
-                                            <span class="slider round"></span>
-                                        </label>
-                                        <span style="margin-left: 10px;">Habilitar 2FA</span>
-                                    </div>
-                                </div>
-
-                                <div id="2fa-setup-area" style="display: none;">
-                                    <p>Para habilitar o 2FA, escaneie o QR Code abaixo com seu aplicativo autenticador (ex: Google Authenticator) ou insira o código manualmente.</p>
-                                    <div id="qrcode-2fa" style="margin: 15px 0;"></div>
-                                    <p>Seu código secreto: <strong id="2fa-secret-text"></strong></p>
-                                    <button type="button" id="generate-2fa-secret-btn" class="botao-secundario">Gerar Novo Segredo 2FA</button>
-                                    
-                                    <div class="campo-formulario" style="margin-top: 20px;">
-                                        <label for="2fa-code-input">Verificar Código 2FA</label>
-                                        <input type="text" id="2fa-code-input" placeholder="Insira o código do seu aplicativo" class="input-preco">
-                                        <button type="button" id="verify-2fa-setup-btn" class="botao-primario" style="margin-top: 10px;">Confirmar 2FA</button>
-                                    </div>
-                                </div>
-
-                                <div id="2fa-status-area" style="display: none;">
-                                    <p>Autenticação de Dois Fatores está <strong id="2fa-status-text"></strong>.</p>
-                                    <button type="button" id="disable-2fa-btn" class="botao-secundario">Desabilitar 2FA</button>
-                                </div>
                                 
                                 <div class="acoes-formulario">
                                     <button type="submit" class="botao-primario">Salvar Alterações</button>
