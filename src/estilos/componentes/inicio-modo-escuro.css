@@ -17,3 +17,45 @@
     background-color: #141414;
 }
 
+
+
+/* Correção de botões no modo escuro */
+:root[data-theme="dark"] .btn-adicionar-carrinho,
+:root[data-theme="dark"] .btn-comprar-direto {
+    color: #ffffff;
+}
+
+:root[data-theme="dark"] .btn-adicionar-carrinho:hover,
+:root[data-theme="dark"] .btn-comprar-direto:hover {
+    color: #ffffff;
+}
+
+:root[data-theme="dark"] .botao-ver-todos {
+    color: #ffffff;
+}
+
+:root[data-theme="dark"] .botao-ver-todos:hover {
+    color: #ffffff;
+}
+
+:root[data-theme="dark"] .card-produto-home {
+    background-color: #1a1a1a;
+    border: 1px solid rgba(144, 77, 219, 0.2);
+}
+
+:root[data-theme="dark"] .produto-nome {
+    color: #ffffff;
+}
+
+:root[data-theme="dark"] .produto-marca {
+    color: #a78bfa;
+}
+
+:root[data-theme="dark"] .preco-atual {
+    color: #ffffff;
+}
+
+:root[data-theme="dark"] .produto-parcelas {
+    color: #9ca3af;
+}
+

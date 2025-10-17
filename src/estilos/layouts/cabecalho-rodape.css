@@ -61,7 +61,7 @@ body {
 .logo-imagem {
   margin-left: 10px;
   margin-bottom: -5px;
-  height: 85px;
+  height: 110px;
   width: auto;
   object-fit: contain;
   transition: filter 0.3s ease;
@@ -258,11 +258,11 @@ body {
 .barra-categorias {
   display: flex;
   justify-content: center;
-  background: rgba(10, 10, 10, 0.95);
+  background: linear-gradient(135deg, rgba(144, 77, 219, 0.95) 0%, rgba(167, 139, 250, 0.95) 100%);
   backdrop-filter: blur(20px);
   padding: 0.75rem 2rem;
-  border-bottom: 1px solid rgba(144, 77, 219, 0.2);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(144, 77, 219, 0.3);
+  box-shadow: 0 4px 16px rgba(144, 77, 219, 0.3);
   position: relative;
   z-index: 100;
 }

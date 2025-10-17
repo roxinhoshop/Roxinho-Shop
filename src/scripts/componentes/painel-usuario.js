@@ -1,17 +1,42 @@
 document.addEventListener('DOMContentLoaded', function() {
   
   // ==================== CONFIGURAÇÕES GLOBAIS ====================
-  const painelConfig = {
-    usuario: {
-      id: 1,
-      nome: 'Gabriel',
-      sobrenome: 'Wagner',
-      email: 'gabriel@roxinhoshop.com',
+  
+  // Carregar dados reais do usuário do localStorage
+  function carregarDadosUsuario() {
+    const userEmail = localStorage.getItem('userEmail') || 'usuario@roxinhoshop.com';
+    const userName = localStorage.getItem('userName') || '';
+    const userFirstName = localStorage.getItem('userFirstName') || '';
+    const userId = localStorage.getItem('userId') || '1';
+    
+    // Extrair nome e sobrenome
+    let nome = userFirstName;
+    let sobrenome = '';
+    
+    if (!nome && userName) {
+      const partesNome = userName.split(' ');
+      nome = partesNome[0] || 'Usuário';
+      sobrenome = partesNome.slice(1).join(' ') || '';
+    } else if (!nome) {
+      // Usar email como fallback
+      nome = userEmail.split('@')[0];
+      nome = nome.charAt(0).toUpperCase() + nome.slice(1);
+    }
+    
+    return {
+      id: userId,
+      nome: nome,
+      sobrenome: sobrenome,
+      email: userEmail,
       avatar: null,
       nivel: 1,
       xp: 0,
       xpProximoNivel: 100
-    },
+    };
+  }
+  
+  const painelConfig = {
+    usuario: carregarDadosUsuario(),
     avatarPadrao: '../recursos/imagens/avatar-default.png'
   };
   

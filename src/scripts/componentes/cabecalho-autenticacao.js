@@ -175,6 +175,7 @@ function fazerLogout() {
     localStorage.removeItem("userEmail");
     localStorage.removeItem("isAdmin");
     localStorage.removeItem("userName");
+    localStorage.removeItem("userFirstName");
     
     // Disparar evento de mudança de autenticação
     window.dispatchEvent(new Event("authChange"));
@@ -184,15 +185,20 @@ function fazerLogout() {
         showNotification("Você saiu da sua conta com sucesso!", "success");
     }
     
-    // Redirecionar para home
+    // Atualizar interface imediatamente
+    atualizarEstadoLogin();
+    
+    // Redirecionar para home após um breve delay
     setTimeout(() => {
         const currentPath = window.location.pathname;
         if (currentPath === '/' || currentPath.endsWith('index.html')) {
+            // Já está na home, apenas recarregar
             window.location.reload();
         } else {
+            // Está em outra página, redirecionar para home
             window.location.href = "../../index.html";
         }
-    }, 500);
+    }, 800);
 }
 
 /**

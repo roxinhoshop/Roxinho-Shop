@@ -19,7 +19,36 @@ class SistemaAvaliacoes {
   inicializar() {
     this.carregarProdutoDaURL();
     this.configurarEventListeners();
+    this.carregarAvaliacoesLocalStorage(); // Carregar avaliações salvas
     this.gerarAvaliacoesFalsas(); // Simula dados até implementar BD
+  }
+  
+  // Salvar avaliação no localStorage
+  salvarAvaliacaoLocalStorage(avaliacao) {
+    try {
+      const avaliacoesStorage = JSON.parse(localStorage.getItem('avaliacoes_produtos') || '[]');
+      avaliacoesStorage.push(avaliacao);
+      localStorage.setItem('avaliacoes_produtos', JSON.stringify(avaliacoesStorage));
+    } catch (error) {
+      console.error('Erro ao salvar avaliação:', error);
+    }
+  }
+  
+  // Carregar avaliações do localStorage
+  carregarAvaliacoesLocalStorage() {
+    try {
+      const avaliacoesStorage = JSON.parse(localStorage.getItem('avaliacoes_produtos') || '[]');
+      // Filtrar avaliações do produto atual
+      const avaliacoesProduto = avaliacoesStorage.filter(av => av.produtoId === this.produtoAtual?.id);
+      // Converter datas de string para Date
+      avaliacoesProduto.forEach(av => {
+        av.data = new Date(av.data);
+      });
+      this.avaliacoes = avaliacoesProduto;
+    } catch (error) {
+      console.error('Erro ao carregar avaliações:', error);
+      this.avaliacoes = [];
+    }
   }
 
   // Carrega produto baseado no ID da URL
@@ -691,22 +720,52 @@ class SistemaAvaliacoes {
       return;
     }
 
-    // Simula envio (aqui conectaria com o backend)
+    // Obter dados reais do usuário do localStorage
+    const userEmail = localStorage.getItem('userEmail') || 'usuario@roxinhoshop.com';
+    const userName = localStorage.getItem('userName') || localStorage.getItem('userFirstName') || '';
+    
+    // Gerar nome de exibição e iniciais corretas
+    let displayName = userName;
+    let iniciais = 'US';
+    
+    if (userName) {
+      const partesNome = userName.trim().split(' ');
+      if (partesNome.length >= 2) {
+        // Primeira letra do primeiro nome + primeira letra do último nome
+        iniciais = partesNome[0].charAt(0).toUpperCase() + partesNome[partesNome.length - 1].charAt(0).toUpperCase();
+      } else {
+        // Apenas primeira e segunda letra do nome
+        iniciais = partesNome[0].substring(0, 2).toUpperCase();
+      }
+      displayName = userName;
+    } else {
+      // Usar email como fallback
+      const emailUser = userEmail.split('@')[0];
+      displayName = emailUser.charAt(0).toUpperCase() + emailUser.slice(1);
+      iniciais = emailUser.substring(0, 2).toUpperCase();
+    }
+    
+    // Criar nova avaliação
     const novaAvaliacao = {
-      id: this.avaliacoes.length + 1,
-      usuarioNome: 'Você',
-      usuarioAvatar: 'VO',
+      id: Date.now(), // Usar timestamp como ID único
+      usuarioNome: displayName,
+      usuarioAvatar: iniciais,
       nota: this.notaSelecionadaModal,
       titulo: titulo || 'Minha avaliação',
       comentario: comentario,
-      data: new Date(),
+      data: new Date().toISOString(),
       compraVerificada: true,
       fotos: this.fotosUpload.map(f => f.url),
       uteis: 0,
-      utilMarcado: false
+      utilMarcado: false,
+      produtoId: this.produtoAtual.id
     };
 
+    // Adicionar ao array de avaliações
     this.avaliacoes.unshift(novaAvaliacao);
+    
+    // Salvar no localStorage para persistência
+    this.salvarAvaliacaoLocalStorage(novaAvaliacao);
     this.atualizarResumoAvaliacoes();
     this.paginaAtual = 1;
     this.renderizarAvaliacoes();
