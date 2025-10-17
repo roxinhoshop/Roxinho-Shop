@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     dataNascimentoInput.addEventListener("change", validarDataNascimento);
     senhaInput.addEventListener("input", () => {
-        validarCampo(senhaInput, "Senha é obrigatória.", "A senha deve ter no mínimo 8 caracteres.", /^.{8,}$/, "A senha deve ter no mínimo 8 caracteres.", 8);
+        validarCampo(senhaInput, "Senha é obrigatória.", "A senha deve ter no mínimo 6 caracteres.", /^.{6,}$/, "A senha deve ter no mínimo 6 caracteres.", 6);
         verificarForcaSenha();
         if (confirmarSenhaInput.value) validarConfirmacaoSenha();
     });
@@ -116,8 +116,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const temEspecial = /[^a-zA-Z0-9]/.test(senha);
 
         // Pontuação baseada no comprimento
-        if (senha.length >= 8) forca += 20;
-        if (senha.length >= 12) forca += 20;
+        if (senha.length >= 6) forca += 20;
+        if (senha.length >= 10) forca += 20;
 
         // Pontuação baseada na variedade de caracteres
         let tiposCaracteres = 0;
@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (avisoSenhaCurta) {
-            if (senha.length > 0 && senha.length < 8) {
+            if (senha.length > 0 && senha.length < 6) {
                 avisoSenhaCurta.style.display = "flex";
             } else {
                 avisoSenhaCurta.style.display = "none";
@@ -211,22 +211,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const result = await response.json();
 
-            if (response.ok && result.message) {
-                // Salvar o primeiro nome do usuário no localStorage
+            if (result.success && result.token) {
+                // Salvar dados no localStorage
+                localStorage.setItem("jwtToken", result.token);
+                localStorage.setItem("token", result.token);
                 localStorage.setItem("userFirstName", data.nome);
+                
+                // Decodificar token para obter informações do usuário
+                const tokenPayload = JSON.parse(atob(result.token.split('.')[1]));
+                localStorage.setItem("userId", tokenPayload.userId);
+                localStorage.setItem("userEmail", tokenPayload.email);
+                localStorage.setItem("isAdmin", tokenPayload.isAdmin ? "true" : "false");
+                
+                // Disparar evento de mudança de autenticação
+                window.dispatchEvent(new Event("authChange"));
                 
                 // Mostrar animação de sucesso
                 if (window.showSuccessAnimation) {
                     showSuccessAnimation(
                         "Cadastro Realizado!",
-                        "Bem-vindo à Roxinho Shop! Redirecionando para o login...",
-                        "entrar.html",
+                        "Bem-vindo à Roxinho Shop!",
+                        "../../index.html",
                         2500
                     );
                 } else {
-                    window.showNotification("Cadastro realizado com sucesso! Você já pode fazer login.", "success");
+                    window.showNotification("Cadastro realizado com sucesso!", "success");
                     setTimeout(() => {
-                        window.location.href = "entrar.html?redirect=/index.html";
+                        window.location.href = "../../index.html";
                     }, 1500);
                 }
             } else {
@@ -250,7 +261,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let emailValido = validarCampo(emailInput, "E-mail é obrigatório.", null, /^[^\s@]+@[^\s@]+\.[^\s@]+$/, "E-mail inválido.");
         let telefoneValido = validarCampo(telefoneInput, "Telefone é obrigatório.", "Telefone inválido.", /^\(\d{2}\)\s\d{4,5}-\d{4}$|^\(\d{2}\)\s\d{4}-\d{4}$/, "Telefone inválido.");
         let dataNascimentoValida = validarDataNascimento();
-        let senhaValida = validarCampo(senhaInput, "Senha é obrigatória.", "A senha deve ter no mínimo 8 caracteres.", /^.{8,}$/, "A senha deve ter no mínimo 8 caracteres.", 8);
+        let senhaValida = validarCampo(senhaInput, "Senha é obrigatória.", "A senha deve ter no mínimo 6 caracteres.", /^.{6,}$/, "A senha deve ter no mínimo 6 caracteres.", 6);
         let confirmarSenhaValida = validarConfirmacaoSenha();
         let termosValidos = validarTermos();
 

@@ -62,15 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Validação de senha: Mínimo 8 caracteres
-        if (senha.length < 8) {
-            if (window.showNotification) {
-                showNotification("⚠️ A senha deve ter no mínimo 8 caracteres.", "warning");
-            } else {
-                alert("A senha deve ter no mínimo 8 caracteres.");
-            }
-            return;
-        }
+
 
         // Validar formato de email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
