@@ -1,135 +1,202 @@
 
-// ======================= CLIENTE API DE PRODUTOS =======================
-
-// Função para obter a URL da API
-function getAPIURL() {
-    return window.API_BASE_URL || 'https://roxinho-shop-backend.vercel.app/api';
-}
-
-// Estado do produto
-let produtoAtual = null;
-let ratingAtual = 0;
-
-// Inicialização
-document.addEventListener('DOMContentLoaded', () => {
-    carregarProduto();
-    configurarEventos();
-    loadHeaderFooter(); // Carregar cabeçalho e rodapé
-});
-
-// Obter ID do produto da URL
-function obterIdProduto() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('id');
-}
-
-// Carregar dados do produto
-async function carregarProduto() {
-    const id = obterIdProduto();
-    if (!id) {
-        window.location.href = '../index.html'; // Redireciona se não houver ID
-        return;
-    }
-
-    try {
-        const response = await fetch(`${getAPIURL()}/produtos/${id}`);
-        const data = await response.json();
-
-        if (data.success || data.status === 'success') {
-            produtoAtual = data.product;
-            renderizarProduto(produtoAtual);
-            // carregarComentarios(); // Comentários não fazem parte desta tarefa
-        } else {
-            throw new Error('Produto não encontrado');
+        // Configuração da API
+        window.API_BASE_URL = 'https://roxinho-shop-backend.vercel.app/api';
+        
+        // Estado do produto
+        let produtoAtual = null;
+        let ratingAtual = 0;
+        
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            carregarProduto();
+            configurarEventos();
+        });
+        
+        // Obter ID do produto da URL
+        function obterIdProduto() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
         }
-    } catch (error) {
-        console.error('Erro ao carregar produto:', error);
-        // Redirecionar para uma página de erro ou exibir mensagem
-        window.location.href = '../index.html'; // Redireciona em caso de erro
-    }
-}
-
-// Renderizar o produto na página
-function renderizarProduto(produto) {
-    // Atualizar título da página
-    document.title = `${produto.nome} | Roxinho Shop`;
-
-    document.getElementById("titulo-produto").textContent = produto.nome;
-    document.getElementById("descricao-conteudo").innerHTML = produto.descricao; // Descrição curta
-    document.getElementById("descricao-longa-conteudo").innerHTML = produto.descricao_longa; // Descrição longa
-    document.getElementById("imagem-principal").src = produto.imagem_principal;
-
-    const precoElement = document.getElementById("preco-atual");
-    const btnMercadoLivre = document.getElementById("btn-mercado-livre");
-    const btnAmazon = document.getElementById("btn-amazon");
-    const precoML = document.getElementById("preco-ml");
-    const precoAmazon = document.getElementById("preco-amazon");
-
-    // Lógica para exibir preços e botões
-    let precoPrincipal = produto.preco; // Preço padrão
-
-    if (produto.link_mercado_livre && produto.preco_mercado_livre) {
-        btnMercadoLivre.href = produto.link_mercado_livre;
-        precoML.textContent = `R$ ${produto.preco_mercado_livre.toFixed(2)}`;
-        btnMercadoLivre.style.display = "inline-block";
-        precoPrincipal = produto.preco_mercado_livre; // Define o ML como preço principal se disponível
-    } else {
-        btnMercadoLivre.style.display = "none";
-    }
-
-    if (produto.link_amazon && produto.preco_amazon) {
-        btnAmazon.href = produto.link_amazon;
-        precoAmazon.textContent = `R$ ${produto.preco_amazon.toFixed(2)}`;
-        btnAmazon.style.display = "inline-block";
-        if (!produto.link_mercado_livre) { // Se ML não estiver disponível, Amazon é o principal
-            precoPrincipal = produto.preco_amazon;
+        
+        // Carregar dados do produto
+        async function carregarProduto() {
+            const id = obterIdProduto();
+            if (!id) {
+                window.location.href = '../index.html';
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${window.API_BASE_URL}/produtos/${id}`);
+                const data = await response.json();
+                
+                if (data.success || data.status === 'success') {
+                    produtoAtual = data.product;
+                    renderizarProduto(produtoAtual);
+                    carregarComentarios();
+                } else {
+                    throw new Error('Produto não encontrado');
+                }
+            } catch (error) {
+                console.error('Erro ao carregar produto:', error);
+            }
         }
-    } else {
-        btnAmazon.style.display = "none";
-    }
 
-    precoElement.textContent = `R$ ${precoPrincipal.toFixed(2)}`;
+        // Renderizar o produto na página
+        function renderizarProduto(produto) {
+            document.getElementById("titulo-produto").textContent = produto.nome;
+            // Exibir o preço do Mercado Livre se disponível, caso contrário, o preço base
+            document.getElementById("preco-atual").textContent = `R$ ${(produto.preco_mercado_livre || produto.preco).toFixed(2)}`;
+            document.getElementById("descricao-conteudo").innerHTML = produto.descricao;
+            document.getElementById("imagem-principal").src = produto.imagem_principal;
+            
+            // Atualizar links de compra
+            const btnMercadoLivre = document.getElementById("btn-mercado-livre");
+            const btnAmazon = document.getElementById("btn-amazon");
+            const precoML = document.getElementById("preco-ml");
+            const precoAmazon = document.getElementById("preco-amazon");
 
-    // Galeria de miniaturas (se houver)
-    const galeriaMiniaturas = document.getElementById('galeria-miniaturas');
-    if (galeriaMiniaturas) {
-        galeriaMiniaturas.innerHTML = ''; // Limpa miniaturas existentes
-        // Adicionar a imagem principal como primeira miniatura
-        const mainThumbnail = document.createElement('img');
-        mainThumbnail.src = produto.imagem_principal;
-        mainThumbnail.alt = `Miniatura de ${produto.nome}`;
-        mainThumbnail.className = 'miniatura ativa';
-        mainThumbnail.onclick = () => trocarImagemPrincipal(mainThumbnail);
-        galeriaMiniaturas.appendChild(mainThumbnail);
+            if (produto.link_mercado_livre && produto.preco_mercado_livre) {
+                btnMercadoLivre.href = produto.link_mercado_livre;
+                precoML.textContent = `R$ ${produto.preco_mercado_livre.toFixed(2)}`;
+                btnMercadoLivre.style.display = "inline-block";
+            } else {
+                btnMercadoLivre.style.display = "none";
+            }
 
-        // Se houver outras imagens (ex: em um array produto.imagens_secundarias), adicione-as aqui
-        // Exemplo: produto.imagens_secundarias.forEach(imgUrl => {
-        //     const thumbnail = document.createElement('img');
-        //     thumbnail.src = imgUrl;
-        //     thumbnail.alt = `Miniatura de ${produto.nome}`;
-        //     thumbnail.className = 'miniatura';
-        //     thumbnail.onclick = () => trocarImagemPrincipal(thumbnail);
-        //     galeriaMiniaturas.appendChild(thumbnail);
-        // });
-    }
-}
+            if (produto.link_amazon && produto.preco_amazon) {
+                btnAmazon.href = produto.link_amazon;
+                precoAmazon.textContent = `R$ ${produto.preco_amazon.toFixed(2)}`;
+                btnAmazon.style.display = "inline-block";
+            } else {
+                btnAmazon.style.display = "none";
+            }
 
-// Função para trocar imagem principal na galeria
-function trocarImagemPrincipal(element) {
-    document.getElementById('imagem-principal').src = element.src;
-    document.querySelectorAll('.miniatura').forEach(img => img.classList.remove('ativa'));
-    element.classList.add('ativa');
-}
+            // Se apenas um link estiver disponível, exibir apenas o preço correspondente
+            if (btnMercadoLivre.style.display === "none" && btnAmazon.style.display === "inline-block") {
+                document.getElementById("preco-atual").textContent = `R$ ${produto.preco_amazon.toFixed(2)}`;
+            } else if (btnMercadoLivre.style.display === "inline-block" && btnAmazon.style.display === "none") {
+                document.getElementById("preco-atual").textContent = `R$ ${produto.preco_mercado_livre.toFixed(2)}`;
+            } else if (btnMercadoLivre.style.display === "none" && btnAmazon.style.display === "none") {
+                document.getElementById("preco-atual").textContent = `R$ ${produto.preco.toFixed(2)}`;
+            }
 
-// Configurar eventos (apenas os necessários para a página de produto)
-function configurarEventos() {
-    // Não há eventos de comentário nesta tarefa, então esta função pode ser vazia ou removida se não houver outros eventos.
-}
+            // Breadcrumb
+            document.getElementById("categoria-link").textContent = produto.categoria_nome;
+            document.getElementById("produto-breadcrumb").textContent = produto.nome;
+        }
 
-window.trocarImagemPrincipal = trocarImagemPrincipal;
-window.getAPIURL = getAPIURL;
-window.listarProdutos = listarProdutos;
-window.buscarProduto = buscarProduto;
+        // Configurar eventos
+        function configurarEventos() {
+            document.getElementById('btn-adicionar-comentario').addEventListener('click', () => {
+                document.getElementById('form-comentario').style.display = 'block';
+            });
+            
+            document.getElementById('cancelar-comentario').addEventListener('click', () => {
+                document.getElementById('form-comentario').style.display = 'none';
+            });
 
+            document.getElementById('enviar-comentario').addEventListener('click', enviarComentario);
 
+            document.querySelectorAll('.rating-star').forEach(star => {
+                star.addEventListener('click', () => {
+                    ratingAtual = parseInt(star.dataset.rating);
+                    atualizarEstrelas(ratingAtual);
+                });
+            });
+        }
+
+        function atualizarEstrelas(rating) {
+            document.querySelectorAll('.rating-star').forEach(star => {
+                if (parseInt(star.dataset.rating) <= rating) {
+                    star.classList.add('ativo');
+                } else {
+                    star.classList.remove('ativo');
+                }
+            });
+        }
+
+        // Enviar comentário
+        async function enviarComentario() {
+            const texto = document.getElementById('comentario-texto').value;
+            if (!texto || ratingAtual === 0) {
+                alert('Por favor, adicione um texto e uma nota para a sua avaliação.');
+                return;
+            }
+
+            const comentario = {
+                productId: obterIdProduto(),
+                author: 'Usuário Anônimo', // Substituir com dados do usuário logado
+                rating: ratingAtual,
+                text: texto
+            };
+
+            try {
+                const response = await fetch(`${window.API_BASE_URL}/comments`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(comentario)
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    carregarComentarios();
+                    document.getElementById('form-comentario').style.display = 'none';
+                    document.getElementById('comentario-texto').value = '';
+                    ratingAtual = 0;
+                    atualizarEstrelas(0);
+                } else {
+                    throw new Error('Erro ao enviar comentário');
+                }
+            } catch (error) {
+                console.error('Erro ao enviar comentário:', error);
+            }
+        }
+
+        // Carregar comentários
+        async function carregarComentarios() {
+            const productId = obterIdProduto();
+            try {
+                const response = await fetch(`${window.API_BASE_URL}/comments/${productId}`);
+                const data = await response.json();
+
+                const lista = document.getElementById('comentarios-lista');
+                lista.innerHTML = '';
+
+                if (data.success && data.comments.length > 0) {
+                    data.comments.forEach(comentario => {
+                        const div = document.createElement('div');
+                        div.className = 'comentario';
+                        div.innerHTML = `
+                            <div class="comentario-header">
+                                <div class="comentario-autor">${comentario.author}</div>
+                                <div class="comentario-data">${new Date(comentario.created_at).toLocaleDateString()}</div>
+                            </div>
+                            <div class="comentario-rating">
+                                ${Array(comentario.rating).fill('<i class="fas fa-star estrela"></i>').join('')}
+                                ${Array(5 - comentario.rating).fill('<i class="fas fa-star estrela vazia"></i>').join('')}
+                            </div>
+                            <div class="comentario-texto">${comentario.text}</div>
+                        `;
+                        lista.appendChild(div);
+                    });
+                } else {
+                    lista.innerHTML = '<p>Nenhuma avaliação para este produto ainda.</p>';
+                }
+            } catch (error) {
+                console.error('Erro ao carregar comentários:', error);
+            }
+        }
+
+        // Função de carregar produtos relacionados removida conforme solicitado
+        
+        // Tornar funções globais
+        // Esta função está sendo chamada de um evento onclick no HTML, então precisa ser global.
+        function trocarImagemPrincipal(element) {
+            document.getElementById('imagem-principal').src = element.src;
+            document.querySelectorAll('.miniatura').forEach(img => img.classList.remove('ativa'));
+            element.classList.add('ativa');
+        }
 

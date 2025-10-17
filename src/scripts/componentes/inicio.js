@@ -78,8 +78,6 @@ async function renderizarProdutosDestaque() {
       // Normalizar dados do produto
       const nome = produto.nome || produto.name;
       const preco = parseFloat(produto.preco || produto.price);
-      const preco_mercado_livre = parseFloat(produto.preco_mercado_livre || 0);
-      const preco_amazon = parseFloat(produto.preco_amazon || 0);
       const imagem = produto.imagem || produto.image;
       const categoria = produto.categoria || produto.category;
       const estoque = produto.estoque || produto.stock || 0;
@@ -102,7 +100,7 @@ async function renderizarProdutosDestaque() {
       }
 
       return `
-        <a href="produto.html?id=${produto.id}" class="cartao-link">
+        <a href="src/paginas/pagina-produto.html?id=${produto.id}" class="cartao-link">
           <div class="card-produto-home" data-produto-id="${produto.id}">
             <div class="produto-imagem">
               ${imagemHTML}
@@ -143,20 +141,18 @@ async function renderizarProdutosDestaque() {
 
             <!-- Botões de Ação -->
             <div class="botoes-produto-home">
-              ${produto.link_mercado_livre && produto.preco_mercado_livre ? `
-              <a href="${produto.link_mercado_livre}" target="_blank" class="btn-mercado-livre-card ${!emEstoque ? "disabled" : ""}" 
-                      onclick="event.stopPropagation();">
-                <i class="fas fa-shopping-cart"></i> Mercado Livre
-                <span class="preco-comparativo">R$ ${parseFloat(produto.preco_mercado_livre).toFixed(2).replace(".", ",")}</span>
-              </a>
-              ` : ''}
-              ${produto.link_amazon && produto.preco_amazon ? `
-              <a href="${produto.link_amazon}" target="_blank" class="btn-amazon-card ${!emEstoque ? "disabled" : ""}" 
-                      onclick="event.stopPropagation();">
-                <i class="fab fa-amazon"></i> Amazon
-                <span class="preco-comparativo">R$ ${parseFloat(produto.preco_amazon).toFixed(2).replace(".", ",")}</span>
-              </a>
-              ` : ''}
+              <button class="btn-comprar-direto ${!emEstoque ? "disabled" : ""}" 
+                      onclick="event.preventDefault(); event.stopPropagation(); ${emEstoque ? `comprarDireto(\'${produto.id}\')` : "showNotification(\'Produto indisponível\', \'warning\')"}"
+                      ${!emEstoque ? "disabled" : ""}>
+                <i class="fas fa-bolt"></i>
+                Comprar
+              </button>
+              <button class="btn-adicionar-carrinho ${!emEstoque ? "disabled" : ""}" 
+                      onclick="event.preventDefault(); event.stopPropagation(); ${emEstoque ? `adicionarProdutoAoCarrinho(\'${produto.id}\')` : "showNotification(\'Produto indisponível\', \'warning\')"}"
+                      ${!emEstoque ? "disabled" : ""}>
+                <i class="fas fa-cart-plus"></i>
+                Carrinho
+              </button>
             </div>
           </div>
         </a>

@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Produto | Roxinho Shop</title>
-    <link rel="stylesheet" href="src/estilos/componentes/produto.css">
+    <title>Produto | Roxinho Shop</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="src/recursos/imagens/favicon-roxinhoshop.png">
@@ -40,11 +39,10 @@
                 <div class="produto-info">
                     <h1 id="titulo-produto"></h1>
                     <p class="produto-preco"><span id="preco-atual"></span></p>
-                    <div class="produto-descricao-longa">
-                        <h2>Detalhes do Produto</h2>
-                        <p id="descricao-longa-conteudo"></p>
+                    <div class="produto-descricao">
+                        <h2>Descrição</h2>
+                        <p id="descricao-conteudo"></p>
                     </div>
-
                     <div class="botoes-compra">
                         <a id="btn-mercado-livre" href="#" target="_blank" class="botao-mercado-livre">Comprar no Mercado Livre (<span id="preco-ml"></span>)</a>
                         <a id="btn-amazon" href="#" target="_blank" class="botao-amazon">Comprar na Amazon (<span id="preco-amazon"></span>)</a>
@@ -55,7 +53,6 @@
 
     
 
-    <script src="src/scripts/componentes/api-produtos.js"></script>
     <script src="src/scripts/componentes/produto.js"></script>
     
     
