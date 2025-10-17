@@ -34,13 +34,119 @@
 
   <div id="header-placeholder"></div>
 
+  <!-- ======================= CARROSSEL DE BANNERS MODERNO ======================= -->
+<section class="carrossel-moderno">  
+  <div class="container-carrossel">
+    <div class="slides-wrapper" id="slidesWrapper">
+      <!-- Slide 1 -->
+      <div class="slide ativo" data-link="src/paginas/produtos.html?categoria=Promoções">
+        <img src="src/recursos/imagens/BANNER1.png" alt="Promoções">
+        <div class="slide-content">
+        </div>
+      </div>
 
+      <!-- Slide 2 -->
+      <div class="slide" data-link="src/paginas/produtos.html?categoria=PC Gamer">
+        <img src="src/recursos/imagens/BANNER2.png" alt="Monte seu PC Gamer">
+        <div class="slide-overlay">
+          <div class="slide-content">
+          </div>
+        </div>
+      </div>
 
+      <!-- Slide 3 -->
+      <div class="slide" data-link="src/paginas/produtos.html?categoria=Celular & Smartphone">
+        <img src="src/recursos/imagens/banner7.png" alt="Lançamento">
+        <div class="slide-overlay">
+          <div class="slide-content">
+          </div>
+        </div>
+      </div>
 
+      <!-- Slide 4 -->
+      <div class="slide" data-link="src/paginas/produtos.html">
+        <img src="src/recursos/imagens/RoxinhoShop.png" alt="Promoções de Queimar o Bico">
+        <div class="slide-overlay">
+          <div class="slide-content">
+          </div>
+        </div>
+      </div>
 
+      <!-- Slide 5 -->
+      <div class="slide" data-link="src/paginas/produtos.html?categoria=Hardware">
+        <img src="src/recursos/imagens/BANNER2.png" alt="50% de Desconto">
+        <div class="slide-overlay">
+          <div class="slide-content">
+          </div>
+        </div>
+      </div>
 
+    </div>
+  </div>
+      
+      <!-- Controles do Carrossel -->
+      <div class="carrossel-controles">
+        <button class="btn-controle btn-anterior" id="btnAnterior">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="btn-controle btn-proximo" id="btnProximo">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      
+      <!-- Indicadores -->
+      <div class="carrossel-indicadores" id="indicadores">
+        <button class="indicador ativo" data-slide="0"></button>
+        <button class="indicador" data-slide="1"></button>
+        <button class="indicador" data-slide="2"></button>
+        <button class="indicador" data-slide="3"></button>
+        <button class="indicador" data-slide="4"></button>
+      </div>
+      
+      <!-- Botão de Pausa/Play -->
+      <div class="carrossel-play-pause">
+        <button class="btn-play-pause" id="btnPlayPause">
+          <i class="fas fa-pause"></i>
+        </button>
+      </div>
+   
+  </section>
 
+  <!-- ======================= PRODUTOS EM DESTAQUE ======================= -->
+  <section class="produtos-destaque">
+    <div class="container">
+      <h2 class="titulo-secao">Produtos em Destaque</h2>
+      <p class="subtitulo-secao">Veja agora os produtos mais procurados nos últimos dias!</p>
+      
+      <div id="grade-produtos-home" class="grade-produtos-home">
+        <!-- Produtos serão inseridos aqui via JavaScript -->
+      </div>
 
+      <div class="ver-todos">
+        <a href="src/paginas/produtos.html" class="botao-ver-todos">
+          <span>Ver Todos os Produtos</span>
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= HISTÓRICO DE PRODUTOS VISTOS ======================= -->
+  <section class="secao-historico-home">
+    <div class="historico-header">
+      <h2 class="historico-titulo">
+        <i class="fas fa-history"></i>
+        Produtos Visualizados Recentemente
+      </h2>
+      <a href="src/paginas/historico.html" class="historico-ver-todos">
+        Ver Histórico Completo
+        <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+    <div id="historico-produtos-container">
+      <!-- Produtos serão carregados via JavaScript -->
+    </div>
+  </section>
 
   <div id="footer-placeholder"></div>
 
