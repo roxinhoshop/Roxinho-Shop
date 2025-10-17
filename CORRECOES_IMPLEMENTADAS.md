@@ -75,9 +75,9 @@
 - ✅ Formulário de avaliação com fundo transparente (backdrop-filter)
 - ✅ Produtos relacionados organizados (já implementado)
 
-### Fase 7: Sistema de Produtos e Categorias
-- ⏳ Unificar sistema de categorias
-- ⏳ Garantir fluxo completo de produtos
+### Fase 7: Sistema de Produtos e Categorias ✅
+- ✅ Unificar sistema de categorias (implementado via `api-produtos.js`)
+- ✅ Garantir fluxo completo de produtos (código preparado para integração com backend)
 
 ### Fase 8: Banco de Dados
 - ⏳ Conectar ao banco de dados MySQL
