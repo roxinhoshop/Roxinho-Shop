@@ -270,17 +270,6 @@
 
                 if (header) {
                     // Adicionar contador do carrinho ao cabeçalho
-                    const carrinhoLink = header.querySelector(\'\.caixa-carrinho\');
-                    if (carrinhoLink && !carrinhoLink.querySelector(\'\.contador-carrinho\')) {
-                        const contador = document.createElement(\'span\');
-                        contador.id = \'contador-carrinho-cabecalho\';
-                        contador.className = \'contador-carrinho\';
-                        contador.textContent = \'0\';
-                        contador.style.display = \'none\';
-                        carrinhoLink.appendChild(contador);
-                    }
-                    
-                    document.getElementById(\'header-placeholder\').appendChild(header);
                 }
                 if (categorias && !window.location.pathname.includes(\'administracao.html\') && !window.location.pathname.includes(\'painel-admin.html\') && !window.location.pathname.includes(\'painel-administrador.html\') && !window.location.pathname.includes(\'painel-usuario.html\')) {
                     document.getElementById(\'header-placeholder\').appendChild(categorias);
@@ -301,8 +290,6 @@
                 });
 
                 // Atualizar contador do carrinho após carregar o cabeçalho
-                if (typeof atualizarContadorCarrinho === \'function\') {
-                    atualizarContadorCarrinho();
                 }
             })
             .catch(error => {

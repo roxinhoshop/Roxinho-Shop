@@ -573,74 +573,7 @@ function debugDropdown() {
 
 // Executar debug se necessário (remover em produção)
 // debugDropdown();
-document.addEventListener('DOMContentLoaded', function() {
-  const inputCep = document.getElementById('input-cep');
-  const resultadoCep = document.getElementById('resultado-cep');
-  
-  if (inputCep && resultadoCep) {
-    // Máscara para CEP
-    inputCep.addEventListener('input', function(e) {
-      let value = e.target.value.replace(/\D/g, '');
-      if (value.length > 5) {
-        value = value.replace(/^(\d{5})(\d)/, '$1-$2');
-      }
-      e.target.value = value;
-      
-      // Consultar CEP quando tiver 8 dígitos
-      if (value.replace(/\D/g, '').length === 8) {
-        consultarCEP(value.replace(/\D/g, ''));
-      } else if (value.length === 0) {
-        resultadoCep.textContent = 'Consultar frete';
-        resultadoCep.className = 'resultado-cep';
-      }
-    });
-    
-    // Consultar CEP ao pressionar Enter
-    inputCep.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        const cep = e.target.value.replace(/\D/g, '');
-        if (cep.length === 8) {
-          consultarCEP(cep);
-        }
-      }
-    });
-  }
-  
-  function consultarCEP(cep) {
-    if (!resultadoCep) return;
-    
-    resultadoCep.textContent = 'Consultando...';
-    resultadoCep.className = 'resultado-cep loading';
-    
-    fetch(`https://viacep.com.br/ws/${cep}/json/`)
-      .then(response => response.json())
-      .then(data => {
-        if (data.erro) {
-          resultadoCep.textContent = 'CEP não encontrado';
-          resultadoCep.className = 'resultado-cep error';
-        } else {
-          resultadoCep.textContent = `${data.localidade} - ${data.uf}`;
-          resultadoCep.className = 'resultado-cep success';
-          
-          // Calcular frete simulado
-          setTimeout(() => {
-            const freteGratis = Math.random() > 0.5;
-            if (freteGratis) {
-              resultadoCep.textContent = 'Frete grátis!';
-            } else {
-              const valorFrete = (Math.random() * 20 + 5).toFixed(2);
-              resultadoCep.textContent = `Frete: R$ ${valorFrete}`;
-            }
-          }, 1500);
-        }
-      })
-      .catch(error => {
-        console.error('Erro ao consultar CEP:', error);
-        resultadoCep.textContent = 'Erro na consulta';
-        resultadoCep.className = 'resultado-cep error';
-      });
-  }
-});
+
 
   // Event listener da caixa de login é gerenciado por cabecalho-autenticacao.js
   </script>
