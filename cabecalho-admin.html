@@ -1,65 +1,45 @@
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+<!-- ======================= CABEÇALHO ADMIN (SEM BARRA DE CATEGORIAS) ======================= -->
+<nav class="cabecalho">
+  <div class="container-cabecalho">
+    <!-- LOGO -->
+    <a class="logo" href="index.html">
+      <img src="src/recursos/imagens/logo-roxinhoshop-transparent.png" alt="Roxinho Shop" class="logo-imagem">
+    </a>
 
-<!-- Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- TÍTULO DO PAINEL -->
+    <div class="titulo-admin">
+      <h1><i class="fas fa-shield-halved"></i> Painel de Administração</h1>
+    </div>
 
-  <!-- ======================= CABEÇALHO ADMIN (SEM BARRA DE CATEGORIAS) ======================= -->
-  <nav class="cabecalho">
-    <div class="container-cabecalho">
-      <!-- LOGO -->
-      <a class="logo" href="index.html">
-        <img src="src/recursos/imagens/logo-roxinhoshop-transparent.png" alt="Roxinho Shop" class="logo-imagem">
-      </a>
+    <!-- ÍCONES DE AÇÕES RÁPIDAS -->
+    <div class="icones">
+      <!-- 🌙 Botão de Tema (Dark/Light Mode) -->
+      <button class="botao-tema" id="botao-tema" onclick="toggleTheme()" title="Alternar tema">
+        <i class="fas fa-moon" id="theme-icon"></i>
+      </button>
 
-      <!-- TÍTULO DO PAINEL -->
-      <div class="titulo-admin">
-        <h1><i class="fas fa-shield-halved"></i> Painel de Administração</h1>
-      </div>
-
-      <!-- ÍCONES DE AÇÕES RÁPIDAS -->
-      <div class="icones">
-        <!-- 🌙 Botão de Tema (Dark/Light Mode) -->
-        <button class="botao-tema" id="botao-tema" onclick="toggleTheme()" title="Alternar tema">
-          <i class="fas fa-moon" id="theme-icon"></i>
-        </button>
-
-        <!-- 🔹 Caixinha de Login -->
-        <div class="caixa-entre" id="caixa-login">
-          <img src="src/recursos/imagens/default.png" alt="Avatar" class="avatar" id="avatar-usuario">
-          <div class="texto" id="texto-login">
-            <strong id="status-login">Entre</strong>
-            <br><span id="subtexto-login">Login</span>
-          </div>
-          <i class="fa-solid fa-arrow-right seta" id="seta-login"></i>
-          <!-- Dropdown do usuário logado -->
-          <div id="dropdown-usuario" class="dropdown-usuario" style="display: none;">
-            <div class="opcoes-usuario">
-              <a href="administracao.html" id="link-painel-admin">
-                <i class="fa-solid fa-shield-halved"></i> Painel Admin
-              </a>
-              <a href="painel-usuario.html" id="link-painel-usuario">
-                <i class="fa-solid fa-user-circle"></i> Meu Painel
-              </a>
-              <a href="#" id="botao-logout"><i class="fa-solid fa-sign-out-alt"></i> Sair da Conta</a>
-            </div>
+      <!-- 🔹 Caixinha de Login -->
+      <div class="caixa-entre" id="caixa-login">
+        <img src="src/recursos/imagens/default.png" alt="Avatar" class="avatar" id="avatar-usuario">
+        <div class="texto" id="texto-login">
+          <strong id="status-login">Entre</strong>
+          <br><span id="subtexto-login">Login</span>
+        </div>
+        <i class="fa-solid fa-arrow-right seta" id="seta-login"></i>
+        <!-- Dropdown do usuário logado -->
+        <div id="dropdown-usuario" class="dropdown-usuario" style="display: none;">
+          <div class="opcoes-usuario">
+            <a href="administracao.html" id="link-painel-admin">
+              <i class="fa-solid fa-shield-halved"></i> Painel Admin
+            </a>
+            <a href="painel-usuario.html" id="link-painel-usuario">
+              <i class="fa-solid fa-user-circle"></i> Meu Painel
+            </a>
+            <a href="#" id="botao-logout"><i class="fa-solid fa-sign-out-alt"></i> Sair da Conta</a>
           </div>
         </div>
       </div>
     </div>
-  </nav>
-
-  <!-- Scripts JS -->
-  <script src="src/scripts/componentes/notificacoes-fluent.js"></script>
-  <script src="src/scripts/componentes/modal-fluent.js"></script>
-  <script src="src/scripts/componentes/api-produtos.js"></script>
-  <script src="src/scripts/utilitarios/cabecalho-rodape.js"></script>
-  <script src="src/scripts/componentes/cabecalho-autenticacao.js"></script>
-  <script src="src/scripts/componentes/alternador-tema.js"></script>
-  <script>
-    window.API_BASE_URL = "https://roxinho-shop-backend.vercel.app/api";
-  </script>
+  </div>
+</nav>
 

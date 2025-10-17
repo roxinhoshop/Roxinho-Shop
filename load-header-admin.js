@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const headerPlaceholder = document.getElementById("header-admin-placeholder");
+    const headerAdminPlaceholder = document.getElementById("header-admin-placeholder");
 
-    if (!headerPlaceholder) {
+    if (!headerAdminPlaceholder) {
         console.warn("Placeholder do cabeçalho de administração não encontrado. O script não será executado.");
         return;
     }
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .then(data => {
             // O cabecalho-admin.html já deve conter o HTML completo do cabeçalho
-            headerPlaceholder.innerHTML = data;
+            headerAdminPlaceholder.innerHTML = data;
         })
         .catch(error => console.error("Erro ao carregar cabeçalho admin:", error));
 });
