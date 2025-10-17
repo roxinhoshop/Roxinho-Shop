@@ -34,7 +34,6 @@
                     produtoAtual = data.product;
                     renderizarProduto(produtoAtual);
                     carregarComentarios();
-                    carregarProdutosRelacionados();
                 } else {
                     throw new Error('Produto não encontrado');
                 }
@@ -191,10 +190,7 @@
             }
         }
 
-        // Carregar produtos relacionados
-        async function carregarProdutosRelacionados() {
-            // Lógica para carregar produtos relacionados (ex: da mesma categoria)
-        }
+        // Função de carregar produtos relacionados removida conforme solicitado
         
         // Tornar funções globais
         // Esta função está sendo chamada de um evento onclick no HTML, então precisa ser global.
