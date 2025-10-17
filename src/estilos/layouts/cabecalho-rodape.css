@@ -19,6 +19,12 @@
 body {
   background: #f8f9fa;
   color: #1f2937;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+body.loaded {
+  opacity: 1;
 }
 
 .cabecalho {
