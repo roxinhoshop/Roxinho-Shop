@@ -2726,3 +2726,331 @@ body {
   background: rgba(167, 139, 250, 0.1);
 }
 
+/* ===== ESTILOS PARA O NOVO MENU DE DEPARTAMENTOS ===== */
+
+/* Barra de categorias - Fundo preto */
+.barra-categorias {
+  display: flex;
+  justify-content: center;
+  background: #000000;
+  padding: 0.75rem 2rem;
+  border-bottom: 1px solid rgba(255, 184, 0, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 100;
+}
+
+.barra-categorias ul {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+}
+
+.barra-categorias ul li {
+  position: relative;
+}
+
+/* Links principais - Branco no preto */
+.barra-categorias ul li a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.barra-categorias ul li a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 80%;
+  height: 3px;
+  background: linear-gradient(90deg, #FFB800, #FFC933);
+  border-radius: 2px 2px 0 0;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.barra-categorias ul li a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFB800;
+}
+
+.barra-categorias ul li a:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* Botão DEPARTAMENTOS - Amarelo destaque */
+.barra-categorias ul li.dropdown > a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #FFB800 0%, #FFC933 100%);
+  color: #000000;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 700;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(255, 184, 0, 0.4);
+}
+
+.barra-categorias ul li.dropdown > a::after {
+  display: none;
+}
+
+.barra-categorias ul li.dropdown > a:hover {
+  background: linear-gradient(135deg, #FFC933 0%, #FFD966 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 184, 0, 0.5);
+}
+
+/* Pop-up de Departamentos */
+.popup-departamentos {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.popup-content {
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem;
+  max-width: 95%;
+  width: 1200px;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.popup-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #FFB800;
+  color: #000000;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.popup-close:hover {
+  background: #FFC933;
+  transform: rotate(90deg);
+}
+
+.popup-content h3 {
+  margin: 0 0 2rem 0;
+  color: #000000;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  border-bottom: 3px solid #FFB800;
+  padding-bottom: 1rem;
+}
+
+/* Container de categorias - Grid responsivo */
+.categorias-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+/* Categoria principal */
+.categoria-principal {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.categoria-principal:hover {
+  background: #ffffff;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border-color: #FFB800;
+}
+
+/* Título da categoria */
+.categoria-titulo {
+  margin: 0 0 1rem 0;
+  padding: 0;
+}
+
+.categoria-titulo a {
+  display: block;
+  color: #000000;
+  font-weight: 700;
+  font-size: 1.15rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #FFB800;
+}
+
+.categoria-titulo a:hover {
+  color: #FFB800;
+}
+
+/* Lista de subcategorias */
+.subcategorias-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.subcategorias-lista li {
+  margin: 0.5rem 0;
+}
+
+.subcategorias-lista li a {
+  color: #475569;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.subcategorias-lista li a::before {
+  content: '▸';
+  position: absolute;
+  left: 0.5rem;
+  color: #FFB800;
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+}
+
+.subcategorias-lista li a:hover {
+  color: #000000;
+  background: rgba(255, 184, 0, 0.1);
+  padding-left: 2rem;
+}
+
+.subcategorias-lista li a:hover::before {
+  transform: translateX(4px);
+}
+
+/* Modo Escuro */
+[data-theme="dark"] .popup-content {
+  background: #1e293b;
+}
+
+[data-theme="dark"] .popup-content h3 {
+  color: #ffffff;
+  border-bottom-color: #FFB800;
+}
+
+[data-theme="dark"] .categoria-principal {
+  background: #334155;
+}
+
+[data-theme="dark"] .categoria-principal:hover {
+  background: #475569;
+  border-color: #FFB800;
+}
+
+[data-theme="dark"] .categoria-titulo a {
+  color: #ffffff;
+  border-bottom-color: #FFB800;
+}
+
+[data-theme="dark"] .categoria-titulo a:hover {
+  color: #FFB800;
+}
+
+[data-theme="dark"] .subcategorias-lista li a {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .subcategorias-lista li a:hover {
+  color: #ffffff;
+  background: rgba(255, 184, 0, 0.2);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .categorias-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .popup-content {
+    padding: 1.5rem;
+    max-width: 95%;
+  }
+  
+  .popup-content h3 {
+    font-size: 1.5rem;
+  }
+  
+  .barra-categorias {
+    padding: 0.5rem 1rem;
+  }
+  
+  .barra-categorias ul {
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .barra-categorias ul li a {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
