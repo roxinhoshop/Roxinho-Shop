@@ -168,18 +168,18 @@
   fetch('src/paginas/cabecalho-rodape.html')
     .then(response => response.text())
     .then(data => {
-      // Corrigir caminhos relativos para funcionar na raiz
-      data = data.replace(/href="\.\.\/recursos/g, 'href="src/recursos');
-      data = data.replace(/src="\.\.\/recursos/g, 'src="src/recursos');
-      data = data.replace(/href="\.\.\/estilos/g, 'href="src/estilos');
-      data = data.replace(/src="\.\.\/scripts/g, 'src="src/scripts');
+      // Corrigir link do logo para voltar à página inicial (ANTES de outras substituições)
+      data = data.replace(/href="\.\./\.\./index\.html"/g, 'href="/"');
       
-      // Corrigir link do logo para voltar à página inicial
-      data = data.replace(/href="\.\.\/\.\.\/index\.html"/g, 'href="/');
+      // Corrigir caminhos relativos para funcionar na raiz
+      data = data.replace(/src="\.\./recursos/g, 'src="src/recursos');
+      data = data.replace(/href="\.\./recursos/g, 'href="src/recursos');
+      data = data.replace(/href="\.\./estilos/g, 'href="src/estilos');
+      data = data.replace(/src="\.\./scripts/g, 'src="src/scripts');
       
       // Corrigir links para páginas HTML (com ou sem parâmetros)
       // Exceto quando já tem src/paginas/ ou começa com ../..
-      data = data.replace(/href="(?!src\/paginas\/)(?!\.\.\/\.\.\/)([a-z\-]+)\.html/g, 'href="src/paginas/$1.html');
+      data = data.replace(/href="(?!src\/paginas\/)(?!\.\.\/\.\.\/|\/)([a-z\-]+)\.html/g, 'href="src/paginas/$1.html');
       
       const parser = new DOMParser();
       const doc = parser.parseFromString(data, 'text/html');
