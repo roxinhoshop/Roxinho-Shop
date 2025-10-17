@@ -252,24 +252,22 @@ async function loadStats() {
     }
 }
 
-// ======================= ADICIONAR PRODUTO (FORMULÁRIO) =======================
-async function loadCategoriesIntoSelect() {
-    const select = document.getElementById(\'categoria-produto\');
-    if (!select) return;
+// ======================= ADICIONAR PRODUTO (FORMULÁRIO) =======================async function loadCategoriesIntoSelect() {
+    const select = document.getElementById('categoria-produto');    if (!select) return;
 
     try {
         const response = await fetch(`${window.API_BASE_URL}/categorias/all`);
         const data = await response.json();
-        if (data.status === \'success\' && data.categories) {
-            select.innerHTML = \'<option value=\"\">Selecione uma categoria</option>\';
+        if (data.status === 'success' && data.categories) {
+            select.innerHTML = '<option value="">Selecione uma categoria</option>';
             data.categories.forEach(categoria => {
                 select.innerHTML += `<option value="${categoria.id}">${categoria.nome}</option>`;
             });
         } else {
-            console.error(\'Erro ao carregar categorias:\', data.message);
+            console.error('Erro ao carregar categorias:', data.message);
         }
     } catch (error) {
-        console.error(\'Erro ao carregar categorias:\', error);
+        console.error('Erro ao carregar categorias:', error);
     }
 }
 

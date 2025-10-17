@@ -7,7 +7,7 @@
   <title>Início | Roxinho Shop</title>
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="src/recursos/imagens/favicon-roxinhoshop.png">
+  <link rel="icon" type="image/png" href="srsrc/recursos/imagens/avicon-roxinhoshop.png">
 
   <!-- CSS -->
   <link rel="stylesheet" href="src/estilos/componentes/inicio.css">
@@ -28,25 +28,25 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../estilos/temas/gradiente-hover-global.css">
+  <link rel="stylesheet" href="src/estilos/temas/gradiente-hover-global.css">
 </head>
 <body>
 
-  <div id="header-placeholder"></div>
+  
 
   <!-- ======================= CARROSSEL DE BANNERS MODERNO ======================= -->
 <section class="carrossel-moderno">  
   <div class="container-carrossel">
     <div class="slides-wrapper" id="slidesWrapper">
       <!-- Slide 1 -->
-      <div class="slide ativo" data-link="src/paginas/produtos.html?categoria=Promoções">
+      <div class="slide ativo" data-link="produtos.html?categoria=Promoções">
         <img src="src/recursos/imagens/BANNER1.png" alt="Promoções">
         <div class="slide-content">
         </div>
       </div>
 
       <!-- Slide 2 -->
-      <div class="slide" data-link="src/paginas/produtos.html?categoria=PC Gamer">
+      <div class="slide" data-link="produtos.html?categoria=PC Gamer">
         <img src="src/recursos/imagens/BANNER2.png" alt="Monte seu PC Gamer">
         <div class="slide-overlay">
           <div class="slide-content">
@@ -55,7 +55,7 @@
       </div>
 
       <!-- Slide 3 -->
-      <div class="slide" data-link="src/paginas/produtos.html?categoria=Celular & Smartphone">
+      <div class="slide" data-link="produtos.html?categoria=Celular & Smartphone">
         <img src="src/recursos/imagens/banner7.png" alt="Lançamento">
         <div class="slide-overlay">
           <div class="slide-content">
@@ -64,7 +64,7 @@
       </div>
 
       <!-- Slide 4 -->
-      <div class="slide" data-link="src/paginas/produtos.html">
+      <div class="slide" data-link="produtos.html">
         <img src="src/recursos/imagens/RoxinhoShop.png" alt="Promoções de Queimar o Bico">
         <div class="slide-overlay">
           <div class="slide-content">
@@ -73,7 +73,7 @@
       </div>
 
       <!-- Slide 5 -->
-      <div class="slide" data-link="src/paginas/produtos.html?categoria=Hardware">
+      <div class="slide" data-link="produtos.html?categoria=Hardware">
         <img src="src/recursos/imagens/BANNER2.png" alt="50% de Desconto">
         <div class="slide-overlay">
           <div class="slide-content">
@@ -117,7 +117,7 @@
       <h2 class="titulo-secao">Categorias Populares</h2>
       <p class="subtitulo-secao">Explore nossas principais categorias de produtos</p>
       <div class="grid-categorias">
-        <a href="src/paginas/produtos.html?categoria=Hardware" class="categoria-card">
+        <a href="produtos.html?categoria=Hardware" class="categoria-card">
           <div class="categoria-imagem">
             <img src="src/recursos/imagens/Catalogos/categoria-hardware.jpeg" alt="Hardware">
           </div>
@@ -126,7 +126,7 @@
             <p>Processadores, placas de vídeo e mais</p>
           </div>
         </a>
-        <a href="src/paginas/produtos.html?categoria=Periféricos" class="categoria-card">
+        <a href="produtos.html?categoria=Periféricos" class="categoria-card">
           <div class="categoria-imagem">
             <img src="src/recursos/imagens/Catalogos/categoria-perifericos.jpg" alt="Periféricos">
           </div>
@@ -135,7 +135,7 @@
             <p>Teclados, mouses e headsets</p>
           </div>
         </a>
-        <a href="src/paginas/produtos.html?categoria=Computadores" class="categoria-card">
+        <a href="produtos.html?categoria=Computadores" class="categoria-card">
           <div class="categoria-imagem">
             <img src="src/recursos/imagens/Catalogos/categoria-computadores.jpg" alt="Computadores">
           </div>
@@ -144,7 +144,7 @@
             <p>PCs completos e notebooks</p>
           </div>
         </a>
-        <a href="src/paginas/produtos.html?categoria=Games" class="categoria-card">
+        <a href="produtos.html?categoria=Games" class="categoria-card">
           <div class="categoria-imagem">
             <img src="src/recursos/imagens/Catalogos/categoria-games.jpg" alt="Games">
           </div>
@@ -169,7 +169,7 @@
       </div>
 
       <div class="ver-todos">
-        <a href="src/paginas/produtos.html" class="botao-ver-todos">
+        <a href="produtos.html" class="botao-ver-todos">
           <span>Ver Todos os Produtos</span>
           <i class="fas fa-arrow-right"></i>
         </a>
@@ -184,7 +184,7 @@
         <i class="fas fa-history"></i>
         Produtos Visualizados Recentemente
       </h2>
-      <a href="src/paginas/historico.html" class="historico-ver-todos">
+      <a href="historico.html" class="historico-ver-todos">
         Ver Histórico Completo
         <i class="fas fa-arrow-right"></i>
       </a>
@@ -194,7 +194,7 @@
     </div>
   </section>
 
-  <div id="footer-placeholder"></div>
+  
 
   <!-- JS - ORDEM IMPORTANTE! -->
   <script src="src/scripts/componentes/modal-fluent.js"></script>
@@ -211,7 +211,7 @@
   </script>
   
   <script>
-  fetch('src/paginas/cabecalho-rodape.html')
+  fetch('cabecalho-rodape.html')
     .then(response => response.text())
     .then(data => {
       // Corrigir link do logo para voltar à página inicial (ANTES de outras substituições)
@@ -222,7 +222,7 @@
       data = data.replace(/href="\.\.\//g, 'href="src/');
       
       // Corrigir links para páginas HTML que não são absolutos e estão na raiz
-      data = data.replace(/href="([a-zA-Z0-9_-]+)\.html"/g, 'href="src/paginas/$1.html"');
+      data = data.replace(/href="([a-zA-Z0-9_-]+)\.html"/g, 'href="$1.html"');
       
       const parser = new DOMParser();
       const doc = parser.parseFromString(data, 'text/html');
@@ -254,7 +254,7 @@
         const newScript = document.createElement("script");
         if (oldScript.src) {
           // Corrigir caminho do script
-          let srcCorrigido = oldScript.src.replace('../scripts', 'src/scripts');
+          let srcCorrigido = oldScript.src.replace('src/scripts/, 'src/scripts');
           newScript.src = srcCorrigido;
         } else {
           newScript.textContent = oldScript.textContent;

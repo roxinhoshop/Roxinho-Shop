@@ -8,6 +8,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const passwordInput = document.getElementById("senha");
     const loginButton = document.getElementById("botaoLogin");
 
+    // Adicionar barra de força da senha
+    const passwordStrengthBar = document.createElement('div');
+    passwordStrengthBar.id = 'password-strength-bar';
+    passwordStrengthBar.style.cssText = `
+        height: 5px;
+        background-color: #e0e0e0;
+        border-radius: 2.5px;
+        margin-top: 5px;
+        overflow: hidden;
+    `;
+    const strengthIndicator = document.createElement('div');
+    strengthIndicator.id = 'strength-indicator';
+    strengthIndicator.style.cssText = `
+        height: 100%;
+        width: 0%;
+        background-color: transparent;
+        transition: width 0.3s ease, background-color 0.3s ease;
+    `;
+    passwordStrengthBar.appendChild(strengthIndicator);
+    passwordInput.parentNode.appendChild(passwordStrengthBar);
+
     // Verificar se já está logado
     const token = localStorage.getItem("jwtToken");
     if (token) {
@@ -16,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
             showNotification("Você já está logado!", "info");
         }
         setTimeout(() => {
-            window.location.href = "../../index.html";
+            window.location.href = "index.html"; // Redireciona para a home na raiz
         }, 1000);
         return;
     }
@@ -37,6 +58,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 showNotification("⚠️ Por favor, preencha todos os campos.", "warning");
             } else {
                 alert("Por favor, preencha todos os campos.");
+            }
+            return;
+        }
+
+        // Validação de senha: Mínimo 8 caracteres
+        if (senha.length < 8) {
+            if (window.showNotification) {
+                showNotification("⚠️ A senha deve ter no mínimo 8 caracteres.", "warning");
+            } else {
+                alert("A senha deve ter no mínimo 8 caracteres.");
             }
             return;
         }
@@ -94,7 +125,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 const userType = tokenPayload.isAdmin ? "Administrador" : "Usuário";
                 
                 // Determinar URL de redirecionamento
-                let targetUrl = "../../index.html";
+                let targetUrl = "index.html"; // Redireciona para a home na raiz
+                
+                // Se for admin, redirecionar para o painel de administração por padrão
+                if (tokenPayload.isAdmin) {
+                    targetUrl = "painel-administrador.html";
+                }
+                
+                // Se houver redirectUrl, priorizar
                 if (redirectUrl) {
                     targetUrl = decodeURIComponent(redirectUrl);
                 }
@@ -195,6 +233,42 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
+    // Função para calcular a força da senha (simplificada)
+    function calculatePasswordStrength(password) {
+        let strength = 0;
+        const length = password.length;
+        
+        // Mínimo 8 caracteres
+        if (length >= 8) strength += 40;
+        // Letras maiúsculas e minúsculas
+        if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength += 20;
+        // Números
+        if (password.match(/[0-9]/)) strength += 20;
+        // Símbolos
+        if (password.match(/[^a-zA-Z0-9\s]/)) strength += 20;
+        
+        return Math.min(100, strength);
+    }
+
+    // Função para atualizar a barra de força da senha
+    function updatePasswordStrengthBar(strength) {
+        const indicator = document.getElementById('strength-indicator');
+        if (!indicator) return;
+
+        indicator.style.width = `${strength}%`;
+        
+        let color = '#e0e0e0'; // Cinza (default)
+        if (strength < 50) {
+            color = '#f59e0b'; // Amarelo (fraca)
+        } else if (strength < 75) {
+            color = '#fbbf24'; // Laranja (média)
+        } else {
+            color = '#10b981'; // Verde (forte)
+        }
+        
+        indicator.style.backgroundColor = color;
+    }
+
     // Adicionar feedback visual nos inputs
     [emailInput, passwordInput].forEach(input => {
         if (!input) return;
@@ -214,6 +288,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 this.closest('.form-group').classList.add('has-value');
             } else {
                 this.closest('.form-group').classList.remove('has-value');
+            }
+
+            // Atualizar barra de força da senha
+            if (this.id === 'senha') {
+                const strength = calculatePasswordStrength(this.value);
+                updatePasswordStrengthBar(strength);
             }
         });
     });

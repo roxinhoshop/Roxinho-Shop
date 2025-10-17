@@ -30,8 +30,8 @@ function criarModal() {
     document.body.insertAdjacentHTML('beforeend', modalHTML);
 }
 
-// Mostrar modal de confirmação
-function confirmarFluent(titulo, mensagem, icone = 'fas fa-question-circle') {
+// Mostrar modal de confirmação (com Promise)
+function confirmarFluent(titulo, mensagem, icone = 'fas fa-question-circle', textoConfirmar = 'Confirmar', textoCancelar = 'Cancelar') {
     return new Promise((resolve) => {
         criarModal();
         
@@ -61,6 +61,10 @@ function confirmarFluent(titulo, mensagem, icone = 'fas fa-question-circle') {
             }, 300);
         };
         
+        // Configurar botões
+        btnConfirm.innerHTML = `<i class="fas fa-check"></i> ${textoConfirmar}`;
+        btnCancel.innerHTML = `<i class="fas fa-times"></i> ${textoCancelar}`;
+
         // Event listeners
         btnConfirm.onclick = () => fecharModal(true);
         btnCancel.onclick = () => fecharModal(false);
@@ -129,7 +133,61 @@ function alertaFluent(titulo, mensagem, icone = 'fas fa-info-circle') {
     });
 }
 
+// Mostrar modal de confirmação (com Callback) - Novo
+function showFluentConfirm(titulo, mensagem, textoConfirmar, textoCancelar, callbackConfirmar, icone = 'fas fa-question-circle') {
+    criarModal();
+    
+    const modal = document.getElementById('modal-fluent');
+    const modalIcon = modal.querySelector('.modal-icon');
+    const modalTitle = modal.querySelector('.modal-title');
+    const modalMessage = modal.querySelector('.modal-message');
+    const btnConfirm = modal.querySelector('.btn-confirm');
+    const btnCancel = modal.querySelector('.btn-cancel');
+    const overlay = modal.querySelector('.modal-overlay');
+    
+    // Configurar conteúdo
+    modalIcon.className = `modal-icon ${icone}`;
+    modalTitle.textContent = titulo;
+    modalMessage.textContent = mensagem;
+    
+    // Configurar botões
+    btnConfirm.innerHTML = `<i class="fas fa-check"></i> ${textoConfirmar}`;
+    btnCancel.innerHTML = `<i class="fas fa-times"></i> ${textoCancelar}`;
+
+    // Mostrar modal
+    modal.classList.add('active');
+    setTimeout(() => modal.classList.add('show'), 10);
+    
+    // Função para fechar
+    const fecharModal = () => {
+        modal.classList.remove('show');
+        setTimeout(() => {
+            modal.classList.remove('active');
+        }, 300);
+    };
+    
+    // Event listeners
+    btnConfirm.onclick = () => {
+        fecharModal();
+        if (callbackConfirmar) {
+            callbackConfirmar();
+        }
+    };
+    btnCancel.onclick = fecharModal;
+    overlay.onclick = fecharModal;
+    
+    // ESC para fechar
+    const handleEsc = (e) => {
+        if (e.key === 'Escape') {
+            fecharModal();
+            document.removeEventListener('keydown', handleEsc);
+        }
+    };
+    document.addEventListener('keydown', handleEsc);
+}
+
 // Tornar funções globais
 window.confirmarFluent = confirmarFluent;
 window.alertaFluent = alertaFluent;
+window.showFluentConfirm = showFluentConfirm;
 
