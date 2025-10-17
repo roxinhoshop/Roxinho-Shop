@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="../estilos/temas/correcao-espacos-brancos.css">
     <link rel="stylesheet" href="../estilos/temas/botao-tema.css">
     <link rel="stylesheet" href="../estilos/temas/gradiente-hover-global.css">
-    <link rel="stylesheet" href="../estilos/layouts/cabecalho-rodape.css">
+
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
@@ -30,7 +30,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="header-placeholder"></div>
+    <div id="header-admin-placeholder"></div>
+
 
     <!-- Main Container -->
     <main class="container">
@@ -72,6 +73,13 @@
                         <label for="product-category">Categoria</label>
                         <select id="product-category" required>
                             <option value="">Selecione uma categoria</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product-subcategory">Subcategoria</label>
+                        <select id="product-subcategory">
+                            <option value="">Selecione uma subcategoria (opcional)</option>
                         </select>
                     </div>
 
@@ -193,12 +201,14 @@
         </div>
     </div>
 
-    <!-- Scripts -->
+        <!-- Scripts -->
+        <script src="../scripts/utilitarios/load-admin-layout.js"></script>
+     
     <script>
         // Definir a URL base da API
         window.API_BASE_URL = 'https://roxinho-shop-backend.vercel.app/api';
     </script>
-    <script src="../scripts/utilitarios/cabecalho-rodape.js"></script>
+
     <script src="../scripts/componentes/modal-manager.js"></script>
     <script src="../scripts/componentes/modal-fluent.js"></script>
     <script src="../scripts/componentes/api-produtos.js"></script>
@@ -207,7 +217,8 @@
     <script src="../scripts/componentes/notificacoes-fluent.js"></script>
     <script src="../scripts/componentes/alternador-tema.js"></script>
     <script src="../scripts/componentes/admin-panel.js"></script>
-    <div id="footer-placeholder"></div>
+
+    <div id="footer-admin-placeholder"></div>
     </body>
 </html>
 

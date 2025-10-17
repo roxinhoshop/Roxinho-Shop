@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeProductSearch();
     loadProducts(); // Carrega produtos inicialmente ao carregar a página de produtos
     initializeAddProductForm();
+    loadCategoriesIntoSelectNew(); // Carrega as categorias ao iniciar o formulário de adição de produto.
 });
 
 // ======================= TABS =======================
@@ -276,8 +277,11 @@ async function loadCategoriesIntoSelect() {
 function initializeAddProductForm() {
     const formAdicionarProduto = document.getElementById('add-product-form');
     
-    // Carregar categorias no select
-    loadCategoriesIntoSelectNew();
+            // Carregar categorias no select
+            loadCategoriesIntoSelectNew();
+
+            // Event listener para carregar subcategorias quando a categoria principal muda
+            document.getElementById(\'product-category\').addEventListener(\'change\', loadSubcategoriesIntoSelect);
 
     if (formAdicionarProduto) {
         formAdicionarProduto.addEventListener('submit', async (e) => {
@@ -290,9 +294,9 @@ function initializeAddProductForm() {
                 valor_mercado_livre: parseFloat(document.getElementById('product-price-ml').value),
                 valor_amazon: parseFloat(document.getElementById('product-price-amazon').value),
                 preco: parseFloat(document.getElementById('product-price-ml').value),
-                categoria_id: parseInt(document.getElementById('product-category').value),
-                imagem_principal: document.getElementById('product-image-url').value,
-                origem: 'Manual',
+                    categoria_id: parseInt(document.getElementById(\'product-category\').value),
+                    subcategoria_id: document.getElementById(\'product-subcategory\').value ? parseInt(document.getElementById(\'product-subcategory\').value) : null,
+                    imagem_principal: document.getElementById(\'product-image-url\').value,     origem: 'Manual',
                 ativo: 1,
                 estoque: 10
             };
@@ -336,21 +340,48 @@ function initializeAddProductForm() {
 }
 
 async function loadCategoriesIntoSelectNew() {
-    const select = document.getElementById('product-category');
+    const select = document.getElementById(\'product-category\');
     if (!select) return;
 
     try {
         const response = await fetch(`${window.API_BASE_URL}/categorias`);
         const data = await response.json();
-        if (data.success || data.status === 'success') {
-            select.innerHTML = '<option value="">Selecione uma categoria</option>';
+        if (data.success || data.status === \'success\') {
+            select.innerHTML = \'<option value="">Selecione uma categoria</option>\';
             const categories = data.categories || [];
             categories.forEach(categoria => {
                 select.innerHTML += `<option value="${categoria.id}">${categoria.nome}</option>`;
             });
         }
     } catch (error) {
-        console.error('Erro ao carregar categorias:', error);
+        console.error(\'Erro ao carregar categorias:\', error);
+    }
+}
+
+async function loadSubcategoriesIntoSelect() {
+    const categorySelect = document.getElementById(\'product-category\');
+    const subcategorySelect = document.getElementById(\'product-subcategory\');
+    if (!categorySelect || !subcategorySelect) return;
+
+    const categoryId = categorySelect.value;
+    subcategorySelect.innerHTML = \'<option value="">Selecione uma subcategoria (opcional)</option>\';
+    subcategorySelect.disabled = true;
+
+    if (categoryId) {
+        try {
+            const response = await fetch(`${window.API_BASE_URL}/categorias/${categoryId}`);
+            const data = await response.json();
+            if (data.status === \'success\' && data.subcategorias) {
+                if (data.subcategorias.length > 0) {
+                    data.subcategorias.forEach(subcategoria => {
+                        subcategorySelect.innerHTML += `<option value="${subcategoria.id}">${subcategoria.nome}</option>`;
+                    });
+                    subcategorySelect.disabled = false;
+                }
+            }
+        } catch (error) {
+            console.error(\'Erro ao carregar subcategorias:\', error);
+        }
     }
 }
 

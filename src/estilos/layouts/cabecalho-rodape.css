@@ -1,5 +1,9 @@
 /* Estilos para o cabeçalho e rodapé */
 
+:root[data-theme="dark"] .barra-categorias .submenu li a {
+  color: #ffffff; /* Cor branca para texto do submenu no dark mode */
+}
+
 
 
 @import url('https://fonts.googleapis.com/css2?family=Epunda+Sans:ital,wght@0,300..900;1,300..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Roboto&display=swap');
@@ -365,7 +369,7 @@ body {
 .barra-categorias .submenu li a {
   display: block;
   padding: 0.7rem 1rem;
-  color: #1f2937;
+  color: #1f2937; /* Cor padrão para texto do submenu */
   font-size: 0.9rem;
   border-radius: 8px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
