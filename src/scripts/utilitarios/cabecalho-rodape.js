@@ -84,6 +84,10 @@ window.removerDosDesejos = function(produtoId) {
             doc.querySelectorAll("script").forEach(oldScript => {
                 const newScript = document.createElement("script");
                 if (oldScript.src) {
+                    // Evitar carregar inicio.js novamente se já estiver no index.html
+                    if (oldScript.src.includes('inicio.js')) {
+                        return;
+                    }
                     newScript.src = oldScript.src;
                 } else {
                     newScript.textContent = oldScript.textContent;
