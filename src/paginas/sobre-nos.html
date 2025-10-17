@@ -68,30 +68,7 @@
   <div id="footer-placeholder"></div>
 
   <!-- JS -->
-  <script>
-    fetch('cabecalho-rodape.html')
-      .then(response => response.text())
-      .then(data => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(data, 'text/html');
-
-        const header = doc.querySelector('nav.cabecalho');
-        const categorias = doc.querySelector('.barra-categorias');
-        const footer = doc.querySelector('footer.rodape');
-
-        if (header) document.getElementById('header-placeholder').appendChild(header);
-        if (categorias) document.getElementById('header-placeholder').appendChild(categorias);
-        if (footer) document.getElementById('footer-placeholder').appendChild(footer);
-
-        // Executar scripts do cabecalho/rodape
-        doc.querySelectorAll("script").forEach(oldScript => {
-          const newScript = document.createElement("script");
-          if (oldScript.src) newScript.src = oldScript.src;
-          else newScript.textContent = oldScript.textContent;
-          document.body.appendChild(newScript);
-        });
-      });
-  </script>
+  <script src="../scripts/utilitarios/cabecalho-rodape.js"></script>
   <script src="../scripts/componentes/cabecalho-autenticacao.js"></script>
   <script src="../scripts/componentes/notificacoes-fluent.js"></script>
   <script src="../scripts/componentes/alternador-tema.js"></script>
