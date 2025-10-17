@@ -74,15 +74,12 @@ body {
 
 .banner-image-placeholder {
   width: 100%;
-  height: 280px;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
   border-radius: 16px;
-  margin-top: 20px;
   overflow: hidden;
-  backdrop-filter: blur(10px);
 }
 
 .banner-image-placeholder img {
@@ -479,5 +476,17 @@ body {
 
 :root[data-theme="dark"] .link-button:hover {
   color: #FFB800;
+}
+
+
+
+
+/* ======================= CENTRALIZAÇÃO DO FORMULÁRIO ======================= */
+.login-section:has(.login-card:only-child) {
+  justify-content: center;
+}
+
+.login-section .login-card:only-child {
+  margin: 0 auto;
 }
 

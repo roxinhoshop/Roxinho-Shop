@@ -19,12 +19,6 @@
 body {
   background: #f8f9fa;
   color: #1f2937;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-body.loaded {
-  opacity: 1;
 }
 
 .cabecalho {
@@ -268,7 +262,7 @@ body.loaded {
 .barra-categorias {
   display: flex;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(144, 77, 219, 0.95) 0%, rgba(167, 139, 250, 0.95) 100%);
+  background: #141414;
   backdrop-filter: blur(20px);
   padding: 0.75rem 2rem;
   border-bottom: 1px solid rgba(144, 77, 219, 0.3);
@@ -449,7 +443,7 @@ body.loaded {
 }
 
 .rodape {
-  background: rgba(10, 10, 10, 0.98);
+  background: #141414;
   backdrop-filter: blur(20px);
   color: #eee;
   padding: 3rem 2rem 1.5rem;
@@ -507,7 +501,7 @@ body.loaded {
 }
 
 .rodape-minimalista {
-  background: rgba(10, 10, 10, 0.98);
+  background: #141414;
   backdrop-filter: blur(20px);
   text-align: center;
   padding: 3rem 1rem 2rem;

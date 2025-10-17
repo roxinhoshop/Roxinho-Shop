@@ -838,25 +838,27 @@ function renderizarProdutos() {
             <div class="parcelamento">${produto.parcelamento}</div>
 
             
-            <div class="status-produto">
-              ${produto.emEstoque ? '<div class="status-item em-estoque"><i class="fas fa-check"></i> Em estoque</div>' : ''}
-            </div>
           </div>
 
-          <!-- Botões de Ação -->
+          <!-- Botões de Marketplace -->
           <div class="acoes-produto">
-            <button class="botao-comprar-direto ${!produto.emEstoque ? 'indisponivel' : ''}" 
-                    onclick="event.preventDefault(); event.stopPropagation(); ${produto.emEstoque ? `comprarDireto(${produto.id})` : 'mostrarNotificacao(\'Produto indisponível\', \'aviso\')'}"
-                    ${!produto.emEstoque ? 'disabled' : ''}>
-              <i class="fas fa-bolt"></i>
-              ${produto.emEstoque ? 'Comprar' : 'Indisponível'}
-            </button>
-            <button class="botao-adicionar-carrinho ${!produto.emEstoque ? 'indisponivel' : ''}" 
-                    onclick="event.preventDefault(); event.stopPropagation(); ${produto.emEstoque ? `adicionarProdutoAoCarrinho(${produto.id})` : 'mostrarNotificacao(\'Produto indisponível\', \'aviso\')'}"
-                    ${!produto.emEstoque ? 'disabled' : ''}>
-              <i class="fas fa-cart-plus"></i>
-              ${produto.emEstoque ? 'Carrinho' : 'Indisponível'}
-            </button>
+            ${produto.linkMercadoLivre ? `
+            <a href="${produto.linkMercadoLivre}" target="_blank" class="botao-marketplace mercadolivre" 
+               onclick="event.stopPropagation();">
+              <i class="fas fa-shopping-bag"></i>
+              MercadoLivre
+            </a>
+            ` : ''}
+            ${produto.linkAmazon ? `
+            <a href="${produto.linkAmazon}" target="_blank" class="botao-marketplace amazon" 
+               onclick="event.stopPropagation();">
+              <i class="fab fa-amazon"></i>
+              Amazon
+            </a>
+            ` : ''}
+            ${!produto.linkMercadoLivre && !produto.linkAmazon ? `
+            <div class="sem-links">Links não disponíveis</div>
+            ` : ''}
           </div>
         </div>
       </a>

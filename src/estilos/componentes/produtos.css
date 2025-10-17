@@ -2991,3 +2991,65 @@ ease;
 :root[data-theme="dark"] .item-caminho.ativo {
     color: #ffffff;
 }
+
+
+
+/* ======================= BOTÕES MARKETPLACE ======================= */
+.botao-marketplace {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    flex: 1;
+}
+
+.botao-marketplace.mercadolivre {
+    background: #FFE600;
+    color: #333;
+}
+
+.botao-marketplace.mercadolivre:hover {
+    background: #FFD700;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 230, 0, 0.4);
+}
+
+.botao-marketplace.amazon {
+    background: #FF9900;
+    color: #fff;
+}
+
+.botao-marketplace.amazon:hover {
+    background: #FF8800;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 153, 0, 0.4);
+}
+
+.sem-links {
+    text-align: center;
+    color: #999;
+    font-size: 0.85rem;
+    padding: 0.75rem;
+}
+
+/* Dark Mode */
+:root[data-theme="dark"] .botao-marketplace.mercadolivre {
+    background: #FFE600;
+    color: #333;
+}
+
+:root[data-theme="dark"] .botao-marketplace.amazon {
+    background: #FF9900;
+    color: #fff;
+}
+
+:root[data-theme="dark"] .sem-links {
+    color: #666;
+}
+
