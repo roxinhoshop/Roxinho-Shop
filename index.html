@@ -169,13 +169,11 @@
     .then(response => response.text())
     .then(data => {
       // Corrigir link do logo para voltar à página inicial (ANTES de outras substituições)
-      data = data.replace(/href="\.\./\.\./index\.html"/g, 'href="/"');
+       data = data.replace(/href="\.\.\/\.\.\/index\.html"/g, 'href="/"');
       
       // Corrigir caminhos relativos para funcionar na raiz
-      data = data.replace(/src="\.\./recursos/g, 'src="src/recursos');
-      data = data.replace(/href="\.\./recursos/g, 'href="src/recursos');
-      data = data.replace(/href="\.\./estilos/g, 'href="src/estilos');
-      data = data.replace(/src="\.\./scripts/g, 'src="src/scripts');
+      data = data.replace(/src="\.\.\//g, 'src="src/');
+      data = data.replace(/href="\.\.\//g, 'href="src/');
       
       // Corrigir links para páginas HTML que não são absolutos e estão na raiz
       data = data.replace(/href="([a-zA-Z0-9_-]+)\.html"/g, 'href="src/paginas/$1.html"');
