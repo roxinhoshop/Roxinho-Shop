@@ -274,35 +274,27 @@ async function loadCategoriesIntoSelect() {
 
 
 function initializeAddProductForm() {
-    const btnAdicionarProduto = document.getElementById('btn-adicionar-produto');
-    const formularioAdicionarProduto = document.getElementById('formulario-adicionar-produto');
-    const btnCancelarAdicionar = document.getElementById('btn-cancelar-adicionar');
-    const formAdicionarProduto = document.getElementById('form-adicionar-produto');
-
-    if (btnAdicionarProduto && formularioAdicionarProduto) {
-        btnAdicionarProduto.addEventListener('click', () => {
-            formularioAdicionarProduto.style.display = 'block';
-            loadCategoriesIntoSelect();
-        });
-    }
-
-    if (btnCancelarAdicionar && formularioAdicionarProduto) {
-        btnCancelarAdicionar.addEventListener('click', () => {
-            formularioAdicionarProduto.style.display = 'none';
-        });
-    }
+    const formAdicionarProduto = document.getElementById('add-product-form');
+    
+    // Carregar categorias no select
+    loadCategoriesIntoSelectNew();
 
     if (formAdicionarProduto) {
         formAdicionarProduto.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const formData = new FormData(formAdicionarProduto);
+            
             const produto = {
-                nome: formData.get('nome'),
-                descricao: formData.get('descricao'),
-                preco_mercado_livre: formData.get('preco_mercado_livre'),
-                preco_amazon: formData.get('preco_amazon'),
-                categoria: formData.get('categoria'),
-                imagem_url: formData.get('imagem_url'),
+                nome: document.getElementById('product-name').value,
+                descricao_longa: document.getElementById('product-description').value,
+                descricao: document.getElementById('product-description').value.substring(0, 255),
+                valor_mercado_livre: parseFloat(document.getElementById('product-price-ml').value),
+                valor_amazon: parseFloat(document.getElementById('product-price-amazon').value),
+                preco: parseFloat(document.getElementById('product-price-ml').value),
+                categoria_id: parseInt(document.getElementById('product-category').value),
+                imagem_principal: document.getElementById('product-image-url').value,
+                origem: 'Manual',
+                ativo: 1,
+                estoque: 10
             };
 
             try {
@@ -316,19 +308,49 @@ function initializeAddProductForm() {
 
                 const result = await response.json();
 
-                if (result.success) {
-                    await alertaFluent('Sucesso!', 'Produto adicionado com sucesso!', 'fas fa-check-circle');
+                if (result.success || result.status === 'success') {
+                    if (typeof alertaFluent === 'function') {
+                        await alertaFluent('Sucesso!', 'Produto adicionado com sucesso!', 'fas fa-check-circle');
+                    } else {
+                        alert('Produto adicionado com sucesso!');
+                    }
                     formAdicionarProduto.reset();
-                    formularioAdicionarProduto.style.display = 'none';
                     loadProducts();
                 } else {
-                    await alertaFluent('Erro', result.message || 'Não foi possível adicionar o produto.', 'fas fa-exclamation-triangle');
+                    if (typeof alertaFluent === 'function') {
+                        await alertaFluent('Erro', result.message || 'Não foi possível adicionar o produto.', 'fas fa-exclamation-triangle');
+                    } else {
+                        alert('Erro: ' + (result.message || 'Não foi possível adicionar o produto.'));
+                    }
                 }
             } catch (error) {
                 console.error('Erro ao adicionar produto:', error);
-                await alertaFluent('Erro', 'Não foi possível adicionar o produto.', 'fas fa-exclamation-triangle');
+                if (typeof alertaFluent === 'function') {
+                    await alertaFluent('Erro', 'Não foi possível adicionar o produto.', 'fas fa-exclamation-triangle');
+                } else {
+                    alert('Erro: Não foi possível adicionar o produto.');
+                }
             }
         });
+    }
+}
+
+async function loadCategoriesIntoSelectNew() {
+    const select = document.getElementById('product-category');
+    if (!select) return;
+
+    try {
+        const response = await fetch(`${window.API_BASE_URL}/categorias`);
+        const data = await response.json();
+        if (data.success || data.status === 'success') {
+            select.innerHTML = '<option value="">Selecione uma categoria</option>';
+            const categories = data.categories || [];
+            categories.forEach(categoria => {
+                select.innerHTML += `<option value="${categoria.id}">${categoria.nome}</option>`;
+            });
+        }
+    } catch (error) {
+        console.error('Erro ao carregar categorias:', error);
     }
 }
 
