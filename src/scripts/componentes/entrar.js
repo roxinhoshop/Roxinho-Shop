@@ -1,7 +1,6 @@
-/**
- * Sistema de Login Melhorado
- * Com mensagens interativas e redirecionamento inteligente
- */
+
+
+window.API_BASE_URL = 'https://Roxinho-Shop-BACKEND.vercel.app/api';
 
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("loginForm");

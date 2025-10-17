@@ -1,5 +1,6 @@
-/**
- */
+
+
+window.API_BASE_URL = 'https://Roxinho-Shop-BACKEND.vercel.app/api';
 
 document.addEventListener("DOMContentLoaded", () => {
     const cadastroForm = document.getElementById("cadastroForm");

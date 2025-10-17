@@ -1,5 +1,5 @@
-/**
- */
+
+
 
 function showSuccessAnimation(title, message, redirectUrl, delay = 2000) {
     // Criar overlay

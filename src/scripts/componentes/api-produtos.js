@@ -2,7 +2,7 @@
 
 // Função para obter a URL da API
 function getAPIURL() {
-    return window.API_BASE_URL || 'https://roxinho-shop-backend.vercel.app/api';
+    return window.API_BASE_URL || 'https://Roxinho-Shop-BACKEND.vercel.app/api';
 }
 
 // ======================= PRODUTOS =======================

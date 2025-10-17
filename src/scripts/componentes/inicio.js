@@ -2,6 +2,8 @@
 // Comentários didáticos para facilitar o entendimento
 
 
+window.API_BASE_URL = 'https://Roxinho-Shop-BACKEND.vercel.app/api';
+
 let slideAtual = 0;
 let slides, indicadores;
 

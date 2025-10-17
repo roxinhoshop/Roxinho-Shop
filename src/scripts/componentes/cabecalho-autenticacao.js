@@ -1,10 +1,6 @@
-/**
- * Mantém usuário logado permanentemente até clicar em Sair
- */
 
-/**
- * Atualiza o estado do cabeçalho baseado no login do usuário
- */
+
+
 function atualizarEstadoLogin() {
     // Obter elementos do cabeçalho
     const caixaLogin = document.getElementById("caixa-login");
@@ -122,10 +118,7 @@ function atualizarEstadoLogin() {
     }
 }
 
-/**
- * Toggle do dropdown do usuário
- * IMPORTANTE: Não redireciona, apenas abre/fecha o menu
- */
+
 function toggleDropdownUsuario(event) {
     // Se clicou em um link dentro do dropdown, permitir navegação
     if (event.target.tagName === 'A' || event.target.closest('a')) {
@@ -142,9 +135,7 @@ function toggleDropdownUsuario(event) {
     dropdown.style.display = isVisible ? 'none' : 'block';
 }
 
-/**
- * Fecha dropdown ao clicar fora
- */
+
 document.addEventListener('click', (event) => {
     const caixaLogin = document.getElementById('caixa-login');
     const dropdown = document.getElementById('dropdown-usuario');
@@ -159,10 +150,7 @@ document.addEventListener('click', (event) => {
     }
 });
 
-/**
- * Fazer logout
- * IMPORTANTE: Esta é a ÚNICA forma de deslogar
- */
+
 function fazerLogout() {
     // Confirmar logout
     if (!confirm('Deseja realmente sair da sua conta?')) {
@@ -205,10 +193,7 @@ function fazerLogout() {
     }, 800);
 }
 
-/**
- * Verifica se o token ainda é válido
- * Mantém usuário logado permanentemente até ele clicar em Sair
- */
+
 function verificarTokenValido() {
     const token = localStorage.getItem("jwtToken");
     
