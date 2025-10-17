@@ -2215,15 +2215,7 @@ body {
     font-weight: 600;
 }
 
-/* Barra de Categorias - Fluent Design Preto */
-.barra-categorias {
-    background: rgba(10, 10, 10, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-    border-bottom: 1px solid rgba(144, 77, 219, 0.2);
-    padding: 12px 0;
-}
+/* Barra de Categorias - Fluent Design Roxo (removido estilo preto duplicado) */
 
 .barra-categorias .container-categorias {
     max-width: 1400px;

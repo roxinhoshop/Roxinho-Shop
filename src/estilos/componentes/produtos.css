@@ -2828,20 +2828,21 @@ ease;
 }
 
 :root[data-theme="dark"] .botao-visualizacao {
-    background: var(--bg-tertiary);
-    color: var(--text-secondary);
-    border-color: var(--border-color);
+    background: #1c1c1c;
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
 :root[data-theme="dark"] .botao-visualizacao.ativo {
-    background: var(--purple);
-    color: var(--text-primary);
-    border-color: var(--purple);
+    background: #904DDB;
+    color: #ffffff;
+    border-color: #904DDB;
 }
 
 :root[data-theme="dark"] .botao-visualizacao:hover {
-    background: var(--bg-tertiary);
-    border-color: var(--purple);
+    background: #2a2a2a;
+    border-color: #904DDB;
+    color: #ffffff;
 }
 
 /* Produtos */

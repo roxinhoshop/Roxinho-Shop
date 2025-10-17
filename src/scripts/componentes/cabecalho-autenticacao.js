@@ -191,13 +191,17 @@ function fazerLogout() {
     // Redirecionar para home após um breve delay
     setTimeout(() => {
         const currentPath = window.location.pathname;
-        if (currentPath === '/' || currentPath.endsWith('index.html')) {
-            // Já está na home, apenas recarregar
-            window.location.reload();
-        } else {
-            // Está em outra página, redirecionar para home
-            window.location.href = "../../index.html";
+        
+        // Determinar o caminho correto para a home
+        let homePath = '/';
+        if (currentPath.includes('/src/paginas/')) {
+            homePath = '../../index.html';
+        } else if (currentPath.includes('/paginas/')) {
+            homePath = '../index.html';
         }
+        
+        // Sempre redirecionar para home (não recarregar)
+        window.location.href = homePath;
     }, 800);
 }
 

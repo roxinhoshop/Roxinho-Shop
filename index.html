@@ -217,6 +217,35 @@
         }
         document.body.appendChild(newScript);
       });
+      
+      // Aguardar um momento para garantir que os elementos foram renderizados
+      setTimeout(() => {
+        // Reinicializar event listeners do pop-up de departamentos
+        const btnDepartamentos = document.getElementById('btn-departamentos');
+        const popupDepartamentos = document.getElementById('popup-departamentos');
+        const popupClose = document.getElementById('popup-close');
+        
+        if (btnDepartamentos && popupDepartamentos) {
+          btnDepartamentos.addEventListener('click', function(e) {
+            e.preventDefault();
+            popupDepartamentos.style.display = 'flex';
+          });
+        }
+        
+        if (popupClose && popupDepartamentos) {
+          popupClose.addEventListener('click', function() {
+            popupDepartamentos.style.display = 'none';
+          });
+        }
+        
+        if (popupDepartamentos) {
+          popupDepartamentos.addEventListener('click', function(e) {
+            if (e.target === popupDepartamentos) {
+              popupDepartamentos.style.display = 'none';
+            }
+          });
+        }
+      }, 100);
 
       // Atualizar contador do carrinho após carregar o cabeçalho
       if (typeof atualizarContadorCarrinho === 'function') {

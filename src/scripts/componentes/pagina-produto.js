@@ -330,10 +330,12 @@ class SistemaAvaliacoes {
       'Produto de qualidade, porém achei um pouco caro. Mas vale a pena.'
     ];
 
-    this.avaliacoes = Array.from({ length: 12 }, (_, i) => ({
+    this.avaliacoes = Array.from({ length: 12 }, (_, i) => {
+      const nomeUsuario = nomes[Math.floor(Math.random() * nomes.length)];
+      return {
       id: i + 1,
-      usuarioNome: nomes[Math.floor(Math.random() * nomes.length)],
-      usuarioAvatar: nomes[Math.floor(Math.random() * nomes.length)].split(' ').map(n => n[0]).join(''),
+      usuarioNome: nomeUsuario,
+      usuarioAvatar: nomeUsuario.split(' ').map(n => n[0]).join(''),
       nota: Math.floor(Math.random() * 2) + 4, // Notas entre 4 e 5
       titulo: `Avaliação do ${nomes[Math.floor(Math.random() * nomes.length)].split(' ')[0]}`,
       comentario: comentarios[Math.floor(Math.random() * comentarios.length)],
@@ -341,8 +343,10 @@ class SistemaAvaliacoes {
       compraVerificada: Math.random() > 0.3,
       fotos: Math.random() > 0.7 ? [this.produtoAtual?.imagem || ''] : [],
       uteis: Math.floor(Math.random() * 25),
-      utilMarcado: false
-    }));
+      utilMarcado: false,
+      produtoId: this.produtoAtual?.id
+    };
+    });
 
     this.atualizarResumoAvaliacoes();
     this.renderizarAvaliacoes();
