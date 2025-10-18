@@ -1944,7 +1944,7 @@ body {
 .container-cabecalho {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 20px 24px;
+    padding: 8px 24px;
     display: grid;
     grid-template-columns: 240px 1fr auto;
     gap: 40px;
@@ -2253,7 +2253,7 @@ body {
     }
     
     .logo-imagem {
-        height: 45px;
+        height: 95px;
     }
     
     .texto-historico,
