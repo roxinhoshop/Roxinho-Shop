@@ -51,7 +51,7 @@
 .caixa-entre .texto {
     display: flex;
     flex-direction: column;
-    line-height: 1.2;
+    line-height: 0.7;
 }
 
 #status-login {
