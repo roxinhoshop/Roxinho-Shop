@@ -2,7 +2,7 @@
 // Desenvolvido por Manus
 // Gerencia o carregamento de produtos, filtros e pesquisa, integrando com o backend.
 
-const API_BASE_URL = "https://8000-i0rq7d4vghqcu0v23lypv-648d7310.manusvm.computer";
+const API_BASE_URL = "/backend"; // Caminho relativo para a API no Vercel
 
 class ProdutosManager {
     constructor() {

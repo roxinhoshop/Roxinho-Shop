@@ -3,7 +3,7 @@
 // Sistema de avaliações da página do produto integrado com back-end
 // Comentários didáticos para facilitar o entendimento
 
-const API_BASE_URL = "https://8000-i0rq7d4vghqcu0v23lypv-648d7310.manusvm.computer"; // URL da API do FastAPI
+const API_BASE_URL = "/backend"; // Caminho relativo para a API no Vercel // URL da API do FastAPI
 
 class SistemaAvaliacoes {
   constructor() {
