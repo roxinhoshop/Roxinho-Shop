@@ -1,0 +1,97 @@
+/* Estilos para o Modo Escuro */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode a {
+    color: #bb86fc; /* Cor primária para links */
+}
+
+body.dark-mode .cabecalho,
+body.dark-mode .barra-categorias,
+body.dark-mode .rodape {
+    background-color: #1f1f1f;
+    border-color: #333;
+}
+
+body.dark-mode .caixa-pesquisa-centralizada input {
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+    border-color: #333;
+}
+
+body.dark-mode .caixa-pesquisa-centralizada .botao-busca {
+    background-color: #333;
+    color: #e0e0e0;
+}
+
+body.dark-mode .caixa-entre,
+body.dark-mode .caixa-historico,
+body.dark-mode .caixa-modo-escuro {
+    background-color: #2c2c2c;
+    border-color: #333;
+}
+
+body.dark-mode .caixa-entre:hover,
+body.dark-mode .caixa-historico:hover,
+body.dark-mode .caixa-modo-escuro:hover {
+    background-color: #333;
+}
+
+body.dark-mode .dropdown-usuario {
+    background-color: #1f1f1f;
+    border-color: #333;
+}
+
+body.dark-mode .dropdown-usuario a {
+    color: #e0e0e0;
+}
+
+body.dark-mode .dropdown-usuario a:hover {
+    background-color: #333;
+}
+
+/* Estilos para cards e containers */
+body.dark-mode .card-produto,
+body.dark-mode .pagina-produto,
+body.dark-mode .secao-avaliacoes,
+body.dark-mode .produtos-relacionados,
+body.dark-mode .container-historico {
+    background-color: #1f1f1f;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .card-produto h3 {
+    color: #e0e0e0;
+}
+
+/* Botões de compra */
+body.dark-mode .btn-comprar-ml,
+body.dark-mode .btn-comprar-amazon {
+    background-color: #bb86fc;
+    color: #121212;
+}
+
+body.dark-mode .btn-avaliar {
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #bb86fc;
+}
+
+body.dark-mode .modal-avaliacao {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+body.dark-mode .modal-conteudo {
+    background-color: #1f1f1f;
+    color: #e0e0e0;
+}
+
+body.dark-mode .modal-conteudo input[type="text"],
+body.dark-mode .modal-conteudo textarea {
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+    border-color: #333;
+}
+

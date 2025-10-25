@@ -4,6 +4,40 @@
 document.addEventListener('DOMContentLoaded', function() {
   
   // ==================== CORREÇÃO DOS DEPARTAMENTOS ====================
+
+  // ==================== BARRA DE PESQUISA FUNCIONAL ====================
+  function configurarBarraPesquisa() {
+    const inputPesquisa = document.getElementById('inputPesquisa');
+    const btnPesquisar = document.getElementById('btnPesquisar');
+    
+    if (inputPesquisa && btnPesquisar) {
+      btnPesquisar.addEventListener('click', (e) => {
+        e.preventDefault();
+        realizarPesquisa(inputPesquisa.value);
+      });
+      
+      inputPesquisa.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          realizarPesquisa(inputPesquisa.value);
+        }
+      });
+    }
+  }
+
+  function realizarPesquisa(termo) {
+    if (termo && termo.trim() !== '') {
+      // Redireciona para a página de produtos com o termo de busca
+      window.location.href = `produtos.html?q=${encodeURIComponent(termo.trim())}`;
+    } else {
+      // Opcional: mostrar uma mensagem de erro ou apenas ignorar
+      if (typeof mostrarNotificacao === 'function') {
+        mostrarNotificacao('Digite um termo para pesquisar.', 'aviso');
+      }
+    }
+  }
+
+  configurarBarraPesquisa();
   function corrigirDepartamentos() {
     const dropdownPrincipal = document.querySelector('.barra-categorias li.dropdown');
     const linkDepartamentos = document.querySelector('.barra-categorias li.dropdown > a');

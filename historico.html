@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Histórico de Visualização - Roxinho Shop</title>
+
+  <link rel="icon" type="image/png" href="images/favicon-rooxyce.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./css/cabecalhorodape.css">
+  <link rel="stylesheet" href="./css/produtos.css"> <!-- Reutilizando CSS de produtos -->
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
+</head>
+<body>
+
+  <!-- Header -->
+  <div id="header-placeholder"></div>
+
+  <!-- Container Principal -->
+  <div class="container-historico">
+    <h1><i class="fa-solid fa-clock-rotate-left"></i> Seu Histórico de Visualização</h1>
+    <p>Aqui estão os produtos que você visualizou recentemente.</p>
+
+    <div class="grade-produtos" id="gradeHistorico">
+      <!-- Produtos serão carregados via JavaScript -->
+    </div>
+
+    <p id="historicoVazio" style="display: none; text-align: center; padding: 50px;">Seu histórico de visualização está vazio.</p>
+  </div>
+
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Scripts -->
+  <script src="js/database.js"></script>
+  <script src="js/cabecalhorodape.js"></script>
+  <script>
+    // Função para carregar o histórico
+    async function carregarHistorico() {
+      const gradeHistorico = document.getElementById('gradeHistorico');
+      const historicoVazio = document.getElementById('historicoVazio');
+      const userId = localStorage.getItem('userId') || 1; // Usar ID 1 para teste se não estiver logado
+
+      try {
+        const response = await fetch(`/api/historico?user_id=${userId}`);
+        if (!response.ok) {
+          throw new Error('Erro ao carregar histórico');
+        }
+        const produtos = await response.json();
+
+        if (produtos.length === 0) {
+          historicoVazio.style.display = 'block';
+          return;
+        }
+
+        gradeHistorico.innerHTML = '';
+        produtos.forEach(produto => {
+          const card = document.createElement('div');
+          card.classList.add('card-produto');
+          card.innerHTML = `
+            <a href="paginaproduto.html?id=${produto.id}">
+              <img src="${produto.imagem_principal}" alt="${produto.nome}">
+              <h3>${produto.nome}</h3>
+              <div class="precos-comparacao">
+                <p>ML: <strong>R$ ${produto.preco_ml.toFixed(2).replace('.', ',')}</strong></p>
+                <p>Amazon: <strong>R$ ${produto.preco_amazon.toFixed(2).replace('.', ',')}</strong></p>
+              </div>
+            </a>
+          `;
+          gradeHistorico.appendChild(card);
+        });
+
+      } catch (error) {
+        console.error('Erro ao carregar histórico:', error);
+        historicoVazio.innerText = 'Erro ao carregar histórico. Tente novamente mais tarde.';
+        historicoVazio.style.display = 'block';
+      }
+    }
+
+    // Carregar Header e Footer (reutilizando a lógica de cabecalhorodape.js)
+    fetch('cabecalhorodape.html')
+      .then(response => response.text())
+      .then(data => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(data, 'text/html');
+
+        const header = doc.querySelector('nav.cabecalho');
+        const categorias = doc.querySelector('.barra-categorias');
+        const footer = doc.querySelector('footer.rodape');
+
+        if (header) document.getElementById('header-placeholder').appendChild(header);
+        if (categorias) document.getElementById('header-placeholder').appendChild(categorias);
+        if (footer) document.getElementById('footer-placeholder').appendChild(footer);
+
+        // Executar scripts do cabecalho/rodape
+        doc.querySelectorAll("script").forEach(oldScript => {
+          const newScript = document.createElement("script");
+          if (oldScript.src) newScript.src = oldScript.src;
+          else newScript.textContent = oldScript.textContent;
+          document.body.appendChild(newScript);
+        });
+
+        // Após carregar o cabeçalho, carregar o histórico
+        carregarHistorico();
+      });
+  </script>
+</body>
+</html>

@@ -8,13 +8,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ROOXYCE Store - Os melhores preços em eletrônicos!</title>
+  <title>Roxinho Shop - Os melhores preços em eletrônicos!</title>
 
   <link rel="icon" type="image/png" href="images/favicon-rooxyce.png">
 
   <!-- CSS -->
   <link rel="stylesheet" href="css/paginaproduto.css">
   <link rel="stylesheet" href="./css/cabecalhorodape.css">
+  <link rel="stylesheet" href="./css/modo-escuro.css">
 
   <!-- Header -->
   <div id="header-placeholder"></div>
@@ -61,9 +62,26 @@
         <span class="sku" id="skuProduto"></span>
       </div>
 
-      <!-- Painel de Compra -->
+      <!-- Painel de Compra (Substituído por Comparação de Preços) -->
+        <div class="comparacao-precos">
+          <p class="comparacao-texto">Compare e economize:</p>
+          <div class="preco-ml-container">
+            <p class="preco-label">Mercado Livre</p>
+            <p class="preco-valor" id="precoML"></p>
+            <a href="#" id="linkML" target="_blank" class="btn-comprar-ml">
+              <i class="fas fa-shopping-cart"></i> Comprar no Mercado Livre
+            </a>
+          </div>
+          <div class="preco-amazon-container">
+            <p class="preco-label">Amazon</p>
+            <p class="preco-valor" id="precoAmazon"></p>
+            <a href="#" id="linkAmazon" target="_blank" class="btn-comprar-amazon">
+              <i class="fas fa-shopping-cart"></i> Comprar na Amazon
+            </a>
+          </div>
+        </div>
       <div class="painel-compra">
-        <div class="preco-container">
+        <!-- Preços antigos removidos para comparação de preços -->
           <div class="preco-antigo-container">
             <div class="preco-original" id="precoOriginal"></div>
             <div class="desconto-badge" id="descontoProduto"></div>
@@ -72,29 +90,13 @@
           <div class="parcelamento" id="parcelamentoProduto"></div>
         </div>
 
-        <div class="botoes-acao">
-          <button class="btn-comprar-agora" onclick="comprarAgora()">
-            <i class="fas fa-bolt"></i>
-            Comprar agora
-          </button>
-          <button class="btn-carrinho" onclick="adicionarAoCarrinhoIndividual()">
-            <i class="fas fa-cart-plus"></i>
-            Adicionar ao carrinho
-          </button>
-        </div>
+<!-- Botões de ação antigos removidos -->
       </div>     
 
-      <!-- Informações de Entrega -->
-      <div class="info-entrega">
-        <h4><i class="fa-solid fa-truck-fast"></i> Informações de Entrega</h4>
-        <div class="entrega-item">
-          <span class="entrega-label">Frete:</span>
-          <span class="entrega-valor" id="freteProduto"></span>
-        </div>
-        <div class="entrega-item">
-          <span class="entrega-label">Prazo de entrega:</span>
-          <span class="entrega-valor">2 a 5 dias úteis</span>
-        </div>
+      <!-- Descrição do Produto (Substituindo Informações de Entrega) -->
+      <div class="info-descricao">
+        <h4><i class="fa-solid fa-file-lines"></i> Descrição do Produto</h4>
+        <p id="descricaoCompletaProduto"></p>
       </div>
     </div>
   </div>
@@ -187,7 +189,7 @@
 
   <!-- Botão para Adicionar Avaliação -->
   <div class="adicionar-avaliacao">
-    <button class="btn-avaliar" id="btnAvaliar">
+    <button class="btn-avaliar" id="btnAvaliarProduto">
       <i class="fa-solid fa-star"></i>
       Avaliar este produto
     </button>
@@ -195,7 +197,7 @@
 </div>
 
 <!-- Modal de Avaliação -->
-<div class="modal-avaliacao" id="modalAvaliacao">
+<div class="modal-avaliacao" id="modalAvaliacao" style="display: none;">
   <div class="modal-conteudo">
     <div class="modal-header">
       <h3>Avalie este produto</h3>
