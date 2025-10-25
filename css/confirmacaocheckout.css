@@ -1,0 +1,784 @@
+/* ===== ROOXYCE STORE - E-COMMERCE DE ELETRÔNICOS ===== */
+/* Desenvolvido por Gabriel (gabwvr) */
+/* Este arquivo contém estilos para [SEÇÃO] */
+/* Cores principais: Roxo (#7c3aed) e Amarelo (#eab308) */
+
+
+/* ==============================
+   🔹 RESET E CONFIGURAÇÕES BASE
+============================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+body {
+  background: #f8f9fa;
+  color: #374151;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ==============================
+   🔹 CABEÇALHO
+============================== */
+.cabecalho {
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.container-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  gap: 2rem;
+}
+
+.logo h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #7c3aed, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+}
+
+.caixa-pesquisa {
+  position: relative;
+  flex: 1;
+  max-width: 500px;
+}
+
+.caixa-pesquisa input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.caixa-pesquisa input:focus {
+  outline: none;
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.caixa-pesquisa i {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+}
+
+.caixa-carrinho {
+  position: relative;
+  font-size: 1.5rem;
+  color: #374151;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.caixa-carrinho:hover {
+  color: #7c3aed;
+}
+
+.badge-quantidade {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #7c3aed;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* ==============================
+   🔹 CABEÇALHO DO CHECKOUT
+============================== */
+.cabecalho-checkout {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.conteudo-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 0;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.progresso-checkout {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+  justify-content: center;
+  max-width: 400px;
+}
+
+.etapa-progresso {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #9ca3af;
+  transition: all 0.3s ease;
+}
+
+.etapa-progresso.atual {
+  color: #7c3aed;
+}
+
+.etapa-progresso.concluida {
+  color: #10b981;
+}
+
+.numero-etapa {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: #e5e7eb;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+}
+
+.etapa-progresso.atual .numero-etapa {
+  background: #7c3aed;
+  color: white;
+}
+
+.etapa-progresso.concluida .numero-etapa {
+  background: #10b981;
+  color: white;
+}
+
+.linha-progresso {
+  width: 2rem;
+  height: 2px;
+  background: #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+.linha-progresso.ativa {
+  background: #7c3aed;
+}
+
+.selo-seguranca-checkout {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #10b981;
+}
+
+/* ==============================
+   🔹 CONTEÚDO PRINCIPAL
+============================== */
+.conteudo-principal {
+  padding: 2rem 0;
+}
+
+/* ==============================
+   🔹 CONFIRMAÇÃO DE SUCESSO
+============================== */
+.confirmacao-sucesso {
+  text-align: center;
+  background: white;
+  padding: 3rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem;
+  border: 1px solid #e5e7eb;
+}
+
+.icone-sucesso {
+  margin-bottom: 1.5rem;
+}
+
+.icone-sucesso i {
+  font-size: 5rem;
+  color: #10b981;
+  animation: sucessoPulse 2s ease-in-out infinite;
+}
+
+@keyframes sucessoPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.confirmacao-sucesso h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  letter-spacing: -0.5px;
+}
+
+.mensagem-sucesso {
+  font-size: 1.125rem;
+  color: #6b7280;
+  margin-bottom: 2rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.numero-pedido {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #f3f4f6;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.numero-pedido .label {
+  font-weight: 600;
+  color: #374151;
+}
+
+.numero-pedido .numero {
+  font-weight: 700;
+  color: #7c3aed;
+  font-size: 1.125rem;
+  letter-spacing: 0.5px;
+}
+
+/* ==============================
+   🔹 LAYOUT CONFIRMAÇÃO
+============================== */
+.layout-confirmacao {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* ==============================
+   🔹 DETALHES DO PEDIDO
+============================== */
+.detalhes-pedido {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+}
+
+.detalhes-pedido h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f3f4f6;
+}
+
+.produtos-confirmacao {
+  margin-bottom: 2rem;
+}
+
+.produto-confirmacao {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.produto-confirmacao:last-child {
+  border-bottom: none;
+}
+
+.produto-imagem-pequena {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 1px solid #e5e7eb;
+}
+
+.produto-info {
+  flex: 1;
+}
+
+.produto-info h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+}
+
+.produto-descricao {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.produto-quantidade-preco {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.quantidade {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.preco {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #7c3aed;
+}
+
+/* ==============================
+   🔹 RESUMO DE VALORES
+============================== */
+.resumo-valores {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.linha-valor {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.linha-valor span:first-child {
+  color: #6b7280;
+}
+
+.linha-valor span:last-child {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.valor-desconto {
+  color: #10b981 !important;
+}
+
+.frete-gratis {
+  color: #10b981 !important;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.resumo-valores hr {
+  border: none;
+  height: 1px;
+  background: #e5e7eb;
+  margin: 1rem 0;
+}
+
+.linha-total {
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+  padding-top: 1rem !important;
+}
+
+.linha-total span:last-child {
+  color: #7c3aed !important;
+}
+
+/* ==============================
+   🔹 INFORMAÇÕES DE ENTREGA
+============================== */
+.informacoes-entrega {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+  height: fit-content;
+}
+
+.informacoes-entrega h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f3f4f6;
+}
+
+.endereco-entrega,
+.prazo-entrega,
+.forma-pagamento {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.endereco-entrega:last-child,
+.prazo-entrega:last-child,
+.forma-pagamento:last-child {
+  margin-bottom: 0;
+}
+
+.icone-endereco i,
+.icone-prazo i,
+.icone-pagamento i {
+  font-size: 1.25rem;
+  color: #7c3aed;
+  margin-top: 0.125rem;
+}
+
+.dados-endereco,
+.info-prazo,
+.info-pagamento {
+  flex: 1;
+}
+
+.nome-destinatario,
+.titulo-prazo,
+.titulo-pagamento {
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.25rem;
+}
+
+.endereco-completo,
+.cidade-cep,
+.data-entrega,
+.detalhes-pagamento {
+  color: #6b7280;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.data-entrega {
+  font-weight: 600;
+  color: #10b981;
+}
+
+/* ==============================
+   🔹 PRÓXIMOS PASSOS
+============================== */
+.proximos-passos {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+  margin-bottom: 2rem;
+}
+
+.proximos-passos h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f3f4f6;
+}
+
+.lista-passos {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.passo-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+.passo-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.numero-passo-item {
+  width: 2.5rem;
+  height: 2.5rem;
+  background: #7c3aed;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.conteudo-passo h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.conteudo-passo p {
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+/* ==============================
+   🔹 AÇÕES
+============================== */
+.acoes-confirmacao {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.botao-primario,
+.botao-secundario {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 180px;
+  justify-content: center;
+}
+
+.botao-primario {
+  background: linear-gradient(135deg, #7c3aed 0%, #9333ea 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+}
+
+.botao-primario:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
+}
+
+.botao-secundario {
+  background: white;
+  color: #374151;
+  border: 2px solid #e5e7eb;
+}
+
+.botao-secundario:hover {
+  background: #f9fafb;
+  border-color: #7c3aed;
+  color: #7c3aed;
+  transform: translateY(-1px);
+}
+
+/* ==============================
+   🔹 TOAST NOTIFICAÇÃO
+============================== */
+.toast-notificacao {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: white;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e5e7eb;
+  transform: translateX(400px);
+  opacity: 0;
+  transition: all 0.4s ease;
+  z-index: 1000;
+  max-width: 350px;
+}
+
+.toast-notificacao.ativo {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.toast-conteudo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.toast-icone {
+  font-size: 1.25rem;
+}
+
+.toast-mensagem {
+  font-weight: 500;
+  color: #374151;
+}
+
+.toast-notificacao.sucesso .toast-icone {
+  color: #10b981;
+}
+
+.toast-notificacao.erro .toast-icone {
+  color: #ef4444;
+}
+
+.toast-notificacao.info .toast-icone {
+  color: #3b82f6;
+}
+
+/* ==============================
+   🔹 RESPONSIVIDADE
+============================== */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .confirmacao-sucesso {
+    padding: 2rem 1.5rem;
+  }
+
+  .confirmacao-sucesso h1 {
+    font-size: 1.75rem;
+  }
+
+  .layout-confirmacao {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .detalhes-pedido,
+  .informacoes-entrega,
+  .proximos-passos {
+    padding: 1.5rem;
+  }
+
+  .produto-confirmacao {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: center;
+  }
+
+  .produto-imagem-pequena {
+    align-self: center;
+  }
+
+  .acoes-confirmacao {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .botao-primario,
+  .botao-secundario {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .toast-notificacao {
+    right: 1rem;
+    left: 1rem;
+    max-width: none;
+    transform: translateY(-100px);
+  }
+
+  .toast-notificacao.ativo {
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .confirmacao-sucesso h1 {
+    font-size: 1.5rem;
+  }
+
+  .icone-sucesso i {
+    font-size: 3.75rem;
+  }
+
+  .lista-passos {
+    gap: 1rem;
+  }
+
+  .passo-item {
+    padding: 1rem;
+  }
+
+  .numero-passo-item {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* ==============================
+   🔹 IMPRESSÃO
+============================== */
+@media print {
+  .cabecalho,
+  .acoes-confirmacao,
+  .toast-notificacao {
+    display: none !important;
+  }
+
+  .conteudo-principal {
+    padding: 0;
+  }
+
+  .confirmacao-sucesso,
+  .detalhes-pedido,
+  .informacoes-entrega,
+  .proximos-passos {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    break-inside: avoid;
+  }
+
+  .layout-confirmacao {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<!-- ===== ROOXYCE STORE - E-COMMERCE DE ELETRÔNICOS ===== -->
+<!-- Desenvolvido por Gabriel (gabwvr) -->
+<!-- Design responsivo com identidade visual roxo e amarelo -->
+
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finalizar compra | ROOXYCE Store</title>
+
+    <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/favicon-rooxyce.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/checkout.css">
+  <link rel="stylesheet" href="css/cabecalhorodape.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ======================= CABEÇALHO ======================= -->
+  <nav class="cabecalho">
+    <div class="container-cabecalho">
+      <!-- LOGO -->
+      <a class="logo" href="home.html">
+        <img src="images/logo-rooxyce.png" alt="ROOXYCE Store" class="logo-imagem">
+      </a>
+
+      <!-- BARRA DE PESQUISA -->
+      <div class="caixa-pesquisa">
+        <input type="text" placeholder="Buscar produtos">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+
+      <!-- ÍCONES DE AÇÕES RÁPIDAS -->
+      <div class="icones">
+
+        <!-- 🔹 Caixa do Carrinho -->
+        <a href="carrinho.html" class="caixa-carrinho">
+          <i class="fa-solid fa-cart-shopping icone-carrinho"></i>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- Indicador de progresso do checkout -->
+    <div class="container">
+      <div class="conteudo-cabecalho">
+          <div class="etapa-progresso atual">
+            <div class="numero-etapa"><i class="fa-solid fa-cart-shopping"></i></i></div>
+            <span>Carrinho</span>
+          </div>
+          <div class="linha-progresso"></div>
+          <div class="etapa-progresso atual">
+            <div class="numero-etapa"><i class="fa-solid fa-credit-card"></i></div>
+            <span>Pagamento</span>
+          </div>
+          <div class="linha-progresso"></div>
+          <div class="etapa-progresso">
+            <div class="numero-etapa"><i class="fa-solid fa-check"></i></div>
+            <span>Confirmação</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Conteúdo principal -->
+  <main class="conteudo-checkout">
+    <div class="container">
+      <div class="layout-checkout">
+        <!-- Formulário de checkout -->
+        <form id="form-checkout" class="formulario-checkout">
+          <!-- Endereço de Entrega -->
+          <div class="secao-formulario">
+            <div class="cabecalho-secao-form">
+              <h2><i class="fas fa-map-marker-alt"></i> Endereço de Entrega</h2>
+              <div class="indicador-progresso">
+                <span class="campos-preenchidos">0</span>/<span class="total-campos">7</span>
+              </div>
+            </div>
+            <div class="campos-formulario">
+              <div class="grupo-campos-duplo">
+                <div class="campo-formulario">
+                  <label for="cep">CEP *</label>
+                  <div class="input-com-botao">
+                    <input type="text" id="cep" name="cep" class="input-campo" placeholder="00000-000" required>
+                    <button type="button" class="botao-buscar-cep" id="buscar-cep">
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </div>
+                  <div class="mensagem-erro"></div>
+                </div>
+                <div class="campo-formulario">
+                  <label for="uf">Estado *</label>
+                  <select id="uf" name="uf" class="input-campo" required>
+                    <option value="">Selecione o estado</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="PR">Paraná</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="BA">Bahia</option>
+                    <option value="GO">Goiás</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="CE">Ceará</option>
+                  </select>
+                  <div class="mensagem-erro"></div>
+                </div>
+              </div>
+              <div class="grupo-campos-duplo">
+                <div class="campo-formulario">
+                  <label for="cidade">Cidade *</label>
+                  <input type="text" id="cidade" name="cidade" class="input-campo" required>
+                  <div class="mensagem-erro"></div>
+                </div>
+                <div class="campo-formulario">
+                  <label for="bairro">Bairro *</label>
+                  <input type="text" id="bairro" name="bairro" class="input-campo" required>
+                  <div class="mensagem-erro"></div>
+                </div>
+              </div>
+              <div class="campo-formulario">
+                <label for="endereco">Endereço *</label>
+                <input type="text" id="endereco" name="endereco" class="input-campo" placeholder="Rua, Avenida, etc." required>
+                <div class="mensagem-erro"></div>
+              </div>
+              <div class="grupo-campos-duplo">
+                <div class="campo-formulario">
+                  <label for="numero">Número *</label>
+                  <input type="text" id="numero" name="numero" class="input-campo" required>
+                  <div class="mensagem-erro"></div>
+                </div>
+                <div class="campo-formulario">
+                  <label for="complemento">Complemento</label>
+                  <input type="text" id="complemento" name="complemento" class="input-campo" placeholder="Apto, Bloco, etc.">
+                  <div class="mensagem-erro"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Forma de Pagamento -->
+          <div class="secao-formulario">
+            <div class="cabecalho-secao-form">
+              <h2><i class="fas fa-credit-card"></i> Forma de Pagamento</h2>
+            </div>
+            <div class="opcoes-pagamento">
+              <div class="opcao-pagamento">
+                <input type="radio" id="cartao-credito" name="formaPagamento" value="cartao-credito" checked>
+                <label for="cartao-credito" class="label-pagamento">
+                  <div class="icone-pagamento"><i class="fas fa-credit-card"></i></div>
+                  <div class="info-pagamento">
+                    <span class="titulo-pagamento">Cartão de Crédito</span>
+                    <span class="descricao-pagamento">Parcele em até 12x sem juros</span>
+                  </div>
+                  <div class="selo-popular">Mais usado</div>
+                </label>
+              </div>
+              <div class="opcao-pagamento">
+                <input type="radio" id="cartao-debito" name="formaPagamento" value="cartao-debito">
+                <label for="cartao-debito" class="label-pagamento">
+                  <div class="icone-pagamento"><i class="fas fa-money-check-alt"></i></div>
+                  <div class="info-pagamento">
+                    <span class="titulo-pagamento">Cartão de Débito</span>
+                    <span class="descricao-pagamento">Débito à vista</span>
+                  </div>
+                </label>
+              </div>
+              <div class="opcao-pagamento">
+                <input type="radio" id="pix" name="formaPagamento" value="pix">
+                <label for="pix" class="label-pagamento">
+                  <div class="icone-pagamento"><i class="fas fa-qrcode"></i></div>
+                  <div class="info-pagamento">
+                    <span class="titulo-pagamento">PIX</span>
+                    <span class="descricao-pagamento">5% de desconto à vista</span>
+                  </div>
+                  <div class="selo-desconto">-5%</div>
+                </label>
+              </div>
+              <div class="opcao-pagamento">
+                <input type="radio" id="boleto" name="formaPagamento" value="boleto">
+                <label for="boleto" class="label-pagamento">
+                  <div class="icone-pagamento"><i class="fas fa-barcode"></i></div>
+                  <div class="info-pagamento">
+                    <span class="titulo-pagamento">Boleto Bancário</span>
+                    <span class="descricao-pagamento">3% de desconto à vista</span>
+                  </div>
+                  <div class="selo-desconto">-3%</div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Dados do Cartão -->
+            <div id="dados-cartao" class="dados-cartao">
+              <div class="campo-formulario">
+                <label for="numero-cartao">Número do Cartão *</label>
+                <input type="text" id="numero-cartao" name="numeroCartao" class="input-campo" placeholder="0000 0000 0000 0000">
+                <div class="mensagem-erro"></div>
+              </div>
+              <div class="grupo-campos-triplo">
+                <div class="campo-formulario">
+                  <label for="mes-vencimento">Mês *</label>
+                  <select id="mes-vencimento" name="mesVencimento" class="input-campo">
+                    <option value="">Mês</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                  </select>
+                  <div class="mensagem-erro"></div>
+                </div>
+                <div class="campo-formulario">
+                  <label for="ano-vencimento">Ano *</label>
+                  <select id="ano-vencimento" name="anoVencimento" class="input-campo">
+                    <option value="">Ano</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                  </select>
+                  <div class="mensagem-erro"></div>
+                </div>
+                <div class="campo-formulario">
+                  <label for="cvv">CVV *</label>
+                  <input type="text" id="cvv" name="cvv" class="input-campo" placeholder="000" maxlength="4">
+                  <div class="mensagem-erro"></div>
+                </div>
+              </div>
+              <div class="campo-formulario">
+                <label for="nome-cartao">Nome no Cartão *</label>
+                <input type="text" id="nome-cartao" name="nomeCartao" class="input-campo" placeholder="Como está impresso no cartão">
+                <div class="mensagem-erro"></div>
+              </div>
+              <div id="opcoes-parcelas" class="campo-formulario">
+                <label for="parcelas">Parcelas *</label>
+                <select id="parcelas" name="parcelas" class="input-campo">
+                  <option value="1">1x sem juros</option>
+                  <option value="2">2x sem juros</option>
+                  <option value="3">3x sem juros</option>
+                  <option value="6">6x sem juros</option>
+                  <option value="12">12x sem juros</option>
+                </select>
+                <div class="mensagem-erro"></div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <!-- Resumo do pedido -->
+        <aside class="resumo-checkout">
+          <div class="cabecalho-resumo">
+            <h3><i class="fas fa-receipt"></i> Resumo do Pedido</h3>
+            <button type="button" class="botao-expandir-resumo" id="expandir-resumo">
+              <i class="fas fa-chevron-up"></i>
+            </button>
+          </div>
+          <div class="produtos-resumo" id="produtos-resumo">
+            
+            <!-- Produtos serão inseridos aqui via JavaScript -->
+          </div>
+          <div class="detalhes-resumo">
+            <div class="linha-resumo">
+              <span>Subtotal (<span id="quantidade-itens">0</span> itens)</span>
+              <span id="subtotal-resumo">R$ 0,00</span>
+            </div>
+            <div class="linha-resumo">
+              <span>Frete</span>
+              <span id="frete-resumo" class="frete-gratis">GRÁTIS</span>
+            </div>
+            <div class="linha-resumo desconto-linha" id="linha-desconto" style="display: none;">
+              <span>Desconto</span>
+              <span id="desconto-resumo" class="valor-desconto">-R$ 0,00</span>
+            </div>
+            <hr class="divisor-resumo">
+            <div class="linha-total">
+              <span>Total</span>
+              <span id="total-final-resumo">R$ 0,00</span>
+            </div>
+          </div>
+          <div class="acoes-checkout">
+            <button type="submit" form="form-checkout" class="botao-finalizar" id="finalizar-pedido">
+              <i class="fas fa-lock"></i>
+              <span class="texto-botao">Finalizar Pedido</span>
+              <div class="loading-spinner" style="display: none;">
+                <i class="fas fa-spinner fa-spin"></i>
+              </div>
+            </button>
+            <button type="button" class="botao-voltar" id="voltar-carrinho">
+              <i class="fas fa-arrow-left"></i>
+              Voltar ao Carrinho
+            </button>
+          </div>
+          <div class="selos-seguranca">
+            <div class="selo-item">
+              <i class="fas fa-shield-alt"></i>
+              <span>SSL 256 bits</span>
+            </div>
+            <div class="selo-item">
+              <i class="fas fa-lock"></i>
+              <span>Dados Protegidos</span>
+            </div>
+            <div class="selo-item">
+              <i class="fas fa-award"></i>
+              <span>Site Verificado</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal de loading -->
+  <div id="modal-loading" class="modal-overlay" style="display: none;">
+    <div class="modal-conteudo modal-loading">
+      <div class="loading-animation">
+        <div class="loading-circle"></div>
+        <div class="loading-circle"></div>
+        <div class="loading-circle"></div>
+      </div>
+      <h3>Processando seu pedido...</h3>
+      <p>Aguarde enquanto confirmamos seu pagamento</p>
+    </div>
+  </div>
+
+  <!-- Script JavaScript -->
+  <script src="js/checkout.js"></script>
+    <script src="./js/sistema-xp.js"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!-- ===== ROOXYCE STORE - E-COMMERCE DE ELETRÔNICOS ===== -->
+<!-- Desenvolvido por Gabriel (gabwvr) -->
+<!-- Página: [NOME DA PÁGINA] -->
+<!-- Design responsivo com identidade visual roxo e amarelo -->
+
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Termos e condições | ROOXYCE Store</title>
+
+      <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/favicon-rooxyce.png">
+
+  <link rel="stylesheet" href="css/termos.css">
+  <link rel="stylesheet" href="css/cabecalhorodape.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+
+  <style>
+
+  </style>
+</head>
+<body>
+
+<div id="header-placeholder"></div>
+
+<main class="termos">
+  <section class="conteudo-termos">
+    <h1>Termos e Condições</h1>
+    <p>Bem-vindo à ROOXYCE Store. Ao acessar e utilizar nosso site, você concorda com os termos e condições abaixo, que têm como objetivo garantir uma experiência segura e transparente para todos os usuários.</p>
+
+    <ul>
+      <li><strong>Conta e Segurança:</strong> O usuário é responsável por manter a confidencialidade de suas informações de acesso, como login e senha, e por todas as atividades realizadas em sua conta.</li>
+      <li><strong>Disponibilidade de Produtos:</strong> Todos os produtos e serviços apresentados no site estão sujeitos à disponibilidade de estoque. Caso um item esteja indisponível após a compra, entraremos em contato para oferecer alternativas, como substituição, vale-compra ou reembolso.</li>
+      <li><strong>Preços e Alterações:</strong> Reservamo-nos o direito de ajustar preços, promoções e condições de pagamento sem aviso prévio. Entretanto, compras já concluídas não serão afetadas por futuras alterações.</li>
+      <!--A página de Políticas de Segurança e Privacidade pode ser acessada por aqui também-->
+      <li><strong>Política de Privacidade:</strong> O uso do site implica a aceitação da nossa <a href="politicas.html">Política de Segurança e Privacidade</a>, que garante o cuidado no tratamento de dados pessoais, conforme a legislação vigente (LGPD).</li>
+      <li><strong>Responsabilidade do Usuário:</strong> É proibido o uso indevido da plataforma para fins fraudulentos, ilícitos ou que possam prejudicar outros clientes e a imagem da loja.</li>
+      <li><strong>Alterações nos Termos:</strong> Estes termos podem ser atualizados periodicamente, sendo responsabilidade do usuário consultá-los sempre que utilizar o site.</li>
+    </ul>
+  </section>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script>
+  fetch('cabecalhorodape.html')
+    .then(response => response.text())
+    .then(data => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(data, 'text/html');
+
+      const header = doc.querySelector('nav.cabecalho');
+      const categorias = doc.querySelector('.barra-categorias');
+      const footer = doc.querySelector('footer.rodape');
+
+      if (header) document.getElementById('header-placeholder').appendChild(header);
+      if (categorias) document.getElementById('header-placeholder').appendChild(categorias);
+      if (footer) document.getElementById('footer-placeholder').appendChild(footer);
+
+      doc.querySelectorAll("script").forEach(oldScript => {
+        const newScript = document.createElement("script");
+        if (oldScript.src) newScript.src = oldScript.src;
+        else newScript.textContent = oldScript.textContent;
+        document.body.appendChild(newScript);
+      });
+    });
+</script>
+
+    <script src="./js/sistema-xp.js"></script>
+        <script src="js/cabecalho-melhorado.js"></script>
+
+</body>
+</html>

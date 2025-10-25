@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<!-- ===== ROOXYCE STORE - E-COMMERCE DE ELETRÔNICOS ===== -->
+<!-- Desenvolvido por Gabriel (gabwvr) -->
+<!-- Design responsivo com identidade visual roxo e amarelo -->
+
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedido confirmado | ROOXYCE Store</title>
+
+    <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/favicon-rooxyce.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/confirmacaocheckout.css">
+  <link rel="stylesheet" href="css/cabecalhorodape.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ======================= CABEÇALHO ======================= -->
+  <nav class="cabecalho">
+    <div class="container-cabecalho">
+      <!-- LOGO -->
+      <a class="logo" href="home.html">
+        <img src="images/logo-rooxyce.png" alt="ROOXYCE Store" class="logo-imagem">
+      </a>
+
+      <!-- BARRA DE PESQUISA CENTRALIZADA -->
+      <div class="caixa-pesquisa-centralizada">
+        <input type="text" id="campo-busca-global" placeholder="Buscar produtos, marcas ou categorias..." autocomplete="off">
+        <button type="button" id="botao-busca-global" class="botao-busca">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <!-- Dropdown de sugestões -->
+        <div id="sugestoes-busca" class="sugestoes-busca" style="display: none;">
+          <!-- Sugestões serão inseridas aqui via JavaScript -->
+        </div>
+      </div>
+
+      <!-- ÍCONES DE AÇÕES RÁPIDAS -->
+      <div class="icones">
+
+          <!-- Dropdown do usuário logado -->
+          <div id="dropdown-usuario" class="dropdown-usuario" style="display: none;">
+            <div class="opcoes-usuario">
+              <a href="painelusuario.html"><i class="fa-solid fa-user"></i> Minha Conta</a>
+              <a href="painelusuario.html#pedidos"><i class="fa-solid fa-box"></i> Meus Pedidos</a>
+              <a href="painelusuario.html#desejos"><i class="fa-solid fa-heart"></i> Lista de Desejos</a>
+              <a href="#" id="botao-logout"><i class="fa-solid fa-sign-out-alt"></i> Sair</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 🔹 Caixa do Carrinho -->
+        <a href="carrinho.html" class="caixa-carrinho">
+          <i class="fa-solid fa-cart-shopping icone-carrinho"></i>
+            <span id="contadorCarrinho" class="contador-carrinho">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- Indicador de progresso do checkout -->
+    <div class="container">
+      <div class="conteudo-cabecalho">
+          <div class="etapa-progresso atual">
+            <div class="numero-etapa"><i class="fa-solid fa-cart-shopping"></i></i></div>
+            <span>Carrinho</span>
+          </div>
+          <div class="linha-progresso"></div>
+          <div class="etapa-progresso atual">
+            <div class="numero-etapa"><i class="fa-solid fa-credit-card"></i></div>
+            <span>Pagamento</span>
+          </div>
+          <div class="linha-progresso"></div>
+          <div class="etapa-progresso atual">
+            <div class="numero-etapa"><i class="fa-solid fa-check"></i></div>
+            <span>Confirmação</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Conteúdo principal -->
+  <main class="conteudo-principal">
+    <div class="container">
+      <!-- Confirmação de sucesso -->
+      <div class="confirmacao-sucesso">
+        <div class="icone-sucesso">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <h1>Pedido Confirmado!</h1>
+        <p class="mensagem-sucesso">
+          Seu pedido foi processado com sucesso. Você receberá um e-mail de confirmação em breve.
+        </p>
+        <div class="numero-pedido">
+          <span class="label">Número do Pedido:</span>
+          <span class="numero" id="numeroPedido">#LP-2024-001234</span>
+        </div>
+      </div>
+
+      <!-- Layout da confirmação -->
+      <div class="layout-confirmacao">
+        <!-- Detalhes do pedido -->
+        <section class="detalhes-pedido">
+          <h2>Detalhes do Pedido</h2>
+          <div class="produtos-confirmacao" id="produtosConfirmacao">
+            <!-- Produtos serão inseridos aqui via JavaScript -->
+          </div>
+          <div class="resumo-valores">
+            <div class="linha-valor">
+              <span>Subtotal:</span>
+              <span id="subtotalConfirmacao">R$ 0,00</span>
+            </div>
+            <div class="linha-valor" id="linhaDescontoConfirmacao" style="display: none;">
+              <span>Desconto:</span>
+              <span id="descontoConfirmacao" class="valor-desconto">-R$ 0,00</span>
+            </div>
+            <div class="linha-valor">
+              <span>Frete:</span>
+              <span class="frete-gratis">GRÁTIS</span>
+            </div>
+            <hr>
+            <div class="linha-total">
+              <span>Total:</span>
+              <span id="totalConfirmacao">R$ 0,00</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Informações de entrega -->
+        <aside class="informacoes-entrega">
+          <h3>Informações de Entrega</h3>
+          <div class="endereco-entrega" id="enderecoEntrega">
+            <div class="icone-endereco">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="dados-endereco">
+              <p class="nome-destinatario" id="nomeDestinatario">João Silva</p>
+              <p class="endereco-completo" id="enderecoCompleto">Rua das Flores, 123 - Apto 45</p>
+              <p class="cidade-cep" id="cidadeCep">São Paulo - SP, CEP: 01234-567</p>
+            </div>
+          </div>
+          <div class="prazo-entrega">
+            <div class="icone-prazo">
+              <i class="fas fa-truck"></i>
+            </div>
+            <div class="info-prazo">
+              <p class="titulo-prazo">Prazo de Entrega</p>
+              <p class="data-entrega" id="dataEntrega">5 a 7 dias úteis</p>
+            </div>
+          </div>
+          <div class="forma-pagamento">
+            <div class="icone-pagamento">
+              <i class="fas fa-credit-card"></i>
+            </div>
+            <div class="info-pagamento">
+              <p class="titulo-pagamento">Forma de Pagamento</p>
+              <p class="detalhes-pagamento" id="detalhesPagamento">Cartão de Crédito</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Próximos passos -->
+      <section class="proximos-passos">
+        <h2>Próximos Passos</h2>
+        <div class="lista-passos">
+          <div class="passo-item">
+            <div class="numero-passo-item">1</div>
+            <div class="conteudo-passo">
+              <h4>Confirmação por E-mail</h4>
+              <p>Você receberá um e-mail com todos os detalhes do seu pedido em alguns minutos.</p>
+            </div>
+          </div>
+          <div class="passo-item">
+            <div class="numero-passo-item">2</div>
+            <div class="conteudo-passo">
+              <h4>Preparação do Pedido</h4>
+              <p>Nosso time começará a preparar seus produtos para envio em até 1 dia útil.</p>
+            </div>
+          </div>
+          <div class="passo-item">
+            <div class="numero-passo-item">3</div>
+            <div class="conteudo-passo">
+              <h4>Código de Rastreamento</h4>
+              <p>Assim que seu pedido for despachado, você receberá o código para acompanhar a entrega.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ações da confirmação -->
+      <div class="acoes-confirmacao">
+        <button class="botao-primario" onclick="window.location.href='index.html'">
+          <i class="fas fa-shopping-cart"></i>
+          Continuar Comprando
+        </button>
+        <button class="botao-secundario" onclick="window.print()">
+          <i class="fas fa-print"></i>
+          Imprimir Pedido
+        </button>
+        <button class="botao-secundario" id="botaoRastrear">
+          <i class="fas fa-search"></i>
+          Rastrear Pedido
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Notificação toast -->
+  <div id="toastNotificacao" class="toast-notificacao">
+    <div class="toast-conteudo">
+      <i class="toast-icone"></i>
+      <span class="toast-mensagem"></span>
+    </div>
+  </div>
+
+  <div id="footer-placeholder"></div>
+
+  <!-- JS -->
+  <script src="./js/confirmacaocheckout.js"></script>
+
+    <script>
+  fetch('cabecalhorodape.html')
+    .then(response => response.text())
+    .then(data => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(data, 'text/html');
+
+      const header = doc.querySelector('nav.cabecalho');
+      const categorias = doc.querySelector('.barra-categorias');
+      const footer = doc.querySelector('footer.rodape');
+
+      if (header) document.getElementById('header-placeholder').appendChild(header);
+      if (categorias) document.getElementById('header-placeholder').appendChild(categorias);
+      if (footer) document.getElementById('footer-placeholder').appendChild(footer);
+
+      // Executar scripts do cabecalho/rodape
+      doc.querySelectorAll("script").forEach(oldScript => {
+        const newScript = document.createElement("script");
+        if (oldScript.src) newScript.src = oldScript.src;
+        else newScript.textContent = oldScript.textContent;
+        document.body.appendChild(newScript);
+      });
+    });
+  </script>
+    <script src="./js/sistema-xp.js"></script>
+</body>
+</html>
