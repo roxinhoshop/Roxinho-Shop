@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:8000"; // Será ajustado para o URL do backend
+const API_BASE_URL = "https://8000-i0rq7d4vghqcu0v23lypv-648d7310.manusvm.computer"; // Será ajustado para o URL do backend
 
 // --- Funções de Login/Cadastro ---
 

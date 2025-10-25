@@ -564,7 +564,7 @@ const categoria = urlParams.get("categoria");
 // Mostrar breadcrumb dinâmico
 if (categoria && document.querySelector(".breadcrumb")) {
     document.querySelector(".breadcrumb").innerHTML =
-        `<a href="home.html">Início</a> › <span>${decodeURIComponent(categoria).replace(/[\+\-]/g, " ")}</span>`;
+        `<a href="index.html">Início</a> › <span>${decodeURIComponent(categoria).replace(/[\+\-]/g, " ")}</span>`;
 }
 
 // ==================== FUNÇÃO AUXILIAR PARA DEBUG ====================
